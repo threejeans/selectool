@@ -1,0 +1,72 @@
+.footer {
+  width: 100vw;
+  height: var(--height-footer);
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid var(--gray-scale-color-g10);
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contents {
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.corp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.title {
+  color: var(--gray-scale-color-g45);
+  font-size: 3rem;
+  font-weight: 500;
+  margin-right: 2rem;
+}
+.instaBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--gray-scale-color-g45);
+  font-size: 1.6rem;
+}
+
+.instaBtn:hover {
+  color: var(--primary-color-error);
+}
+
+.instaBtn:active {
+  color: var(--gray-scale-color-g10);
+}
+
+.privacy {
+  color: var(--gray-scale-color-g20);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.2rem;
+  gap: 1rem;
+}
+
+.privacy > a {
+  color: var(--gray-scale-color-g40);
+  font-weight: 500;
+}
+
+.topBtn > svg {
+  color: var(--gray-scale-color-g30);
+  width: 3rem;
+  height: 3.2rem;
+}
