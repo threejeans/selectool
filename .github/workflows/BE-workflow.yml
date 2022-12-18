@@ -21,6 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
+          ref: backend
           token: ${{ secrets.GIT_TOKEN }}
           submodules: true
       # docker build 수행
