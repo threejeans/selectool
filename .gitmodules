@@ -1,0 +1,3 @@
+[submodule "backend/selectool/src/main/resources/secret"]
+	path = backend/selectool/src/main/resources/secret
+	url = https://github.com/threejeans/selectool-secret.git
