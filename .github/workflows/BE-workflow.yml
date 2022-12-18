@@ -21,9 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: backend
           token: ${{ secrets.GIT_TOKEN }}
-          submodules: true
+          submodules: recursive
       # docker build 수행
       - name: Set up docker buildx
         id: buildx
