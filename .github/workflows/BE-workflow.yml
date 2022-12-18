@@ -20,9 +20,9 @@ jobs:
       # github repository에서 checkout
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GIT_TOKEN }}
-          submodules: recursive
+        # with:
+        #   token: ${{ secrets.GIT_TOKEN }}
+        #   submodules: true
       # docker build 수행
       - name: Set up docker buildx
         id: buildx
