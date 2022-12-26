@@ -36,10 +36,6 @@ const router = createBrowserRouter([
     element: <Layout title={"가이드"} description={""} children={<Guide />} />,
   },
   {
-    path: "login",
-    element: <Layout title={"로그인"} description={""} children={<Login />} />,
-  },
-  {
     path: "signup",
     element: (
       <Layout title={"회원가입"} description={""} children={<SignUp />} />
