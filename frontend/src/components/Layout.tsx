@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 
 import Footer from "./Footer";
 import Header from "./Header";
+import Modal from "./Modal";
 
 type LayoutProps = {
   title: string;
