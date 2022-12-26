@@ -14,11 +14,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     loginModalOpen: (state) => {
-      console.log(state);
       state.isLoginModal = true;
     },
     loginModalClose: (state) => {
-      console.log(state);
       state.isLoginModal = false;
     },
   },

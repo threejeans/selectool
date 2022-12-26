@@ -9,6 +9,10 @@ import Modal from "components/Modal";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { loginModalClose, selectLoginModal } from "./authSlice";
 
+import GoogleLogo from "assets/google_logo.svg";
+import NaverLogo from "assets/naver_logo.svg";
+import KakaoLogo from "assets/kakao_logo.svg";
+
 import styles from "styles/pages/auth/Login.module.css";
 
 const Login = () => {
@@ -30,9 +34,9 @@ const Login = () => {
           }
         </div>
         <div>
-          <LoginButton bg={"#FFFFFF"} img={""} title={"Google"} />
-          <LoginButton bg={"#FDDC3F"} img={""} title={"Kakao"} />
-          <LoginButton bg={"#03C75A"} img={""} title={"Naver"} />
+          <LoginButton bg={"#FFFFFF"} img={GoogleLogo} title={"Google"} />
+          <LoginButton bg={"#FDDC3F"} img={KakaoLogo} title={"Kakao"} />
+          <LoginButton bg={"#03C75A"} img={NaverLogo} title={"Naver"} />
         </div>
         <div className={styles.privacy}>
           {"로그인은 "}
