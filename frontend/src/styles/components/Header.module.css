@@ -7,6 +7,7 @@
 
 .container {
   width: 100%;
+  padding: 0 1.2rem;
   max-width: 1280px;
   height: 100%;
   display: flex;
@@ -20,10 +21,10 @@
 }
 
 .menu {
-  min-width: 40%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 4rem;
   align-items: center;
   color: var(--gray-scale-color-g20);
   font-size: 1.2rem;
