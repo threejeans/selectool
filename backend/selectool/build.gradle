@@ -34,7 +34,7 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
 
     // REDIS
-//    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     // MySQL
     runtimeOnly 'mysql:mysql-connector-java'
@@ -45,6 +45,10 @@ dependencies {
     // Swagger
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+    //Oauth 소셜 로그인
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
