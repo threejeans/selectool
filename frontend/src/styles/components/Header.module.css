@@ -1,9 +1,21 @@
 .header {
+  position: fixed;
   width: 100vw;
   height: var(--height-navigation);
   display: flex;
   justify-content: center;
+  background-color: black;
 }
+
+.change_header {
+  position: fixed;
+  width: 100vw;
+  height: var(--height-navigation);
+  display: flex;
+  justify-content: center;
+  background-color: white;
+}
+
 
 .container {
   width: 100%;

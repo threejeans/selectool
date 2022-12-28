@@ -1,6 +1,7 @@
 import Login from "features/auth/Login";
 import SignUp from "features/auth/SignUp";
 import Guide from "features/guide/Guide";
+import Landing from "features/landing/Landing";
 import Self from "features/self/Self";
 import With from "features/with/With";
 import { createRoot } from "react-dom/client";
@@ -17,11 +18,7 @@ const root = createRoot(container);
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Layout title={"홈"} description={""}>
-        <h1>Hello World</h1>
-      </Layout>
-    ),
+    element: <Layout title={"홈"} description={""} children={<Landing />} />
   },
   {
     path: "self",
