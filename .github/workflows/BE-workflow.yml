@@ -64,6 +64,6 @@ jobs:
           password: ${{ secrets.GIT_TOKEN }}
       # 8080 포트로 수행하도록 지정
       - name: Docker run
-        run: |
-          docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
+        run: 
+#          docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
           docker run -d -p 8080:8080 --name ${{ env.NAME }} --restart always ${{ env.DOCKER_IMAGE }}:latest
