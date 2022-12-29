@@ -7,7 +7,7 @@ on:
 
 # 환경설정
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/selectool-server
+  DOCKER_IMAGE: ghcr.io/threejeans/selectool-server
   VERSION: ${{ github.sha }}
   NAME: selectool-server
 
@@ -39,7 +39,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: threejeans
           password: ${{ secrets.GIT_TOKEN }}
       - name: Build and push
         id: docker_build
@@ -60,7 +60,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: threejeans
           password: ${{ secrets.GIT_TOKEN }}
       # 8080 포트로 수행하도록 지정
       - name: Docker run
