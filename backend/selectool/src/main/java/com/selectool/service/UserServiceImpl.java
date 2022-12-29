@@ -1,6 +1,6 @@
 package com.selectool.service;
 
-import com.selectool.UserRepo;
+import com.selectool.repository.UserRepo;
 import com.selectool.config.Constant;
 import com.selectool.dto.request.UserCreateRequest;
 import com.selectool.dto.request.UserUpdateRequest;
@@ -31,11 +31,11 @@ public class UserServiceImpl implements UserService {
     public UserResponse getUser(Constant.SocialLoginType socialLoginType, UserCreateRequest request) {
         switch (socialLoginType) {
             case GOOGLE: {
-                User user = userRepo.findByGoogle(request.getEmail())
+                User user = userRepo.findByTypeAndEmail(socialLoginType.name(), request.getEmail())
                         .orElseGet(() -> {
                             User newUser = User.builder()
                                     .name(request.getName())
-                                    .socialLoginType(socialLoginType)
+                                    .type(socialLoginType.name())
                                     .email(request.getEmail())
                                     .image(request.getImage())
                                     .build();
@@ -68,32 +68,33 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserListResponse getUserList(String email) {
-        List<UserResponse> googleUsers = userRepo.findByGoogleContains(email).stream()
-                .map(user -> UserResponse.builder()
-                        .id(user.getId())
-                        .name(user.getName())
-                        .image(user.getImage())
-                        .build())
-                .collect(Collectors.toList());
-        List<UserResponse> naverUsers = userRepo.findByNaverContains(email).stream()
-                .map(user -> UserResponse.builder()
-                        .id(user.getId())
-                        .name(user.getName())
-                        .image(user.getImage())
-                        .build())
-                .collect(Collectors.toList());
-        List<UserResponse> kakaoUsers = userRepo.findByKakaoContains(email).stream()
-                .map(user -> UserResponse.builder()
-                        .id(user.getId())
-                        .name(user.getName())
-                        .image(user.getImage())
-                        .build())
-                .collect(Collectors.toList());
-        return UserListResponse.builder()
-                .googleUsers(googleUsers)
-                .naverUsers(naverUsers)
-                .kakaoUsers(kakaoUsers)
-                .build();
+//        List<UserResponse> googleUsers = userRepo.findByGoogleContains(email).stream()
+//                .map(user -> UserResponse.builder()
+//                        .id(user.getId())
+//                        .name(user.getName())
+//                        .image(user.getImage())
+//                        .build())
+//                .collect(Collectors.toList());
+//        List<UserResponse> naverUsers = userRepo.findByNaverContains(email).stream()
+//                .map(user -> UserResponse.builder()
+//                        .id(user.getId())
+//                        .name(user.getName())
+//                        .image(user.getImage())
+//                        .build())
+//                .collect(Collectors.toList());
+//        List<UserResponse> kakaoUsers = userRepo.findByKakaoContains(email).stream()
+//                .map(user -> UserResponse.builder()
+//                        .id(user.getId())
+//                        .name(user.getName())
+//                        .image(user.getImage())
+//                        .build())
+//                .collect(Collectors.toList());
+//        return UserListResponse.builder()
+//                .googleUsers(googleUsers)
+//                .naverUsers(naverUsers)
+//                .kakaoUsers(kakaoUsers)
+//                .build();
+        return null;
     }
 
     @Override
