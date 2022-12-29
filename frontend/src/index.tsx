@@ -1,3 +1,4 @@
+import Auth from "features/auth/Auth";
 import Login from "features/auth/Login";
 import SignUp from "features/auth/SignUp";
 import Guide from "features/guide/Guide";
@@ -25,43 +26,19 @@ const router = createBrowserRouter([
   },
   {
     path: "self",
-    element: (
-      <Layout title={"혼자써요"} description={""}>
-        <Self />
-      </Layout>
-    ),
+    element: <Layout title={"혼자써요"} description={""} children={<Self />} />,
   },
   {
     path: "with",
-    element: (
-      <Layout title={"함께써요"} description={""}>
-        <With />
-      </Layout>
-    ),
+    element: <Layout title={"함께써요"} description={""} children={<With />} />,
   },
   {
     path: "guide",
-    element: (
-      <Layout title={"가이드"} description={""}>
-        <Guide />
-      </Layout>
-    ),
+    element: <Layout title={"가이드"} description={""} children={<Guide />} />,
   },
   {
-    path: "login",
-    element: (
-      <Layout title={"로그인"} description={""}>
-        <Login />
-      </Layout>
-    ),
-  },
-  {
-    path: "signup",
-    element: (
-      <Layout title={"회원가입"} description={""}>
-        <SignUp />
-      </Layout>
-    ),
+    path: "auth/:type",
+    element: <Auth />,
   },
 ]);
 
