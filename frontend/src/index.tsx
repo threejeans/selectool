@@ -1,3 +1,4 @@
+import Auth from "features/auth/Auth";
 import Login from "features/auth/Login";
 import SignUp from "features/auth/SignUp";
 import Guide from "features/guide/Guide";
@@ -36,10 +37,8 @@ const router = createBrowserRouter([
     element: <Layout title={"가이드"} description={""} children={<Guide />} />,
   },
   {
-    path: "signup",
-    element: (
-      <Layout title={"회원가입"} description={""} children={<SignUp />} />
-    ),
+    path: "auth/:type",
+    element: <Auth />,
   },
 ]);
 
