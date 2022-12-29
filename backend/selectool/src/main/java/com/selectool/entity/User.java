@@ -20,33 +20,19 @@ public class User {
 
     private String name;
 
-    private String google;
+    private String type;
 
-    private String naver;
-
-    private String kakao;
+    private String email;
 
     private String image;
 
     private boolean active;
 
     @Builder
-    public User(String name, Constant.SocialLoginType socialLoginType, String email, String image) {
+    public User(String name, String type, String email, String image) {
         this.name = name;
-        switch (socialLoginType) {
-            case GOOGLE: {
-                this.google = email;
-                break;
-            }
-            case NAVER: {
-                this.naver = email;
-                break;
-            }
-            case KAKAO: {
-                this.kakao = email;
-                break;
-            }
-        }
+        this.type = type;
+        this.email = email;
         this.image = image;
         this.active = true;
     }
