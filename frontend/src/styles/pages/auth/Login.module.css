@@ -1,0 +1,64 @@
+.container {
+  min-height: 50vh;
+  min-width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  margin-top: 1rem;
+  font-family: "Noto Sans KR";
+  font-size: 2.6rem;
+  font-weight: bolder;
+  font-stretch: ultra-condensed;
+}
+
+.description {
+  margin-top: 1rem;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  color: var(--gray-scale-color-g25);
+}
+
+.buttonGroup {
+  margin: 1.6rem 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.buttonGroup > a {
+  border-radius: 1rem;
+  width: 25%;
+  height: 4rem;
+  box-shadow: 5px 5px 5px var(--gray-scale-color-g20);
+  font-size: 1.2rem;
+  font-family: "Noto Sans KR";
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+.buttonGroup > a:hover {
+  cursor: pointer;
+}
+.buttonGroup img {
+  height: 1.6rem;
+}
+
+.privacy {
+  max-width: 600px;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  text-align: center;
+  color: var(--gray-scale-color-g20);
+}
+.privacy > a {
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-position: under;
+}

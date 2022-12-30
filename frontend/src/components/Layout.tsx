@@ -1,8 +1,10 @@
+import Login from "features/auth/Login";
 import React from "react";
 import { Helmet } from "react-helmet";
 
 import Footer from "./Footer";
 import Header from "./Header";
+import Modal from "./Modal";
 
 type LayoutProps = {
   title: string;
@@ -13,6 +15,7 @@ type LayoutProps = {
 const Layout = ({ title, description, children }: LayoutProps) => {
   return (
     <>
+      <Login />
       <Header />
       <Helmet>
         <title>SELECTOOL | {title}</title>
