@@ -80,7 +80,6 @@ type LoginButtonProps = {
   color: string;
 };
 const LoginButton = ({ uri, bg, img, title, color }: LoginButtonProps) => {
-  console.log(uri);
   return (
     <a href={uri} style={{ backgroundColor: bg, color: color }}>
       <img src={img} alt={title} />
