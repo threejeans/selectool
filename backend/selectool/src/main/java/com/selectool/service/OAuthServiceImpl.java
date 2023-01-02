@@ -10,6 +10,9 @@ import com.selectool.repository.AuthRepo;
 import com.selectool.social.google.GoogleOAuth;
 import com.selectool.social.google.GoogleOAuthToken;
 import com.selectool.social.google.GoogleUser;
+import com.selectool.social.naver.NaverOAuth;
+import com.selectool.social.naver.NaverOAuthToken;
+import com.selectool.social.naver.NaverUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,26 +30,12 @@ import java.io.IOException;
 public class OAuthServiceImpl implements OAuthService {
     private final AuthRepo authRepo;
     private final GoogleOAuth googleOauth;
+    private final NaverOAuth naverOauth;
     private final HttpServletResponse response;
     private final UserService userService;
     private final JwtUtil jwtUtil;
     @Value("${token.refresh_token.expiration_time}")
     private Long REFRESH_EXPIRATION;
-
-    @Override
-    public void request(Constant.SocialLoginType socialLoginType) throws IOException {
-        String redirectURL;
-        switch (socialLoginType) {
-            case GOOGLE: {
-                redirectURL = googleOauth.getOauthRedirectURL();
-            }
-            break;
-            default: {
-                throw new IllegalArgumentException("알 수 없는 소셜 로그인 형식입니다.");
-            }
-        }
-        response.sendRedirect(redirectURL);
-    }
 
     @Transactional
     @Override
@@ -68,6 +57,30 @@ public class OAuthServiceImpl implements OAuthService {
                         .build();
                 UserResponse user = userService.getUser(socialLoginType, request);
                 // TODO : HTTP ONLY로 accessToken 및 refreshToken 발급 및 REDIS에 저장
+                String accessToken = jwtUtil.createAccessToken(user.getId());
+                String refreshToken = jwtUtil.createRefreshToken(user.getId());
+                Auth auth = Auth.builder()
+                        .userId(user.getId())
+                        .refreshToken(refreshToken)
+                        .expiration(REFRESH_EXPIRATION)
+                        .build();
+                authRepo.save(auth);
+                return ServiceTokenResponse.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken)
+                        .build();
+            }
+            case NAVER: {
+                ResponseEntity<String> accessTokenResponse = naverOauth.requestAccessToken(code);
+                NaverOAuthToken oAuthToken = naverOauth.getAccessToken(accessTokenResponse);
+                ResponseEntity<String> userInfoResponse = naverOauth.requestUserInfo(oAuthToken);
+                NaverUser naverUser = naverOauth.getUserInfo(userInfoResponse);
+                UserCreateRequest request = UserCreateRequest.builder()
+                        .name(naverUser.getNickname())
+                        .email(naverUser.getEmail())
+                        .image(naverUser.getProfile_image())
+                        .build();
+                UserResponse user = userService.getUser(socialLoginType, request);
                 String accessToken = jwtUtil.createAccessToken(user.getId());
                 String refreshToken = jwtUtil.createRefreshToken(user.getId());
                 Auth auth = Auth.builder()

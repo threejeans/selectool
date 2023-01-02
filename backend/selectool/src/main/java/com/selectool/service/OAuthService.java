@@ -8,7 +8,5 @@ import java.io.IOException;
 
 public interface OAuthService {
 
-    public void request(Constant.SocialLoginType socialLoginType) throws IOException;
-
     public ServiceTokenResponse oAuthLogin(Constant.SocialLoginType socialLoginType, String code) throws IOException;
 }

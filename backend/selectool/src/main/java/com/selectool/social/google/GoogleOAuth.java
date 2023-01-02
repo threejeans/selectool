@@ -35,26 +35,6 @@ public class GoogleOAuth implements SocialOauth {
     private final ObjectMapper objectMapper;
 
     @Override
-    public String getOauthRedirectURL() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("scope", GOOGLE_DATA_ACCESS_SCOPE);
-        params.put("response_type", "code");
-        params.put("client_id", GOOGLE_SNS_CLIENT_ID);
-        params.put("redirect_uri", GOOGLE_SNS_CALLBACK_URL);
-
-        //parameter를 형식에 맞춰 구성해주는 함수
-        String parameterString = params.entrySet().stream()
-                .map(x -> x.getKey() + "=" + x.getValue())
-                .collect(Collectors.joining("&"));
-        String redirectURL = GOOGLE_SNS_LOGIN_URL + "?" + parameterString;
-        return redirectURL;
-        /*
-         * https://accounts.google.com/o/oauth2/v2/auth?scope=profile&response_type=code
-         * &client_id="할당받은 id"&redirect_uri="access token 처리")
-         * 로 Redirect URL을 생성하는 로직을 구성
-         * */
-    }
-
     public ResponseEntity<String> requestAccessToken(String code) {
         String GOOGLE_TOKEN_REQUEST_URL = "https://oauth2.googleapis.com/token";
         RestTemplate restTemplate = new RestTemplate();

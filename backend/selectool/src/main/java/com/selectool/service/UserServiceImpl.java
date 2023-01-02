@@ -30,7 +30,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse getUser(Constant.SocialLoginType socialLoginType, UserCreateRequest request) {
         switch (socialLoginType) {
-            case GOOGLE: {
+            case GOOGLE:
+            case NAVER:
+            {
                 User user = userRepo.findByTypeAndEmail(socialLoginType.name(), request.getEmail())
                         .orElseGet(() -> {
                             User newUser = User.builder()
