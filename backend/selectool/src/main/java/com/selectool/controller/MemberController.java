@@ -19,27 +19,15 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/member")
 @Api(tags = "인증")
-public class AuthController {
+public class MemberController {
     private final OAuthService oAuthService;
 
     @Value("${token.refresh_token.expiration_time}")
     private Long REFRESH_EXPIRATION;
 
-    // GOOGLE - 구현
-    // KAKAO - 미구현
-    // NAVER - 미구현
     @GetMapping("/login/{socialLoginType}")
-    @ApiOperation(value = "소셜 로그인 - google(구현), naver(미구현), kakao(미구현)")
-    public void socialLoginRedirect(
-            @ApiParam(value = "소셜 로그인 타입 pk") @PathVariable(name = "socialLoginType") String SocialLoginPath
-    ) throws IOException {
-        Constant.SocialLoginType socialLoginType = Constant.SocialLoginType.valueOf(SocialLoginPath.toUpperCase());
-        oAuthService.request(socialLoginType);
-    }
-
-    @GetMapping("/login/{socialLoginType}/callback")
     @ApiOperation(value = "로그인 토큰 발급")
     public ResponseEntity<?> callback(
             @ApiParam(value = "소셜 로그인 타입") @PathVariable(name = "socialLoginType") String socialLoginPath,
