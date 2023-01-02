@@ -49,15 +49,15 @@ jobs:
           REACT_APP_NAVER_REDIRECT_URI: ${{ secrets.REACT_APP_NAVER_REDIRECT_URI }}
           REACT_APP_NAVER_STATE: ${{ secrets.REACT_APP_NAVER_STATE }}
         run: |
-          touch ./frontend/.env.production
-          echo "REACT_APP_API=$REACT_APP_API" >> ./frontend/.env.production
-          echo "REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID" >> ./frontend/.env.production
-          echo "REACT_APP_GOOGLE_REDIRECT_URI=$REACT_APP_GOOGLE_REDIRECT_URI" >> ./frontend/.env.production
-          echo "REACT_APP_KAKAO_CLIENT_ID=$REACT_APP_KAKAO_CLIENT_ID" >> ./frontend/.env.production
-          echo "REACT_APP_KAKAO_REDIRECT_URI=$REACT_APP_KAKAO_REDIRECT_URI" >> ./frontend/.env.production
-          echo "REACT_APP_NAVER_CLIENT_ID=$REACT_APP_NAVER_CLIENT_ID" >> ./frontend/.env.production          
-          echo "REACT_APP_NAVER_REDIRECT_URI=$REACT_APP_NAVER_REDIRECT_URI" >> ./frontend/.env.production   
-          echo "REACT_APP_NAVER_STATE=$REACT_APP_NAVER_STATE" >> ./frontend/.env.production
+          touch ./frontend/.env
+          echo "REACT_APP_API=$REACT_APP_API" >> ./frontend/.env
+          echo "REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID" >> ./frontend/.env
+          echo "REACT_APP_GOOGLE_REDIRECT_URI=$REACT_APP_GOOGLE_REDIRECT_URI" >> ./frontend/.env
+          echo "REACT_APP_KAKAO_CLIENT_ID=$REACT_APP_KAKAO_CLIENT_ID" >> ./frontend/.env
+          echo "REACT_APP_KAKAO_REDIRECT_URI=$REACT_APP_KAKAO_REDIRECT_URI" >> ./frontend/.env
+          echo "REACT_APP_NAVER_CLIENT_ID=$REACT_APP_NAVER_CLIENT_ID" >> ./frontend/.env          
+          echo "REACT_APP_NAVER_REDIRECT_URI=$REACT_APP_NAVER_REDIRECT_URI" >> ./frontend/.env   
+          echo "REACT_APP_NAVER_STATE=$REACT_APP_NAVER_STATE" >> ./frontend/.env
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
