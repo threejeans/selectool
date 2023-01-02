@@ -39,15 +39,6 @@ jobs:
           password: ${{ secrets.GIT_TOKEN }}
       # .env 설정
       - name: Generate Environment
-        run: |
-          echo "REACT_APP_API=$REACT_APP_API" >> /app/.env.production
-          echo "REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID" >> /app/.env.production
-          echo "REACT_APP_GOOGLE_REDIRECT_URI=$REACT_APP_GOOGLE_REDIRECT_URI" >> /app/.env.production
-          echo "REACT_APP_KAKAO_CLIENT_ID=$REACT_APP_KAKAO_CLIENT_ID" >> /app/.env.production
-          echo "REACT_APP_KAKAO_REDIRECT_URI=$REACT_APP_KAKAO_REDIRECT_URI" >> /app/.env.production
-          echo "REACT_APP_NAVER_CLIENT_ID=$REACT_APP_NAVER_CLIENT_ID" >> /app/.env.production          
-          echo "REACT_APP_NAVER_REDIRECT_URI=$REACT_APP_NAVER_REDIRECT_URI" >> /app/.env.production   
-          echo "REACT_APP_NAVER_STATE=$REACT_APP_NAVER_STATE" >> /app/.env.production
         env:
           REACT_APP_API: ${{ secrets.REACT_APP_API }}
           REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
@@ -57,7 +48,16 @@ jobs:
           REACT_APP_NAVER_CLIENT_ID: ${{ secrets.REACT_APP_NAVER_CLIENT_ID }}
           REACT_APP_NAVER_REDIRECT_URI: ${{ secrets.REACT_APP_NAVER_REDIRECT_URI }}
           REACT_APP_NAVER_STATE: ${{ secrets.REACT_APP_NAVER_STATE }}
-
+        run: |
+          cd /app
+          echo "REACT_APP_API=$REACT_APP_API" >> .env.production
+          echo "REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID" >> .env.production
+          echo "REACT_APP_GOOGLE_REDIRECT_URI=$REACT_APP_GOOGLE_REDIRECT_URI" >> .env.production
+          echo "REACT_APP_KAKAO_CLIENT_ID=$REACT_APP_KAKAO_CLIENT_ID" >> .env.production
+          echo "REACT_APP_KAKAO_REDIRECT_URI=$REACT_APP_KAKAO_REDIRECT_URI" >> .env.production
+          echo "REACT_APP_NAVER_CLIENT_ID=$REACT_APP_NAVER_CLIENT_ID" >> .env.production          
+          echo "REACT_APP_NAVER_REDIRECT_URI=$REACT_APP_NAVER_REDIRECT_URI" >> .env.production   
+          echo "REACT_APP_NAVER_STATE=$REACT_APP_NAVER_STATE" >> .env.production
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
