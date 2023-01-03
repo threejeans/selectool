@@ -38,6 +38,11 @@ button {
   border: none;
 }
 
+h1 {
+  font-size: 5rem;
+  font-weight: 700;
+}
+
 :root {
   --primary-color-main: #60a9f6;
   --primary-color-dark: #5581df;

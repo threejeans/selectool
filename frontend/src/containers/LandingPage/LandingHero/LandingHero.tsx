@@ -1,17 +1,17 @@
 import React from 'react';
-import styles from "styles/components/landing/LandingTop.module.css";
+import styles from "./LandingHero.module.css";
 import Image from "assets/landing_image.png";
 import { Link } from 'react-router-dom';
 import { BsChevronCompactDown } from 'react-icons/bs';
 
-const LandingTop = () => {
+const LandingHero = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <img className={styles.image} src={Image} alt={"랜딩 이미지"} />
         <h1 className={styles.title}>
           나 
-
+          
           {/* scroller start */}
           <div className={styles.scroller}>
             <div className={styles.scroller_item}>
@@ -39,4 +39,4 @@ const LandingTop = () => {
   );
 };
 
-export default LandingTop;
+export default LandingHero;
