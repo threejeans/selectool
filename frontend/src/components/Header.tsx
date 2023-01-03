@@ -3,6 +3,9 @@ import Logo from "assets/selectool_logo.svg";
 
 import styles from "styles/components/Header.module.css";
 import { Link, useLocation } from "react-router-dom";
+import { useAppDispatch } from "app/hooks";
+import Login from "features/auth/Login";
+import { loginModalOpen } from "features/auth/authSlice";
 
 type MenuLinkProps = {
   path: string;
@@ -31,24 +34,28 @@ const Header = () => {
   useEffect(() => {
     window.addEventListener('scroll', updateScroll);
   })
-
-
+  const dispatcth = useAppDispatch();
+  const modalOpen = () => dispatcth(loginModalOpen());
   return (
+    <>
     <header className={scrollPosition < 100 ? styles.header : styles.change_header}>
-      <div className={styles.container}>
-        <Link to={"/"}>
-          <img className={styles.logo} src={Logo} alt={"셀렉툴 로고"} />
-        </Link>
+        <div className={styles.container}>
+          <Link to={"/"}>
+            <img className={styles.logo} src={Logo} alt={"셀렉툴 로고"} />
+          </Link>
 
-        <div className={styles.menu}>
-          <MenuLink path={"/self"} title={"혼자써요"} />
-          <MenuLink path={"/with"} title={"함께써요"} />
-          <MenuLink path={"/guide"} title={"가이드"} />
-          {" | "}
-          <MenuLink path={"/login"} title={"로그인"} />
+          <div className={styles.menu}>
+            <MenuLink path={"/self"} title={"혼자써요"} />
+            <MenuLink path={"/with"} title={"함께써요"} />
+            <MenuLink path={"/guide"} title={"가이드"} />
+            {" | "}
+            <a className={styles.unselected} onClick={modalOpen}>
+              로그인
+            </a>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 };
 
