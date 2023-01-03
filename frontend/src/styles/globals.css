@@ -12,6 +12,8 @@ body {
   -ms-user-select: none;
   user-select: none;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 a {

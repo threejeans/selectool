@@ -12,6 +12,10 @@ type MenuLinkProps = {
   title: string;
 };
 
+type LayoutProps = {
+  title: string;
+};
+
 const MenuLink = ({ path, title }: MenuLinkProps) => {
   const { pathname } = useLocation();
   return (
@@ -26,7 +30,7 @@ const MenuLink = ({ path, title }: MenuLinkProps) => {
   );
 };
 
-const Header = () => {
+const Header = ({ title }: LayoutProps) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const updateScroll = () => {
     setScrollPosition(window.scrollY || document.documentElement.scrollTop);
@@ -38,12 +42,11 @@ const Header = () => {
   const modalOpen = () => dispatcth(loginModalOpen());
   return (
     <>
-    <header className={scrollPosition < 100 ? styles.header : styles.change_header}>
+    <header className={scrollPosition < 100 && title === '홈'? styles.header : styles.change_header}>
         <div className={styles.container}>
           <Link to={"/"}>
             <img className={styles.logo} src={Logo} alt={"셀렉툴 로고"} />
           </Link>
-
           <div className={styles.menu}>
             <MenuLink path={"/self"} title={"혼자써요"} />
             <MenuLink path={"/with"} title={"함께써요"} />
