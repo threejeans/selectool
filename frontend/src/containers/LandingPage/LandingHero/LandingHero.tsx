@@ -8,8 +8,9 @@ const LandingHero = () => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <img className={styles.image} src={Image} alt={"랜딩 이미지"} />
-        <h1 className={styles.title}>
+        <img className={styles.image} src={Image} alt={"랜딩 이미지"}  
+        data-aos="fade-up" data-aos-duration="1500"/>
+        <h1 className={styles.title} data-aos="fade-up">
           나 
           
           {/* scroller start */}

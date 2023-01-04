@@ -1,5 +1,6 @@
 .header {
   position: fixed;
+  z-index: 1;
   width: 100vw;
   height: var(--height-navigation);
   display: flex;
@@ -9,6 +10,7 @@
 
 .change_header {
   position: fixed;
+  z-index: 1;
   width: 100vw;
   height: var(--height-navigation);
   display: flex;

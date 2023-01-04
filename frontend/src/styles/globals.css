@@ -38,11 +38,6 @@ button {
   border: none;
 }
 
-h1 {
-  font-size: 5rem;
-  font-weight: 700;
-}
-
 :root {
   --primary-color-main: #60a9f6;
   --primary-color-dark: #5581df;
@@ -63,6 +58,37 @@ h1 {
 
   --height-navigation: 70px;
   --height-footer: 400px;
+
+  --text-multiplier: 1;
+}
+
+h1 {
+  font-size: calc(3.2rem * var(--text-multiplier));
+  font-weight: 700;
+}
+
+h2 {
+  font-size: calc(2rem * var(--text-multiplier));
+  line-height: calc(2.8rem * var(--text-multiplier));
+  font-weight: 700;
+}
+
+h3 {
+  font-size: calc(1.5rem * var(--text-multiplier));
+  line-height: calc(2.4rem * var(--text-multiplier));
+  font-weight: 600;
+}
+
+h4 {
+  font-size: calc(1.375rem * var(--text-multiplier));
+  line-height: calc(2rem * var(--text-multiplier));
+  font-weight: 600;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --text-multiplier: 1.5;
+  }
 }
 
 section {
