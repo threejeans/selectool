@@ -16,7 +16,7 @@ const Layout = ({ title, description, children }: LayoutProps) => {
   return (
     <>
       <Login />
-      <Header />
+      <Header title = {title} />
       <Helmet>
         <title>SELECTOOL | {title}</title>
         <meta name="description" content={description} />
