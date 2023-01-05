@@ -12,6 +12,7 @@
 }
 
 .image {
+  width: 1020px;
   position: relative;
 }
 
@@ -24,7 +25,7 @@
 }
 
 .scroller {
-  height: 5.6rem;
+  height: 3.4rem;
   width: 10rem;
   margin-left: 1.6rem;
   margin-right: 1.6rem;
@@ -41,7 +42,7 @@
 
 .scroller .scroller_item {
   position: absolute;
-  width: 10rem;
+  width: 7rem;
   text-align: center;
   top: 0;
   font-weight: 800;
@@ -62,7 +63,6 @@
   color: white;
   width: 3.75rem;
   height: 4rem;
-
 }
 
 .scrollArrow:nth-child(1) {
@@ -73,6 +73,17 @@
 }
 .scrollArrow:nth-child(3) {
   animation-delay: 0.3s;
+}
+
+@media (min-width: 48rem) {
+  .scroller {
+    height: 5.4rem;
+    width: 10rem;
+  }
+
+  .scroller .scroller_item {
+    width: 10rem;
+  }
 }
 
 @keyframes slide {
