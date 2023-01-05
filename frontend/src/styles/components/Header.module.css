@@ -1,9 +1,23 @@
 .header {
-  width: 98vw;
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
   height: var(--height-navigation);
   display: flex;
   justify-content: center;
+  background-color: black;
 }
+
+.change_header {
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  height: var(--height-navigation);
+  display: flex;
+  justify-content: center;
+  background-color: white;
+}
+
 
 .container {
   width: 100%;

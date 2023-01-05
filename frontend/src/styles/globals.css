@@ -12,6 +12,8 @@ body {
   -ms-user-select: none;
   user-select: none;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -56,6 +58,37 @@ button {
 
   --height-navigation: 70px;
   --height-footer: 400px;
+
+  --text-multiplier: 1;
+}
+
+h1 {
+  font-size: calc(3.2rem * var(--text-multiplier));
+  font-weight: 700;
+}
+
+h2 {
+  font-size: calc(2rem * var(--text-multiplier));
+  line-height: calc(2.8rem * var(--text-multiplier));
+  font-weight: 700;
+}
+
+h3 {
+  font-size: calc(1.5rem * var(--text-multiplier));
+  line-height: calc(2.4rem * var(--text-multiplier));
+  font-weight: 600;
+}
+
+h4 {
+  font-size: calc(1.375rem * var(--text-multiplier));
+  line-height: calc(2rem * var(--text-multiplier));
+  font-weight: 600;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --text-multiplier: 1.5;
+  }
 }
 
 section {

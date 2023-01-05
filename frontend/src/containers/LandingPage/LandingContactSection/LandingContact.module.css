@@ -1,0 +1,27 @@
+.container {
+  width: 100vw;
+  height: 750px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.contents {
+  width: 100%;
+  max-width: 1120px;
+  padding-inline: 80px;
+  height: 360px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(96, 169, 246, 0.9) -115.11%, rgba(25, 219, 67, 0.72) 367.44%);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.text {
+  text-align: start;
+  line-height: 58px;
+  color: #FFFFFF;
+}

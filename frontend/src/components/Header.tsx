@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "assets/selectool_logo.svg";
 
 import styles from "styles/components/Header.module.css";
@@ -9,6 +9,10 @@ import { loginModalOpen } from "features/auth/authSlice";
 
 type MenuLinkProps = {
   path: string;
+  title: string;
+};
+
+type LayoutProps = {
   title: string;
 };
 
@@ -26,17 +30,23 @@ const MenuLink = ({ path, title }: MenuLinkProps) => {
   );
 };
 
-const Header = () => {
+const Header = ({ title }: LayoutProps) => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const updateScroll = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  }
+  useEffect(() => {
+    window.addEventListener('scroll', updateScroll);
+  })
   const dispatcth = useAppDispatch();
   const modalOpen = () => dispatcth(loginModalOpen());
   return (
     <>
-      <header className={styles.header}>
+    <header className={scrollPosition < 100 && title === '홈'? styles.header : styles.change_header}>
         <div className={styles.container}>
           <Link to={"/"}>
             <img className={styles.logo} src={Logo} alt={"셀렉툴 로고"} />
           </Link>
-
           <div className={styles.menu}>
             <MenuLink path={"/self"} title={"혼자써요"} />
             <MenuLink path={"/with"} title={"함께써요"} />
