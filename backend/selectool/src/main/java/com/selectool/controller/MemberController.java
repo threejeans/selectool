@@ -36,14 +36,11 @@ public class MemberController {
     ) throws IOException {
         Constant.SocialLoginType socialLoginType = Constant.SocialLoginType.valueOf(socialLoginPath.toUpperCase());
         ServiceTokenResponse tokenResponse = oAuthService.oAuthLogin(socialLoginType, code);
-        Cookie cookie = new Cookie("refresh-token", tokenResponse.getRefreshToken());
-        cookie.setMaxAge(REFRESH_EXPIRATION.intValue());
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setDomain("");
-        cookie.setPath("/");
-        response.addCookie(cookie);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("access-token", tokenResponse.getAccessToken());
+        headers.add("refresh-token", tokenResponse.getRefreshToken());
         return ResponseEntity.status(HttpStatus.OK)
-                .header(HttpHeaders.AUTHORIZATION, tokenResponse.getAccessToken()).build();
+                .headers(headers)
+                .build();
     }
 }
