@@ -40,7 +40,6 @@ public class NaverOAuth implements SocialOauth {
         headers.add("X-Naver-Client-Secret", NAVER_SNS_CLIENT_SECRET);
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity(headers);
 
-        Map<String, Object> params = new HashMap<>();
         NAVER_TOKEN_REQUEST_URL += "&code=" + code;
         NAVER_TOKEN_REQUEST_URL += "&client_id=" + NAVER_SNS_CLIENT_ID;
         NAVER_TOKEN_REQUEST_URL += "&client_secret=" + NAVER_SNS_CLIENT_SECRET;

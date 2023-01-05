@@ -10,6 +10,10 @@ import com.selectool.repository.AuthRepo;
 import com.selectool.social.google.GoogleOAuth;
 import com.selectool.social.google.GoogleOAuthToken;
 import com.selectool.social.google.GoogleUser;
+import com.selectool.social.kakao.KakaoOAuth;
+import com.selectool.social.kakao.KakaoOAuthToken;
+import com.selectool.social.kakao.KakaoProfile;
+import com.selectool.social.kakao.KakaoUser;
 import com.selectool.social.naver.NaverOAuth;
 import com.selectool.social.naver.NaverOAuthToken;
 import com.selectool.social.naver.NaverUser;
@@ -31,6 +35,9 @@ public class OAuthServiceImpl implements OAuthService {
     private final AuthRepo authRepo;
     private final GoogleOAuth googleOauth;
     private final NaverOAuth naverOauth;
+
+    private final KakaoOAuth kakaoOauth;
+
     private final HttpServletResponse response;
     private final UserService userService;
     private final JwtUtil jwtUtil;
@@ -79,6 +86,30 @@ public class OAuthServiceImpl implements OAuthService {
                         .name(naverUser.getNickname())
                         .email(naverUser.getEmail())
                         .image(naverUser.getProfile_image())
+                        .build();
+                UserResponse user = userService.getUser(socialLoginType, request);
+                String accessToken = jwtUtil.createAccessToken(user.getId());
+                String refreshToken = jwtUtil.createRefreshToken(user.getId());
+                Auth auth = Auth.builder()
+                        .userId(user.getId())
+                        .refreshToken(refreshToken)
+                        .expiration(REFRESH_EXPIRATION)
+                        .build();
+                authRepo.save(auth);
+                return ServiceTokenResponse.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken)
+                        .build();
+            }
+            case KAKAO: {
+                ResponseEntity<String> accessTokenResponse = kakaoOauth.requestAccessToken(code);
+                KakaoOAuthToken oAuthToken = kakaoOauth.getAccessToken(accessTokenResponse);
+                ResponseEntity<String> userInfoResponse = kakaoOauth.requestUserInfo(oAuthToken);
+                KakaoUser kakaoUser = kakaoOauth.getUserInfo(userInfoResponse);
+                UserCreateRequest request = UserCreateRequest.builder()
+                        .name(kakaoUser.getProfile().getNickname())
+                        .email(kakaoUser.getEmail())
+                        .image(kakaoUser.getProfile().getProfile_image_url())
                         .build();
                 UserResponse user = userService.getUser(socialLoginType, request);
                 String accessToken = jwtUtil.createAccessToken(user.getId());
