@@ -1,16 +1,16 @@
 import React from 'react';
-import styles from "./LandingDetail.module.css";
-import commonStyles from "../../../styles/pages/landingPage/Landing.module.css";
+import styles from './LandingDetail.module.css';
+import commonStyles from '../../../styles/pages/landingPage/Landing.module.css';
 import { Link } from 'react-router-dom';
 
-import image01Front from "assets/landing_detail_image01_front.svg";
-import image01Back from "assets/landing_detail_image01_back.svg";
+import image01Front from 'assets/landing_detail_image01_front.svg';
+import image01Back from 'assets/landing_detail_image01_back.svg';
 
-import image02Front from "assets/landing_detail_image02_front.svg";
-import image02Back from "assets/landing_detail_image02_back.svg";
+import image02Front from 'assets/landing_detail_image02_front.svg';
+import image02Back from 'assets/landing_detail_image02_back.svg';
 
-import image03Back from "assets/landing_detail_image03_front.svg";
-import image03Front from "assets/landing_detail_image03_back.svg";
+import image03Back from 'assets/landing_detail_image03_front.svg';
+import image03Front from 'assets/landing_detail_image03_back.svg';
 
 const LandingDetailSection = () => {
   return (

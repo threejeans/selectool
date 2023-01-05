@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from "./LandingCTA.module.css";
-import commonStyles from "../../../styles/pages/landingPage/Landing.module.css";
+import styles from './LandingCTA.module.css';
+import commonStyles from '../../../styles/pages/landingPage/Landing.module.css';
 
 const LandingCTASection = () => {
   return (

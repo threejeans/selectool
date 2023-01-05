@@ -63,7 +63,7 @@ button {
 }
 
 h1 {
-  font-size: calc(3.2rem * var(--text-multiplier));
+  font-size: calc(3rem * var(--text-multiplier));
   font-weight: 700;
 }
 

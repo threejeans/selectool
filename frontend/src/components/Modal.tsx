@@ -1,6 +1,6 @@
-import React, { Children } from "react";
-import { IoMdClose } from "react-icons/io";
-import styles from "styles/components/Modal.module.css";
+import React, { Children } from 'react';
+import { IoMdClose } from 'react-icons/io';
+import styles from 'styles/components/Modal.module.css';
 
 type ModelProps = {
   isModal: boolean;
