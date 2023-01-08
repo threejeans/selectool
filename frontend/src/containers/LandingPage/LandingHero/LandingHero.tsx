@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { BsChevronCompactDown } from 'react-icons/bs';
 
 const LandingHero = () => {
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -25,7 +26,7 @@ const LandingHero = () => {
           일 할건데 업무툴 뭐 써야 좋지?
         </h1>
       </div>
-      <div>
+      <div><a href="#section02">
         <div className={styles.scrollArrow}>
           <BsChevronCompactDown />
         </div>
@@ -35,7 +36,7 @@ const LandingHero = () => {
         <div className={styles.scrollArrow}>
           <BsChevronCompactDown />
         </div>
-      </div>
+        </a></div>
     </div>
   );
 };

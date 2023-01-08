@@ -17,10 +17,10 @@ const Auth = () => {
         query += `&state=${process.env.REACT_APP_NAVER_STATE}`;
       console.log(query);
       const res = await axios.get(process.env.REACT_APP_API + query);
-      const ACCESS_TOKEN = res.headers["access-token"];
-      const REFRESH_TOKEN = res.headers["refresh-token"];
-      setCookie("access-token", ACCESS_TOKEN);
-      setCookie("refresh-token", REFRESH_TOKEN);
+      const ACCESS_TOKEN = res.headers['access-token'];
+      const REFRESH_TOKEN = res.headers['refresh-token'];
+      setCookie('access-token', ACCESS_TOKEN);
+      setCookie('refresh-token', REFRESH_TOKEN);
     }
     SimpleLogin();
     navigate('/', { replace: true }); // 로그인 완료시 메인으로 이동
