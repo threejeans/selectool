@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from "./LandingIntroduce.module.css";
-import commonStyles from "../../../styles/pages/landingPage/Landing.module.css";
-import em_left from "assets/landing_introduce_em_left.svg";
-import em_right from "assets/landing_introduce_em_right.svg";
+import styles from './LandingIntroduce.module.css';
+import commonStyles from '../../../styles/pages/landingPage/Landing.module.css';
+import emLeft from 'assets/landing_introduce_em_left.svg';
+import emRight from 'assets/landing_introduce_em_right.svg';
 
 const LandingIntroduceSection = () => {
   return (
@@ -10,15 +10,15 @@ const LandingIntroduceSection = () => {
       <div className={ styles.contents }>
         <div>
           <div className={`${styles.bubble_container} ${styles.bubble_01}`} data-aos="fade-up">
-            <img className={styles.bubble_em_left} src={em_left} alt={""} />
-            <div className={styles.bubble_text}>"툴 배우다 끝날 판"</div>
+            <img className={styles.bubble_em_left} src={emLeft} alt={''} />
+            <div className={styles.bubble_text}>&quot;툴 배우다 끝날 판&rdquo;</div>
           </div>
           <div className={`${styles.bubble_container} ${styles.bubble_02}`} data-aos="fade-up">
-            <img className={styles.bubble_em_right} src={em_right} alt={""} />
-            <div className={styles.bubble_text}>“정신없이 늘리다보니 <br /> 고정 구독료가 너무 부담돼요"</div>
+            <img className={styles.bubble_em_right} src={emRight} alt={''} />
+            <div className={styles.bubble_text}>&quot;정신없이 늘리다보니 <br /> 고정 구독료가 너무 부담돼요&rdquo;</div>
           </div>
           <div className={`${styles.bubble_container} ${styles.bubble_03}`} data-aos="fade-up">
-            <img className={styles.bubble_em_left} src={em_left} alt={""} />
+            <img className={styles.bubble_em_left} src={emLeft} alt={''} />
             <div className={styles.bubble_text}>“보안·보안·보안”</div>
           </div>   
         </div>

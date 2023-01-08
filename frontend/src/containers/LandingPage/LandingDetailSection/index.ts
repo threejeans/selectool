@@ -1,1 +1,1 @@
-export { default } from "./LandingDetailSection";
+export { default } from './LandingDetailSection';

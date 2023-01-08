@@ -1,1 +1,1 @@
-export { default } from "./LandingIntroduceSection";
+export { default } from './LandingIntroduceSection';

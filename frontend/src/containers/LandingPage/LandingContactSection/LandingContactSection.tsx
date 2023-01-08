@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./LandingContact.module.css";
+import styles from './LandingContact.module.css';
 
 const LandingContactSection = () => {
   return (
