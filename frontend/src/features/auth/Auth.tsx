@@ -20,9 +20,10 @@ const Auth = () => {
       const REFRESH_TOKEN = res.headers['refresh-token']
       setCookie('access-token', ACCESS_TOKEN)
       setCookie('refresh-token', REFRESH_TOKEN)
+      console.log('saved token from Auth.tsx')
     }
     SimpleLogin()
-    // dispatch(simpleLogin({ type, code }))
+    dispatch(simpleLogin({ type, code }))
     navigate('/', { replace: true }) // 로그인 완료시 메인으로 이동
   }, [])
 

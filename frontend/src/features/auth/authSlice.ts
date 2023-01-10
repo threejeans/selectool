@@ -4,10 +4,14 @@ import { RootState } from 'app/store'
 
 export interface AuthState {
   isLoginModal: boolean
+  accessToken: string
+  status: 'idle' | 'loading' | 'success' | 'rejected'
 }
 
 const initialState: AuthState = {
   isLoginModal: false,
+  accessToken: '',
+  status: 'idle',
 }
 
 export const simpleLogin = createAsyncThunk(
@@ -33,6 +37,21 @@ export const authSlice = createSlice({
     loginModalClose: state => {
       state.isLoginModal = false
     },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(simpleLogin.pending, state => {
+        state.status = 'loading'
+      })
+      .addCase(simpleLogin.fulfilled, (state, action) => {
+        console.log(action)
+        // state.accessToken = action.payload.headers[""]
+        console.log('saved token from authSlice.ts')
+      })
+      .addCase(simpleLogin.rejected, (state, action) => {
+        console.log(action)
+        state.status = 'rejected'
+      })
   },
 })
 
