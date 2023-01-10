@@ -52,6 +52,7 @@ apiAxios.interceptors.request.use(request => {
 })
 
 apiAxios.interceptors.response.use(response => {
+  console.log('interceptor', response)
   if (response.headers[ACCESS_TOKEN] !== undefined)
     saveAccessToken(response.headers[ACCESS_TOKEN])
   if (response.headers[REFRESH_TOKEN] !== undefined)
