@@ -1,0 +1,13 @@
+FROM openjdk:8-jdk-alpine AS builder
+COPY backend/selectool/gradlew .
+COPY backend/selectool/gradle gradle
+COPY backend/selectool/build.gradle .
+COPY backend/selectool/settings.gradle .
+COPY backend/selectool/src src
+RUN chmod +x ./gradlew
+RUN ./gradlew bootJAR
+
+FROM openjdk:8-jdk-alpine
+COPY --from=builder build/libs/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/app.jar"]
