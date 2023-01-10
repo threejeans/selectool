@@ -14,18 +14,15 @@ const Auth = () => {
 
   useEffect(() => {
     async function SimpleLogin() {
-      console.log(code)
-      let query = `/api/member/login/${type}?code=${code}`
-      if (type === 'naver')
-        query += `&state=${process.env.REACT_APP_NAVER_STATE}`
-      console.log(query)
+      const query = `/api/member/login/${type}?code=${code}`
       const res = await axios.get(process.env.REACT_APP_API + query)
       const ACCESS_TOKEN = res.headers['access-token']
       const REFRESH_TOKEN = res.headers['refresh-token']
       setCookie('access-token', ACCESS_TOKEN)
       setCookie('refresh-token', REFRESH_TOKEN)
+      console.log('saved token from Auth.tsx')
     }
-    // SimpleLogin()
+    SimpleLogin()
     dispatch(simpleLogin({ type, code }))
     navigate('/', { replace: true }) // 로그인 완료시 메인으로 이동
   }, [])

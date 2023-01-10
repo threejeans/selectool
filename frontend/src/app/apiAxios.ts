@@ -10,7 +10,7 @@ import {
   REFRESH_TOKEN,
   saveAccessToken,
   saveRefreshToken,
-} from './jwToken'
+} from '../util/jwToken'
 
 type CustomResponseFormat<T = any> = {
   response: T
@@ -44,7 +44,9 @@ const apiAxios: CustomInstance = baseAxios.create({
 
 apiAxios.interceptors.request.use(request => {
   if (getAccessToken())
-    apiAxios.defaults.headers.common['Authorization'] = getAccessToken()
+    apiAxios.defaults.headers.common[
+      'Authorization'
+    ] = `Bearer ${getAccessToken()}`
   // if (process.env.NODE_ENV !== 'production') console.log(request)
   return request
 })
