@@ -4,12 +4,15 @@ import { AxiosResponse } from 'axios'
 import { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { useNavigate, useParams } from 'react-router-dom'
+import { setCookie } from 'util/cookie'
 import { setAccessToken } from './authSlice'
+
+import styles from 'styles/pages/auth/Auth.module.css'
 
 const Auth = () => {
   const code = new URL(window.location.href).searchParams.get('code')
   const { type } = useParams()
-  const [cookies, setCookie] = useCookies()
+  // const [cookies, setCookie] = useCookies() // 커스텀 쿠키 셋
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -23,13 +26,17 @@ const Auth = () => {
       const accessToken = response.headers['access-token']
       const refreshToken = response.headers['refresh-token']
       dispatch(setAccessToken(accessToken))
-      setCookie('refresh-token', refreshToken)
+      if (refreshToken !== undefined) setCookie('refresh-token', refreshToken)
     }
     SimpleLogin()
     navigate('/', { replace: true })
   }, [])
 
-  return <div>인증중</div>
+  return (
+    <div className={styles.container}>
+      <p className={styles.loader} />
+    </div>
+  )
 }
 
 export default Auth

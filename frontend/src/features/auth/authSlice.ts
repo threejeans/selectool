@@ -42,5 +42,6 @@ export const {
 } = authSlice.actions
 
 export const selectLoginModal = (state: RootState) => state.auth.isLoginModal
+export const selectAccessToken = (state: RootState) => state.auth.accessToken
 
 export default authSlice.reducer
