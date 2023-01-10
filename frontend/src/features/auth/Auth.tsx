@@ -20,7 +20,13 @@ const Auth = () => {
       const REFRESH_TOKEN = res.headers['refresh-token']
       setCookie('access-token', ACCESS_TOKEN)
       setCookie('refresh-token', REFRESH_TOKEN)
-      console.log('saved token from Auth.tsx')
+      console.log(
+        'saved token from Auth.tsx',
+        'access-token',
+        ACCESS_TOKEN,
+        'refresh-token',
+        REFRESH_TOKEN,
+      )
     }
     SimpleLogin()
     dispatch(simpleLogin({ type, code }))
