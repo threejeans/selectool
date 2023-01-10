@@ -13,7 +13,6 @@ const LandingHero = () => {
         data-aos="fade-up" data-aos-duration="1500"/>
         <h1 className={styles.title} data-aos="fade-up">
           나 
-          
           {/* scroller start */}
           <div className={styles.scroller}>
             <div className={styles.scroller_item}>
@@ -22,7 +21,6 @@ const LandingHero = () => {
             </div>
           </div>
           {/* scroller end */}
-
           일 할건데 업무툴 뭐 써야 좋지?
         </h1>
       </div>

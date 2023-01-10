@@ -8,6 +8,17 @@ const Footer = () => {
     document.location.href = 'https://www.instagram.com/selectool.info/'
   }
 
+  const handleScroll = () => {
+    if (!window.scrollY) return;
+    // 현재 위치가 이미 최상단일 경우 return
+  
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  
+  };
+
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
@@ -27,7 +38,7 @@ const Footer = () => {
           </div>
           <div>Copyright © 2022 Selectool Corp. All rights reserved.</div>
         </div>
-        <button className={styles.topBtn}>
+        <button className={styles.topBtn} onClick={handleScroll}>
           <BsChevronCompactUp />
         </button>
       </div>
