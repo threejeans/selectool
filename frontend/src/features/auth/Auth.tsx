@@ -1,10 +1,9 @@
+import apiAxios from 'app/apiAxios'
 import { useAppDispatch } from 'app/hooks'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import React, { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { useNavigate, useParams } from 'react-router-dom'
-import { simpleLogin } from './authSlice'
-
 const Auth = () => {
   const code = new URL(window.location.href).searchParams.get('code')
   const { type } = useParams()
@@ -15,22 +14,18 @@ const Auth = () => {
   useEffect(() => {
     async function SimpleLogin() {
       const query = `/api/member/login/${type}?code=${code}`
-      const res = await axios.get(process.env.REACT_APP_API + query)
-      const ACCESS_TOKEN = res.headers['access-token']
-      const REFRESH_TOKEN = res.headers['refresh-token']
-      setCookie('access-token', ACCESS_TOKEN)
-      setCookie('refresh-token', REFRESH_TOKEN)
-      console.log(
-        'saved token from Auth.tsx',
-        'access-token',
-        ACCESS_TOKEN,
-        'refresh-token',
-        REFRESH_TOKEN,
-      )
+      await apiAxios
+        .get<AxiosResponse>(process.env.REACT_APP_API + query)
+        .then(response => {
+          const accessToken = response.headers['access-token']
+          const refreshToken = response.headers['refresh-token']
+          setCookie('access-token', accessToken)
+          setCookie('refresh-token', refreshToken)
+        })
+        .catch(e => console.error(e))
     }
     SimpleLogin()
-    dispatch(simpleLogin({ type, code }))
-    navigate('/', { replace: true }) // 로그인 완료시 메인으로 이동
+    navigate('/', { replace: true })
   }, [])
 
   return <div>인증중</div>
