@@ -22,7 +22,6 @@ const Auth = () => {
       const response = await apiAxios.get<AxiosResponse>(
         process.env.REACT_APP_API + query,
       )
-      console.log(response.headers)
       const accessToken = response.headers['access-token']
       const refreshToken = response.headers['refresh-token']
       dispatch(setAccessToken(accessToken))
