@@ -4,13 +4,13 @@ import { RootState } from 'app/store'
 
 export interface AuthState {
   isLoginModal: boolean
-  accessToken: string
+  accessToken: string | undefined
   status: 'idle' | 'loading' | 'success' | 'rejected'
 }
 
 const initialState: AuthState = {
   isLoginModal: false,
-  accessToken: '',
+  accessToken: undefined,
   status: 'idle',
 }
 
@@ -24,10 +24,22 @@ export const authSlice = createSlice({
     loginModalClose: state => {
       state.isLoginModal = false
     },
+    setAccessToken: (state, { payload }) => {
+      console.log('Access Token saved on memory from slice', payload)
+      state.accessToken = payload
+    },
+    resetAccessToken: state => {
+      state.accessToken = undefined
+    },
   },
 })
 
-export const { loginModalOpen, loginModalClose } = authSlice.actions
+export const {
+  loginModalOpen,
+  loginModalClose,
+  setAccessToken,
+  resetAccessToken,
+} = authSlice.actions
 
 export const selectLoginModal = (state: RootState) => state.auth.isLoginModal
 

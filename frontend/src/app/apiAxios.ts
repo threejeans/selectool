@@ -49,10 +49,16 @@ apiAxios.interceptors.request.use(request => {
 
 apiAxios.interceptors.response.use(response => {
   console.log('interceptor', response)
-  if (response.headers[ACCESS_TOKEN] !== undefined)
-    setCookie(ACCESS_TOKEN, response.headers[ACCESS_TOKEN])
-  if (response.headers[REFRESH_TOKEN] !== undefined)
-    setCookie(REFRESH_TOKEN, response.headers[REFRESH_TOKEN])
+  if (response.headers[ACCESS_TOKEN] !== undefined) {
+    console.log(response.headers[ACCESS_TOKEN])
+    // setCookie(ACCESS_TOKEN, response.headers[ACCESS_TOKEN])
+  }
+
+  if (response.headers[REFRESH_TOKEN] !== undefined) {
+    console.log(response.headers[REFRESH_TOKEN])
+    // setCookie(REFRESH_TOKEN, response.headers[REFRESH_TOKEN])
+  }
+
   return response
 })
 
