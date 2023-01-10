@@ -6,7 +6,7 @@ import emRight from 'assets/landing_introduce_em_right.svg';
 
 const LandingIntroduceSection = () => {
   return (
-    <div className={ styles.container } >
+    <div id="section02" className={ styles.container } >
       <div className={ styles.contents }>
         <div>
           <div className={`${styles.bubble_container} ${styles.bubble_01}`} data-aos="fade-up">

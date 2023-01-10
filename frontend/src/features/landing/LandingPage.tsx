@@ -12,10 +12,10 @@ const LandingPage = (
 
   return (
     <>
-      <LandingHero/>
-      <LandingIntroduceSection  />
+      <LandingHero />
+      <LandingIntroduceSection />
       <LandingDetailSection />
-      < LandingCTASection/>
+      < LandingCTASection />
       <LandingContactSection />
     </>
   );
