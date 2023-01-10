@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from "react";
-import Logo from "assets/selectool_logo.svg";
+import Logo from 'assets/selectool_logo.svg'
+import { useEffect, useState } from 'react'
 
-import styles from "styles/components/Header.module.css";
-import { Link, useLocation } from "react-router-dom";
-import { useAppDispatch } from "app/hooks";
-import Login from "features/auth/Login";
-import { loginModalOpen } from "features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
+import { Link, useLocation } from 'react-router-dom'
+import styles from 'styles/components/Header.module.css'
 
 type MenuLinkProps = {
-  path: string;
-  title: string;
-};
+  path: string
+  title: string
+}
 
 type LayoutProps = {
-  title: string;
-};
+  title: string
+}
 
 const MenuLink = ({ path, title }: MenuLinkProps) => {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
   return (
     <Link
       className={
@@ -27,39 +26,53 @@ const MenuLink = ({ path, title }: MenuLinkProps) => {
     >
       {title}
     </Link>
-  );
-};
+  )
+}
 
 const Header = ({ title }: LayoutProps) => {
-  const [scrollPosition, setScrollPosition] = useState(0);
+  // scroll
+  const [scrollPosition, setScrollPosition] = useState(0)
   const updateScroll = () => {
-    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop)
   }
   useEffect(() => {
-    window.addEventListener('scroll', updateScroll);
+    window.addEventListener('scroll', updateScroll)
   })
-  const dispatcth = useAppDispatch();
-  const modalOpen = () => dispatcth(loginModalOpen());
+
+  // state
+  const isLogon = useAppSelector(selectAccessToken) !== undefined
+  const dispatcth = useAppDispatch()
+  const modalOpen = () => dispatcth(loginModalOpen())
   return (
     <>
-    <header className={scrollPosition < 100 && title === '홈'? styles.header : styles.change_header}>
+      <header
+        className={
+          scrollPosition < 100 && title === '홈'
+            ? styles.header
+            : styles.change_header
+        }
+      >
         <div className={styles.container}>
-          <Link to={"/"}>
-            <img className={styles.logo} src={Logo} alt={"셀렉툴 로고"} />
+          <Link to={'/'}>
+            <img className={styles.logo} src={Logo} alt={'셀렉툴 로고'} />
           </Link>
           <div className={styles.menu}>
-            <MenuLink path={"/self"} title={"혼자써요"} />
-            <MenuLink path={"/with"} title={"함께써요"} />
-            <MenuLink path={"/guide"} title={"가이드"} />
-            {" | "}
-            <a className={styles.unselected} onClick={modalOpen}>
-              로그인
-            </a>
+            <MenuLink path={'/self'} title={'혼자써요'} />
+            <MenuLink path={'/with'} title={'함께써요'} />
+            <MenuLink path={'/guide'} title={'가이드'} />
+            {' | '}
+            {isLogon ? (
+              <MenuLink path={'/mypage'} title={'마이페이지'} />
+            ) : (
+              <a className={styles.unselected} onClick={modalOpen}>
+                로그인
+              </a>
+            )}
           </div>
         </div>
       </header>
     </>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

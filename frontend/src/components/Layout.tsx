@@ -1,10 +1,10 @@
-import Login from "features/auth/Login";
-import React from "react";
-import { Helmet } from "react-helmet";
+import Login from 'features/auth/Login';
+import React from 'react';
+import { Helmet } from 'react-helmet';
 
-import Footer from "./Footer";
-import Header from "./Header";
-import Modal from "./Modal";
+import Footer from './Footer';
+import Header from './Header';
+import Modal from './Modal';
 
 type LayoutProps = {
   title: string;

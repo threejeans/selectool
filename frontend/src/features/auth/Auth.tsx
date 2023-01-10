@@ -1,32 +1,42 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-import { useCookies } from "react-cookie";
-import { useNavigate, useParams } from "react-router-dom";
+import apiAxios from 'app/apiAxios'
+import { useAppDispatch } from 'app/hooks'
+import { AxiosResponse } from 'axios'
+import { useEffect } from 'react'
+import { useCookies } from 'react-cookie'
+import { useNavigate, useParams } from 'react-router-dom'
+import { setCookie } from 'util/cookie'
+import { setAccessToken } from './authSlice'
+
+import styles from 'styles/pages/auth/Auth.module.css'
 
 const Auth = () => {
-  const code = new URL(window.location.href).searchParams.get("code");
-  const { type } = useParams();
-  const [cookies, setCookie] = useCookies();
-  const navigate = useNavigate();
+  const code = new URL(window.location.href).searchParams.get('code')
+  const { type } = useParams()
+  // const [cookies, setCookie] = useCookies() // 커스텀 쿠키 셋
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function SimpleLogin() {
-      console.log(code);
-      let query = `/api/member/login/${type}?code=${code}`;
-      if (type === "naver")
-        query += `&state=${process.env.REACT_APP_NAVER_STATE}`;
-      console.log(query);
-      const res = await axios.get(process.env.REACT_APP_API + query);
-      const ACCESS_TOKEN = res.headers["authorization"];
-      const REFRESH_TOKEN = res.headers["refresh-token"];
-      setCookie("access-token", ACCESS_TOKEN);
-      setCookie("refresh-token", REFRESH_TOKEN);
+      const query = `/api/member/login/${type}?code=${code}`
+      const response = await apiAxios.get<AxiosResponse>(
+        process.env.REACT_APP_API + query,
+      )
+      console.log(response.headers)
+      const accessToken = response.headers['access-token']
+      const refreshToken = response.headers['refresh-token']
+      dispatch(setAccessToken(accessToken))
+      if (refreshToken !== undefined) setCookie('refresh-token', refreshToken)
     }
-    SimpleLogin();
-    navigate("/", { replace: true }); // 로그인 완료시 메인으로 이동
-  }, []);
+    SimpleLogin()
+    navigate('/', { replace: true })
+  }, [])
 
-  return <div>인증중</div>;
-};
+  return (
+    <div className={styles.container}>
+      <p className={styles.loader} />
+    </div>
+  )
+}
 
-export default Auth;
+export default Auth
