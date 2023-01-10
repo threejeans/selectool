@@ -17,6 +17,7 @@ const Auth = () => {
       await apiAxios
         .get<AxiosResponse>(process.env.REACT_APP_API + query)
         .then(response => {
+          console.log(response)
           const accessToken = response.headers['access-token']
           const refreshToken = response.headers['refresh-token']
           setCookie('access-token', accessToken)
