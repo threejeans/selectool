@@ -71,8 +71,8 @@
   background: var(--gray-scale-color-g05);
 }
 
-.button:focus {
-  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+.button:active {
+  box-shadow: rgba(255, 255, 255, .4) 0 0 0 3px;
 }
 
 .buttonTextDisabled {

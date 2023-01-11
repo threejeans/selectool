@@ -30,6 +30,7 @@ const LandingContactSection = () => {
         event.currentTarget,
         'B9pJh_dQcD20zVcn7')
       .then((result) => {
+        setMessage('')
         console.log(result.text);
         alert('email 전송 완료')
       }, (error) => {
