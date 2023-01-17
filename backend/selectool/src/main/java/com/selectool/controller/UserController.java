@@ -1,8 +1,12 @@
 package com.selectool.controller;
 
 import com.selectool.config.Constant;
+import com.selectool.config.loginuser.LoginUser;
+import com.selectool.config.loginuser.User;
 import com.selectool.dto.response.ServiceTokenResponse;
+import com.selectool.service.AuthService;
 import com.selectool.service.OAuthService;
+import com.selectool.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -21,8 +25,10 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @RequestMapping("/member")
 @Api(tags = "인증")
-public class MemberController {
+public class UserController {
+    private final AuthService authService;
     private final OAuthService oAuthService;
+    private final UserService userService;
 
     @Value("${token.refresh_token.expiration_time}")
     private Long REFRESH_EXPIRATION;
@@ -48,5 +54,27 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK)
                 .headers(headers)
                 .build();
+    }
+
+    @GetMapping("/refresh")
+    @ApiOperation(value = "액세스 토큰 재발급")
+    public ResponseEntity<?> refresh(
+            @CookieValue("refresh-token") String refreshToken,
+            @LoginUser User user
+    ) {
+        try {
+            return ResponseEntity.ok(authService.refresh(refreshToken, user.getId()));
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("로그인 만료");
+        }
+    }
+
+    @GetMapping("/info")
+    @ApiOperation(value = "유저 정보 조회")
+    public ResponseEntity<?> getUserInfo(
+            @LoginUser User user
+    ) {
+        return ResponseEntity.ok(userService.getUserInfo(user.getId()));
     }
 }
