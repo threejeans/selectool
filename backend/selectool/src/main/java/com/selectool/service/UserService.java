@@ -6,8 +6,6 @@ import com.selectool.dto.request.UserCreateRequest;
 import com.selectool.dto.request.UserUpdateRequest;
 import com.selectool.dto.response.UserResponse;
 
-import java.util.List;
-
 public interface UserService {
     //회원가입
     public UserResponse getUser(Constant.SocialLoginType socialLoginType, UserCreateRequest request);

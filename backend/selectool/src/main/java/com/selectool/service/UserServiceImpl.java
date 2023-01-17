@@ -1,19 +1,16 @@
 package com.selectool.service;
 
-import com.selectool.repository.UserRepo;
 import com.selectool.config.Constant;
 import com.selectool.dto.request.UserCreateRequest;
 import com.selectool.dto.request.UserUpdateRequest;
 import com.selectool.dto.response.UserResponse;
 import com.selectool.entity.User;
 import com.selectool.exception.NotFoundException;
+import com.selectool.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.selectool.exception.NotFoundException.USER_NOT_FOUND;
 
@@ -64,6 +61,8 @@ public class UserServiceImpl implements UserService {
         return UserResponse.builder()
                 .id(user.getId())
                 .name(user.getName())
+                .type(user.getType())
+                .email(user.getEmail())
                 .image(user.getImage())
                 .build();
     }
