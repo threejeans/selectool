@@ -4,7 +4,6 @@ import com.selectool.repository.UserRepo;
 import com.selectool.config.Constant;
 import com.selectool.dto.request.UserCreateRequest;
 import com.selectool.dto.request.UserUpdateRequest;
-import com.selectool.dto.response.UserListResponse;
 import com.selectool.dto.response.UserResponse;
 import com.selectool.entity.User;
 import com.selectool.exception.NotFoundException;
@@ -70,37 +69,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserListResponse getUserList(String email) {
-//        List<UserResponse> googleUsers = userRepo.findByGoogleContains(email).stream()
-//                .map(user -> UserResponse.builder()
-//                        .id(user.getId())
-//                        .name(user.getName())
-//                        .image(user.getImage())
-//                        .build())
-//                .collect(Collectors.toList());
-//        List<UserResponse> naverUsers = userRepo.findByNaverContains(email).stream()
-//                .map(user -> UserResponse.builder()
-//                        .id(user.getId())
-//                        .name(user.getName())
-//                        .image(user.getImage())
-//                        .build())
-//                .collect(Collectors.toList());
-//        List<UserResponse> kakaoUsers = userRepo.findByKakaoContains(email).stream()
-//                .map(user -> UserResponse.builder()
-//                        .id(user.getId())
-//                        .name(user.getName())
-//                        .image(user.getImage())
-//                        .build())
-//                .collect(Collectors.toList());
-//        return UserListResponse.builder()
-//                .googleUsers(googleUsers)
-//                .naverUsers(naverUsers)
-//                .kakaoUsers(kakaoUsers)
-//                .build();
-        return null;
-    }
-
-    @Override
     @Transactional
     public void updateUserInfo(UserUpdateRequest request, Long userId) {
         User user = userRepo.findById(userId)
@@ -122,17 +90,5 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         user.withdraw();
-    }
-
-    @Override
-    public List<UserResponse> getUserList(List<Long> userIds) {
-        List<UserResponse> userResponses = userRepo.findByIdIn(userIds).stream()
-                .map(user -> UserResponse.builder()
-                        .id(user.getId())
-                        .name(user.getName())
-                        .image(user.getImage())
-                        .build())
-                .collect(Collectors.toList());
-        return userResponses;
     }
 }
