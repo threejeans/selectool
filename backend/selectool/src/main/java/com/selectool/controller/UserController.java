@@ -24,7 +24,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/member")
-@Api(tags = "인증")
+@Api(tags = "유저")
 public class UserController {
     private final AuthService authService;
     private final OAuthService oAuthService;
