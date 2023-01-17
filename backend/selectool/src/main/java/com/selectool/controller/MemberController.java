@@ -38,7 +38,13 @@ public class MemberController {
         ServiceTokenResponse tokenResponse = oAuthService.oAuthLogin(socialLoginType, code);
         HttpHeaders headers = new HttpHeaders();
         headers.add("access-token", tokenResponse.getAccessToken());
-        headers.add("refresh-token", tokenResponse.getRefreshToken());
+        Cookie cookie = new Cookie("refresh-token", tokenResponse.getRefreshToken());
+        cookie.setMaxAge(REFRESH_EXPIRATION.intValue());
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setDomain("");
+        cookie.setPath("/");
+        response.addCookie(cookie);
         return ResponseEntity.status(HttpStatus.OK)
                 .headers(headers)
                 .build();
