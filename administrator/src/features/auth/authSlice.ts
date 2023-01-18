@@ -1,47 +1,52 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import apiAxios from 'app/apiAxios'
-import { RootState } from 'app/store'
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import apiAxios from "app/apiAxios";
+import { RootState } from "app/store";
 
 export interface AuthState {
-  isLoginModal: boolean
-  accessToken: string | undefined
-  status: 'idle' | 'loading' | 'success' | 'rejected'
+  accessToken: string | undefined;
+  status: "idle" | "loading" | "success" | "failed";
 }
 
 const initialState: AuthState = {
-  isLoginModal: false,
   accessToken: undefined,
-  status: 'idle',
-}
+  status: "idle",
+};
+
+export const loginAdmin = createAsyncThunk(
+  "auth/loginAdmin",
+  async ({ email }: any, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.post("/admin/login", { email: email });
+      console.log(response);
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
-  reducers: {
-    loginModalOpen: state => {
-      state.isLoginModal = true
-    },
-    loginModalClose: state => {
-      state.isLoginModal = false
-    },
-    setAccessToken: (state, { payload }) => {
-      console.log('Access Token saved on memory from slice', payload)
-      state.accessToken = payload
-    },
-    resetAccessToken: state => {
-      state.accessToken = undefined
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginAdmin.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(loginAdmin.fulfilled, (state, { payload }) => {
+        state.status = "success";
+        console.log(payload);
+        // state.accessToken = payload;
+      })
+      .addCase(loginAdmin.rejected, (state) => {
+        state.status = "failed";
+      });
   },
-})
+});
 
-export const {
-  loginModalOpen,
-  loginModalClose,
-  setAccessToken,
-  resetAccessToken,
-} = authSlice.actions
+export const {} = authSlice.actions;
 
-export const selectLoginModal = (state: RootState) => state.auth.isLoginModal
-export const selectAccessToken = (state: RootState) => state.auth.accessToken
+export const selectAccessToken = (state: RootState) => state.auth.accessToken;
 
-export default authSlice.reducer
+export default authSlice.reducer;

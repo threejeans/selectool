@@ -1,7 +1,10 @@
-import React from "react";
-import Nav from "./Nav";
+import React, { useEffect } from "react";
+import Header from "./Header";
 
 import styles from "styles/components/Layout.module.css";
+import { useAppSelector } from "app/hooks";
+import { selectAccessToken } from "features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 type LayoutProps = {
   title: string;
@@ -9,9 +12,14 @@ type LayoutProps = {
 };
 
 const Layout = ({ title, children }: LayoutProps) => {
+  const accessToken = useAppSelector(selectAccessToken);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (accessToken === undefined) navigate("/admin/login");
+  }, []);
   return (
     <div className={styles.container}>
-      <Nav title={title} />
+      <Header title={title} />
       <section>{children}</section>
     </div>
   );

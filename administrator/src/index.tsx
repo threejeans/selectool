@@ -1,7 +1,8 @@
+import Auth from "features/auth/Auth";
 import Login from "features/auth/Login";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { store } from "./app/store";
 import Layout from "./components/Layout";
 import "./styles/globals.css";
@@ -12,43 +13,31 @@ const root = createRoot(container);
 const router = createBrowserRouter([
   {
     path: "/admin",
-    element: <div>뭐야</div>,
+    element: (
+      <Layout title={"관리자 페이지"}>
+        <Outlet />
+      </Layout>
+    ),
     children: [
       {
-        path: "/",
-        element: <Login />,
-      },
-      {
-        path: "home",
-        element: (
-          <Layout title={"홈"}>
-            <Login />
-          </Layout>
-        ),
-      },
-      {
         path: "contents",
-        element: (
-          <Layout title={"컨텐츠 관리"}>
-            <Login />
-          </Layout>
-        ),
+        element: <p>contents</p>,
       },
       {
         path: "data",
-        element: (
-          <Layout title={"데이터 관리"}>
-            <Login />
-          </Layout>
-        ),
+        element: <p>data</p>,
       },
       {
         path: "alarm",
-        element: (
-          <Layout title={"알람 관리"}>
-            <Login />
-          </Layout>
-        ),
+        element: <p>alarm</p>,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "auth",
+        element: <Auth />,
       },
     ],
   },
