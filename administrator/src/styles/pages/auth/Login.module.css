@@ -53,7 +53,8 @@
 }
 
 .wrongMsg {
+  width: 98%;
   position: absolute;
   color: var(--primary-color-error);
-  bottom: -3rem;
+  top: 1rem;
 }

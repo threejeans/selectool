@@ -4,7 +4,7 @@ import { BsArrowRightCircle } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 import styles from "styles/pages/auth/Login.module.css";
-import { loginAdmin } from "./authSlice";
+import { loginAdmin, setTmpEmail } from "./authSlice";
 
 const BLANK_MSG = "이메일을 입력해주세요.";
 const WRONG_MSG = "잘못된 이메일 양식입니다.";
@@ -38,19 +38,25 @@ const Login = () => {
       } else {
         dispatcth(loginAdmin(email))
           .then((e) => {
-            console.log(e);
-          })
-          .catch((e) => {
-            console.log(e);
-            if (cnt < 3) {
-              setCnt(cnt + 1);
-              setIsWrong(true);
-              setMsg(REJECT_MSG);
-            } else {
-              setCnt(0);
-              navigate("/admin");
+            // if (e.meta.requestStatus === "rejected") {
+            if (e.meta.requestStatus === "fulfilled") {
+              console.log(e);
+              if (cnt < 2) {
+                setCnt(cnt + 1);
+                setIsWrong(true);
+                setMsg(REJECT_MSG);
+              } else {
+                setCnt(0);
+                navigate("/admin");
+              }
+              // } else if (e.meta.requestStatus === "fulfilled") {
+            } else if (e.meta.requestStatus === "rejected") {
+              // 임시
+              dispatcth(setTmpEmail(email));
+              navigate("/admin/auth");
             }
-          });
+          })
+          .catch((e) => {});
       }
     }
   };

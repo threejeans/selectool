@@ -4,11 +4,13 @@ import { RootState } from "app/store";
 
 export interface AuthState {
   accessToken: string | undefined;
+  tmpEmail: string;
   status: "idle" | "loading" | "success" | "failed";
 }
 
 const initialState: AuthState = {
   accessToken: undefined,
+  tmpEmail: "",
   status: "idle",
 };
 
@@ -28,7 +30,11 @@ export const loginAdmin = createAsyncThunk(
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setTmpEmail: (state, { payload }) => {
+      state.tmpEmail = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginAdmin.pending, (state) => {
@@ -45,8 +51,9 @@ export const authSlice = createSlice({
   },
 });
 
-export const {} = authSlice.actions;
+export const { setTmpEmail } = authSlice.actions;
 
 export const selectAccessToken = (state: RootState) => state.auth.accessToken;
+export const selectTmpEmail = (state: RootState) => state.auth.tmpEmail;
 
 export default authSlice.reducer;
