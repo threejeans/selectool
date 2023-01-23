@@ -19,14 +19,27 @@ export const loginAdmin = createAsyncThunk(
   async ({ email }: any, { rejectWithValue }) => {
     try {
       const response = await apiAxios.post("/admin/login", { email: email });
-      console.log(response);
+      console.log(response); //
       return response;
-    } catch (err) {
-      return rejectWithValue(err);
+    } catch (error: any) {
+      console.log(error); //
+      return rejectWithValue(error.message);
     }
   }
 );
-
+export const authAdmin = createAsyncThunk(
+  "auth/authAdmin",
+  async ({ email, auth }: any, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.post("/admin/auth", { email, auth });
+      console.log(response); //
+      return response;
+    } catch (error: any) {
+      console.log(error); //
+      return rejectWithValue(error.message);
+    }
+  }
+);
 export const authSlice = createSlice({
   name: "auth",
   initialState,
