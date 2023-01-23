@@ -1,0 +1,53 @@
+.container {
+  min-height: 98vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.authBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  margin-top: 1rem;
+  font-family: "Noto Sans KR";
+  font-size: 2.6rem;
+  font-weight: bolder;
+  font-stretch: ultra-condensed;
+}
+
+.input {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--gray-scale-color-g20);
+  border-radius: 8px;
+  font-size: x-large;
+  margin: 0 4px;
+  padding: 4px 4px;
+  text-align: center;
+}
+.input:focus {
+  background-color: #60a9f632;
+  border: 1px solid transparent;
+}
+.loader {
+  border: 10px solid var(--gray-scale-color-g05);
+  border-top: 10px solid var(--primary-color-main);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
