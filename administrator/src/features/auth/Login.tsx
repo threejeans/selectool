@@ -16,7 +16,7 @@ const Login = () => {
   const [msg, setMsg] = useState("");
   const [cnt, setCnt] = useState(0);
   const [isWrong, setIsWrong] = useState(false);
-  const dispatcth = useAppDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleSummit = () => {
@@ -36,9 +36,9 @@ const Login = () => {
         setMsg(WRONG_MSG);
         emailRef.current.focus();
       } else {
-        dispatcth(loginAdmin(email))
+        dispatch(loginAdmin({ email }))
           .then((e) => {
-            // if (e.meta.requestStatus === "rejected") {
+            // if (e.meta.requestStatus === "rejected") { // 실제
             if (e.meta.requestStatus === "fulfilled") {
               console.log(e);
               if (cnt < 2) {
@@ -49,10 +49,10 @@ const Login = () => {
                 setCnt(0);
                 navigate("/admin");
               }
-              // } else if (e.meta.requestStatus === "fulfilled") {
+              // } else if (e.meta.requestStatus === "fulfilled") { // 실제
             } else if (e.meta.requestStatus === "rejected") {
               // 임시
-              dispatcth(setTmpEmail(email));
+              dispatch(setTmpEmail(email));
               navigate("/admin/auth");
             }
           })
