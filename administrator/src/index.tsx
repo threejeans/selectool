@@ -1,5 +1,8 @@
+import Alarm from "features/alarm/Alarm";
 import Auth from "features/auth/Auth";
 import Login from "features/auth/Login";
+import Contents from "features/contents/Contents";
+import Data from "features/data/Data";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
@@ -21,15 +24,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "contents",
-        element: <p>contents</p>,
+        element: <Contents />,
       },
       {
         path: "data",
-        element: <p>data</p>,
+        element: <Data />,
       },
       {
         path: "alarm",
-        element: <p>alarm</p>,
+        element: <Alarm />,
       },
       {
         path: "login",
