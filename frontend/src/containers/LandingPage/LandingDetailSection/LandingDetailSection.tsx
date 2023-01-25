@@ -28,7 +28,7 @@ const LandingDetailSection = () => {
           <div data-aos="fade-right">
             <h4 className={ styles.detail_title }>툴 종류, 기능, 요금 정책들을 <br /> 
             <span className={ styles.highlight }>한눈에 비교</span>해 보세요.</h4>
-            <hr />
+            <hr className={ styles.line }/>
             <div className={commonStyles.description}>
             비대면 근무가 일상으로 자리 잡은 시대에 필수인 협업툴. <br />
             흩어져있는 정보는 넘쳐나고 하나하나 찾아볼 시간이 없는 <br />
@@ -56,7 +56,7 @@ const LandingDetailSection = () => {
           <div data-aos="fade-left">
             <h4 className={ styles.detail_title }>
             <span className={ styles.highlight }>[&emsp;&emsp;]</span>은 이러한 협업툴을 사용하고 있어요</h4>
-            <hr />
+            <hr className={ styles.line } />
             <div className={commonStyles.description}>
             현업에서 기업들이 활용하는 툴들을 확인하고 상황과 성향에 맞는 <br />
             툴을 찾아보세요. 그들의 조직 문화와 업무 방식도 옅볼 수 있어요.
@@ -71,7 +71,7 @@ const LandingDetailSection = () => {
           <div data-aos="fade-right">
             <h4 className={ styles.detail_title }>관심있는 <span className={ styles.highlight }>툴 가이드</span> 를 통해 <br /> 
             신속하고 정확하게 자료를 학습해요.</h4>
-            <hr />
+            <hr className={ styles.line } />
             <div className={commonStyles.description}>
             더 이상 어떻게 익혀야할지 막막해하지 말아요. <br />
             툴 사용법만 익히다가 해야하는 업무가 미뤄지지 않도록 도와드릴게요.

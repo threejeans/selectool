@@ -37,7 +37,7 @@
   background: linear-gradient(85.04deg, #60A9F6 1.89%, #80D672 93.48%);
 }
 
-hr {
+.line {
   border: none;
   border-top: 0.5px dashed #8D8D8D;
   color: #fff;

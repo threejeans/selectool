@@ -1,0 +1,15 @@
+.layout {
+    width: 100vw;
+    height: fit-content;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  padding-block: 10rem;
+}

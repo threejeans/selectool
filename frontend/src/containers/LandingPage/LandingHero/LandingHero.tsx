@@ -24,7 +24,8 @@ const LandingHero = () => {
           일 할건데 업무툴 뭐 써야 좋지?
         </h1>
       </div>
-      <div><a href="#section02">
+      <div>
+        <a href="#section02">
         <div className={styles.scrollArrow}>
           <BsChevronCompactDown />
         </div>

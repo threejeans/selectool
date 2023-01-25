@@ -1,0 +1,20 @@
+.container {
+  width: fit-content;
+  position: relative;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.button {
+  position: absolute;
+  height: 22px;
+  right: 10px;
+  z-index: 10px;
+  font-size: 22px;
+  color:#8D8D8D;
+}
+
+.button:hover {
+  color: #60A9F6;
+}

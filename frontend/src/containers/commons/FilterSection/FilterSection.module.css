@@ -1,0 +1,5 @@
+.layout {
+  display: flex;
+  justify-content: space-between;
+  padding-block: 16px;
+}

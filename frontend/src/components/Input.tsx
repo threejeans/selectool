@@ -44,9 +44,11 @@ const Input: React.FC<Props> = (
   return (
     <div className={styles.InputCover}>
       <div className={styles.label}>
-        <label htmlFor={label}>{label}</label>
         {
-          isOption ? '' : <span className={styles.labelOption}>*</span>
+          label ? <label htmlFor={label}>{label}</label> : null
+        }
+        {
+          isOption ? null : <span className={styles.labelOption}>*</span>
         }
       </div>
         {
@@ -58,15 +60,14 @@ const Input: React.FC<Props> = (
               placeholder={placeholder} 
               value={value} 
               onChange={changeHandlerForTextArea} /> :
-            <input 
-              type={type}
-              className={styles.input} 
+            <input
+              className={type === 'search' ? styles.search : styles.input}
               name={name}
-              id={label} 
-              placeholder={placeholder} 
-              value={value} 
+              id={label}
+              placeholder={placeholder}
+              value={value}
               onChange={changeHandler} />
-        }
+          }
     </div>
   )
 }
