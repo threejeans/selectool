@@ -1,6 +1,8 @@
-import Logo from "assets/selectool_logo.svg";
 import { useAppDispatch } from "app/hooks";
 import { Link, useLocation } from "react-router-dom";
+
+import { AiOutlineMenu } from "react-icons/ai";
+import Logo from "assets/selectool_logo.svg";
 import styles from "styles/components/Header.module.css";
 
 type MenuLinkProps = {
@@ -36,11 +38,17 @@ const Header = ({ title }: LayoutProps) => {
           <img className={styles.logo} src={Logo} alt={"셀렉툴 로고"} />
         </Link>
         <div className={styles.menu}>
-          <MenuLink path={"/admin/contents"} title={"콘텐츠 관리"} />
-          <MenuLink path={"/admin/data"} title={"데이터 관리"} />
-          <MenuLink path={"/admin/alarm"} title={"알림 관리"} />
+          <MenuLink path={"contents"} title={"콘텐츠 관리"} />
+          <MenuLink path={"data"} title={"데이터 관리"} />
+          <MenuLink path={"alarm"} title={"알림 관리"} />
           {" | "}
-          <MenuLink path={"/admin/login"} title={"로그인"} />
+          <MenuLink path={"login"} title={"로그인"} />
+        </div>
+        <div className={styles.collaped}>
+          <button>
+            <AiOutlineMenu className={styles.manuBtn} />
+          </button>
+          {/* 수정중 */}
         </div>
       </div>
     </div>
