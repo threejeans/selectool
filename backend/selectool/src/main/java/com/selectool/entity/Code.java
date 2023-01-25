@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.TimeToLive;
 
 import java.util.concurrent.TimeUnit;
 
-@RedisHash("code")
+@RedisHash(value = "code")
 @NoArgsConstructor
 @Getter
 public class Code {
@@ -18,7 +18,7 @@ public class Code {
 
     private String code;
 
-    @TimeToLive(unit = TimeUnit.DAYS)
+    @TimeToLive(unit = TimeUnit.MINUTES)
     private Long expiration;
 
     @Builder

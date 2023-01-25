@@ -29,7 +29,7 @@ public class AdminServiceImpl implements AdminService {
 
     private final EmailService emailService;
 
-    private Long CODE_EXPIRATION = 600_000L;
+    private Long CODE_EXPIRATION = 10L;
 
     @Override
     @Transactional
@@ -51,21 +51,21 @@ public class AdminServiceImpl implements AdminService {
         content += code;
         content += "</td></tr></tbody></table></div>";
 
-        // 해당 이메일로 인증 코드 보내기
-        emailService.sendEmail(
-                EmailRequest.builder()
-                        .address(request.getEmail())
-                        .title(title)
-                        .content(content)
-                        .build()
-        );
-
         // 코드 저장
         codeRepo.save(
                 Code.builder()
                         .email(request.getEmail())
                         .code(code)
                         .expiration(CODE_EXPIRATION)
+                        .build()
+        );
+
+        // 해당 이메일로 인증 코드 보내기
+        emailService.sendEmail(
+                EmailRequest.builder()
+                        .address(request.getEmail())
+                        .title(title)
+                        .content(content)
                         .build()
         );
     }
