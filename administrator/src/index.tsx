@@ -2,6 +2,10 @@ import Alarm from "features/alarm/Alarm";
 import Auth from "features/auth/Auth";
 import Login from "features/auth/Login";
 import Contents from "features/contents/Contents";
+import ContentsList from "features/contents/ContentsList";
+import Guide from "features/contents/Guide";
+import Self from "features/contents/Self";
+import With from "features/contents/With";
 import Data from "features/data/Data";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
@@ -24,7 +28,33 @@ const router = createBrowserRouter([
     children: [
       {
         path: "contents",
-        element: <Contents />,
+        children: [
+          {
+            path: "",
+            element: <Contents />,
+          },
+          {
+            path: "self",
+            children: [
+              { path: "write", element: <Self /> },
+              { path: "list", element: <ContentsList type="self" /> },
+            ],
+          },
+          {
+            path: "with",
+            children: [
+              { path: "write", element: <With /> },
+              { path: "list", element: <ContentsList type="with" /> },
+            ],
+          },
+          {
+            path: "guide",
+            children: [
+              { path: "write", element: <Guide /> },
+              { path: "list", element: <ContentsList type="guide" /> },
+            ],
+          },
+        ],
       },
       {
         path: "data",
