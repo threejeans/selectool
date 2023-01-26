@@ -19,15 +19,15 @@
   width: 15rem;
   height: 2.6rem;
   background: transparent;
-  border: 2px solid ;
-  border-color:#EEEEEE;
-  outline: none; 
+  border: 2px solid;
+  border-color: #eeeeee;
+  outline: none;
   border-radius: 10px;
   padding-inline: 1rem;
 
   font-weight: 400;
   font-size: 16px;
-  color: #F5F5F5;
+  color: #f5f5f5;
 
   transition: 0.3s;
 }
@@ -45,13 +45,13 @@
 .input:active {
   border: 2px solid white;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3),
-  inset 0 0 0 1px rgba(255, 255, 255, 0.4 );
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
 }
 
 .input:focus {
   border: 2px solid white;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3),
-  inset 0 0 0 1px rgba(255, 255, 255, 0.4 );
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
 }
 
 .input:invalid {
@@ -63,18 +63,22 @@
   width: 15rem;
   height: 2.8rem;
   background: white;
-  border: 2px solid #CDCDCD;
-  outline: none; 
+  border: 2px solid #cdcdcd;
+  outline: none;
   border-radius: 10px;
   padding-inline: 1rem;
   outline: none;
 
-  font-family: "Pretendard Variable";
+  font-family: 'Pretendard Variable';
   font-weight: 300;
   font-size: 20px;
   color: #595959;
 
-  transition: 0.3s;
+  transition: 0.1s;
+}
+
+.searchFill {
+  border: 1.5px solid #60a9f6;
 }
 
 .search::placeholder {
@@ -83,20 +87,18 @@
 }
 
 .search:hover {
-  border: 1.5px solid #60A9F6;
+  border: 1.5px solid #60a9f6;
   box-shadow: inset 0 0 0 1px rgba(96, 169, 246, 0.6);
-  background-color: #fafafa;
 }
 
 .search:focus-within {
-  border: 2px solid #60A9F6;
+  border: 2px solid #60a9f6;
   box-shadow: 0 0 0 3px rgba(96, 169, 246, 0.2),
     inset 0 0 1px rgba(255, 255, 255, 0.4);
-  background-color: #fafafa;
 }
 
 .search:focus-within:hover {
-  border: 2.5px solid #60A9F6;
+  border: 2.5px solid #60a9f6;
 }
 
 .textarea {
@@ -108,7 +110,7 @@
   font-family: 'Pretendard Variable';
   font-weight: 400;
   font-size: 16px;
-  color: #F5F5F5;
+  color: #f5f5f5;
 }
 
 .textarea::-webkit-scrollbar {
@@ -127,4 +129,3 @@
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px white;
 }
-

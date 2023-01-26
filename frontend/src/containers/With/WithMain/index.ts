@@ -1,1 +1,1 @@
-export { default } from './WithMain';
+export { default } from './WithMain'

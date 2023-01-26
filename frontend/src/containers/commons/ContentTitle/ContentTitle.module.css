@@ -14,11 +14,11 @@
 .description {
   font-weight: 400;
   font-size: 20px;
-  color: #6F6F6F;
+  color: #6f6f6f;
 }
 
 .line {
   width: 100%;
   margin-block: 16px;
-  border: 0.5px solid #BDBDBD;
+  border: 0.5px solid #bdbdbd;
 }

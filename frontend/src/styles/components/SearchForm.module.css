@@ -12,9 +12,9 @@
   right: 10px;
   z-index: 10px;
   font-size: 22px;
-  color:#8D8D8D;
+  color: #8d8d8d;
 }
 
 .button:hover {
-  color: #60A9F6;
+  color: #414141;
 }

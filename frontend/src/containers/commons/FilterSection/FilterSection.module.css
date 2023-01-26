@@ -1,5 +1,20 @@
 .layout {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-block: 16px;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  column-gap: 14px;
+}
+
+.button {
+  width: 70px;
+  padding-block: 10px;
+  padding-inline: 20px;
+  background: #f5f5f5;
+  border-radius: 10px;
 }

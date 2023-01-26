@@ -1,1 +1,1 @@
-export { default as SelfMain } from './SelfMain';
+export { default as SelfMain } from './SelfMain'

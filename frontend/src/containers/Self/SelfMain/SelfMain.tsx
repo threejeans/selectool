@@ -1,15 +1,21 @@
-import Input from 'components/Input';
-import SearchForm from 'components/SearchForm';
-import FilterSection from 'containers/commons/FilterSection';
-import React from 'react';
+import { FilterSection } from 'containers/commons'
+import React from 'react'
 
 const SelfMain = () => {
+  const contents = ['ALL', '디자인', '개발', '마케팅', '기획', 'Other']
+  const filterData = [...new Array(contents.length)].map(
+    (data, idx) => (data = { isSelected: false, content: contents[idx] }),
+  )
 
   return (
     <div>
-      <FilterSection  placeholder='툴 이름을 입력해주세요'/>
+      <FilterSection
+        isFilterButton
+        items={filterData}
+        placeholder={'툴 이름을 입력해주세요'}
+      />
     </div>
-  );
-};
+  )
+}
 
-export default SelfMain;
+export default SelfMain
