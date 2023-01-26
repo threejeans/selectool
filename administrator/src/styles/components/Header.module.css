@@ -1,5 +1,5 @@
 .header {
-  position: fixed;
+  /* position: fixed; */
   z-index: 1;
   width: 100vw;
   height: var(--height-navigation);
@@ -39,4 +39,18 @@
 }
 .selected {
   color: var(--primary-color-main);
+}
+.collaped {
+  display: none;
+}
+.manuBtn {
+  font-size: 1.6rem;
+}
+@media (max-width: 1120px) {
+  .menu {
+    display: none;
+  }
+  .collaped {
+    display: flex;
+  }
 }

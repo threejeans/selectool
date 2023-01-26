@@ -40,6 +40,7 @@ button {
 
 :root {
   --primary-color-main: #60a9f6;
+  --primary-color-main-30: #60a9f648;
   --primary-color-dark: #5581df;
   --primary-color-ddark: #495cc8;
   --primary-color-dddark: #413fb1;
