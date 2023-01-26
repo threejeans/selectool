@@ -19,16 +19,19 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtUtil {
 
-    // 엑세스 토큰 생성 키
+    // 유저 AceessToken 생성 키
     @Value("${token.secret}")
     private String ACCESS_KEY;
-    // 액세스 토큰 만료 기간
+
+    // 유저 RefreshToekn 생성 키
+    @Value("${token.refresh}")
+    private String REFRESH_KEY;
+
+    // AceessToken 만료 기간
     @Value("${token.access_token.expiration_time}")
     private Long ACCESS_EXPIRATION;
 
-    // 리프레쉬 토큰 생성 키
-    @Value("${token.refresh}")
-    private String REFRESH_KEY;
+    // RefreshToekn 만료 기간
     @Value("${token.refresh_token.expiration_time}")
     private Long REFRESH_EXPIRATION;
 
