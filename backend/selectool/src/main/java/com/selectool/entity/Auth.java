@@ -18,7 +18,7 @@ public class Auth {
 
     private String refreshToken;
 
-    @TimeToLive(unit = TimeUnit.DAYS)
+    @TimeToLive(unit = TimeUnit.MILLISECONDS)
     private Long expiration;
 
     @Builder
