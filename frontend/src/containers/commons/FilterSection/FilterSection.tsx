@@ -1,44 +1,51 @@
 import { ChipProps } from 'components/Chip'
 import SearchForm from 'components/SearchForm'
-import React, { useState } from 'react'
+import React from 'react'
 import FilterGrid from '../FilterGrid'
 import styles from './FilterSection.module.css'
 import filterIcon from 'assets/filter_icon.svg'
 import filterIconSelected from 'assets/filter_icon_selected.svg'
-import Modal from 'components/Modal'
+import { useAppDispatch } from 'app/hooks'
+import { changeFilterModalStatus } from 'reducers/selfReducer'
+import SelfFilterModal from 'containers/Self/SelfFilterModal/SelfFilterModal'
 
 export type filterProps = {
   isFilterButton?: boolean
-  items: Array<ChipProps>
+  filterTypes: Array<string>
   placeholder?: string
+}
+
+export type filterDataProps = {
+  items: Array<ChipProps>
 }
 
 const isFilterButtonSelected = false
 
-const modalController = () => {
-  console.log('야호')
-}
-
 const FilterSection = ({
   isFilterButton = false,
-  items = [],
+  filterTypes = [],
   placeholder,
 }: filterProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const dispatcth = useAppDispatch()
+  const openModal = () => {
+    dispatcth(changeFilterModalStatus())
+  }
+
+  const items = [...new Array(filterTypes.length)].map(
+    (data, idx) => (data = { isSelected: false, content: filterTypes[idx] }),
+  )
 
   return (
     <div className={styles.layout}>
+      <SelfFilterModal />
       <FilterGrid items={items}></FilterGrid>
-      <Modal isModal={isModalOpen} setIsModal={modalController}>
-        <div></div>
-      </Modal>
       <div className={styles.rightSection}>
         {isFilterButton ? (
           <button
             className={
               isFilterButtonSelected ? styles.buttonSelected : styles.button
             }
-            onClick={() => setIsModalOpen(true)}
+            onClick={openModal}
           >
             <img
               src={isFilterButtonSelected ? filterIconSelected : filterIcon}
@@ -52,7 +59,5 @@ const FilterSection = ({
     </div>
   )
 }
-
-const modal = () => <div></div>
 
 export default FilterSection

@@ -1,9 +1,9 @@
 import Chip from 'components/Chip'
 import React, { useState } from 'react'
-import { filterProps } from '../FilterSection/FilterSection'
+import { filterDataProps } from '../FilterSection/FilterSection'
 import styles from './FilterGrid.module.css'
 
-const FilterGrid = ({ items = [] }: filterProps) => {
+const FilterGrid = ({ items = [] }: filterDataProps) => {
   return (
     <div className={styles.layout}>
       {items.map((item, idx) => (

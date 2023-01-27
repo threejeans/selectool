@@ -1,3 +1,4 @@
+import { RootState } from 'app/store'
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface SelfState {
@@ -12,15 +13,14 @@ const selfReducer = createSlice({
   name: 'selfReducer',
   initialState: initialState,
   reducers: {
-    openFilterModal: state => {
-      state.isFilterModal = true
-    },
-    closeFilterModal: state => {
-      state.isFilterModal = false
+    changeFilterModalStatus: state => {
+      state.isFilterModal = !state.isFilterModal
     },
   },
 })
 
-export const { openFilterModal, closeFilterModal } = selfReducer.actions
+export const { changeFilterModalStatus } = selfReducer.actions
+
+export const filterModalState = (state: RootState) => state.self.isFilterModal
 
 export default selfReducer.reducer
