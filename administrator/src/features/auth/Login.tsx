@@ -38,8 +38,9 @@ const Login = () => {
       } else {
         dispatch(loginAdmin({ email }))
           .then((e) => {
-            // if (e.meta.requestStatus === "rejected") { // 실제
-            if (e.meta.requestStatus === "fulfilled") {
+            if (e.meta.requestStatus === "rejected") {
+              // 실제
+              // if (e.meta.requestStatus === "fulfilled") {
               console.log(e);
               if (cnt < 2) {
                 setCnt(cnt + 1);
@@ -49,8 +50,9 @@ const Login = () => {
                 setCnt(0);
                 navigate("/admin");
               }
-              // } else if (e.meta.requestStatus === "fulfilled") { // 실제
-            } else if (e.meta.requestStatus === "rejected") {
+            } else if (e.meta.requestStatus === "fulfilled") {
+              // 실제
+              // } else if (e.meta.requestStatus === "rejected") {
               // 임시
               dispatch(setTmpEmail(email));
               navigate("/admin/auth");
