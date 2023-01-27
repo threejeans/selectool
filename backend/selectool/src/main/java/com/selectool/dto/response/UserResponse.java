@@ -11,12 +11,18 @@ public class UserResponse {
 
     private String name;
 
+    private String type;
+
+    private String email;
+
     private String image;
 
     @Builder
-    public UserResponse(Long id, String name, String image) {
+    public UserResponse(Long id, String name, String type, String email, String image) {
         this.id = id;
         this.name = name;
+        this.type = type;
+        this.email = email;
         this.image = image;
     }
 }

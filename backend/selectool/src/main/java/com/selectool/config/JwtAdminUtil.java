@@ -17,14 +17,13 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class JwtUtil {
-
-    // 유저 AceessToken 생성 키
-    @Value("${token.secret}")
+public class JwtAdminUtil {
+    // 관리자 AceessToken 생성 키
+    @Value("${token.admin_secret}")
     private String ACCESS_KEY;
 
-    // 유저 RefreshToekn 생성 키
-    @Value("${token.refresh}")
+    // 관리자 RefreshToekn 생성 키
+    @Value("${token.admin_refresh}")
     private String REFRESH_KEY;
 
     // AceessToken 만료 기간
@@ -36,20 +35,20 @@ public class JwtUtil {
     private Long REFRESH_EXPIRATION;
 
     // AceessToken 생성
-    public String createAccessToken(Long userId) {
+    public String createAccessToken(Long adminId) {
         return Jwts.builder()
                 .setHeader(createHeader("ACCESS_TOKEN"))
-                .setClaims(createClaims(userId))
+                .setClaims(createClaims(adminId))
                 .setExpiration(createExpireDate(ACCESS_EXPIRATION))
                 .signWith(SignatureAlgorithm.HS256, createSigningKey(ACCESS_KEY))
                 .compact();
     }
 
     // RefreshToekn 생성
-    public String createRefreshToken(Long userId) {
+    public String createRefreshToken(Long adminId) {
         return Jwts.builder()
                 .setHeader(createHeader("REFRESH_TOKEN"))
-                .setClaims(createClaims(userId))
+                .setClaims(createClaims(adminId))
                 .setExpiration(createExpireDate(REFRESH_EXPIRATION))
                 .signWith(SignatureAlgorithm.HS256, createSigningKey(REFRESH_KEY))
                 .compact();
@@ -71,9 +70,9 @@ public class JwtUtil {
     }
 
     // payload 부분 생성
-    private Map<String, Object> createClaims(Long userId) {
+    private Map<String, Object> createClaims(Long adminId) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", userId);
+        claims.put("id", adminId);
         return claims;
     }
 

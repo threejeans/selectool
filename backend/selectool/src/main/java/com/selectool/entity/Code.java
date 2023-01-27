@@ -9,22 +9,22 @@ import org.springframework.data.redis.core.TimeToLive;
 
 import java.util.concurrent.TimeUnit;
 
-@RedisHash("auth")
+@RedisHash(value = "code")
 @NoArgsConstructor
 @Getter
-public class Auth {
+public class Code {
     @Id
-    private Long userId;
+    private String email;
 
-    private String refreshToken;
+    private String code;
 
-    @TimeToLive(unit = TimeUnit.MILLISECONDS)
+    @TimeToLive(unit = TimeUnit.MINUTES)
     private Long expiration;
 
     @Builder
-    public Auth(Long userId, String refreshToken, Long expiration) {
-        this.userId = userId;
-        this.refreshToken = refreshToken;
+    public Code(String email, String code, Long expiration) {
+        this.email = email;
+        this.code = code;
         this.expiration = expiration;
     }
 }
