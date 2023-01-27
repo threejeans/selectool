@@ -1,20 +1,16 @@
 package com.selectool.service;
 
-import com.selectool.repository.UserRepo;
 import com.selectool.config.Constant;
 import com.selectool.dto.request.UserCreateRequest;
 import com.selectool.dto.request.UserUpdateRequest;
-import com.selectool.dto.response.UserListResponse;
 import com.selectool.dto.response.UserResponse;
 import com.selectool.entity.User;
 import com.selectool.exception.NotFoundException;
+import com.selectool.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.selectool.exception.NotFoundException.USER_NOT_FOUND;
 
@@ -65,39 +61,10 @@ public class UserServiceImpl implements UserService {
         return UserResponse.builder()
                 .id(user.getId())
                 .name(user.getName())
+                .type(user.getType())
+                .email(user.getEmail())
                 .image(user.getImage())
                 .build();
-    }
-
-    @Override
-    public UserListResponse getUserList(String email) {
-//        List<UserResponse> googleUsers = userRepo.findByGoogleContains(email).stream()
-//                .map(user -> UserResponse.builder()
-//                        .id(user.getId())
-//                        .name(user.getName())
-//                        .image(user.getImage())
-//                        .build())
-//                .collect(Collectors.toList());
-//        List<UserResponse> naverUsers = userRepo.findByNaverContains(email).stream()
-//                .map(user -> UserResponse.builder()
-//                        .id(user.getId())
-//                        .name(user.getName())
-//                        .image(user.getImage())
-//                        .build())
-//                .collect(Collectors.toList());
-//        List<UserResponse> kakaoUsers = userRepo.findByKakaoContains(email).stream()
-//                .map(user -> UserResponse.builder()
-//                        .id(user.getId())
-//                        .name(user.getName())
-//                        .image(user.getImage())
-//                        .build())
-//                .collect(Collectors.toList());
-//        return UserListResponse.builder()
-//                .googleUsers(googleUsers)
-//                .naverUsers(naverUsers)
-//                .kakaoUsers(kakaoUsers)
-//                .build();
-        return null;
     }
 
     @Override
@@ -122,17 +89,5 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         user.withdraw();
-    }
-
-    @Override
-    public List<UserResponse> getUserList(List<Long> userIds) {
-        List<UserResponse> userResponses = userRepo.findByIdIn(userIds).stream()
-                .map(user -> UserResponse.builder()
-                        .id(user.getId())
-                        .name(user.getName())
-                        .image(user.getImage())
-                        .build())
-                .collect(Collectors.toList());
-        return userResponses;
     }
 }

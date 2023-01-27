@@ -9,12 +9,12 @@ import org.springframework.data.redis.core.TimeToLive;
 
 import java.util.concurrent.TimeUnit;
 
-@RedisHash("auth")
+@RedisHash("authAdmin")
 @NoArgsConstructor
 @Getter
-public class Auth {
+public class AuthAdmin {
     @Id
-    private Long userId;
+    private Long adminId;
 
     private String refreshToken;
 
@@ -22,8 +22,8 @@ public class Auth {
     private Long expiration;
 
     @Builder
-    public Auth(Long userId, String refreshToken, Long expiration) {
-        this.userId = userId;
+    public AuthAdmin(Long adminId, String refreshToken, Long expiration) {
+        this.adminId = adminId;
         this.refreshToken = refreshToken;
         this.expiration = expiration;
     }
