@@ -1,5 +1,5 @@
 import React from 'react'
-import { ContentTitle } from 'containers/commons'
+import { ContentTitle } from 'containers/Common'
 import { WithMain } from 'containers/With'
 import styles from '../../styles/pages/commons/Content.module.css'
 

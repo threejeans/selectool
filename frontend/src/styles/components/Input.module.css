@@ -60,7 +60,7 @@
 }
 
 .search {
-  width: 15rem;
+  width: 18rem;
   height: 2.8rem;
   background: white;
   border: 2px solid #cdcdcd;
@@ -68,6 +68,7 @@
   border-radius: 10px;
   padding-inline: 1rem;
   outline: none;
+  box-sizing: border-box;
 
   font-family: 'Pretendard Variable';
   font-weight: 300;

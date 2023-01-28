@@ -1,5 +1,5 @@
 import Modal from 'components/Modal'
-import { FilterSection } from 'containers/commons'
+import { FilterSection } from 'containers/Common'
 import React from 'react'
 
 const SelfMain = () => {

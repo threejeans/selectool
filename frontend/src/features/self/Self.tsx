@@ -1,4 +1,4 @@
-import { ContentTitle } from 'containers/commons'
+import { ContentTitle } from 'containers/Common'
 import { SelfMain } from 'containers/Self'
 import React from 'react'
 import styles from '../../styles/pages/commons/Content.module.css'

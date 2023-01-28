@@ -1,25 +1,87 @@
-.container {
+.basic {
   background: #f5f5f5;
   border-radius: 10px;
   height: fit-content;
+  display: inline-block;
 
   padding-block: 10px;
   padding-inline: 20px;
 
+  text-align: center;
   font-weight: 400;
   font-size: 20px;
   color: #595959;
+
+  overflow: scroll;
 }
 
-.selectedContainer {
+.basic:hover {
+  background: rgba(96, 169, 246, 0.1);
+}
+
+.basicChecked {
   background: rgba(96, 169, 246, 0.12);
   border-radius: 10px;
   height: fit-content;
+  display: inline-block;
 
   padding-block: 10px;
   padding-inline: 20px;
 
+  text-align: center;
   font-weight: 600;
   font-size: 20px;
   color: #60a9f6;
+}
+
+.basicChecked:hover {
+  background: rgba(96, 169, 246, 0.2);
+}
+
+.modalBasic {
+  background: white;
+  border: 1px solid #cdcdcd;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+  width: 120px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  font-weight: 400;
+  font-size: 16px;
+  color: black;
+}
+
+.modalBasic:hover {
+  border: 0;
+  background: rgba(96, 169, 246, 0.12);
+  color: #60a9f6;
+}
+
+.modalBasicChecked {
+  background: rgba(96, 169, 246, 0.12);
+  border: 2px solid #60a9f6;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+  width: 120px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  color: #60a9f6;
+}
+
+.modalBasicChecked:hover {
+  background: rgba(96, 169, 246, 0.2);
 }

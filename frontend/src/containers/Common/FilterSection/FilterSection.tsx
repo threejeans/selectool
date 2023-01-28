@@ -32,7 +32,8 @@ const FilterSection = ({
   }
 
   const items = [...new Array(filterTypes.length)].map(
-    (data, idx) => (data = { isSelected: false, content: filterTypes[idx] }),
+    (data, idx) =>
+      (data = { type: 'basic', isSelected: false, content: filterTypes[idx] }),
   )
 
   return (
