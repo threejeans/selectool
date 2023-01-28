@@ -1,7 +1,7 @@
 FROM node:18.12.1
 
 WORKDIR /app/admin
-COPY administrator/package.json /app
+COPY administrator/package.json /app/admin
 RUN npm cache clean --force
 RUN rm -rf node_modles package-lock.json || true
 RUN npm install
