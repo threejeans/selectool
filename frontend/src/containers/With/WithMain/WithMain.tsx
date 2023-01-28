@@ -1,5 +1,6 @@
-import { FilterSection } from 'containers/Common'
-import React from 'react'
+import { CardGrid, FilterSection } from 'containers/Common'
+import React, { Suspense } from 'react'
+import styles from 'styles/pages/commons/Content.module.css'
 
 const WithMain = () => {
   const filterTypes = [
@@ -12,11 +13,14 @@ const WithMain = () => {
   ]
 
   return (
-    <div>
+    <div className={styles.mainLayout}>
       <FilterSection
         filterTypes={filterTypes}
         placeholder={'기업명을 입력해주세요'}
       />
+      <Suspense fallback={<CardGrid isSpinner />}>
+        <CardGrid type={'with'} />
+      </Suspense>
     </div>
   )
 }
