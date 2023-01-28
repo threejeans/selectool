@@ -1,10 +1,10 @@
 FROM node:18.12.1
 
-WORKDIR /app
+WORKDIR /app/admin
 COPY administrator/package.json /app
 RUN npm cache clean --force
 RUN rm -rf node_modles package-lock.json || true
 RUN npm install
-COPY administrator/. /app/
+COPY administrator/. /app/admin
 
 CMD ["npm", "run", "start"]
