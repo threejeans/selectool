@@ -14,7 +14,6 @@
 
 .cardContainer:hover {
   transform: rotate(-4deg);
-  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
 }
 
 .hoverContainer {
