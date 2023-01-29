@@ -1,5 +1,7 @@
-package com.selectool.config.loginuser;
+package com.selectool.config;
 
+import com.selectool.config.login.LoginAdminArgumentResolver;
+import com.selectool.config.login.LoginUserArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -11,18 +13,27 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
+    private final LoginAdminArgumentResolver loginAdminArgumentResolver;
 
     private final LoginUserArgumentResolver loginUserArgumentResolver;
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(loginAdminArgumentResolver);
         resolvers.add(loginUserArgumentResolver);
     }
 
+    //cors error
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*");
-        WebMvcConfigurer.super.addCorsMappings(registry);
+                .allowedOrigins("https://www.selectool.info","http://localhost:3000")
+                //.allowedOriginPatterns("*")
+                //.allowCredentials(true)
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .exposedHeaders("Authorization")
+                .allowCredentials(true)
+                .maxAge(86400L);
     }
 }
