@@ -19,7 +19,7 @@ public class GTag {
 
     private String name;
 
-    @OneToMany(mappedBy = "g_tag", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "gTag", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GuideGTag> guideGTags = new ArrayList<>();
 
     @Builder

@@ -21,12 +21,12 @@ public class GuideGTag {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "g_tag_id")
-    private GTag GTag;
+    private GTag gTag;
 
     @Builder
-    public GuideGTag(Long id, Guide guide, GTag GTag) {
+    public GuideGTag(Long id, Guide guide, GTag gTag) {
         this.id = id;
         this.guide = guide;
-        this.GTag = GTag;
+        this.gTag = gTag;
     }
 }

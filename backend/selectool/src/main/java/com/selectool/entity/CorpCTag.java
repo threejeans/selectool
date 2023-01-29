@@ -21,12 +21,12 @@ public class CorpCTag {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "g_tag_id")
-    private CTag CTag;
+    private CTag cTag;
 
     @Builder
-    public CorpCTag(Long id, Corp corp, com.selectool.entity.CTag CTag) {
+    public CorpCTag(Long id, Corp corp, com.selectool.entity.CTag cTag) {
         this.id = id;
         this.corp = corp;
-        this.CTag = CTag;
+        this.cTag = cTag;
     }
 }

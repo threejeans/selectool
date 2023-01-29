@@ -19,7 +19,7 @@ public class TTag {
 
     private String name;
 
-    @OneToMany(mappedBy = "t_tag", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tTag", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolTTag> toolTTags = new ArrayList<>();
 
     @Builder

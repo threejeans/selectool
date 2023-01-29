@@ -19,7 +19,7 @@ public class CTag {
 
     private String name;
 
-    @OneToMany(mappedBy = "c_tag", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cTag", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CorpCTag> corpCTags = new ArrayList<>();
 
     @Builder
