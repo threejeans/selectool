@@ -1,7 +1,7 @@
 package com.selectool.repository;
 
-import com.selectool.entity.Tag;
+import com.selectool.entity.CTag;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TagRepo extends JpaRepository<Tag, Long> {
+public interface CTagRepo extends JpaRepository<CTag, Long> {
 }
