@@ -12,7 +12,11 @@ type GridProps = {
 const CardGrid = ({ isSpinner = false, type }: GridProps) => {
   return (
     // <div className={styles.container}>
-    <div className={styles.layout}>
+    <div
+      className={`${styles.layout} ${
+        type === 'with' ? styles.withLayout : styles.selfLayout
+      }`}
+    >
       {/* 임시 */}
       {type === 'self' ? <SelfCard /> : isSpinner ? <Spinner /> : <WithCard />}
       {type === 'self' ? <SelfCard /> : isSpinner ? <Spinner /> : <WithCard />}
