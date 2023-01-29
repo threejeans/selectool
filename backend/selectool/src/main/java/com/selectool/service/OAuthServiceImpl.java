@@ -12,7 +12,6 @@ import com.selectool.social.google.GoogleOAuthToken;
 import com.selectool.social.google.GoogleUser;
 import com.selectool.social.kakao.KakaoOAuth;
 import com.selectool.social.kakao.KakaoOAuthToken;
-import com.selectool.social.kakao.KakaoProfile;
 import com.selectool.social.kakao.KakaoUser;
 import com.selectool.social.naver.NaverOAuth;
 import com.selectool.social.naver.NaverOAuthToken;
@@ -35,10 +34,7 @@ public class OAuthServiceImpl implements OAuthService {
     private final AuthRepo authRepo;
     private final GoogleOAuth googleOauth;
     private final NaverOAuth naverOauth;
-
     private final KakaoOAuth kakaoOauth;
-
-    private final HttpServletResponse response;
     private final UserService userService;
     private final JwtUtil jwtUtil;
     @Value("${token.refresh_token.expiration_time}")
