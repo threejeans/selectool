@@ -9,25 +9,24 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Getter
-public class CorpBranch {
+public class GuideGTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "corp_branch_id")
+    @Column(name = "guide_g_tag_id")
     private Long id;
 
-    private String name;
-
-    private String image;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "guide_id")
+    private Guide guide;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "corp_id")
-    private Corp corp;
+    @JoinColumn(name = "g_tag_id")
+    private GTag GTag;
 
     @Builder
-    public CorpBranch(Long id, String name, String image, Corp corp) {
+    public GuideGTag(Long id, Guide guide, GTag GTag) {
         this.id = id;
-        this.name = name;
-        this.image = image;
-        this.corp = corp;
+        this.guide = guide;
+        this.GTag = GTag;
     }
 }

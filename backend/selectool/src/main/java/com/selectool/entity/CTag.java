@@ -5,29 +5,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @Getter
-public class CorpBranch {
+public class CTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "corp_branch_id")
+    @Column(name = "c_tag_id")
     private Long id;
 
     private String name;
 
-    private String image;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "corp_id")
-    private Corp corp;
+    @OneToMany(mappedBy = "c_tag", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CorpCTag> corpCTags = new ArrayList<>();
 
     @Builder
-    public CorpBranch(Long id, String name, String image, Corp corp) {
+    public CTag(Long id, String name, List<CorpCTag> corpCTags) {
         this.id = id;
         this.name = name;
-        this.image = image;
-        this.corp = corp;
+        this.corpCTags = corpCTags;
     }
 }

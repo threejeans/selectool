@@ -42,9 +42,6 @@ public class Corp {
     @OneToMany(mappedBy = "corp", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CorpBookmark> corpBookmarks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "corp", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CorpTool> corpTools = new ArrayList<>();
-
     @Builder
     public Corp(Long id, String name, String brand, String info, String homepage, String blog, boolean content, String image) {
         this.id = id;

@@ -9,24 +9,24 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Getter
-public class CorpTool {
+public class ToolTTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "corp_tool_id")
+    @Column(name = "tool_t_tag_id")
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "corp_id")
-    private Corp corp;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tool_id")
     private Tool tool;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "t_tag_id")
+    private TTag tTag;
+
     @Builder
-    public CorpTool(Long id, Corp corp, Tool tool) {
+    public ToolTTag(Long id, Tool tool, TTag tTag) {
         this.id = id;
-        this.corp = corp;
         this.tool = tool;
+        this.tTag = tTag;
     }
 }

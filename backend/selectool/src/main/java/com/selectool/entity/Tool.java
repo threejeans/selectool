@@ -31,6 +31,8 @@ public class Tool {
 
     private boolean url;
 
+    private String image;
+
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolFee> toolFees = new ArrayList<>();
 
@@ -41,13 +43,16 @@ public class Tool {
     private List<Guide> guides = new ArrayList<>();
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CorpTool> corpTools = new ArrayList<>();
+    private List<ToolClient> toolClients = new ArrayList<>();
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolBookmark> toolBookmarks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ToolTTag> toolTTags = new ArrayList<>();
+
     @Builder
-    public Tool(Long id, String name_kr, String name_en, String info, String msg, String country, boolean url) {
+    public Tool(Long id, String name_kr, String name_en, String info, String msg, String country, boolean url, String image) {
         this.id = id;
         this.name_kr = name_kr;
         this.name_en = name_en;
@@ -55,5 +60,6 @@ public class Tool {
         this.msg = msg;
         this.country = country;
         this.url = url;
+        this.image = image;
     }
 }

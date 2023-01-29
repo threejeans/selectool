@@ -9,24 +9,25 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Getter
-public class GuideTag {
+public class ToolClient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "guide_tag_id")
+    @Column(name = "corp_tool_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "guide_id")
-    private Guide guide;
+    private String image;
+
+    private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tag_id")
-    private Tag tag;
+    @JoinColumn(name = "tool_id")
+    private Tool tool;
 
     @Builder
-    public GuideTag(Long id, Guide guide, Tag tag) {
+    public ToolClient(Long id, String image, String url, Tool tool) {
         this.id = id;
-        this.guide = guide;
-        this.tag = tag;
+        this.image = image;
+        this.url = url;
+        this.tool = tool;
     }
 }

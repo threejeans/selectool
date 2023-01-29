@@ -33,7 +33,7 @@ public class Guide {
     private Tool tool;
 
     @OneToMany(mappedBy = "guide", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<GuideTag> guideTags = new ArrayList<>();
+    private List<GuideGTag> guideGTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "guide", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GuideBookmark> guideBookmarks = new ArrayList<>();
