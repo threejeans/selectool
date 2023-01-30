@@ -1,0 +1,69 @@
+.modalLayout {
+  padding-block: 2vh;
+  padding-inline: 6vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 60px;
+}
+
+/* title */
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  row-gap: 10px;
+}
+
+.title {
+  font-family: 'Pretendard Variable';
+  font-weight: 800;
+  font-size: 22px;
+  color: #333333;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+
+  color: #8d8d8d;
+}
+
+.contentsContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
+
+.contentLayout {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+}
+
+.contentTitle {
+  font-weight: 400;
+  font-size: 18px;
+  color: #333333;
+}
+
+.line {
+  width: 100%;
+  size: 1px;
+  color: #bdbdbd;
+}
+
+.chipGrid {
+  display: flex;
+  column-gap: 4vw;
+}
+
+.buttonContainer {
+  display: flex;
+  column-gap: 20px;
+}
