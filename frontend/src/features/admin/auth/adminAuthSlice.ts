@@ -33,9 +33,9 @@ export const authAdmin = createAsyncThunk(
     try {
       const response = await apiAxios.post('/admin/auth', { email, auth })
       console.log(response)
-      const accessToken = response.headers
+      const accessToken = response.headers['access-token']
       console.log('accessToken', accessToken)
-      return response.data
+      return { data: response.data, accessToken: accessToken }
     } catch (error: any) {
       console.log(error) //
       return rejectWithValue(error.message)
@@ -55,12 +55,21 @@ export const adminAuthSlice = createSlice({
       .addCase(loginAdmin.pending, state => {
         state.status = 'loading'
       })
-      .addCase(loginAdmin.fulfilled, (state, { payload }) => {
+      .addCase(loginAdmin.fulfilled, state => {
         state.status = 'success'
-        console.log(payload)
-        // state.accessToken = payload;
       })
       .addCase(loginAdmin.rejected, state => {
+        state.status = 'failed'
+      })
+      .addCase(authAdmin.pending, state => {
+        state.status = 'loading'
+      })
+      .addCase(authAdmin.fulfilled, (state, { payload }) => {
+        state.status = 'success'
+        console.log(payload)
+        state.accessToken = payload.accessToken
+      })
+      .addCase(authAdmin.rejected, state => {
         state.status = 'failed'
       })
   },
@@ -68,6 +77,7 @@ export const adminAuthSlice = createSlice({
 
 export const { setTmpEmail } = adminAuthSlice.actions
 
+export const selectAuthStatus = (state: RootState) => state.adminAuth.status
 export const selectAccessToken = (state: RootState) =>
   state.adminAuth.accessToken
 export const selectTmpEmail = (state: RootState) => state.adminAuth.tmpEmail
