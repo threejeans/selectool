@@ -1,3 +1,13 @@
+import AdminLayout from 'components/admin/AdminLayout'
+import AdminAlarm from 'features/admin/alarm/AdminAlarm'
+import AdminAuth from 'features/admin/auth/AdminAuth'
+import AdminLogin from 'features/admin/auth/AdminLogin'
+import AdminContents from 'features/admin/contents/AdminContents'
+import AdminContentsList from 'features/admin/contents/AdminContentsList'
+import AdminGuide from 'features/admin/contents/AdminGuide'
+import AdminSelf from 'features/admin/contents/AdminSelf'
+import AdminWith from 'features/admin/contents/AdminWith'
+import AdminData from 'features/admin/data/AdminData'
 import Auth from 'features/auth/Auth'
 import Mypage from 'features/auth/Mypage'
 import Guide from 'features/guide/Guide'
@@ -6,7 +16,7 @@ import Self from 'features/self/Self'
 import With from 'features/with/With'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import { store } from './app/store'
 import Layout from './components/Layout'
 import './styles/globals.css'
@@ -53,6 +63,64 @@ const router = createBrowserRouter([
   {
     path: 'auth/:type',
     element: <Auth />,
+  },
+  {
+    path: 'admin',
+    element: (
+      <AdminLayout title={'관리자 페이지'}>
+        <Outlet />
+      </AdminLayout>
+    ),
+    children: [
+      {
+        path: 'contents',
+        children: [
+          {
+            path: '',
+            element: <AdminContents />,
+          },
+          {
+            path: 'self',
+            children: [
+              { path: 'write', element: <AdminSelf /> },
+              { path: 'list', element: <AdminContentsList type='self' /> },
+            ],
+          },
+          {
+            path: 'with',
+            children: [
+              { path: 'write', element: <AdminWith /> },
+              { path: 'list', element: <AdminContentsList type='with' /> },
+            ],
+          },
+          {
+            path: 'guide',
+            children: [
+              { path: 'write', element: <AdminGuide /> },
+              { path: 'list', element: <AdminContentsList type='guide' /> },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'data',
+        element: <AdminData />,
+      },
+      {
+        path: 'alarm',
+        element: <AdminAlarm />,
+      },
+      {
+        path: 'login',
+        children: [
+          { path: '', element: <AdminLogin /> },
+          {
+            path: 'auth',
+            element: <AdminAuth />,
+          },
+        ],
+      },
+    ],
   },
 ])
 

@@ -34,12 +34,12 @@
 
 .highlight {
   color: white;
-  background: linear-gradient(85.04deg, #60A9F6 1.89%, #80D672 93.48%);
+  background: linear-gradient(85.04deg, #60a9f6 1.89%, #80d672 93.48%);
 }
 
-hr {
+.line {
   border: none;
-  border-top: 0.5px dashed #8D8D8D;
+  border-top: 0.5px dashed #8d8d8d;
   color: #fff;
   background-color: #fff;
   height: 1px;
@@ -48,15 +48,17 @@ hr {
 }
 
 .a_tag {
-  font-family: 'AppleSDGothicNeoM00';
-  font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 26px;
   align-items: center;
   letter-spacing: 0.02em;
-  color: #A8A8A8;
+  color: #a8a8a8;
   margin-top: 30px;
+}
+
+.a_tag:hover {
+  color: #414141;
 }
 
 .right {
@@ -68,7 +70,6 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 .image_container {
@@ -107,7 +108,6 @@ hr {
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
 }
 
-
 .image_front_03 {
   position: relative;
   width: 380px;
@@ -123,5 +123,3 @@ hr {
   top: -50px;
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
 }
-
-
