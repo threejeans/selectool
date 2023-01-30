@@ -1,0 +1,29 @@
+.commonStyle {
+  box-sizing: border-box;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+.sm {
+  width: 4rem;
+  height: 3rem;
+  font-size: 1rem;
+}
+.md {
+  width: 8rem;
+  height: 4rem;
+  font-size: 1.2rem;
+}
+
+.primary {
+  background-color: var(--primary-color-main);
+  color: white;
+}
+
+.secondary {
+  background-color: var(--gray-scale-color-g30);
+  color: white;
+}
+.white {
+  background-color: white;
+  color: var(--gray-scale-color-g30);
+}

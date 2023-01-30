@@ -23,7 +23,13 @@ export interface ContentsState {
 
 const initialState: ContentsState = {
   contentsList: [
-    { index: 1, type: SELF, title: '피그마', description: '메신저기반' },
+    {
+      index: 1,
+      type: SELF,
+      title: '피그마',
+      description:
+        '메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반',
+    },
     { index: 2, type: SELF, title: '피그마', description: '메신저기반' },
     { index: 3, type: SELF, title: '피그마', description: '메신저기반' },
     { index: 4, type: SELF, title: '피그마', description: '메신저기반' },
@@ -49,6 +55,11 @@ const initialState: ContentsState = {
     { index: 24, type: SELF, title: '피그마', description: '메신저기반' },
     { index: 25, type: SELF, title: '피그마', description: '메신저기반' },
     { index: 26, type: SELF, title: '피그마', description: '메신저기반' },
+    { index: 1, type: WITH, title: '피그마', description: '메신저기반' },
+    { index: 2, type: WITH, title: '피그마', description: '메신저기반' },
+    { index: 3, type: GUIDE, title: '피그마', description: '메신저기반' },
+    { index: 4, type: GUIDE, title: '피그마', description: '메신저기반' },
+    { index: 5, type: GUIDE, title: '피그마', description: '메신저기반' },
   ],
   status: 'idle',
 }
