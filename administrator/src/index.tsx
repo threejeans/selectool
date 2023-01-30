@@ -19,8 +19,7 @@ const root = createRoot(container);
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    // path: "/admin",
+    path: "/admin",
     element: (
       <Layout title={"관리자 페이지"}>
         <Outlet />
