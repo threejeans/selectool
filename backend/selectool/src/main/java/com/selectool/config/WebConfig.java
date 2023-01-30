@@ -32,7 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
                 //.allowCredentials(true)
                 .allowedMethods("*")
                 .allowedHeaders("*")
-                .exposedHeaders("Authorization")
+                .exposedHeaders("Authorization", "access-token")
                 .allowCredentials(true)
                 .maxAge(86400L);
     }
