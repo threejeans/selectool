@@ -50,7 +50,7 @@ jobs:
         with:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
-          file: FEDockerfile
+          file: ADDockerfile
           push: true
           tags: ${{ env.DOCKER_IMAGE }}:latest
   # 배포 Job
