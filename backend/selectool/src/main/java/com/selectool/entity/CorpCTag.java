@@ -20,7 +20,7 @@ public class CorpCTag {
     private Corp corp;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "g_tag_id")
+    @JoinColumn(name = "c_tag_id")
     private CTag cTag;
 
     @Builder
