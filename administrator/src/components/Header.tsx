@@ -34,7 +34,7 @@ const Header = ({ title }: LayoutProps) => {
   return (
     <div className={styles.header}>
       <div className={styles.container}>
-        <Link to={"/admin"}>
+        <Link to={"/"}>
           <img className={styles.logo} src={Logo} alt={"셀렉툴 로고"} />
         </Link>
         <div className={styles.menu}>

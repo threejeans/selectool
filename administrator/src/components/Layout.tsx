@@ -15,7 +15,7 @@ const Layout = ({ title, children }: LayoutProps) => {
   const accessToken = useAppSelector(selectAccessToken);
   const navigate = useNavigate();
   useEffect(() => {
-    if (accessToken === undefined) navigate("/admin/login");
+    if (accessToken === undefined) navigate("login");
   }, []);
   return (
     <div className={styles.container}>
