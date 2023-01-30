@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { debounce } from 'lodash'
 
-import styles from 'styles/admin/pages/contents/ContentsList.module.css'
+import styles from 'styles/admin/pages/contents/AdminContentsList.module.css'
 import {
   getContentsList,
   selectContentsList,
@@ -10,6 +10,7 @@ import {
   TYPE_SELF,
   TYPE_WITH,
 } from './adminContentsSlice'
+import AdminButton from 'components/admin/AdminButton'
 type ContentsListProps = {
   type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE
 }
@@ -57,49 +58,84 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
             {/* 검색기능은 api연결예정 */}
           </p>
         </div>
-        <div className={styles.tableWrap}>
-          <table className={styles.table}>
-            <thead className={styles.thead}>
+        <div>
+          <table className={styles.theadTable}>
+            <thead>
               <tr>
                 <th className={styles.one}>번호</th>
                 <th className={styles.two}>위치</th>
                 <th className={styles.thr}>제목</th>
                 <th className={styles.fur}>내용</th>
-                <th className={styles.fiv}>수정/삭제</th>
+                <th className={styles.fiv}>관리</th>
               </tr>
             </thead>
+          </table>
+        </div>
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
             <tbody className={styles.tbody}>
               {contentsList.map((item, index) => {
-                if (Math.ceil((index + 1) / entry) === page)
+                if (Math.ceil((index + 1) / entry) === page) {
+                  let description = `${item.description}`
+                  if (description.length > 15)
+                    description = description.substring(0, 15) + '...'
                   return (
-                    <tr key={index}>
+                    <tr key={index} onClick={() => console.log(item)}>
                       <td className={styles.one}>{item.index}</td>
                       <td className={styles.two}>{item.type}</td>
                       <td className={styles.thr}>{item.title}</td>
-                      <td className={styles.fur}>{item.description}</td>
-                      <td className={styles.fiv}></td>
+                      <td className={styles.fur}>{description}</td>
+                      <td className={styles.fiv}>
+                        <button
+                          onClick={e => {
+                            e.stopPropagation()
+                            console.log(`delete ${item.index}`)
+                          }}
+                        >
+                          <AdminButton
+                            color={'primary'}
+                            size={'sm'}
+                            text={'삭제'}
+                          />
+                        </button>{' '}
+                        <button
+                          onClick={e => {
+                            e.stopPropagation()
+                            console.log(`read ${item.index}`)
+                          }}
+                        >
+                          <AdminButton
+                            color={'secondary'}
+                            size={'sm'}
+                            text={'열람'}
+                          />
+                        </button>
+                      </td>
                     </tr>
                   )
+                }
               })}
             </tbody>
           </table>
         </div>
         <div>
-          {page}/{totalPage}
-          <div>
+          <div className={styles.pages}>
+            {page} / {totalPage}
+          </div>
+          <div className={styles.btnGroup}>
             <button
               onClick={() => {
                 if (page > 1) setPage(page - 1)
               }}
             >
-              {'Previous'}
+              <AdminButton color={'white'} size={'md'} text={'Previous'} />
             </button>
             <button
               onClick={() => {
                 if (page < totalPage) setPage(page + 1)
               }}
             >
-              {'Next'}
+              <AdminButton color={'white'} size={'md'} text={'Next'} />
             </button>
           </div>
         </div>

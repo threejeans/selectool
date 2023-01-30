@@ -1,5 +1,5 @@
 .container {
-  min-height: 98vh;
+  height: calc(100vh - 2 * var(--height-navigation));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,7 +14,7 @@
 }
 .title {
   margin-top: 1rem;
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-size: 2.6rem;
   font-weight: bolder;
   font-stretch: ultra-condensed;

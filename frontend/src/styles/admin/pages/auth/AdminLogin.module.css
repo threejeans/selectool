@@ -46,6 +46,7 @@
   position: absolute;
   font-size: 1.5rem;
   right: 8px;
+  display: flex;
 }
 .loginBtn:hover {
   cursor: pointer;

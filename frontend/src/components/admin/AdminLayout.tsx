@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import AdminHeader from './AdminHeader'
 
 import { useAppSelector } from 'app/hooks'
-import { selectAccessToken } from 'features/auth/authSlice'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styles from 'styles/admin/components/Layout.module.css'
+import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
 
 type AdminLayoutProps = {
   title: string
@@ -13,10 +13,12 @@ type AdminLayoutProps = {
 
 const AdminLayout = ({ title, children }: AdminLayoutProps) => {
   const accessToken = useAppSelector(selectAccessToken)
+  const { pathname } = useLocation()
   const navigate = useNavigate()
   useEffect(() => {
-    if (accessToken === undefined) navigate('login')
-  }, [])
+    if (!pathname.startsWith('/admin/login'))
+      if (accessToken === undefined) navigate('login')
+  }, [pathname])
   return (
     <div className={styles.container}>
       <AdminHeader title={title} />

@@ -4,7 +4,7 @@ import { authAdmin, selectTmpEmail } from './adminAuthSlice'
 
 import { useAppDispatch } from 'app/hooks'
 import { useNavigate } from 'react-router-dom'
-import styles from 'styles/admin/pages/auth/Auth.module.css'
+import styles from 'styles/admin/pages/auth/AdminAuth.module.css'
 
 const AdminAuth = () => {
   const tmpEmail = useSelector(selectTmpEmail)
@@ -30,14 +30,14 @@ const AdminAuth = () => {
       e.target.value = e.key
       if (inputIndex < 5) setInputIndex(inputIndex + 1)
       else {
+        authRef.current[5]?.focus()
         let tmpAuth = ''
         authRef.current.map((item, _) => {
           tmpAuth += item?.value
         })
-        console.log(tmpAuth)
         dispatch(authAdmin({ email: tmpEmail, auth: tmpAuth })).then(e => {
-          console.log(e)
-          // 인증 후 로직 처리
+          if (e.meta.requestStatus === 'fulfilled') navigate('/admin/contents')
+          else setInputIndex(5)
         })
       }
     }
