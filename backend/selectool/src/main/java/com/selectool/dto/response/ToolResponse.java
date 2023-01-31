@@ -19,12 +19,12 @@ public class ToolResponse {
 
     private String country;
 
-    private boolean url;
+    private String url;
 
     private String image;
 
     @Builder
-    public ToolResponse(Long id, String name_kr, String name_en, String info, String msg, String country, boolean url, String image) {
+    public ToolResponse(Long id, String name_kr, String name_en, String info, String msg, String country, String url, String image) {
         this.id = id;
         this.name_kr = name_kr;
         this.name_en = name_en;
