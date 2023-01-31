@@ -21,8 +21,10 @@ public class ToolCreateRequest {
 
     private String image;
 
+    private Long tTagId;
+
     @Builder
-    public ToolCreateRequest(String name_kr, String name_en, String info, String msg, String country, String url, String image) {
+    public ToolCreateRequest(String name_kr, String name_en, String info, String msg, String country, String url, String image, Long tTagId) {
         this.name_kr = name_kr;
         this.name_en = name_en;
         this.info = info;
@@ -30,5 +32,6 @@ public class ToolCreateRequest {
         this.country = country;
         this.url = url;
         this.image = image;
+        this.tTagId = tTagId;
     }
 }
