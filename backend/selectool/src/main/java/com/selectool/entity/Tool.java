@@ -29,7 +29,7 @@ public class Tool {
 
     private String country;
 
-    private boolean url;
+    private String url;
 
     private String image;
 
@@ -52,7 +52,7 @@ public class Tool {
     private List<ToolTTag> toolTTags = new ArrayList<>();
 
     @Builder
-    public Tool(Long id, String name_kr, String name_en, String info, String msg, String country, boolean url, String image) {
+    public Tool(Long id, String name_kr, String name_en, String info, String msg, String country, String url, String image) {
         this.id = id;
         this.name_kr = name_kr;
         this.name_en = name_en;
@@ -61,5 +61,15 @@ public class Tool {
         this.country = country;
         this.url = url;
         this.image = image;
+    }
+
+    public void update(String name_kr, String name_en, String info, String msg, String country, String url, String image) {
+        if (name_kr != null) this.name_kr = name_kr;
+        if (name_en != null) this.name_en = name_en;
+        if (info != null) this.info = info;
+        if (msg != null) this.msg = msg;
+        if (country != null) this.country = country;
+        if (url != null) this.url = url;
+        if (image != null) this.image = image;
     }
 }
