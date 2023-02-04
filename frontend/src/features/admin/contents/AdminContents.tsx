@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import styles from 'styles/admin/pages/contents/Contents.module.css'
+import styles from 'styles/admin/pages/contents/AdminContents.module.css'
 
 type Section = {
   title: string
