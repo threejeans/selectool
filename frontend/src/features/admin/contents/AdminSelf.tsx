@@ -42,7 +42,7 @@ const AdminSelf = () => {
   const [category, setCategory] = useState('Other')
   const [country, setContry] = useState('국내')
   const thumbnailRef = useRef<HTMLInputElement | null>(null)
-  const [thumbnail, setThumnail] = useState('')
+  const [thumbnail, setThumbnail] = useState('')
 
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -64,14 +64,15 @@ const AdminSelf = () => {
     const photo = e.target.files
     if (!photo[0]) return
     uploadFile(photo[0])
-    setThumnail(URL.createObjectURL(photo[0]))
+    // setThumbnail(URL.createObjectURL(photo[0]))
   }
 
   const uploadFile = async (file: any) => {
     const ReactS3Client = new S3(s3Config)
-    ReactS3Client.uploadFile(file, file.name)
+    ReactS3Client.uploadFile(file, 'thumbnails/' + file.name)
       .then(data => {
         console.log(data.location)
+        setThumbnail(data.location)
       })
       .catch(err => console.error(err))
   }
