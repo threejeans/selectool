@@ -65,7 +65,7 @@
 
 .theadTable th,
 .table td {
-  height: 3rem;
+  max-height: 3rem;
   flex-grow: 0;
   font-size: 1.2rem;
 }

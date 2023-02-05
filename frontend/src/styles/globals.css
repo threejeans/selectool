@@ -1,12 +1,12 @@
-@import url("styles/fonts.css");
+@import url('styles/fonts.css');
 
 html,
 body {
   min-height: screen;
-  font-family: "Pretendard Variable", Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family: 'Pretendard Variable', Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
+    'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -28,10 +28,10 @@ li {
 }
 
 button {
-  font-family: "Pretendard Variable", Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family: 'Pretendard Variable', Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
+    'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
   background-color: transparent;
   cursor: pointer;
   outline: none;
@@ -40,6 +40,7 @@ button {
 
 :root {
   --primary-color-main: #60a9f6;
+  --primary-color-main-30: #60a9f630;
   --primary-color-dark: #5581df;
   --primary-color-ddark: #495cc8;
   --primary-color-dddark: #413fb1;
@@ -58,6 +59,8 @@ button {
 
   --height-navigation: 70px;
   --height-footer: 400px;
+
+  --width-lg: 1280px;
 
   --text-multiplier: 1;
 }
