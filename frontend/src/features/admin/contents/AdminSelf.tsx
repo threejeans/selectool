@@ -2,6 +2,8 @@ import AdminButton from 'components/admin/AdminButton'
 import React, { useRef, useState } from 'react'
 import styles from 'styles/admin/pages/contents/AdminSelf.module.css'
 import { BsTriangleFill, BsImage } from 'react-icons/bs'
+import S3 from 'react-aws-s3-typescript'
+import { s3Config } from 'util/s3Config'
 
 type TextInputBoxProps = {
   textRef: any
@@ -61,7 +63,17 @@ const AdminSelf = () => {
   const handlePhoto = (e: any) => {
     const photo = e.target.files
     if (!photo[0]) return
+    uploadFile(photo[0])
     setThumnail(URL.createObjectURL(photo[0]))
+  }
+
+  const uploadFile = async (file: any) => {
+    const ReactS3Client = new S3(s3Config)
+    ReactS3Client.uploadFile(file, file.name)
+      .then(data => {
+        console.log(data.location)
+      })
+      .catch(err => console.error(err))
   }
 
   const CategoryGroup = () => {
