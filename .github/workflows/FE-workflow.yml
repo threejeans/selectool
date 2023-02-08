@@ -48,6 +48,10 @@ jobs:
           REACT_APP_NAVER_CLIENT_ID: ${{ secrets.REACT_APP_NAVER_CLIENT_ID }}
           REACT_APP_NAVER_REDIRECT_URI: ${{ secrets.REACT_APP_NAVER_REDIRECT_URI }}
           REACT_APP_NAVER_STATE: ${{ secrets.REACT_APP_NAVER_STATE }}
+          REACT_APP_BUCKET_NAME: ${{ secrets.REACT_APP_BUCKET_NAME }}
+          REACT_APP_REGION: ${{ secrets.REACT_APP_REGION }}
+          REACT_APP_ACCESS_KEY_ID: ${{ secrets.REACT_APP_ACCESS_KEY_ID }}
+          REACT_APP_SECRET_ACCESS_KEY: ${{ secrets.REACT_APP_SECRET_ACCESS_KEY }}
         run: |
           touch ./frontend/.env
           echo "REACT_APP_API=$REACT_APP_API" >> ./frontend/.env
@@ -58,6 +62,10 @@ jobs:
           echo "REACT_APP_NAVER_CLIENT_ID=$REACT_APP_NAVER_CLIENT_ID" >> ./frontend/.env          
           echo "REACT_APP_NAVER_REDIRECT_URI=$REACT_APP_NAVER_REDIRECT_URI" >> ./frontend/.env   
           echo "REACT_APP_NAVER_STATE=$REACT_APP_NAVER_STATE" >> ./frontend/.env
+          echo "REACT_APP_BUCKET_NAME=$REACT_APP_BUCKET_NAME" >> ./frontend/.env
+          echo "REACT_APP_REGION=$REACT_APP_REGION" >> ./frontend/.env
+          echo "REACT_APP_ACCESS_KEY_ID=$REACT_APP_ACCESS_KEY_ID" >> ./frontend/.env
+          echo "REACT_APP_SECRET_ACCESS_KEY=$REACT_APP_SECRET_ACCESS_KEY" >> ./frontend/.env
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
