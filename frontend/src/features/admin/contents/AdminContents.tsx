@@ -28,7 +28,7 @@ const AdminContents = () => {
   const manage = [
     {
       title: '혼자써요',
-      write: 'self/write',
+      write: 'self/main',
       list: 'self/list',
     },
     {

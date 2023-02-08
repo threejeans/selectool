@@ -2,6 +2,12 @@ import AdminButton from 'components/admin/AdminButton'
 import React, { useRef, useState } from 'react'
 import styles from 'styles/admin/pages/contents/AdminSelf.module.css'
 import { BsTriangleFill, BsImage } from 'react-icons/bs'
+import S3 from 'react-aws-s3-typescript'
+import { s3Config } from 'util/s3Config'
+import { createSelfMainTmpInfo, SelfMainTmpInfo } from '../adminContentsSlice'
+import { useAppDispatch } from 'app/hooks'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toast'
 
 type TextInputBoxProps = {
   textRef: any
@@ -32,7 +38,7 @@ const TextInputBox = ({
   )
 }
 
-const AdminSelf = () => {
+const AdminSelfMain = () => {
   const koRef = useRef<HTMLInputElement | null>(null)
   const enRef = useRef<HTMLInputElement | null>(null)
   const discriptionRef = useRef<HTMLInputElement | null>(null)
@@ -40,18 +46,77 @@ const AdminSelf = () => {
   const [category, setCategory] = useState('Other')
   const [country, setContry] = useState('국내')
   const thumbnailRef = useRef<HTMLInputElement | null>(null)
-  const [thumbnail, setThumnail] = useState('')
+  const [thumbnail, setThumbnail] = useState('')
+
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation()
-    console.log(koRef)
-    if (koRef.current) console.log(koRef.current.value)
-    if (enRef.current) console.log(enRef.current.value)
-    if (discriptionRef.current) console.log(discriptionRef.current.value)
-    if (topicRef.current) console.log(topicRef.current.value)
-    if (category) console.log(category)
-    if (country) console.log(country)
-    if (thumbnail) console.log(thumbnail)
+
+    const data: SelfMainTmpInfo = {
+      individualToolNameKr: '',
+      individualToolNameEn: '',
+      individualToolInfo: '',
+      individualToolTopic: '',
+      individualToolTag: '',
+      individualToolCounrty: '',
+      individualToolLogo: '',
+    }
+
+    if (koRef.current) {
+      if (koRef.current.value.length === 0) {
+        koRef.current.focus()
+        popToast()
+        return
+      } else data.individualToolNameKr = koRef.current.value
+    }
+    if (enRef.current) {
+      if (enRef.current.value.length === 0) {
+        enRef.current.focus()
+        popToast()
+        return
+      } else data.individualToolNameEn = enRef.current.value
+    }
+    if (discriptionRef.current) {
+      if (discriptionRef.current.value.length === 0) {
+        discriptionRef.current.focus()
+        popToast()
+        return
+      } else data.individualToolInfo = discriptionRef.current.value
+    }
+    if (topicRef.current) {
+      if (topicRef.current.value.length === 0) {
+        topicRef.current.focus()
+        return
+      } else data.individualToolTopic = topicRef.current.value
+    }
+    if (category) data.individualToolTag = category
+    if (country) data.individualToolCounrty = country
+    if (thumbnail === '') {
+      popToast()
+      handleUpload()
+      return
+    } else data.individualToolLogo = thumbnail
+
+    dispatch(createSelfMainTmpInfo(data))
+      .then(e => {
+        if (e.meta.requestStatus === 'fulfilled')
+          navigate('/admin/contents/self/specific')
+        else
+          toast('🚨저장이 실패했어요!', {
+            backgroundColor: '#f59892',
+            color: 'white',
+          })
+      })
+      .catch(err => toast.error(err))
+  }
+
+  const popToast = () => {
+    toast('🚨콘텐츠 내용이 모두 입력되지 않았어요!', {
+      backgroundColor: '#f59892',
+      color: 'white',
+    })
   }
 
   const handleUpload = () => {
@@ -61,7 +126,18 @@ const AdminSelf = () => {
   const handlePhoto = (e: any) => {
     const photo = e.target.files
     if (!photo[0]) return
-    setThumnail(URL.createObjectURL(photo[0]))
+    uploadFile(photo[0])
+    // setThumbnail(URL.createObjectURL(photo[0]))
+  }
+
+  const uploadFile = async (file: any) => {
+    const ReactS3Client = new S3(s3Config)
+    ReactS3Client.uploadFile(file, 'thumbnails/' + file.name)
+      .then(data => {
+        console.log(data.location)
+        setThumbnail(data.location)
+      })
+      .catch(err => console.error(err))
   }
 
   const CategoryGroup = () => {
@@ -80,7 +156,7 @@ const AdminSelf = () => {
   }
 
   const CountryGroup = () => {
-    const list = ['국내', '국외']
+    const list = ['국내', '해외']
     return list.map((item, index) => {
       return (
         <AdminButton
@@ -112,7 +188,7 @@ const AdminSelf = () => {
         />
         <TextInputBox
           textRef={discriptionRef}
-          title={'프로덕트 한줄 소개'}
+          title={'프로덕트 한 줄 소개'}
           placeholder={'예시: 프로젝트 관림 및 기록 소프트웨어'}
           required={true}
         />
@@ -122,6 +198,7 @@ const AdminSelf = () => {
           </h5>
           <div className={styles.selectBox}>
             <select ref={topicRef} className={styles.select}>
+              <option value=''>선택</option>
               <option value='디자인'>디자인</option>
               <option value='화상회의'>화상회의</option>
               <option value='개발'>개발</option>
@@ -195,4 +272,4 @@ const AdminSelf = () => {
   )
 }
 
-export default AdminSelf
+export default AdminSelfMain
