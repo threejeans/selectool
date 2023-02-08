@@ -45,7 +45,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
             <td className={styles.thr}>{item.title}</td>
             <td className={styles.fur}>{description}</td>
             <td className={styles.fiv}>
-              <button
+              <span
                 onClick={e => {
                   e.stopPropagation()
                   console.log(`delete ${item.index}`)
@@ -57,8 +57,8 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
                   text={'삭제'}
                   onClick={undefined}
                 />
-              </button>{' '}
-              <button
+              </span>{' '}
+              <span
                 onClick={e => {
                   e.stopPropagation()
                   console.log(`read ${item.index}`)
@@ -70,7 +70,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
                   text={'열람'}
                   onClick={undefined}
                 />
-              </button>
+              </span>
             </td>
           </tr>
         )
@@ -157,7 +157,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
             {page} / {totalPage}
           </div>
           <div className={styles.btnGroup}>
-            <button
+            <span
               onClick={() => {
                 if (page > 1) setPage(page - 1)
               }}
@@ -168,8 +168,8 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
                 text={'Previous'}
                 onClick={undefined}
               />
-            </button>
-            <button
+            </span>
+            <span
               onClick={() => {
                 if (page < totalPage) setPage(page + 1)
               }}
@@ -180,7 +180,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
                 text={'Next'}
                 onClick={undefined}
               />
-            </button>
+            </span>
           </div>
         </div>
       </div>
