@@ -3,6 +3,12 @@
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
+.tag {
+  width: 4rem;
+  height: 2rem;
+  font-size: 1rem;
+}
+
 .sm {
   width: 4rem;
   height: 3rem;
@@ -26,4 +32,15 @@
 .white {
   background-color: white;
   color: var(--gray-scale-color-g30);
+}
+
+.next {
+  background-color: white;
+  color: var(--primary-color-main);
+}
+
+.white:hover,
+.next:hover {
+  background-color: var(--primary-color-main);
+  color: white;
 }

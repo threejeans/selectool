@@ -5,6 +5,7 @@ import { useAppSelector } from 'app/hooks'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styles from 'styles/admin/components/Layout.module.css'
 import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
+import { ToastContainer } from 'react-toast'
 
 type AdminLayoutProps = {
   title: string
@@ -23,6 +24,7 @@ const AdminLayout = ({ title, children }: AdminLayoutProps) => {
     <div className={styles.container}>
       <AdminHeader title={title} />
       <section>{children}</section>
+      <ToastContainer position={'bottom-right'} delay={2000} />
     </div>
   )
 }

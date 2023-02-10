@@ -1,9 +1,10 @@
-import { useAppDispatch } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { Link, useLocation } from 'react-router-dom'
 
 import { AiOutlineMenu } from 'react-icons/ai'
 import Logo from 'assets/selectool_logo.svg'
 import styles from 'styles/admin/components/Header.module.css'
+import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
 
 type AdminMenuLinkProps = {
   path: string
@@ -19,7 +20,9 @@ const AdminMenuLink = ({ path, title }: AdminMenuLinkProps) => {
   return (
     <Link
       className={
-        pathname.startsWith(path) ? styles.selected : styles.unselected
+        pathname.startsWith('/admin/' + path)
+          ? styles.selected
+          : styles.unselected
       }
       to={path}
     >
@@ -29,6 +32,7 @@ const AdminMenuLink = ({ path, title }: AdminMenuLinkProps) => {
 }
 
 const AdminHeader = ({ title }: AdminHeaderProps) => {
+  const accessToken = useAppSelector(selectAccessToken)
   // state
   const dispatcth = useAppDispatch()
   return (
@@ -39,12 +43,15 @@ const AdminHeader = ({ title }: AdminHeaderProps) => {
           {'admin'}
         </Link>
         <div className={styles.menu}>
-          <AdminMenuLink path={'contents'} title={'콘텐츠 관리'} />
-          <AdminMenuLink path={'data'} title={'데이터 관리'} />
-          <AdminMenuLink path={'alarm'} title={'알림 관리'} />
-          {' | '}
-          <AdminMenuLink path={'login'} title={'로그인'} />
+          {accessToken && (
+            <>
+              <AdminMenuLink path={'contents'} title={'콘텐츠 관리'} />
+              <AdminMenuLink path={'data'} title={'데이터 관리'} />
+              <AdminMenuLink path={'alarm'} title={'알림 관리'} />
+            </>
+          )}
         </div>
+
         <div className={styles.collaped}>
           <button>
             <AiOutlineMenu className={styles.manuBtn} />

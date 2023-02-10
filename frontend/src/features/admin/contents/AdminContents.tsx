@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import styles from 'styles/admin/pages/contents/Contents.module.css'
+import styles from 'styles/admin/pages/contents/AdminContents.module.css'
 
 type Section = {
   title: string
@@ -28,7 +28,7 @@ const AdminContents = () => {
   const manage = [
     {
       title: '혼자써요',
-      write: 'self/write',
+      write: 'self/main',
       list: 'self/list',
     },
     {

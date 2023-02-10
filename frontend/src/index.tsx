@@ -5,8 +5,9 @@ import AdminLogin from 'features/admin/auth/AdminLogin'
 import AdminContents from 'features/admin/contents/AdminContents'
 import AdminContentsList from 'features/admin/contents/AdminContentsList'
 import AdminGuide from 'features/admin/contents/AdminGuide'
-import AdminSelf from 'features/admin/contents/AdminSelf'
 import AdminWith from 'features/admin/contents/AdminWith'
+import AdminSelfMain from 'features/admin/contents/self/AdminSelfMain'
+import AdminSelfSpecific from 'features/admin/contents/self/AdminSelfSpecific'
 import AdminData from 'features/admin/data/AdminData'
 import Auth from 'features/auth/Auth'
 import Mypage from 'features/auth/Mypage'
@@ -82,7 +83,13 @@ const router = createBrowserRouter([
           {
             path: 'self',
             children: [
-              { path: 'write', element: <AdminSelf /> },
+              {
+                path: '',
+                children: [
+                  { path: 'main', element: <AdminSelfMain /> },
+                  { path: 'specific', element: <AdminSelfSpecific /> },
+                ],
+              },
               { path: 'list', element: <AdminContentsList type='self' /> },
             ],
           },
