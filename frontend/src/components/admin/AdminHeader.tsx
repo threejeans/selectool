@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 
 import { AiOutlineMenu } from 'react-icons/ai'
 import Logo from 'assets/selectool_logo.svg'
-import styles from 'styles/admin/components/Header.module.css'
+import styles from 'styles/admin/components/AdminHeader.module.css'
 import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
 
 type AdminMenuLinkProps = {

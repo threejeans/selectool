@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import AdminHeader from './AdminHeader'
 
 import { useAppSelector } from 'app/hooks'
-import { useLocation, useNavigate } from 'react-router-dom'
-import styles from 'styles/admin/components/Layout.module.css'
 import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toast'
+import styles from 'styles/admin/components/AdminLayout.module.css'
 
 type AdminLayoutProps = {
   title: string

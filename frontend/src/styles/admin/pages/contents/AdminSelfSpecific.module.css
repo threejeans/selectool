@@ -1,0 +1,109 @@
+.container {
+  height: calc(100vh - var(--height-navigation));
+  overflow-y: auto;
+}
+.wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  margin: 1rem;
+}
+.label {
+  font-size: x-large;
+  margin: 0.2rem;
+}
+.section {
+  width: 96%;
+  max-width: var(--width-lg);
+  border: 2px solid var(--primary-color-main);
+  background-color: var(--gray-scale-color-g05);
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 2% 2%;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.sectionBtnGroup {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.2rem;
+  color: var(--primary-color-main);
+}
+
+.sectionPlus:hover,
+.sectionMinus:hover {
+  cursor: pointer;
+}
+
+.btnGroup {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.halfSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  gap: 1rem;
+}
+.halfSection > * {
+  width: 50%;
+}
+
+/* 주요 고객사 */
+.mainClient {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.6rem;
+}
+
+.mainClient > img,
+.mainClient > span {
+  width: 100px;
+  height: 100px;
+  font-size: 2rem;
+  background-color: var(--gray-scale-color-g10);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.mainClient h5,
+.mainClient a {
+  margin: 0.4rem;
+  font-size: 1.2rem;
+}
+.mainClient a {
+  color: var(--primary-color-main);
+  font-size: 1.2rem;
+  text-decoration: underline;
+}
+
+.infoSection {
+  position: relative;
+}
+
+.infoSetcionBtnGroup {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.2rem;
+  color: var(--gray-scale-color-g30);
+}

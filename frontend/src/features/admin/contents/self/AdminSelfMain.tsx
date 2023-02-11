@@ -1,13 +1,13 @@
+import { useAppDispatch } from 'app/hooks'
 import AdminButton from 'components/admin/AdminButton'
 import React, { useRef, useState } from 'react'
-import styles from 'styles/admin/pages/contents/AdminSelf.module.css'
-import { BsTriangleFill, BsImage } from 'react-icons/bs'
 import S3 from 'react-aws-s3-typescript'
-import { s3Config } from 'util/s3Config'
-import { createSelfMainTmpInfo, SelfMainTmpInfo } from '../adminContentsSlice'
-import { useAppDispatch } from 'app/hooks'
+import { BsImage, BsTriangleFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toast'
+import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
+import { s3Config } from 'util/s3Config'
+import { createSelfMainTmpInfo, SelfMainTmpInfo } from '../adminContentsSlice'
 
 type TextInputBoxProps = {
   textRef: any
@@ -16,7 +16,7 @@ type TextInputBoxProps = {
   required: boolean
 }
 
-const TextInputBox = ({
+export const TextInputBox = ({
   textRef,
   title,
   placeholder,
@@ -60,7 +60,7 @@ const AdminSelfMain = () => {
       individualToolInfo: '',
       individualToolTopic: '',
       individualToolTag: '',
-      individualToolCounrty: '',
+      individualToolCountry: '',
       individualToolLogo: '',
     }
 
@@ -92,7 +92,7 @@ const AdminSelfMain = () => {
       } else data.individualToolTopic = topicRef.current.value
     }
     if (category) data.individualToolTag = category
-    if (country) data.individualToolCounrty = country
+    if (country) data.individualToolCountry = country
     if (thumbnail === '') {
       popToast()
       handleUpload()
