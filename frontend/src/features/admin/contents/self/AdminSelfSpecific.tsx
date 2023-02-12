@@ -376,8 +376,8 @@ const AdminSelfSpecific = () => {
     if (!aosRef.current) return
     if (!iosRef.current) return
 
-    console.log(aosRef.current.value)
-    console.log(iosRef.current.value)
+    console.log('aosRef', aosRef.current.value)
+    console.log('iosRef', iosRef.current.value)
 
     const data: SelfSpecificTmpInfo = {
       individualDetailToolUrl: siteData,
@@ -388,6 +388,12 @@ const AdminSelfSpecific = () => {
       individualDetailiosReviewRate: iosRef.current.value ?? '',
     }
     dispatch(createSelfSpecificTmpInfo(data))
+      .then(e => {
+        console.log(e)
+      })
+      .catch(err => {
+        console.error(err)
+      })
   }
 
   return (

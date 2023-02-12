@@ -9,7 +9,7 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  accessToken: undefined,
+  accessToken: '변경사항 폐기',
   tmpEmail: '',
   status: 'idle',
 }
