@@ -19,6 +19,11 @@
   height: 4rem;
   font-size: 1.2rem;
 }
+.lg {
+  width: 15rem;
+  height: 9rem;
+  font-size: 1.6rem;
+}
 
 .primary {
   background-color: var(--primary-color-main);

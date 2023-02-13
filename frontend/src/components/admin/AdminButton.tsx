@@ -29,8 +29,8 @@ const sizeHandler = (size: string) => {
       return styles.sm
     case 'md':
       return styles.md
-    // case 'lg':
-    //   return styles.lg
+    case 'lg':
+      return styles.lg
   }
 }
 const AdminButton = ({ color, size, text, onClick, ...rest }: buttonProps) => {
