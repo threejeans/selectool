@@ -9,7 +9,7 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  accessToken: undefined,
+  accessToken: '',
   tmpEmail: '',
   status: 'idle',
 }

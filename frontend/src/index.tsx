@@ -1,4 +1,5 @@
 import AdminLayout from 'components/admin/AdminLayout'
+import AdminMain from 'features/admin/AdminMain'
 import AdminAlarm from 'features/admin/alarm/AdminAlarm'
 import AdminAuth from 'features/admin/auth/AdminAuth'
 import AdminLogin from 'features/admin/auth/AdminLogin'
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
       </AdminLayout>
     ),
     children: [
+      {
+        path: '',
+        element: <AdminMain />,
+      },
       {
         path: 'contents',
         children: [

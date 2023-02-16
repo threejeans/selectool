@@ -15,8 +15,32 @@ export type SelfMainTmpInfo = {
   individualToolInfo: string
   individualToolTopic: string
   individualToolTag: string
-  individualToolCounrty: string
+  individualToolCountry: string
   individualToolLogo: string
+}
+
+export type CoreFuncType = {
+  CoreFuncSubTitle: string
+  CoreFuncContent: string
+}
+
+export type ClientInfoType = {
+  ClientImage: string
+  ClientSiteUrl: string
+}
+export type PlanInfoType = {
+  PlanName: string
+  PlanVolume: string
+  PlanPricing: string
+  PlanFunc: string[]
+}
+export type SelfSpecificTmpInfo = {
+  individualDetailToolUrl: string
+  individualDetailCoreFunc: CoreFuncType[]
+  individualDetailClient: ClientInfoType[]
+  individualDetailPlan: PlanInfoType[]
+  individualDetailAosReviewRate: string | ''
+  individualDetailiosReviewRate: string | ''
 }
 
 type ContentsType = {
@@ -29,6 +53,7 @@ type ContentsType = {
 export interface ContentsState {
   contentsList: ContentsType[]
   selfMainTmpInfo: SelfMainTmpInfo
+  selfSpecificTmpInfo: SelfSpecificTmpInfo
   status: 'idle' | 'loading' | 'success' | 'failed'
 }
 
@@ -39,7 +64,7 @@ const initialState: ContentsState = {
       type: SELF,
       title: '피그마',
       description:
-        '메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반메신저기반',
+        '15글자 이상은 단축되도록 css로 처리를 했는데, 적용이 되는 지 확인이 필요한 부분',
     },
     { index: 2, type: SELF, title: '피그마', description: '메신저기반' },
     { index: 3, type: SELF, title: '피그마', description: '메신저기반' },
@@ -59,8 +84,16 @@ const initialState: ContentsState = {
     individualToolInfo: '',
     individualToolTopic: '',
     individualToolTag: '',
-    individualToolCounrty: '',
+    individualToolCountry: '',
     individualToolLogo: '',
+  },
+  selfSpecificTmpInfo: {
+    individualDetailToolUrl: '',
+    individualDetailCoreFunc: [],
+    individualDetailClient: [],
+    individualDetailPlan: [],
+    individualDetailAosReviewRate: '',
+    individualDetailiosReviewRate: '',
   },
   status: 'idle',
 }
@@ -83,6 +116,19 @@ export const createSelfMainTmpInfo = createAsyncThunk(
   async (params: SelfMainTmpInfo, { rejectWithValue }) => {
     try {
       const response = await apiAxios.post('/admin/self/main', params)
+      return response
+    } catch (error: any) {
+      console.error(error)
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
+export const createSelfSpecificTmpInfo = createAsyncThunk(
+  'adminContents/createSelfSpecificTmpInfo',
+  async (params: SelfSpecificTmpInfo, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.post('/admin/self/specific', params)
       return response
     } catch (error: any) {
       console.error(error)
