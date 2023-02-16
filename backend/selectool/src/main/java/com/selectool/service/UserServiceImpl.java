@@ -28,8 +28,7 @@ public class UserServiceImpl implements UserService {
         switch (socialLoginType) {
             case GOOGLE:
             case NAVER:
-            case KAKAO:
-            {
+            case KAKAO: {
                 User user = userRepo.findByTypeAndEmail(socialLoginType.name(), request.getEmail())
                         .orElseGet(() -> {
                             User newUser = User.builder()

@@ -65,7 +65,7 @@ public class AdminServiceImpl implements AdminService {
 
         String content = codeContent;
         content += code + "</td></tr></tbody></table></div>";
-
+        log.info("코드: " + code);
         // 코드 저장
         codeRepo.save(
                 Code.builder()
