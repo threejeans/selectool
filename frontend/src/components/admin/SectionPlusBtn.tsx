@@ -20,7 +20,7 @@ const SectionPlusBtn = ({ idx, max, value, setValue }: SectionPlusBtnProps) => {
             <BiPlus
               className={styles.sectionPlus}
               onClick={() => {
-                if (value < 4) setValue(value + 1)
+                if (value < max) setValue(value + 1)
               }}
             />
           )}
