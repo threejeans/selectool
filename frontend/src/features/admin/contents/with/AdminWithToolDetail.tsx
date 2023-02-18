@@ -327,7 +327,7 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
             color={'white'}
             size={'md'}
             text={'Previous'}
-            onClick={() => navigate('/admin/self/main')}
+            onClick={setIsModal}
           />
           <AdminButton
             color={'white'}
