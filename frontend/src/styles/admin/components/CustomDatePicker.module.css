@@ -1,0 +1,50 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.datepicker {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid var(--gray-scale-color-g30);
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: 900;
+  position: relative;
+  z-index: 1;
+}
+
+.datepicker:hover {
+  cursor: pointer;
+}
+
+.header {
+  width: 16rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.arrowBtn,
+.select {
+  height: 1.2rem;
+  font-size: 1rem;
+  color: var(--gray-scale-color-g30);
+  text-align: end;
+}
+
+.calendarBtn {
+  position: absolute;
+  font-size: 1.2rem;
+  color: black;
+  rotate: 180deg;
+  right: 0.6rem;
+  margin-bottom: 1rem;
+  z-index: 0;
+}

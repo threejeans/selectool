@@ -25,10 +25,19 @@
   height: 9rem;
   font-size: 1.6rem;
 }
-
+.lgTab {
+  width: fit-content;
+  height: fit-content;
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+}
 .primary {
   background-color: var(--primary-color-main);
   color: white;
+}
+.primaryVariant {
+  background-color: var(--primary-color-main-30);
+  color: var(--primary-color-main);
 }
 
 .secondary {
