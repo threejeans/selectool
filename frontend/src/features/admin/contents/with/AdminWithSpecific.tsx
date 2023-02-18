@@ -179,7 +179,7 @@ const AdminWithSpecific = () => {
               color={'white'}
               size={'md'}
               text={'Previous'}
-              onClick={() => navigate('/admin/self/main')}
+              onClick={() => navigate('/admin/contents/with/main')}
             />
             <AdminButton
               color={'white'}
