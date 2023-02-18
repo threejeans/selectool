@@ -5,10 +5,11 @@ import AdminAuth from 'features/admin/auth/AdminAuth'
 import AdminLogin from 'features/admin/auth/AdminLogin'
 import AdminContents from 'features/admin/contents/AdminContents'
 import AdminContentsList from 'features/admin/contents/AdminContentsList'
-import AdminGuide from 'features/admin/contents/AdminGuide'
-import AdminWith from 'features/admin/contents/AdminWith'
+import AdminGuide from 'features/admin/contents/guide/AdminGuide'
 import AdminSelfMain from 'features/admin/contents/self/AdminSelfMain'
 import AdminSelfSpecific from 'features/admin/contents/self/AdminSelfSpecific'
+import AdminWithMain from 'features/admin/contents/with/AdminWithMain'
+import AdminWithSpecific from 'features/admin/contents/with/AdminWithSpecific'
 import AdminData from 'features/admin/data/AdminData'
 import Auth from 'features/auth/Auth'
 import Mypage from 'features/auth/Mypage'
@@ -19,6 +20,7 @@ import With from 'features/with/With'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 import { store } from './app/store'
 import Layout from './components/Layout'
 import './styles/globals.css'
@@ -101,7 +103,13 @@ const router = createBrowserRouter([
           {
             path: 'with',
             children: [
-              { path: 'write', element: <AdminWith /> },
+              {
+                path: '',
+                children: [
+                  { path: 'main', element: <AdminWithMain /> },
+                  { path: 'specific', element: <AdminWithSpecific /> },
+                ],
+              },
               { path: 'list', element: <AdminContentsList type='with' /> },
             ],
           },
@@ -139,5 +147,6 @@ const router = createBrowserRouter([
 root.render(
   <Provider store={store}>
     <RouterProvider router={router} />
+    <ToastContainer autoClose={2000} />
   </Provider>,
 )

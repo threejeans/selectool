@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
 import { RootState } from 'app/store'
+import { s3Config } from 'util/s3Config'
+import S3 from 'react-aws-s3-typescript'
+import { toast } from 'react-toastify'
 
 const SELF = 'self'
 const WITH = 'with'
@@ -18,7 +21,15 @@ export type SelfMainTmpInfo = {
   individualToolCountry: string
   individualToolLogo: string
 }
-
+export type WithMainTmpInfo = {
+  groupCorpNameKr: string
+  groupCorpNameEn: string
+  groupCorpInfo: string
+  groupCorpTeamNameKr: string
+  groupCorpTeamNameEn: string
+  groupCorpTag: string
+  groupCorpLogo: string
+}
 export type CoreFuncType = {
   CoreFuncSubTitle: string
   CoreFuncContent: string
@@ -50,10 +61,11 @@ type ContentsType = {
   description: string
 }
 
-export interface ContentsState {
+interface ContentsState {
   contentsList: ContentsType[]
   selfMainTmpInfo: SelfMainTmpInfo
   selfSpecificTmpInfo: SelfSpecificTmpInfo
+  withMainTmpInfo: WithMainTmpInfo
   status: 'idle' | 'loading' | 'success' | 'failed'
 }
 
@@ -95,6 +107,15 @@ const initialState: ContentsState = {
     individualDetailAosReviewRate: '',
     individualDetailiosReviewRate: '',
   },
+  withMainTmpInfo: {
+    groupCorpNameKr: '',
+    groupCorpNameEn: '',
+    groupCorpInfo: '',
+    groupCorpTeamNameKr: '',
+    groupCorpTeamNameEn: '',
+    groupCorpTag: '',
+    groupCorpLogo: '',
+  },
   status: 'idle',
 }
 export const getContentsList = createAsyncThunk(
@@ -123,6 +144,23 @@ export const createSelfMainTmpInfo = createAsyncThunk(
     }
   },
 )
+
+export const createWithMainTmpInfo = createAsyncThunk(
+  'adminContents/createWithMainTmpInfo',
+  async (params: WithMainTmpInfo, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.post('/admin/with/main', params)
+      return response
+    } catch (error: any) {
+      console.error(error)
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
+export const popToast = (text: string | false) => {
+  toast(`🚨 ${text != '' ? text : '콘텐츠 내용'}이 입력되지 않았어요!`)
+}
 
 export const createSelfSpecificTmpInfo = createAsyncThunk(
   'adminContents/createSelfSpecificTmpInfo',
