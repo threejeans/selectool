@@ -3,7 +3,7 @@ import apiAxios from 'app/apiAxios'
 import { RootState } from 'app/store'
 import { s3Config } from 'util/s3Config'
 import S3 from 'react-aws-s3-typescript'
-import { toast } from 'react-toast'
+import { toast } from 'react-toastify'
 
 const SELF = 'self'
 const WITH = 'with'
@@ -159,10 +159,7 @@ export const createWithMainTmpInfo = createAsyncThunk(
 )
 
 export const popToast = (text: string | false) => {
-  toast(`🚨${text != '' ? text : '콘텐츠 내용'}이 입력되지 않았어요!`, {
-    backgroundColor: '#f59892',
-    color: 'white',
-  })
+  toast(`🚨 ${text != '' ? text : '콘텐츠 내용'}이 입력되지 않았어요!`)
 }
 
 export const createSelfSpecificTmpInfo = createAsyncThunk(
