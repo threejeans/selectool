@@ -2,6 +2,29 @@
   height: calc(100vh - var(--height-navigation));
   overflow-y: auto;
 }
+.modalContainer {
+  height: calc(100vh - var(--height-navigation));
+  width: 80vw;
+  overflow-y: auto;
+}
+
+.container::-webkit-scrollbar,
+.modalContainer::-webkit-scrollbar {
+  height: 90%;
+  width: 12px;
+}
+.container::-webkit-scrollbar-thumb,
+.modalContainer::-webkit-scrollbar-thumb {
+  /* height: 50px; */
+  background: var(--primary-color-main);
+  border-radius: 10px;
+}
+
+.container::-webkit-scrollbar-track,
+.modalContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .wrap {
   width: 100%;
   display: flex;
@@ -39,6 +62,13 @@
 .sectionPlus:hover,
 .sectionMinus:hover {
   cursor: pointer;
+}
+
+.tabBtn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .btnGroup {

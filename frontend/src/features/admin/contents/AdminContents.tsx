@@ -33,7 +33,7 @@ const AdminContents = () => {
     },
     {
       title: '함께써요',
-      write: 'with/write',
+      write: 'with/main',
       list: 'with/list',
     },
     {

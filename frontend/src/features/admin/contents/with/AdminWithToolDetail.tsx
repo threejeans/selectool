@@ -16,10 +16,12 @@ import {
   SelfSpecificTmpInfo,
 } from '../adminContentsSlice'
 
-const AdminSelfSpecific = () => {
+const AdminWithToolDetail = ({ setIsModal }: any) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
+  const nameRef = useRef<HTMLInputElement | null>(null)
+  const descriptionRef = useRef<HTMLInputElement | null>(null)
   const siteRef = useRef<HTMLInputElement | null>(null)
   // 핵심 기능 관련
   const coreFuncNameRefs = useRef<HTMLInputElement[]>([])
@@ -107,12 +109,26 @@ const AdminSelfSpecific = () => {
         const fullSection = costPlan == 4
         return (
           <div key={index} className={styles.section}>
-            <SectionPlusBtn
-              idx={index}
-              max={4}
-              value={costPlan}
-              setValue={setCostPlan}
-            />
+            {isLast && (
+              <span className={styles.sectionBtnGroup}>
+                {!fullSection && (
+                  <BiPlus
+                    className={styles.sectionPlus}
+                    onClick={() => {
+                      if (costPlan < 4) setCostPlan(costPlan + 1)
+                    }}
+                  />
+                )}
+                {!onlyOnce && (
+                  <BiMinus
+                    className={styles.sectionMinus}
+                    onClick={() => {
+                      if (costPlan > 0) setCostPlan(costPlan - 1)
+                    }}
+                  />
+                )}
+              </span>
+            )}
             <TextInputBox
               textRef={(el: any) => (planTitleRef.current[index] = el)}
               title={`가격 플랜 이름 ${index + 1}`}
@@ -174,10 +190,6 @@ const AdminSelfSpecific = () => {
         )
       })
   }
-
-  // AOS, IOS 정보
-  const aosRef = useRef<HTMLInputElement | null>(null)
-  const iosRef = useRef<HTMLInputElement | null>(null)
 
   // 작성된 데이터 정제
   const handleComplete = () => {
@@ -261,20 +273,13 @@ const AdminSelfSpecific = () => {
     }
     console.log('planCostData', planCostData)
 
-    // 스토어 점수
-    if (!aosRef.current) return
-    if (!iosRef.current) return
-
-    console.log('aosRef', aosRef.current.value)
-    console.log('iosRef', iosRef.current.value)
-
     const data: SelfSpecificTmpInfo = {
       individualDetailToolUrl: siteData,
       individualDetailCoreFunc: coreFuncData,
       individualDetailClient: mainClientData,
       individualDetailPlan: planCostData,
-      individualDetailAosReviewRate: aosRef.current.value ?? '',
-      individualDetailiosReviewRate: iosRef.current.value ?? '',
+      individualDetailAosReviewRate: '',
+      individualDetailiosReviewRate: '',
     }
     dispatch(createSelfSpecificTmpInfo(data))
       .then(e => {
@@ -283,12 +288,29 @@ const AdminSelfSpecific = () => {
       .catch(err => {
         console.error(err)
       })
+    setIsModal()
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.modalContainer}>
       <div className={styles.wrap}>
-        <h3 className={styles.title}>혼자써요 specific</h3>
+        <h3 className={styles.title}>사내 협업툴 상세정보</h3>
+        <div className={styles.section}>
+          <TextInputBox
+            textRef={nameRef}
+            title={'프로덕트 이름'}
+            placeholder={'예시: 노션, 피그마'}
+            required={true}
+          />
+        </div>
+        <div className={styles.section}>
+          <TextInputBox
+            textRef={descriptionRef}
+            title={'프로덕트 한 줄 소개'}
+            placeholder={'예시: 프로젝트 관리 및 기록 소프트웨어'}
+            required={true}
+          />
+        </div>
         <div className={styles.section}>
           <TextInputBox
             textRef={siteRef}
@@ -300,28 +322,12 @@ const AdminSelfSpecific = () => {
         {CoreFuncSectionGroup()}
         {MainClientSectionGroup()}
         {CostPlanGroup()}
-        <div className={styles.section}>
-          <div className={styles.halfSection}>
-            <TextInputBox
-              textRef={aosRef}
-              title={'플레이스토어 평점'}
-              placeholder={''}
-              required={false}
-            />
-            <TextInputBox
-              textRef={iosRef}
-              title={'앱스토어 평점'}
-              placeholder={''}
-              required={false}
-            />
-          </div>
-        </div>
         <div className={styles.btnGroup}>
           <AdminButton
             color={'white'}
             size={'md'}
             text={'Previous'}
-            onClick={() => navigate('/admin/self/main')}
+            onClick={setIsModal}
           />
           <AdminButton
             color={'white'}
@@ -341,4 +347,4 @@ const AdminSelfSpecific = () => {
   )
 }
 
-export default AdminSelfSpecific
+export default AdminWithToolDetail
