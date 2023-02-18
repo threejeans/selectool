@@ -1,5 +1,6 @@
 import { useAppDispatch } from 'app/hooks'
 import AdminButton from 'components/admin/AdminButton'
+import TextInputBox from 'components/admin/TextInputBox'
 import React, { useRef, useState } from 'react'
 import S3 from 'react-aws-s3-typescript'
 import { BiMinus, BiPlus } from 'react-icons/bi'
@@ -15,7 +16,6 @@ import {
   PlanInfoType,
   SelfSpecificTmpInfo,
 } from '../adminContentsSlice'
-import { TextInputBox } from './AdminSelfMain'
 
 const AdminSelfSpecific = () => {
   const dispatch = useAppDispatch()
