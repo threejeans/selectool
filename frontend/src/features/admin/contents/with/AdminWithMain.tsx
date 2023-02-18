@@ -16,7 +16,7 @@ import {
 const AdminWithMain = () => {
   const koRef = useRef<HTMLInputElement | null>(null)
   const enRef = useRef<HTMLInputElement | null>(null)
-  const discriptionRef = useRef<HTMLInputElement | null>(null)
+  const descriptionRef = useRef<HTMLInputElement | null>(null)
   const teamKoRef = useRef<HTMLInputElement | null>(null)
   const teamEnRef = useRef<HTMLInputElement | null>(null)
 
@@ -55,12 +55,12 @@ const AdminWithMain = () => {
         return
       } else data.groupCorpNameEn = enRef.current.value
     }
-    if (discriptionRef.current) {
-      if (discriptionRef.current.value.length === 0) {
-        discriptionRef.current.focus()
+    if (descriptionRef.current) {
+      if (descriptionRef.current.value.length === 0) {
+        descriptionRef.current.focus()
         popToast(false)
         return
-      } else data.groupCorpInfo = discriptionRef.current.value
+      } else data.groupCorpInfo = descriptionRef.current.value
     }
     if (teamKoRef.current) {
       if (teamKoRef.current.value.length === 0) {
@@ -112,7 +112,7 @@ const AdminWithMain = () => {
           required={true}
         />
         <TextInputBox
-          textRef={discriptionRef}
+          textRef={descriptionRef}
           title={'회사 한 줄 소개'}
           placeholder={
             '예시: 숙박, 여행, 레저, 액티비티 정보제공 및 예약 서비스 플랫폼 [야놀자]를 운영하는 기업'
@@ -138,6 +138,9 @@ const AdminWithMain = () => {
           category={category}
           setCategory={setCategory}
         />
+        <h5 className={styles.label}>
+          썸네일 이미지 <span className={styles.required}>{'*'}</span>
+        </h5>
         <ThumbnailInput thumbnail={thumbnail} setThumbnail={setThumbnail} />
       </div>
       <div className={styles.btnGroup}>

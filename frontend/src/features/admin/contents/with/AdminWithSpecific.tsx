@@ -18,10 +18,10 @@ const AdminWithSpecific = () => {
 
   // 조직문화 관련
   const corpCultureSubTitleRefs = useRef<HTMLInputElement[]>([])
-  const corpCultureDiscriptionRefs = useRef<HTMLInputElement[]>([])
+  const corpCultureDescriptionRefs = useRef<HTMLInputElement[]>([])
   const [corpCulture, setCorpCulture] = useState(1)
   const CorpCultureSectionGroup = () => {
-    if (corpCultureSubTitleRefs.current && corpCultureDiscriptionRefs.current)
+    if (corpCultureSubTitleRefs.current && corpCultureDescriptionRefs.current)
       return [...Array(corpCulture)].map((_, index) => {
         return (
           <div key={index} className={styles.section}>
@@ -41,7 +41,7 @@ const AdminWithSpecific = () => {
             />
             <TextInputBox
               textRef={(el: HTMLInputElement) =>
-                (corpCultureDiscriptionRefs.current[index] = el)
+                (corpCultureDescriptionRefs.current[index] = el)
               }
               title={'조직문화 상세 설명'}
               placeholder={

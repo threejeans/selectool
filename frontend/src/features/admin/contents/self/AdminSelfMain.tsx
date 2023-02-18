@@ -17,7 +17,7 @@ import {
 const AdminSelfMain = () => {
   const koRef = useRef<HTMLInputElement | null>(null)
   const enRef = useRef<HTMLInputElement | null>(null)
-  const discriptionRef = useRef<HTMLInputElement | null>(null)
+  const descriptionRef = useRef<HTMLInputElement | null>(null)
   const topicRef = useRef<HTMLSelectElement | null>(null)
 
   const categoryList = ['디자인', '개발', '마케팅', '기획', 'Other']
@@ -57,12 +57,12 @@ const AdminSelfMain = () => {
         return
       } else data.individualToolNameEn = enRef.current.value
     }
-    if (discriptionRef.current) {
-      if (discriptionRef.current.value.length === 0) {
-        discriptionRef.current.focus()
+    if (descriptionRef.current) {
+      if (descriptionRef.current.value.length === 0) {
+        descriptionRef.current.focus()
         popToast(false)
         return
-      } else data.individualToolInfo = discriptionRef.current.value
+      } else data.individualToolInfo = descriptionRef.current.value
     }
     if (topicRef.current) {
       if (topicRef.current.value.length === 0) {
@@ -108,7 +108,7 @@ const AdminSelfMain = () => {
           required={true}
         />
         <TextInputBox
-          textRef={discriptionRef}
+          textRef={descriptionRef}
           title={'프로덕트 한 줄 소개'}
           placeholder={'예시: 프로젝트 관림 및 기록 소프트웨어'}
           required={true}
@@ -144,6 +144,9 @@ const AdminSelfMain = () => {
           category={country}
           setCategory={setCountry}
         />
+        <h5 className={styles.label}>
+          썸네일 이미지 <span className={styles.required}>{'*'}</span>
+        </h5>
         <ThumbnailInput thumbnail={thumbnail} setThumbnail={setThumbnail} />
       </div>
       {/* btn */}
