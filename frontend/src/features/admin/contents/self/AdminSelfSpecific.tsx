@@ -1,14 +1,13 @@
 import { useAppDispatch } from 'app/hooks'
 import AdminButton from 'components/admin/AdminButton'
+import SectionPlusBtn from 'components/admin/SectionPlusBtn'
 import TextInputBox from 'components/admin/TextInputBox'
+import ThumbSiteInput from 'components/admin/ThumbSiteInput'
 import React, { useRef, useState } from 'react'
-import S3 from 'react-aws-s3-typescript'
 import { BiMinus, BiPlus } from 'react-icons/bi'
-import { BsImage } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toast'
+import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
-import { s3Config } from 'util/s3Config'
 import {
   ClientInfoType,
   CoreFuncType,
@@ -30,31 +29,14 @@ const AdminSelfSpecific = () => {
   const CoreFuncSectionGroup = () => {
     if (coreFuncNameRefs.current && coreFuncDetailRefs.current)
       return [...Array(coreFunc)].map((_, index) => {
-        const isLast = index == coreFunc - 1
-        const onlyOnce = coreFunc == 1
-        const fullSection = coreFunc == 4
         return (
           <div key={index} className={styles.section}>
-            {isLast && (
-              <span className={styles.sectionBtnGroup}>
-                {!fullSection && (
-                  <BiPlus
-                    className={styles.sectionPlus}
-                    onClick={() => {
-                      if (coreFunc < 4) setCoreFunc(coreFunc + 1)
-                    }}
-                  />
-                )}
-                {!onlyOnce && (
-                  <BiMinus
-                    className={styles.sectionMinus}
-                    onClick={() => {
-                      if (coreFunc > 0) setCoreFunc(coreFunc - 1)
-                    }}
-                  />
-                )}
-              </span>
-            )}
+            <SectionPlusBtn
+              idx={index}
+              max={4}
+              value={coreFunc}
+              setValue={setCoreFunc}
+            />
             <TextInputBox
               textRef={(el: HTMLInputElement) =>
                 (coreFuncNameRefs.current[index] = el)
@@ -79,112 +61,32 @@ const AdminSelfSpecific = () => {
   }
 
   // 주요 고객사 이미지 섹션 관련
-  const [mainClientImages, setMainClientImages] = useState<string[]>([
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-    '',
-  ])
-  const mainClientInputRefs = useRef<any>([])
-  const mainClientSiteRefs = useRef<any>([])
   const [mainClient, setMainClient] = useState(1)
+  const mainClientInputRefs = useRef<HTMLInputElement[]>([])
+  const mainClientSiteRefs = useRef<HTMLInputElement[]>([])
+  const [mainClientImages, setMainClientImages] = useState<string[]>([])
 
-  const handleUpload = (index: number) => {
-    if (mainClientInputRefs.current[index])
-      mainClientInputRefs.current[index].click()
-  }
-  const handlePhoto = (e: any, index: number) => {
-    const photo = e.target.files
-    if (!photo[0]) return
-    uploadFile(photo[0], index)
-  }
-  const uploadFile = async (file: any, index: number) => {
-    const ReactS3Client = new S3(s3Config)
-    ReactS3Client.uploadFile(file, 'mainClient/' + file.name)
-      .then(data => {
-        console.log(data.location)
-        mainClientImages[index] = data.location
-        setMainClientImages([...mainClientImages])
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }
   const MainClientSectionGroup = () => {
     if (mainClientInputRefs.current && mainClientSiteRefs.current)
       return [...Array(mainClient)].map((_, index) => {
-        const isLast = index == mainClient - 1
-        const onlyOnce = mainClient == 1
-        const fullSection = mainClient == 8
         return (
           <div key={index} className={styles.section}>
-            {isLast && (
-              <span className={styles.sectionBtnGroup}>
-                {!fullSection && (
-                  <BiPlus
-                    className={styles.sectionPlus}
-                    onClick={() => {
-                      if (mainClient < 8) setMainClient(mainClient + 1)
-                    }}
-                  />
-                )}
-                {!onlyOnce && (
-                  <BiMinus
-                    className={styles.sectionMinus}
-                    onClick={() => {
-                      if (mainClient > 0) {
-                        setMainClient(mainClient - 1)
-                        mainClientImages[index] = ''
-                        setMainClientImages([...mainClientImages])
-                      }
-                    }}
-                  />
-                )}
-              </span>
-            )}
+            <SectionPlusBtn
+              idx={index}
+              max={8}
+              value={mainClient}
+              setValue={setMainClient}
+            />
             <h5 className={styles.label}>주요 고객사 이미지 {index + 1}</h5>
-            <div className={styles.halfSection}>
-              <div className={styles.mainClient}>
-                {mainClientImages[index] ? (
-                  <img
-                    src={mainClientImages[index]}
-                    alt='고객사 이미지'
-                    onClick={() => handleUpload(index)}
-                  />
-                ) : (
-                  <span onClick={() => handleUpload(index)}>
-                    <BsImage />
-                  </span>
-                )}
-                <div>
-                  <h5>추천 사이즈 50 x 50</h5>
-                  <h5>JPG, PNG, GIF 등</h5>
-                  <a href='#' onClick={() => handleUpload(index)}>
-                    이미지 업로드 하기
-                  </a>
-                  <input
-                    ref={el => (mainClientInputRefs.current[index] = el)}
-                    type='file'
-                    accept='image/jpg, image/jpeg, image/png'
-                    multiple
-                    onChange={e => {
-                      handlePhoto(e, index)
-                    }}
-                    style={{ display: 'none' }}
-                  />
-                </div>
-              </div>
-              <TextInputBox
-                textRef={(el: any) => (mainClientSiteRefs.current[index] = el)}
-                title={'주요 고객사 사이트'}
-                placeholder={'예시: https://www.apgroup.com/int/ko'}
-                required={true}
-              />
-            </div>
+            <ThumbSiteInput
+              idx={index}
+              subTitle={'주요 고객사 사이트'}
+              required={true}
+              inputRefs={mainClientInputRefs}
+              siteRefs={mainClientSiteRefs}
+              images={mainClientImages}
+              setImages={setMainClientImages}
+            />
           </div>
         )
       })
@@ -321,7 +223,8 @@ const AdminSelfSpecific = () => {
     if (mainClientSiteRefs.current) {
       // 여기만 값 참조
       for (let i = 0; i < mainClient; i++) {
-        if (mainClientImages[i] !== '') {
+        console.log(mainClientImages[i])
+        if (mainClientImages[i]) {
           if (!mainClientSiteRefs.current[i].value) {
             mainClientSiteRefs.current[i].focus()
             toast('고객사 주소를 입력해주세요.')
@@ -333,7 +236,7 @@ const AdminSelfSpecific = () => {
           }
           mainClientData.push(tmp)
         } else {
-          handleUpload(i)
+          toast(`${i + 1}번 고객사 이미지를 첨부해주세요.`)
           return
         }
       }
@@ -432,7 +335,7 @@ const AdminSelfSpecific = () => {
             color={'white'}
             size={'md'}
             text={'Previous'}
-            onClick={(e: React.MouseEvent) => console.log(e.target)}
+            onClick={() => navigate('/admin/self/main')}
           />
           <AdminButton
             color={'white'}

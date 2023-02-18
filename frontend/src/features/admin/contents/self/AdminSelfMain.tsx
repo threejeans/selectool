@@ -6,7 +6,7 @@ import ThumbnailInput from 'components/admin/ThumbnailInput'
 import React, { useRef, useState } from 'react'
 import { BsTriangleFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toast'
+import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
 import {
   createSelfMainTmpInfo,
@@ -84,8 +84,8 @@ const AdminSelfMain = () => {
           navigate('/admin/contents/self/specific')
         else
           toast('🚨저장이 실패했어요!', {
-            backgroundColor: '#f59892',
-            color: 'white',
+            type: 'error',
+            theme: 'colored',
           })
       })
       .catch(err => toast.error(err))

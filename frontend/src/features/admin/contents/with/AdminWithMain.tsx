@@ -5,7 +5,7 @@ import TextInputBox from 'components/admin/TextInputBox'
 import ThumbnailInput from 'components/admin/ThumbnailInput'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toast'
+import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
 import {
   createWithMainTmpInfo,
@@ -88,8 +88,8 @@ const AdminWithMain = () => {
           navigate('/admin/contents/with/specific')
         else
           toast('🚨저장이 실패했어요!', {
-            backgroundColor: '#f59892',
-            color: 'white',
+            type: 'error',
+            theme: 'colored',
           })
       })
       .catch(err => toast.error(err))
