@@ -107,26 +107,12 @@ const AdminSelfSpecific = () => {
         const fullSection = costPlan == 4
         return (
           <div key={index} className={styles.section}>
-            {isLast && (
-              <span className={styles.sectionBtnGroup}>
-                {!fullSection && (
-                  <BiPlus
-                    className={styles.sectionPlus}
-                    onClick={() => {
-                      if (costPlan < 4) setCostPlan(costPlan + 1)
-                    }}
-                  />
-                )}
-                {!onlyOnce && (
-                  <BiMinus
-                    className={styles.sectionMinus}
-                    onClick={() => {
-                      if (costPlan > 0) setCostPlan(costPlan - 1)
-                    }}
-                  />
-                )}
-              </span>
-            )}
+            <SectionPlusBtn
+              idx={index}
+              max={4}
+              value={costPlan}
+              setValue={setCostPlan}
+            />
             <TextInputBox
               textRef={(el: any) => (planTitleRef.current[index] = el)}
               title={`가격 플랜 이름 ${index + 1}`}
