@@ -1,4 +1,4 @@
-package com.selectool.dto.request;
+package com.selectool.dto.user.request;
 
 import lombok.Builder;
 import lombok.Data;

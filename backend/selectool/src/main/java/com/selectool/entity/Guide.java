@@ -1,6 +1,5 @@
 package com.selectool.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +28,7 @@ public class Guide {
 
     private String toolName;
 
-    private String function;
+    private String func;
 
     private String url;
 
@@ -48,14 +47,14 @@ public class Guide {
     private List<GuideBookmark> guideBookmarks = new ArrayList<>();
 
     @Builder
-    public Guide(Long id, String title, LocalDateTime date, String content, String source, String toolName, String function, String url, String image, String toolImage, Tool tool, List<GuideCategory> guideCategories, List<GuideBookmark> guideBookmarks) {
+    public Guide(Long id, String title, LocalDateTime date, String content, String source, String toolName, String func, String url, String image, String toolImage, Tool tool, List<GuideCategory> guideCategories, List<GuideBookmark> guideBookmarks) {
         this.id = id;
         this.title = title;
         this.date = date;
         this.content = content;
         this.source = source;
         this.toolName = toolName;
-        this.function = function;
+        this.func = func;
         this.url = url;
         this.image = image;
         this.toolImage = toolImage;

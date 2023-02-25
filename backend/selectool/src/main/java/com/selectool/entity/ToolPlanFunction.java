@@ -15,16 +15,16 @@ public class ToolPlanFunction {
     @Column(name = "tool_plan_function_id")
     private Long id;
 
-    private String function;
+    private String func;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tool_id")
     private Tool tool;
 
     @Builder
-    public ToolPlanFunction(Long id, String function, Tool tool) {
+    public ToolPlanFunction(Long id, String func, Tool tool) {
         this.id = id;
-        this.function = function;
+        this.func = func;
         this.tool = tool;
     }
 }

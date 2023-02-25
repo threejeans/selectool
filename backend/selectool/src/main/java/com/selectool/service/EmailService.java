@@ -1,6 +1,6 @@
 package com.selectool.service;
 
-import com.selectool.dto.request.EmailRequest;
+import com.selectool.dto.user.request.EmailRequest;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

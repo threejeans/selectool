@@ -1,4 +1,4 @@
-package com.selectool.dto.response;
+package com.selectool.dto.user.request;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,22 +6,16 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserResponse {
-    private Long id;
-
+public class UserCreateRequest {
     private String name;
-
-    private String type;
 
     private String email;
 
     private String image;
 
     @Builder
-    public UserResponse(Long id, String name, String type, String email, String image) {
-        this.id = id;
+    public UserCreateRequest(String name, String email, String image) {
         this.name = name;
-        this.type = type;
         this.email = email;
         this.image = image;
     }

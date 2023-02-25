@@ -1,7 +1,7 @@
 package com.selectool.controller;
 
-import com.selectool.dto.request.CodeRequest;
-import com.selectool.dto.response.ServiceTokenResponse;
+import com.selectool.dto.user.request.CodeRequest;
+import com.selectool.dto.user.response.ServiceTokenResponse;
 import com.selectool.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
