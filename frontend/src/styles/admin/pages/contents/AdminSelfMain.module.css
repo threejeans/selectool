@@ -32,6 +32,17 @@
   background: transparent;
 }
 
+.halfSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  gap: 1rem;
+}
+.halfSection > * {
+  width: 50%;
+}
+
 .label {
   font-size: x-large;
   margin: 0.2rem;
@@ -93,6 +104,7 @@
   display: flex;
   gap: 0.4rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
 .thumbnail {
@@ -121,11 +133,12 @@
 .thumbnail h5,
 .thumbnail a {
   margin: 0.2rem;
-  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
 }
 .thumbnail a {
   color: var(--primary-color-main);
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   text-decoration: underline;
 }
 

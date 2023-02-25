@@ -3,27 +3,25 @@ import AdminButton from 'components/admin/AdminButton'
 import CategoryGroup from 'components/admin/CategoryGroup'
 import TextInputBox from 'components/admin/TextInputBox'
 import ThumbnailInput from 'components/admin/ThumbnailInput'
-import React, { useRef, useState } from 'react'
-import { BsTriangleFill } from 'react-icons/bs'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
 import {
-  createSelfMainTmpInfo,
+  createWithMainTmpInfo,
   popToast,
-  SelfMainTmpInfo,
+  WithMainTmpInfo,
 } from '../adminContentsSlice'
 
-const AdminSelfMain = () => {
+const AdminWithMain = () => {
   const koRef = useRef<HTMLInputElement | null>(null)
   const enRef = useRef<HTMLInputElement | null>(null)
   const descriptionRef = useRef<HTMLInputElement | null>(null)
-  const topicRef = useRef<HTMLSelectElement | null>(null)
+  const teamKoRef = useRef<HTMLInputElement | null>(null)
+  const teamEnRef = useRef<HTMLInputElement | null>(null)
 
-  const categoryList = ['디자인', '개발', '마케팅', '기획', 'Other']
+  const list = ['금융', '커뮤니티', '모빌리티', '여행/레져', '커머스', 'Other']
   const [category, setCategory] = useState('Other')
-  const countryList = ['국내', '해외']
-  const [country, setCountry] = useState('국내')
 
   const [thumbnail, setThumbnail] = useState('')
 
@@ -33,14 +31,14 @@ const AdminSelfMain = () => {
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation()
 
-    const data: SelfMainTmpInfo = {
-      individualToolNameKr: '',
-      individualToolNameEn: '',
-      individualToolInfo: '',
-      individualToolTopic: '',
-      individualToolTag: '',
-      individualToolCountry: '',
-      individualToolLogo: '',
+    const data: WithMainTmpInfo = {
+      groupCorpNameKr: '',
+      groupCorpNameEn: '',
+      groupCorpInfo: '',
+      groupCorpTeamNameKr: '',
+      groupCorpTeamNameEn: '',
+      groupCorpTag: '',
+      groupCorpLogo: '',
     }
 
     if (koRef.current) {
@@ -48,40 +46,46 @@ const AdminSelfMain = () => {
         koRef.current.focus()
         popToast(false)
         return
-      } else data.individualToolNameKr = koRef.current.value
+      } else data.groupCorpNameKr = koRef.current.value
     }
     if (enRef.current) {
       if (enRef.current.value.length === 0) {
         enRef.current.focus()
         popToast(false)
         return
-      } else data.individualToolNameEn = enRef.current.value
+      } else data.groupCorpNameEn = enRef.current.value
     }
     if (descriptionRef.current) {
       if (descriptionRef.current.value.length === 0) {
         descriptionRef.current.focus()
         popToast(false)
         return
-      } else data.individualToolInfo = descriptionRef.current.value
+      } else data.groupCorpInfo = descriptionRef.current.value
     }
-    if (topicRef.current) {
-      if (topicRef.current.value.length === 0) {
-        topicRef.current.focus()
+    if (teamKoRef.current) {
+      if (teamKoRef.current.value.length === 0) {
+        teamKoRef.current.focus()
         popToast(false)
         return
-      } else data.individualToolTopic = topicRef.current.value
+      } else data.groupCorpTeamNameKr = teamKoRef.current.value
     }
-    if (category) data.individualToolTag = category
-    if (country) data.individualToolCountry = country
+    if (teamEnRef.current) {
+      if (teamEnRef.current.value.length === 0) {
+        teamEnRef.current.focus()
+        popToast(false)
+        return
+      } else data.groupCorpTeamNameEn = teamEnRef.current.value
+    }
+    if (category) data.groupCorpTag = category
     if (thumbnail === '') {
       popToast('섬네일')
       return
-    } else data.individualToolLogo = thumbnail
+    } else data.groupCorpLogo = thumbnail
 
-    dispatch(createSelfMainTmpInfo(data))
+    dispatch(createWithMainTmpInfo(data))
       .then(e => {
         if (e.meta.requestStatus === 'fulfilled')
-          navigate('/admin/contents/self/specific')
+          navigate('/admin/contents/with/specific')
         else
           toast('🚨저장이 실패했어요!', {
             type: 'error',
@@ -93,63 +97,52 @@ const AdminSelfMain = () => {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>혼자써요 main</h3>
+      <h3 className={styles.title}>함께써요 main</h3>
       <div className={styles.section}>
         <TextInputBox
           textRef={koRef}
-          title={'프로덕트 이름'}
-          placeholder={'예시: 노션, 피그마'}
+          title={'회사 이름'}
+          placeholder={'예시: 토스, 야놀자'}
           required={true}
         />
         <TextInputBox
           textRef={enRef}
-          title={'프로덕트 영문명'}
-          placeholder={'예시: Notion, Figma'}
+          title={'회사 영문명'}
+          placeholder={'예시: Toss, Baemin'}
           required={true}
         />
         <TextInputBox
           textRef={descriptionRef}
-          title={'프로덕트 한 줄 소개'}
-          placeholder={'예시: 프로젝트 관림 및 기록 소프트웨어'}
+          title={'회사 한 줄 소개'}
+          placeholder={
+            '예시: 숙박, 여행, 레저, 액티비티 정보제공 및 예약 서비스 플랫폼 [야놀자]를 운영하는 기업'
+          }
           required={true}
         />
-        <div>
-          <h5 className={styles.label}>
-            프로덕트 토픽{<span className={styles.required}>{'*'}</span>}
-          </h5>
-          <div className={styles.selectBox}>
-            <select ref={topicRef} className={styles.select}>
-              <option value=''>선택</option>
-              <option value='디자인'>디자인</option>
-              <option value='화상회의'>화상회의</option>
-              <option value='개발'>개발</option>
-              <option value='아카이빙'>아카이빙</option>
-              <option value='화이트보드'>화이트보드</option>
-              <option value='기타'>기타</option>
-            </select>
-            <BsTriangleFill className={styles.arrowDown} />
-          </div>
-        </div>
-        <CategoryGroup
-          title={'프로덕트 분류'}
-          required={false}
-          list={categoryList}
-          category={category}
-          setCategory={setCategory}
+        <TextInputBox
+          textRef={teamKoRef}
+          title={'팀 이름'}
+          placeholder={'예시: (주)비바 리퍼블리카'}
+          required={true}
+        />
+        <TextInputBox
+          textRef={teamEnRef}
+          title={'팀 영문명'}
+          placeholder={'예시: Viva Republica'}
+          required={true}
         />
         <CategoryGroup
-          title={'프로덕트 국가'}
+          title={'회사 분류'}
           required={false}
-          list={countryList}
-          category={country}
-          setCategory={setCountry}
+          list={list}
+          category={category}
+          setCategory={setCategory}
         />
         <h5 className={styles.label}>
           썸네일 이미지 <span className={styles.required}>{'*'}</span>
         </h5>
         <ThumbnailInput thumbnail={thumbnail} setThumbnail={setThumbnail} />
       </div>
-      {/* btn */}
       <div className={styles.btnGroup}>
         <AdminButton
           color={'white'}
@@ -174,4 +167,4 @@ const AdminSelfMain = () => {
   )
 }
 
-export default AdminSelfMain
+export default AdminWithMain

@@ -4,7 +4,7 @@ import AdminHeader from './AdminHeader'
 import { useAppSelector } from 'app/hooks'
 import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { ToastContainer } from 'react-toast'
+import { ToastContainer } from 'react-toastify'
 import styles from 'styles/admin/components/AdminLayout.module.css'
 
 type AdminLayoutProps = {
@@ -24,7 +24,6 @@ const AdminLayout = ({ title, children }: AdminLayoutProps) => {
     <div className={styles.container}>
       <AdminHeader title={title} />
       <section>{children}</section>
-      <ToastContainer position={'bottom-right'} delay={2000} />
     </div>
   )
 }
