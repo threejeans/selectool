@@ -17,6 +17,8 @@ public class Client {
     @Column(name = "client_id")
     private Long id;
 
+    private String name;
+
     private String image;
 
     private String url;
@@ -25,8 +27,10 @@ public class Client {
     private List<ToolClient> toolClients = new ArrayList<>();
 
     @Builder
-    public Client(Long id, String image, String url, List<ToolClient> toolClients) {
+
+    public Client(Long id, String name, String image, String url, List<ToolClient> toolClients) {
         this.id = id;
+        this.name = name;
         this.image = image;
         this.url = url;
         this.toolClients = toolClients;
