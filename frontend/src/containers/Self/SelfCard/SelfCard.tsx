@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 import styles from './SelfCard.module.css'
-import imageSample from 'assets/notion.svg'
 import { Link } from 'react-router-dom'
+import { SelfMainInfo } from 'types/DataTypes'
 
-const SelfCard = () => {
+type CardProps = {
+ data: SelfMainInfo
+}
+
+const SelfCard = ({data}: CardProps) => {
   const [isScraped, setScraped] = useState(false)
   const [isHover, setHover] = useState(false)
 
@@ -23,11 +27,11 @@ const SelfCard = () => {
         <div className={styles.hoverContainer}>
           <div className={styles.hoverContentLayout}>
             <div className={styles.hoverTextSection}>
-              <div className={styles.typeEng}>ARCHIVING</div>
+              <div className={styles.typeEng}>{data.individualToolTagEn.toUpperCase()}</div>
               <div className={styles.hookText}>Better Together</div>
             </div>
             <div className={styles.aTag}>
-              <Link to={'/self'}>노션에 대해 더 알아보기 →</Link>
+              <Link to={'/self'}>{data.individualToolNameKr}에 대해 더 알아보기 →</Link>
             </div>
           </div>
         </div>
@@ -40,13 +44,13 @@ const SelfCard = () => {
       ></BsFillBookmarkFill>
       <div className={styles.contentsContainer}>
         <div className={styles.appIconContainer}>
-          <img src={imageSample} className={styles.appIcon}></img>
-        </div>
+          <img src={data.individualToolLogo} className={styles.appIcon}></img>
+        </div> 
         <div className={styles.textContainer}>
-          <div className={styles.type}>아카이빙</div>
-          <div className={styles.name}>노션</div>
+          <div className={styles.type}>{data.individualToolTagKr}</div>
+          <div className={styles.name}>{data.individualToolNameKr}</div>
           <div className={styles.description}>
-            프로젝트 관리 및 기록 소프트웨어
+            {data.individualToolInfo}
           </div>
         </div>
       </div>

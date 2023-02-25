@@ -89,6 +89,8 @@
 
 .appIcon {
   width: 48px;
+  height: 48px;
+  object-fit: contain;
 }
 
 .textContainer {
@@ -111,6 +113,6 @@
 
 .description {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   color: #6f6f6f;
 }

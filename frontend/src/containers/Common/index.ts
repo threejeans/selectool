@@ -1,4 +1,5 @@
 export { default as ContentTitle } from './ContentTitle'
 export { default as FilterSection } from './FilterSection'
 export { default as FilterGrid } from './FilterGrid'
-export { default as CardGrid } from './CardGrid'
+export { SelfCardGrid as SelfCardGrid } from './CardGrid' 
+export { WithCardGrid as WithCardGrid } from './CardGrid' 

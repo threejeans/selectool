@@ -1,11 +1,23 @@
-import Modal from 'components/Modal'
-import Spinner from 'components/Spinner'
-import { CardGrid, FilterSection } from 'containers/Common'
-import React, { Suspense } from 'react'
+import { getSelfMainInfoAPI } from 'api/self'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { SelfCardGrid, FilterSection } from 'containers/Common'
+import React, { Suspense, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { selfMainInfoList, setSelfMainInfoList } from 'reducers/selfReducer'
 import styles from 'styles/pages/commons/Content.module.css'
 
 const SelfMain = () => {
   const contents = ['ALL', '디자인', '개발', '마케팅', '기획', 'Other']
+  const dispatch = useAppDispatch()
+  const mainInfoList = useAppSelector(selfMainInfoList);
+
+  useEffect(() => {
+    getselfMainInfoList()
+  }, [])
+
+  const getselfMainInfoList = async () => {
+    dispatch(setSelfMainInfoList(await getSelfMainInfoAPI()))
+  }
 
   return (
     <div className={styles.mainLayout}>
@@ -14,8 +26,8 @@ const SelfMain = () => {
         filterTypes={contents}
         placeholder={'툴 이름을 입력해주세요'}
       />
-      <Suspense fallback={<CardGrid isSpinner />}>
-        <CardGrid type={'self'} />
+      <Suspense fallback={<SelfCardGrid list={mainInfoList} isSpinner />}>
+        <SelfCardGrid list={mainInfoList} />
       </Suspense>
     </div>
   )

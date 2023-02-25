@@ -7,8 +7,13 @@ import companyLogoEx from 'assets/daangn_logo.png'
 import toolLogoEx01 from 'assets/gandi_logo.png'
 import toolLogoEx02 from 'assets/slack_logo.svg'
 import toolLogoEx03 from 'assets/figma_logo.png'
+import { WithMainInfo } from 'types/DataTypes'
 
-const WithCard = () => {
+type CardProps = {
+  data: WithMainInfo
+ }
+
+const WithCard = ({data}: CardProps) => {
   const [isScraped, setScraped] = useState(false)
   const [isHover, setHover] = useState(false)
 

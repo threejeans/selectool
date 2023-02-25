@@ -1,4 +1,4 @@
-import { CardGrid, FilterSection } from 'containers/Common'
+import { WithCardGrid, FilterSection } from 'containers/Common'
 import React, { Suspense } from 'react'
 import styles from 'styles/pages/commons/Content.module.css'
 
@@ -18,8 +18,8 @@ const WithMain = () => {
         filterTypes={filterTypes}
         placeholder={'기업명을 입력해주세요'}
       />
-      <Suspense fallback={<CardGrid isSpinner />}>
-        <CardGrid type={'with'} />
+      <Suspense fallback={<WithCardGrid isSpinner list={[]} />}>
+        <WithCardGrid list={[]}  />
       </Suspense>
     </div>
   )

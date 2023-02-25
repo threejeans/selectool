@@ -1,0 +1,34 @@
+{
+  "selfMainInfoList" : [
+    {
+      "individualToolNameKr": "피그마",
+      "individualToolNameEn": "Figma",
+      "individualToolInfo": "인터페이스 디자인을 위한 웹 어플리케이션",
+      "individualToolTagEn": "Design",
+      "individualToolTagKr": "디자인",
+      "individualToolTopic": "디자인",
+      "individualToolCountry": "해외",
+      "individualToolLogo": "images/temp/figma.png"
+    },
+    {
+      "individualToolNameKr": "노션",
+      "individualToolNameEn": "Notion",
+      "individualToolInfo": "프로젝트 관리 및 기록 소프트웨어",
+      "individualToolTagEn": "Archiving",
+      "individualToolTagKr": "아카이빙",
+      "individualToolTopic": "기획",
+      "individualToolCountry": "해외",
+      "individualToolLogo": "images/temp/notion.svg"
+    },
+    {
+      "individualToolNameKr": "잔디",
+      "individualToolNameEn": "Gandi",
+      "individualToolInfo": "메신저 기반 업무용 협업툴 서비스",
+      "individualToolTagEn": "Messenger",
+      "individualToolTagKr": "메신저",
+      "individualToolTopic": "기획",
+      "individualToolCountry": "해외",
+      "individualToolLogo": "images/temp/gandi_logo.png"
+    }
+  ]
+}
