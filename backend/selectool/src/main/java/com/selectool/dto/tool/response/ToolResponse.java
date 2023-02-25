@@ -1,4 +1,4 @@
-package com.selectool.dto.tool.request;
+package com.selectool.dto.tool.response;
 
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +8,9 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class ToolCreateRequest {
+public class ToolResponse {
+    private Long id;
+
     private String nameKr;
 
     private String nameEn;
@@ -29,14 +31,15 @@ public class ToolCreateRequest {
 
     private String ios;
 
-    private List<ToolFunctionCreateRequest> toolFunctions;
+    private List<ToolFunctionResponse> toolFunctions;
 
-    private List<ClientCreateRequest> clients;
+    private List<ClientResponse> clients;
 
-    private List<ToolPlanCreateRequest> plans;
+    private List<ToolPlanResponse> plans;
 
     @Builder
-    public ToolCreateRequest(String nameKr, String nameEn, String info, String msg, String category, String country, String image, String url, String aos, String ios, List<ToolFunctionCreateRequest> toolFunctions, List<ClientCreateRequest> clients) {
+    public ToolResponse(Long id, String nameKr, String nameEn, String info, String msg, String category, String country, String image, String url, String aos, String ios, List<ToolFunctionResponse> toolFunctions, List<ClientResponse> clients, List<ToolPlanResponse> plans) {
+        this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
         this.info = info;
@@ -49,5 +52,6 @@ public class ToolCreateRequest {
         this.ios = ios;
         this.toolFunctions = toolFunctions;
         this.clients = clients;
+        this.plans = plans;
     }
 }
