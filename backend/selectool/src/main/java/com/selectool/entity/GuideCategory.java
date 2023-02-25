@@ -5,27 +5,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @Getter
-public class TTag {
+public class GuideCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "t_tag_id")
+    @Column(name = "guide_category_id")
     private Long id;
 
     private String name;
 
-    @OneToMany(mappedBy = "tTag", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ToolTTag> toolTTags = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "guide_id")
+    private Guide guide;
 
     @Builder
-    public TTag(Long id, String name, List<ToolTTag> toolTTags) {
+    public GuideCategory(Long id, String name, Guide guide) {
         this.id = id;
         this.name = name;
-        this.toolTTags = toolTTags;
+        this.guide = guide;
     }
 }

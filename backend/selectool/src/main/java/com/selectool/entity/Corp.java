@@ -11,7 +11,6 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 public class Corp {
     @Id
@@ -19,19 +18,24 @@ public class Corp {
     @Column(name = "corp_id")
     private Long id;
 
-    private String name;
+    private String nameKr;
 
-    private String brand;
+    private String nameEn;
 
     private String info;
 
-    private String homepage;
+    private String teamNameKr;
 
-    private String blog;
+    private String teamNameEn;
+
+    private String category;
+
+    private String image;
+
+    private String url;
 
     private boolean content;
 
-    private String image;
 
     @OneToMany(mappedBy = "corp", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CorpBranch> corpBranches = new ArrayList<>();
@@ -42,15 +46,24 @@ public class Corp {
     @OneToMany(mappedBy = "corp", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CorpBookmark> corpBookmarks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "corp", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CorpTool> corpTools = new ArrayList<>();
+
     @Builder
-    public Corp(Long id, String name, String brand, String info, String homepage, String blog, boolean content, String image) {
+    public Corp(Long id, String nameKr, String nameEn, String info, String teamNameKr, String teamNameEn, String category, String image, String url, boolean content, List<CorpBranch> corpBranches, List<CorpCulture> corpCultures, List<CorpBookmark> corpBookmarks, List<CorpTool> corpTools) {
         this.id = id;
-        this.name = name;
-        this.brand = brand;
+        this.nameKr = nameKr;
+        this.nameEn = nameEn;
         this.info = info;
-        this.homepage = homepage;
-        this.blog = blog;
-        this.content = content;
+        this.teamNameKr = teamNameKr;
+        this.teamNameEn = teamNameEn;
+        this.category = category;
         this.image = image;
+        this.url = url;
+        this.content = content;
+        this.corpBranches = corpBranches;
+        this.corpCultures = corpCultures;
+        this.corpBookmarks = corpBookmarks;
+        this.corpTools = corpTools;
     }
 }

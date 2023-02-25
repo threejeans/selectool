@@ -12,22 +12,21 @@ import javax.persistence.*;
 public class ToolClient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "corp_tool_id")
+    @Column(name = "tool_client_id")
     private Long id;
-
-    private String image;
-
-    private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tool_id")
     private Tool tool;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id")
+    private Client client;
+
     @Builder
-    public ToolClient(Long id, String image, String url, Tool tool) {
+    public ToolClient(Long id, Tool tool, Client client) {
         this.id = id;
-        this.image = image;
-        this.url = url;
         this.tool = tool;
+        this.client = client;
     }
 }

@@ -11,7 +11,6 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 public class Tool {
     @Id
@@ -19,22 +18,29 @@ public class Tool {
     @Column(name = "tool_id")
     private Long id;
 
-    private String name_kr;
+    private String nameKr;
 
-    private String name_en;
+    private String nameEn;
 
     private String info;
 
     private String msg;
 
-    private String country;
+    private String category;
 
-    private boolean url;
+    private String country;
 
     private String image;
 
+    private String url;
+
+    private String aos;
+
+    private String ios;
+
+
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ToolFee> toolFees = new ArrayList<>();
+    private List<ToolPlan> toolPlans = new ArrayList<>();
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolFunction> toolFunctions = new ArrayList<>();
@@ -49,17 +55,26 @@ public class Tool {
     private List<ToolBookmark> toolBookmarks = new ArrayList<>();
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ToolTTag> toolTTags = new ArrayList<>();
+    private List<CorpTool> corpTools = new ArrayList<>();
 
     @Builder
-    public Tool(Long id, String name_kr, String name_en, String info, String msg, String country, boolean url, String image) {
+    public Tool(Long id, String nameKr, String nameEn, String info, String msg, String category, String country, String image, String url, String aos, String ios, List<ToolPlan> toolPlans, List<ToolFunction> toolFunctions, List<Guide> guides, List<ToolClient> toolClients, List<ToolBookmark> toolBookmarks, List<CorpTool> corpTools) {
         this.id = id;
-        this.name_kr = name_kr;
-        this.name_en = name_en;
+        this.nameKr = nameKr;
+        this.nameEn = nameEn;
         this.info = info;
         this.msg = msg;
+        this.category = category;
         this.country = country;
-        this.url = url;
         this.image = image;
+        this.url = url;
+        this.aos = aos;
+        this.ios = ios;
+        this.toolPlans = toolPlans;
+        this.toolFunctions = toolFunctions;
+        this.guides = guides;
+        this.toolClients = toolClients;
+        this.toolBookmarks = toolBookmarks;
+        this.corpTools = corpTools;
     }
 }
