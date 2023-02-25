@@ -5,13 +5,14 @@ export const getSelfMainInfoAPI = async () => {
   let selfMainInfoList: SelfMainInfo[] = []
 
   await fetch('/data/selfMainInfo.json')
-    .then((res) => res.json())
-    .then((res) => {
+    .then(res => res.json())
+    .then(res => {
       selfMainInfoList = res.selfMainInfoList
       console.log(selfMainInfoList)
     })
-    .catch(err => {console.log(err)})
+    .catch(err => {
+      console.log(err)
+    })
 
   return selfMainInfoList
-
 }

@@ -1,5 +1,8 @@
+import { getWithMainInfoAPI } from 'api/with'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { WithCardGrid, FilterSection } from 'containers/Common'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
+import { setWithMainInfoList, withMainInfoList } from 'reducers/withReducer'
 import styles from 'styles/pages/commons/Content.module.css'
 
 const WithMain = () => {
@@ -11,6 +14,16 @@ const WithMain = () => {
     '커머스',
     'Other',
   ]
+  const dispatch = useAppDispatch()
+  const mainInfoList = useAppSelector(withMainInfoList)
+
+  useEffect(() => {
+    getWithMainInfoList()
+  }, [])
+
+  const getWithMainInfoList = async () => {
+    dispatch(setWithMainInfoList(await getWithMainInfoAPI()))
+  }
 
   return (
     <div className={styles.mainLayout}>
@@ -19,7 +32,7 @@ const WithMain = () => {
         placeholder={'기업명을 입력해주세요'}
       />
       <Suspense fallback={<WithCardGrid isSpinner list={[]} />}>
-        <WithCardGrid list={[]}  />
+        <WithCardGrid list={mainInfoList} />
       </Suspense>
     </div>
   )

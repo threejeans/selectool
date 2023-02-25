@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import { SelfMainInfo } from 'types/DataTypes'
 
 export interface SelfState {
-  isFilterModal: boolean,
-  selfMainInfoList: SelfMainInfo[],
+  isFilterModal: boolean
+  selfMainInfoList: SelfMainInfo[]
 }
 
 const initialState: SelfState = {
@@ -19,13 +19,14 @@ const selfReducer = createSlice({
     changeFilterModalStatus: state => {
       state.isFilterModal = !state.isFilterModal
     },
-    setSelfMainInfoList(state, {payload: input}) {
-      return {...state, selfMainInfoList: input}
-    }
+    setSelfMainInfoList(state, { payload: input }) {
+      return { ...state, selfMainInfoList: input }
+    },
   },
 })
 
-export const { changeFilterModalStatus, setSelfMainInfoList } = selfReducer.actions
+export const { changeFilterModalStatus, setSelfMainInfoList } =
+  selfReducer.actions
 
 export const filterModalState = (state: RootState) => state.self.isFilterModal
 export const selfMainInfoList = (state: any) => state.self.selfMainInfoList
