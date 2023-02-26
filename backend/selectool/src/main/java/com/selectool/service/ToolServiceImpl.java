@@ -129,7 +129,7 @@ public class ToolServiceImpl implements ToolService {
         tool.setToolFunctions(toolFunctions);
 
         //TODO: 툴 주요 고객 생성
-
+        tool.setToolClients(new ArrayList<>());
 
         toolRepo.save(tool);
         return entityToDTO(null, tool);

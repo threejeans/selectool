@@ -1,7 +1,10 @@
 package com.selectool.controller;
 
+import com.selectool.config.login.LoginAdmin;
 import com.selectool.dto.tool.request.ToolCreateRequest;
 import com.selectool.dto.tool.response.*;
+import com.selectool.entity.Admin;
+import com.selectool.service.ToolService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,8 @@ import java.util.Random;
 @RequestMapping("/self")
 @Api(tags = "혼자 써요")
 public class ToolController {
+    private final ToolService toolService;
+
     @GetMapping("/clients")
     @ApiOperation(value = "이름으로 주요 고객 검색(name 을 보내지 않을 경우 전체 목록)")
     public ResponseEntity<List<ClientResponse>> getClientList(
@@ -162,10 +167,10 @@ public class ToolController {
     @PostMapping("/tools")
     @ApiOperation(value = "툴 생성")
     public ResponseEntity<?> createTool(
-//            @LoginAdmin Admin admin
+            @LoginAdmin Admin admin,
             @RequestBody ToolCreateRequest request
     ) {
-
+        toolService.createTool(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
