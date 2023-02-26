@@ -6,6 +6,7 @@ import TextInputBox from 'components/admin/TextInputBox'
 import ThumbSiteInput from 'components/admin/ThumbSiteInput'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
 import AdminWithToolDetail from './AdminWithToolDetail'
 
@@ -185,7 +186,7 @@ const AdminWithSpecific = () => {
               color={'white'}
               size={'md'}
               text={'Save'}
-              onClick={(e: React.MouseEvent) => console.log(e.target)}
+              onClick={() => toast('임시 저장 구현 중')}
             />
             <AdminButton
               color={'next'}
@@ -196,7 +197,11 @@ const AdminWithSpecific = () => {
           </div>
         </div>
       </div>
-      <AdminModal isModal={isModal} setIsModal={() => setIsModal(false)}>
+      <AdminModal
+        isModal={isModal}
+        setIsModal={() => setIsModal(false)}
+        outer={false}
+      >
         <AdminWithToolDetail setIsModal={() => setIsModal(false)} />
       </AdminModal>
     </>
