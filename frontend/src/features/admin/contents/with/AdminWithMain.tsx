@@ -1,17 +1,14 @@
 import { useAppDispatch } from 'app/hooks'
 import AdminButton from 'components/admin/AdminButton'
 import CategoryGroup from 'components/admin/CategoryGroup'
+import DuplicatedCategoryGroup from 'components/admin/DuplicatedCategoryGroup'
 import TextInputBox from 'components/admin/TextInputBox'
 import ThumbnailInput from 'components/admin/ThumbnailInput'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
-import {
-  createWithMainTmpInfo,
-  popToast,
-  WithMainTmpInfo,
-} from '../adminContentsSlice'
+import { popToast } from '../adminContentsSlice'
 
 const AdminWithMain = () => {
   const koRef = useRef<HTMLInputElement | null>(null)
@@ -21,7 +18,7 @@ const AdminWithMain = () => {
   const teamEnRef = useRef<HTMLInputElement | null>(null)
 
   const list = ['금융', '커뮤니티', '모빌리티', '여행/레져', '커머스', 'Other']
-  const [category, setCategory] = useState('Other')
+  const [categories, setCategories] = useState(['Other'])
 
   const [thumbnail, setThumbnail] = useState('')
 
@@ -31,13 +28,13 @@ const AdminWithMain = () => {
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation()
 
-    const data: WithMainTmpInfo = {
+    const data: any = {
       groupCorpNameKr: '',
       groupCorpNameEn: '',
       groupCorpInfo: '',
       groupCorpTeamNameKr: '',
       groupCorpTeamNameEn: '',
-      groupCorpTag: '',
+      groupCorpCategories: [''],
       groupCorpLogo: '',
     }
 
@@ -76,23 +73,23 @@ const AdminWithMain = () => {
         return
       } else data.groupCorpTeamNameEn = teamEnRef.current.value
     }
-    if (category) data.groupCorpTag = category
+    if (categories) data.groupCorpCategories = categories
     if (thumbnail === '') {
       popToast('섬네일')
       return
     } else data.groupCorpLogo = thumbnail
 
-    dispatch(createWithMainTmpInfo(data))
-      .then(e => {
-        if (e.meta.requestStatus === 'fulfilled')
-          navigate('/admin/contents/with/specific')
-        else
-          toast('🚨저장이 실패했어요!', {
-            type: 'error',
-            theme: 'colored',
-          })
-      })
-      .catch(err => toast.error(err))
+    // dispatch(createWithMainTmpInfo(data))
+    //   .then(e => {
+    //     if (e.meta.requestStatus === 'fulfilled')
+    //       navigate('/admin/contents/with/specific')
+    //     else
+    //       toast('🚨저장이 실패했어요!', {
+    //         type: 'error',
+    //         theme: 'colored',
+    //       })
+    //   })
+    //   .catch(err => toast.error(err))
   }
 
   return (
@@ -131,12 +128,12 @@ const AdminWithMain = () => {
           placeholder={'예시: Viva Republica'}
           required={true}
         />
-        <CategoryGroup
+        <DuplicatedCategoryGroup
           title={'회사 분류'}
           required={false}
           list={list}
-          category={category}
-          setCategory={setCategory}
+          categories={categories}
+          setCategories={setCategories}
         />
         <h5 className={styles.label}>
           썸네일 이미지 <span className={styles.required}>{'*'}</span>
@@ -154,7 +151,7 @@ const AdminWithMain = () => {
           color={'white'}
           size={'md'}
           text={'Save'}
-          onClick={(e: React.MouseEvent) => console.log(e.target)}
+          onClick={() => toast('임시 저장 구현 중')}
         />
         <AdminButton
           color={'next'}

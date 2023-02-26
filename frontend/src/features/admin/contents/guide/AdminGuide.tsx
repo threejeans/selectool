@@ -6,6 +6,7 @@ import TextInputBox from 'components/admin/TextInputBox'
 import ThumbnailInput from 'components/admin/ThumbnailInput'
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
 
 const AdminGuide = () => {
@@ -116,7 +117,7 @@ const AdminGuide = () => {
           color={'white'}
           size={'md'}
           text={'Save'}
-          onClick={(e: React.MouseEvent) => console.log(e.target)}
+          onClick={() => toast('임시 저장 구현 중')}
         />
         <AdminButton
           color={'next'}

@@ -7,20 +7,24 @@ import S3 from 'react-aws-s3-typescript'
 
 type ThumbSiteInputProps = {
   idx: number
+  subName: string
   subTitle: string
   required: boolean
   inputRefs: React.MutableRefObject<HTMLInputElement[]>
   siteRefs: React.MutableRefObject<HTMLInputElement[]>
+  nameRefs: React.MutableRefObject<HTMLInputElement[]>
   images: string[]
   setImages: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const ThumbSiteInput = ({
   idx,
+  subName,
   subTitle,
   required,
   inputRefs,
   siteRefs,
+  nameRefs,
   images,
   setImages,
 }: ThumbSiteInputProps) => {
@@ -81,6 +85,12 @@ const ThumbSiteInput = ({
           />
         </div>
       </div>
+      <TextInputBox
+        textRef={(el: any) => (nameRefs.current[idx] = el)}
+        title={subName}
+        placeholder={'예시: AP그룹'}
+        required={required}
+      />
       <TextInputBox
         textRef={(el: any) => (sRef.current[idx] = el)}
         title={subTitle}

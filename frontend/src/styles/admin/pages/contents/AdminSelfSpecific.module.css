@@ -137,3 +137,46 @@
   font-size: 1.2rem;
   color: var(--gray-scale-color-g30);
 }
+
+.input,
+.select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid var(--gray-scale-color-g30);
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: 900;
+}
+.selectBox {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  z-index: 1;
+}
+.select:hover {
+  cursor: pointer;
+}
+.option {
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid var(--gray-scale-color-g30);
+}
+/* 보이기만 하는 화살표.. 참.. */
+.arrowDown {
+  position: absolute;
+  font-size: 1rem;
+  color: black;
+  rotate: 180deg;
+  right: 0.4rem;
+  margin-bottom: 1rem;
+  z-index: 0;
+}

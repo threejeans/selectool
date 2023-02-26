@@ -60,6 +60,7 @@ const AdminContents = () => {
           )
         })}
       </div>
+      <div className={styles.title} />
     </div>
   )
 }

@@ -1,22 +1,25 @@
-import { useAppDispatch } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import AdminButton from 'components/admin/AdminButton'
 import SectionPlusBtn from 'components/admin/SectionPlusBtn'
 import TextInputBox from 'components/admin/TextInputBox'
 import ThumbSiteInput from 'components/admin/ThumbSiteInput'
-import React, { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { BiMinus, BiPlus } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
 import {
-  ClientInfoType,
-  CoreFuncType,
-  createSelfSpecificTmpInfo,
-  PlanInfoType,
-  SelfSpecificTmpInfo,
+  ClientType,
+  createTool,
+  PlanFunctionType,
+  PlanType,
+  selectTmpTool,
+  selfSpecificTmpSave,
+  ToolFuncType,
 } from '../adminContentsSlice'
 
 const AdminSelfSpecific = () => {
+  const tmpTool = useAppSelector(selectTmpTool)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -63,6 +66,7 @@ const AdminSelfSpecific = () => {
   // 주요 고객사 이미지 섹션 관련
   const [mainClient, setMainClient] = useState(1)
   const mainClientInputRefs = useRef<HTMLInputElement[]>([])
+  const mainClientNameRefs = useRef<HTMLInputElement[]>([])
   const mainClientSiteRefs = useRef<HTMLInputElement[]>([])
   const [mainClientImages, setMainClientImages] = useState<string[]>([])
 
@@ -80,10 +84,12 @@ const AdminSelfSpecific = () => {
             <h5 className={styles.label}>주요 고객사 이미지 {index + 1}</h5>
             <ThumbSiteInput
               idx={index}
+              subName={'주요 고객사 이름'}
               subTitle={'주요 고객사 사이트'}
               required={true}
               inputRefs={mainClientInputRefs}
               siteRefs={mainClientSiteRefs}
+              nameRefs={mainClientNameRefs}
               images={mainClientImages}
               setImages={setMainClientImages}
             />
@@ -102,9 +108,6 @@ const AdminSelfSpecific = () => {
   const CostPlanGroup = () => {
     if (planTitleRef.current && planVolumeRef.current && planCostRef.current)
       return [...Array(costPlan)].map((_, index) => {
-        const isLast = index == costPlan - 1
-        const onlyOnce = costPlan == 1
-        const fullSection = costPlan == 4
         return (
           <div key={index} className={styles.section}>
             <SectionPlusBtn
@@ -181,56 +184,64 @@ const AdminSelfSpecific = () => {
 
   // 작성된 데이터 정제
   const handleComplete = () => {
+    const data = {
+      url: '',
+      toolFunctions: [{}],
+      clients: [{}],
+      plans: [{}],
+      aos: '',
+      ios: '',
+    }
     // 프로덕트 사이트
-    let siteData = ''
     if (siteRef.current)
       if (!siteRef.current.value) {
         siteRef.current.focus()
         toast('프로덕트 사이트를 입력해주세요.')
         return
-      } else siteData = siteRef.current.value
-    console.log('siteData', siteData)
+      } else data.url = siteRef.current.value
 
     // 핵심 기능
-    const coreFuncData: Array<CoreFuncType> = []
     if (coreFuncNameRefs.current && coreFuncDetailRefs.current) {
       for (let i = 0; i < coreFuncNameRefs.current.length; i++) {
-        const tmp: CoreFuncType = {
-          CoreFuncSubTitle: coreFuncNameRefs.current[i].value,
-          CoreFuncContent: coreFuncDetailRefs.current[i].value,
+        const tmp: ToolFuncType = {
+          name: coreFuncNameRefs.current[i].value,
+          content: coreFuncDetailRefs.current[i].value,
         }
-        coreFuncData.push(tmp)
+        data.toolFunctions.push(tmp)
       }
     }
-    console.log('coreFuncData', coreFuncData)
 
     // 주요고객사
-    const mainClientData: ClientInfoType[] = []
-    if (mainClientSiteRefs.current) {
+    if (mainClientSiteRefs.current && mainClientNameRefs.current) {
       // 여기만 값 참조
       for (let i = 0; i < mainClient; i++) {
         console.log(mainClientImages[i])
         if (mainClientImages[i]) {
+          if (!mainClientNameRefs.current[i].value) {
+            mainClientNameRefs.current[i].focus()
+            toast('고객사 이름를 입력해주세요.')
+            return
+          }
           if (!mainClientSiteRefs.current[i].value) {
             mainClientSiteRefs.current[i].focus()
             toast('고객사 주소를 입력해주세요.')
             return
           }
-          const tmp: ClientInfoType = {
-            ClientImage: mainClientImages[i],
-            ClientSiteUrl: mainClientSiteRefs.current[i].value,
+          const tmp: ClientType = {
+            id: 0,
+            name: mainClientNameRefs.current[i].value,
+            image: mainClientImages[i],
+            url: mainClientSiteRefs.current[i].value,
           }
-          mainClientData.push(tmp)
+          data.clients.push(tmp)
         } else {
           toast(`${i + 1}번 고객사 이미지를 첨부해주세요.`)
           return
         }
       }
     }
-    console.log('mainClientData', mainClientData)
 
     // 가격 플랜 별 기능
-    const planCostData: PlanInfoType[] = []
     if (
       planTitleRef.current &&
       planVolumeRef.current &&
@@ -239,19 +250,19 @@ const AdminSelfSpecific = () => {
     ) {
       for (let i = 0; i < planTitleRef.current.length; i++) {
         if (planTitleRef.current[i].value) {
-          const t: string[] = []
+          const t: PlanFunctionType[] = []
           if (planFuncRef.current[i]) {
             planFuncRef.current[i].map((item: any, _) => {
               t.push(item.value)
             })
           }
-          const tmp: PlanInfoType = {
-            PlanName: planTitleRef.current[i].value,
-            PlanVolume: planVolumeRef.current[i].value,
-            PlanPricing: planCostRef.current[i].value,
-            PlanFunc: t,
+          const tmp: PlanType = {
+            title: planTitleRef.current[i].value,
+            volume: planVolumeRef.current[i].value,
+            cost: planCostRef.current[i].value,
+            planFunctions: t,
           }
-          planCostData.push(tmp)
+          data.plans.push(tmp)
         } else {
           toast('제목이 입력되지 않은 플랜은 저장되지 않습니다.')
           planTitleRef.current[i].focus()
@@ -259,31 +270,39 @@ const AdminSelfSpecific = () => {
         }
       }
     }
-    console.log('planCostData', planCostData)
 
     // 스토어 점수
     if (!aosRef.current) return
     if (!iosRef.current) return
+    data.aos = aosRef.current.value || '정보없음'
+    data.ios = iosRef.current.value || '정보없음'
 
-    console.log('aosRef', aosRef.current.value)
-    console.log('iosRef', iosRef.current.value)
-
-    const data: SelfSpecificTmpInfo = {
-      individualDetailToolUrl: siteData,
-      individualDetailCoreFunc: coreFuncData,
-      individualDetailClient: mainClientData,
-      individualDetailPlan: planCostData,
-      individualDetailAosReviewRate: aosRef.current.value ?? '',
-      individualDetailiosReviewRate: iosRef.current.value ?? '',
-    }
-    dispatch(createSelfSpecificTmpInfo(data))
-      .then(e => {
-        console.log(e)
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    dispatch(selfSpecificTmpSave(data))
   }
+
+  useEffect(() => {
+    if (
+      tmpTool.nameKr &&
+      tmpTool.nameEn &&
+      tmpTool.info &&
+      tmpTool.msg &&
+      tmpTool.topic &&
+      tmpTool.image &&
+      tmpTool.url &&
+      tmpTool.clients &&
+      tmpTool.plans
+    ) {
+      console.log('Specific complate', tmpTool)
+      dispatch(createTool(tmpTool))
+        .then(data => {
+          console.log(data)
+          navigate('/admin/contents/self/list')
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    }
+  }, [tmpTool])
 
   return (
     <div className={styles.container}>
@@ -327,7 +346,7 @@ const AdminSelfSpecific = () => {
             color={'white'}
             size={'md'}
             text={'Save'}
-            onClick={(e: React.MouseEvent) => console.log(e.target)}
+            onClick={() => toast('임시 저장 구현 중')}
           />
           <AdminButton
             color={'next'}

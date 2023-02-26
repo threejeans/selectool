@@ -6,6 +6,7 @@ import TextInputBox from 'components/admin/TextInputBox'
 import ThumbSiteInput from 'components/admin/ThumbSiteInput'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
 import AdminWithToolDetail from './AdminWithToolDetail'
 
@@ -57,6 +58,7 @@ const AdminWithSpecific = () => {
   // 자회사 사이트 관련
   const [subsidiary, setSubsidiary] = useState(1)
   const subsidiaryInputRefs = useRef<HTMLInputElement[]>([])
+  const subsidiaryNameRefs = useRef<HTMLInputElement[]>([])
   const subsidiarySiteRefs = useRef<HTMLInputElement[]>([])
   const [subsidiaryImages, setSubsidiaryImages] = useState<string[]>([])
 
@@ -74,9 +76,11 @@ const AdminWithSpecific = () => {
             <h5 className={styles.label}>자회사 사이트 {index + 1}</h5>
             <ThumbSiteInput
               idx={index}
+              subName={'자회사 이름'}
               subTitle={'자회사 사이트'}
               required={false}
               inputRefs={subsidiaryInputRefs}
+              nameRefs={subsidiaryNameRefs}
               siteRefs={subsidiarySiteRefs}
               images={subsidiaryImages}
               setImages={setSubsidiaryImages}
@@ -90,6 +94,7 @@ const AdminWithSpecific = () => {
   const [inCorpTool, setInCorpTool] = useState(1)
   const inCorpToolRefs = useRef<HTMLInputElement[]>([])
   const inCorpToolInputRefs = useRef<HTMLInputElement[]>([])
+  const inCorpToolNameRefs = useRef<HTMLInputElement[]>([])
   const inCorpToolSiteRefs = useRef<HTMLInputElement[]>([])
   const [inCorpToolImages, setInCorpToolImages] = useState<string[]>([])
 
@@ -119,9 +124,11 @@ const AdminWithSpecific = () => {
             <h5 className={styles.label}>사내 협업툴 이미지</h5>
             <ThumbSiteInput
               idx={index}
+              subName={'사내 협업툴 이름'}
               subTitle={'사내 협업툴 사이트'}
               required={false}
               inputRefs={inCorpToolInputRefs}
+              nameRefs={inCorpToolNameRefs}
               siteRefs={inCorpToolSiteRefs}
               images={inCorpToolImages}
               setImages={setInCorpToolImages}
@@ -185,7 +192,7 @@ const AdminWithSpecific = () => {
               color={'white'}
               size={'md'}
               text={'Save'}
-              onClick={(e: React.MouseEvent) => console.log(e.target)}
+              onClick={() => toast('임시 저장 구현 중')}
             />
             <AdminButton
               color={'next'}
@@ -196,7 +203,11 @@ const AdminWithSpecific = () => {
           </div>
         </div>
       </div>
-      <AdminModal isModal={isModal} setIsModal={() => setIsModal(false)}>
+      <AdminModal
+        isModal={isModal}
+        setIsModal={() => setIsModal(false)}
+        outer={false}
+      >
         <AdminWithToolDetail setIsModal={() => setIsModal(false)} />
       </AdminModal>
     </>
