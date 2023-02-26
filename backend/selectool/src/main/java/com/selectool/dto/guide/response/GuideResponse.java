@@ -49,7 +49,7 @@ public class GuideResponse {
     private List<GuideCategoryResponse> categories;
 
     @Builder
-    public GuideResponse(Long id, String title, LocalDateTime date, String content, String source, String toolName, String func, String url, String image, String toolImage, List<GuideCategoryResponse> categories) {
+    public GuideResponse(Long id, String title, LocalDateTime date, String content, String source, String toolName, String func, String url, String image, String toolImage, Boolean isBookmarked, List<GuideCategoryResponse> categories) {
         this.id = id;
         this.title = title;
         this.date = date;
@@ -60,6 +60,7 @@ public class GuideResponse {
         this.url = url;
         this.image = image;
         this.toolImage = toolImage;
+        this.isBookmarked = isBookmarked;
         this.categories = categories;
     }
 }
