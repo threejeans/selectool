@@ -1,4 +1,4 @@
-package com.selectool.dto.response;
+package com.selectool.dto.user.response;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;

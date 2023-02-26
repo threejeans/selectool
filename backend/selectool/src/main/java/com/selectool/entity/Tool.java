@@ -1,9 +1,6 @@
 package com.selectool.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,36 +8,42 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
+@Setter
 public class Tool {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tool_id")
     private Long id;
 
-    private String name_kr;
+    private String nameKr;
 
-    private String name_en;
+    private String nameEn;
 
     private String info;
 
     private String msg;
 
-    private String country;
+    private String topic;
 
-    private boolean url;
+    private String country;
 
     private String image;
 
+    private String url;
+
+    private String aos;
+
+    private String ios;
+
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ToolFee> toolFees = new ArrayList<>();
+    private List<ToolCategory> toolCategories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ToolPlan> toolPlans = new ArrayList<>();
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolFunction> toolFunctions = new ArrayList<>();
-
-    @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Guide> guides = new ArrayList<>();
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolClient> toolClients = new ArrayList<>();
@@ -49,17 +52,27 @@ public class Tool {
     private List<ToolBookmark> toolBookmarks = new ArrayList<>();
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ToolTTag> toolTTags = new ArrayList<>();
+
+    private List<CorpTool> corpTools = new ArrayList<>();
 
     @Builder
-    public Tool(Long id, String name_kr, String name_en, String info, String msg, String country, boolean url, String image) {
+    public Tool(Long id, String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, List<ToolCategory> toolCategories, List<ToolPlan> toolPlans, List<ToolFunction> toolFunctions, List<ToolClient> toolClients, List<ToolBookmark> toolBookmarks, List<CorpTool> corpTools) {
         this.id = id;
-        this.name_kr = name_kr;
-        this.name_en = name_en;
+        this.nameKr = nameKr;
+        this.nameEn = nameEn;
         this.info = info;
         this.msg = msg;
+        this.topic = topic;
         this.country = country;
-        this.url = url;
         this.image = image;
+        this.url = url;
+        this.aos = aos;
+        this.ios = ios;
+        this.toolCategories = toolCategories;
+        this.toolPlans = toolPlans;
+        this.toolFunctions = toolFunctions;
+        this.toolClients = toolClients;
+        this.toolBookmarks = toolBookmarks;
+        this.corpTools = corpTools;
     }
 }

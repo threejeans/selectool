@@ -1,6 +1,5 @@
 package com.selectool.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,6 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 public class Guide {
     @Id
@@ -20,31 +18,43 @@ public class Guide {
     @Column(name = "guide_id")
     private Long id;
 
-    private String url;
-
-    private String image;
-
     private String title;
 
     private LocalDateTime date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tool_id")
-    private Tool tool;
+    private String content;
+
+    private String source;
+
+    private String toolName;
+
+    private String func;
+
+    private String url;
+
+    private String image;
+
+    private String toolImage;
 
     @OneToMany(mappedBy = "guide", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<GuideGTag> guideGTags = new ArrayList<>();
+    private List<GuideCategory> guideCategories = new ArrayList<>();
 
     @OneToMany(mappedBy = "guide", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GuideBookmark> guideBookmarks = new ArrayList<>();
 
     @Builder
-    public Guide(Long id, String url, String image, String title, LocalDateTime date, Tool tool) {
+    public Guide(Long id, String title, LocalDateTime date, String content, String source, String toolName, String func, String url, String image, String toolImage, List<GuideCategory> guideCategories, List<GuideBookmark> guideBookmarks) {
         this.id = id;
-        this.url = url;
-        this.image = image;
         this.title = title;
         this.date = date;
-        this.tool = tool;
+        this.content = content;
+        this.source = source;
+        this.toolName = toolName;
+        this.func = func;
+        this.url = url;
+        this.image = image;
+        this.toolImage = toolImage;
+        this.guideCategories = guideCategories;
+        this.guideBookmarks = guideBookmarks;
     }
 }

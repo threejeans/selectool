@@ -2,9 +2,9 @@ package com.selectool.service;
 
 import com.selectool.config.Constant;
 import com.selectool.config.JwtUtil;
-import com.selectool.dto.request.UserCreateRequest;
-import com.selectool.dto.response.ServiceTokenResponse;
-import com.selectool.dto.response.UserResponse;
+import com.selectool.dto.user.request.UserCreateRequest;
+import com.selectool.dto.user.response.ServiceTokenResponse;
+import com.selectool.dto.user.response.UserResponse;
 import com.selectool.entity.Auth;
 import com.selectool.repository.AuthRepo;
 import com.selectool.social.google.GoogleOAuth;
@@ -23,7 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Service

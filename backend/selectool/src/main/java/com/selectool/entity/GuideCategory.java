@@ -9,25 +9,22 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Getter
-public class ToolFunction {
+public class GuideCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tool_function_id")
+    @Column(name = "guide_category_id")
     private Long id;
 
     private String name;
 
-    private String content;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tool_id")
-    private Tool tool;
+    @JoinColumn(name = "guide_id")
+    private Guide guide;
 
     @Builder
-    public ToolFunction(Long id, String name, String content, Tool tool) {
+    public GuideCategory(Long id, String name, Guide guide) {
         this.id = id;
         this.name = name;
-        this.content = content;
-        this.tool = tool;
+        this.guide = guide;
     }
 }

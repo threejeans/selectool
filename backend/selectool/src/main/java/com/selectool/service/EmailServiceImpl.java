@@ -1,6 +1,6 @@
 package com.selectool.service;
 
-import com.selectool.dto.request.EmailRequest;
+import com.selectool.dto.user.request.EmailRequest;
 import com.selectool.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
