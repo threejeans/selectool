@@ -1,28 +1,35 @@
-import { useAppDispatch } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import AdminButton from 'components/admin/AdminButton'
 import CategoryGroup from 'components/admin/CategoryGroup'
+import DuplicatedCategoryGroup from 'components/admin/DuplicatedCategoryGroup'
 import SectionPlusBtn from 'components/admin/SectionPlusBtn'
 import TextInputBox from 'components/admin/TextInputBox'
 import ThumbnailInput from 'components/admin/ThumbnailInput'
 import ThumbSiteInput from 'components/admin/ThumbSiteInput'
-import React, { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { BiMinus, BiPlus } from 'react-icons/bi'
 import { BsTriangleFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
 import {
-  ClientInfoType,
-  CoreFuncType,
-  createSelfSpecificTmpInfo,
-  PlanInfoType,
-  SelfSpecificTmpInfo,
+  ClientType,
+  createTool,
+  PlanFunctionType,
+  PlanType,
+  popToast,
+  selectTmpTool,
+  ToolFuncType,
+  ToolType,
+  withToolSave,
 } from '../adminContentsSlice'
 
 const AdminWithToolDetail = ({ setIsModal }: any) => {
+  const tmpTool = useAppSelector(selectTmpTool)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
+  // main
   const koRef = useRef<HTMLInputElement | null>(null)
   const enRef = useRef<HTMLInputElement | null>(null)
   const descriptionRef = useRef<HTMLInputElement | null>(null)
@@ -30,12 +37,13 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
   const topicRef = useRef<HTMLSelectElement | null>(null)
 
   const categoryList = ['디자인', '개발', '마케팅', '기획', 'Other']
-  const [category, setCategory] = useState('Other')
+  const [categories, setCategories] = useState<string[]>(['Other'])
   const countryList = ['국내', '해외']
   const [country, setCountry] = useState('국내')
 
   const [thumbnail, setThumbnail] = useState('')
 
+  // specific
   const siteRef = useRef<HTMLInputElement | null>(null)
   // 핵심 기능 관련
   const coreFuncNameRefs = useRef<HTMLInputElement[]>([])
@@ -79,6 +87,7 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
   // 주요 고객사 이미지 섹션 관련
   const [mainClient, setMainClient] = useState(1)
   const mainClientInputRefs = useRef<HTMLInputElement[]>([])
+  const mainClientNameRefs = useRef<HTMLInputElement[]>([])
   const mainClientSiteRefs = useRef<HTMLInputElement[]>([])
   const [mainClientImages, setMainClientImages] = useState<string[]>([])
 
@@ -96,10 +105,12 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
             <h5 className={styles.label}>주요 고객사 이미지 {index + 1}</h5>
             <ThumbSiteInput
               idx={index}
+              subName={'주요 고객사 이름'}
               subTitle={'주요 고객사 사이트'}
               required={true}
               inputRefs={mainClientInputRefs}
               siteRefs={mainClientSiteRefs}
+              nameRefs={mainClientNameRefs}
               images={mainClientImages}
               setImages={setMainClientImages}
             />
@@ -118,31 +129,14 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
   const CostPlanGroup = () => {
     if (planTitleRef.current && planVolumeRef.current && planCostRef.current)
       return [...Array(costPlan)].map((_, index) => {
-        const isLast = index == costPlan - 1
-        const onlyOnce = costPlan == 1
-        const fullSection = costPlan == 4
         return (
           <div key={index} className={styles.section}>
-            {isLast && (
-              <span className={styles.sectionBtnGroup}>
-                {!fullSection && (
-                  <BiPlus
-                    className={styles.sectionPlus}
-                    onClick={() => {
-                      if (costPlan < 4) setCostPlan(costPlan + 1)
-                    }}
-                  />
-                )}
-                {!onlyOnce && (
-                  <BiMinus
-                    className={styles.sectionMinus}
-                    onClick={() => {
-                      if (costPlan > 0) setCostPlan(costPlan - 1)
-                    }}
-                  />
-                )}
-              </span>
-            )}
+            <SectionPlusBtn
+              idx={index}
+              max={4}
+              value={costPlan}
+              setValue={setCostPlan}
+            />
             <TextInputBox
               textRef={(el: any) => (planTitleRef.current[index] = el)}
               title={`가격 플랜 이름 ${index + 1}`}
@@ -205,58 +199,121 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
       })
   }
 
+  // AOS, IOS 정보
+  const aosRef = useRef<HTMLInputElement | null>(null)
+  const iosRef = useRef<HTMLInputElement | null>(null)
+
   // 작성된 데이터 정제
   const handleComplete = () => {
+    const data: ToolType = {
+      nameKr: '',
+      nameEn: '',
+      info: '',
+      msg: '',
+      topic: '',
+      categories: [],
+      country: '',
+      image: '',
+      url: '',
+      toolFunctions: [],
+      clients: [],
+      plans: [],
+      aos: '',
+      ios: '',
+    }
+
+    if (koRef.current) {
+      if (koRef.current.value.length === 0) {
+        koRef.current.focus()
+        popToast(false)
+        return
+      } else data.nameKr = koRef.current.value
+    }
+    if (enRef.current) {
+      if (enRef.current.value.length === 0) {
+        enRef.current.focus()
+        popToast(false)
+        return
+      } else data.nameEn = enRef.current.value
+    }
+    if (descriptionRef.current) {
+      if (descriptionRef.current.value.length === 0) {
+        descriptionRef.current.focus()
+        popToast(false)
+        return
+      } else data.info = descriptionRef.current.value
+    }
+    if (hoverMsgRef.current) {
+      if (hoverMsgRef.current.value.length === 0) {
+        hoverMsgRef.current.focus()
+        popToast(false)
+        return
+      } else data.msg = hoverMsgRef.current.value
+    }
+    if (topicRef.current) {
+      if (topicRef.current.value.length === 0) {
+        topicRef.current.focus()
+        popToast(false)
+        return
+      } else data.topic = topicRef.current.value
+    }
+    if (categories) data.categories = categories
+    if (country) data.country = country
+    if (thumbnail === '') {
+      popToast('섬네일')
+      return
+    } else data.image = thumbnail
+
     // 프로덕트 사이트
-    let siteData = ''
     if (siteRef.current)
       if (!siteRef.current.value) {
         siteRef.current.focus()
         toast('프로덕트 사이트를 입력해주세요.')
         return
-      } else siteData = siteRef.current.value
-    console.log('siteData', siteData)
+      } else data.url = siteRef.current.value
 
     // 핵심 기능
-    const coreFuncData: Array<CoreFuncType> = []
     if (coreFuncNameRefs.current && coreFuncDetailRefs.current) {
       for (let i = 0; i < coreFuncNameRefs.current.length; i++) {
-        const tmp: CoreFuncType = {
-          CoreFuncSubTitle: coreFuncNameRefs.current[i].value,
-          CoreFuncContent: coreFuncDetailRefs.current[i].value,
+        const tmp: ToolFuncType = {
+          name: coreFuncNameRefs.current[i].value,
+          content: coreFuncDetailRefs.current[i].value,
         }
-        coreFuncData.push(tmp)
+        data.toolFunctions.push(tmp)
       }
     }
-    console.log('coreFuncData', coreFuncData)
 
     // 주요고객사
-    const mainClientData: ClientInfoType[] = []
-    if (mainClientSiteRefs.current) {
+    if (mainClientSiteRefs.current && mainClientNameRefs.current) {
       // 여기만 값 참조
       for (let i = 0; i < mainClient; i++) {
         console.log(mainClientImages[i])
         if (mainClientImages[i]) {
+          if (!mainClientNameRefs.current[i].value) {
+            mainClientNameRefs.current[i].focus()
+            toast('고객사 이름를 입력해주세요.')
+            return
+          }
           if (!mainClientSiteRefs.current[i].value) {
             mainClientSiteRefs.current[i].focus()
             toast('고객사 주소를 입력해주세요.')
             return
           }
-          const tmp: ClientInfoType = {
-            ClientImage: mainClientImages[i],
-            ClientSiteUrl: mainClientSiteRefs.current[i].value,
+          const tmp: ClientType = {
+            id: 0,
+            name: mainClientNameRefs.current[i].value,
+            image: mainClientImages[i],
+            url: mainClientSiteRefs.current[i].value,
           }
-          mainClientData.push(tmp)
+          data.clients.push(tmp)
         } else {
           toast(`${i + 1}번 고객사 이미지를 첨부해주세요.`)
           return
         }
       }
     }
-    console.log('mainClientData', mainClientData)
 
     // 가격 플랜 별 기능
-    const planCostData: PlanInfoType[] = []
     if (
       planTitleRef.current &&
       planVolumeRef.current &&
@@ -265,19 +322,19 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
     ) {
       for (let i = 0; i < planTitleRef.current.length; i++) {
         if (planTitleRef.current[i].value) {
-          const t: string[] = []
+          const t: PlanFunctionType[] = []
           if (planFuncRef.current[i]) {
             planFuncRef.current[i].map((item: any, _) => {
               t.push(item.value)
             })
           }
-          const tmp: PlanInfoType = {
-            PlanName: planTitleRef.current[i].value,
-            PlanVolume: planVolumeRef.current[i].value,
-            PlanPricing: planCostRef.current[i].value,
-            PlanFunc: t,
+          const tmp: PlanType = {
+            title: planTitleRef.current[i].value,
+            volume: planVolumeRef.current[i].value,
+            cost: planCostRef.current[i].value,
+            planFunctions: t,
           }
-          planCostData.push(tmp)
+          data.plans.push(tmp)
         } else {
           toast('제목이 입력되지 않은 플랜은 저장되지 않습니다.')
           planTitleRef.current[i].focus()
@@ -285,30 +342,43 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
         }
       }
     }
-    console.log('planCostData', planCostData)
 
-    const data: SelfSpecificTmpInfo = {
-      individualDetailToolUrl: siteData,
-      individualDetailCoreFunc: coreFuncData,
-      individualDetailClient: mainClientData,
-      individualDetailPlan: planCostData,
-      individualDetailAosReviewRate: '',
-      individualDetailiosReviewRate: '',
-    }
-    dispatch(createSelfSpecificTmpInfo(data))
-      .then(e => {
-        console.log(e)
-      })
-      .catch(err => {
-        console.error(err)
-      })
-    setIsModal()
+    // 스토어 점수
+    if (!aosRef.current) return
+    if (!iosRef.current) return
+    data.aos = aosRef.current.value
+    data.ios = iosRef.current.value
+
+    dispatch(withToolSave(data))
   }
-
+  useEffect(() => {
+    if (
+      tmpTool.nameKr &&
+      tmpTool.nameEn &&
+      tmpTool.info &&
+      tmpTool.msg &&
+      tmpTool.topic &&
+      tmpTool.image &&
+      tmpTool.url &&
+      tmpTool.clients &&
+      tmpTool.plans
+    ) {
+      console.log('Specific complate', tmpTool)
+      dispatch(createTool(tmpTool))
+        .then(data => {
+          console.log(data)
+          setIsModal()
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    }
+  }, [tmpTool])
   return (
     <div className={styles.modalContainer}>
       <div className={styles.wrap}>
         <h3 className={styles.title}>사내 협업툴 상세정보</h3>
+        {/* main */}
         <div className={styles.section}>
           <TextInputBox
             textRef={koRef}
@@ -351,12 +421,40 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
               <BsTriangleFill className={styles.arrowDown} />
             </div>
           </div>
-          <CategoryGroup
+          {/* specific */}
+          <div className={styles.section}>
+            <TextInputBox
+              textRef={siteRef}
+              title={'프로덕트 사이트'}
+              placeholder={'예시: https://www.jandi.com/landing/kr'}
+              required={true}
+            />
+          </div>
+          {CoreFuncSectionGroup()}
+          {MainClientSectionGroup()}
+          {CostPlanGroup()}
+          <div className={styles.section}>
+            <div className={styles.halfSection}>
+              <TextInputBox
+                textRef={aosRef}
+                title={'플레이스토어 평점'}
+                placeholder={''}
+                required={false}
+              />
+              <TextInputBox
+                textRef={iosRef}
+                title={'앱스토어 평점'}
+                placeholder={''}
+                required={false}
+              />
+            </div>
+          </div>
+          <DuplicatedCategoryGroup
             title={'프로덕트 분류'}
             required={false}
             list={categoryList}
-            category={category}
-            setCategory={setCategory}
+            categories={categories}
+            setCategories={setCategories}
           />
           <CategoryGroup
             title={'프로덕트 국가'}
@@ -370,17 +468,6 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
           </h5>
           <ThumbnailInput thumbnail={thumbnail} setThumbnail={setThumbnail} />
         </div>
-        <div className={styles.section}>
-          <TextInputBox
-            textRef={siteRef}
-            title={'프로덕트 사이트'}
-            placeholder={'예시: https://www.jandi.com/landing/kr'}
-            required={true}
-          />
-        </div>
-        {CoreFuncSectionGroup()}
-        {MainClientSectionGroup()}
-        {CostPlanGroup()}
         <div className={styles.btnGroup}>
           <AdminButton
             color={'white'}

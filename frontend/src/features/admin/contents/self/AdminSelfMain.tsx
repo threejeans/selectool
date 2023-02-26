@@ -1,6 +1,7 @@
 import { useAppDispatch } from 'app/hooks'
 import AdminButton from 'components/admin/AdminButton'
 import CategoryGroup from 'components/admin/CategoryGroup'
+import DuplicatedCategoryGroup from 'components/admin/DuplicatedCategoryGroup'
 import TextInputBox from 'components/admin/TextInputBox'
 import ThumbnailInput from 'components/admin/ThumbnailInput'
 import React, { useRef, useState } from 'react'
@@ -8,11 +9,7 @@ import { BsTriangleFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
-import {
-  createSelfMainTmpInfo,
-  popToast,
-  SelfMainTmpInfo,
-} from '../adminContentsSlice'
+import { popToast, selfMainTmpSave } from '../adminContentsSlice'
 
 const AdminSelfMain = () => {
   const koRef = useRef<HTMLInputElement | null>(null)
@@ -22,7 +19,7 @@ const AdminSelfMain = () => {
   const topicRef = useRef<HTMLSelectElement | null>(null)
 
   const categoryList = ['디자인', '개발', '마케팅', '기획', 'Other']
-  const [category, setCategory] = useState('Other')
+  const [categories, setCategories] = useState<string[]>(['Other'])
   const countryList = ['국내', '해외']
   const [country, setCountry] = useState('국내')
 
@@ -34,15 +31,15 @@ const AdminSelfMain = () => {
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation()
 
-    const data: SelfMainTmpInfo = {
-      individualToolNameKr: '',
-      individualToolNameEn: '',
-      individualToolInfo: '',
-      individualToolMsg: '',
-      individualToolTopic: '',
-      individualToolTag: '',
-      individualToolCountry: '',
-      individualToolLogo: '',
+    const data = {
+      nameKr: '',
+      nameEn: '',
+      info: '',
+      msg: '',
+      topic: '',
+      categories: [''],
+      country: '',
+      image: '',
     }
 
     if (koRef.current) {
@@ -50,54 +47,45 @@ const AdminSelfMain = () => {
         koRef.current.focus()
         popToast(false)
         return
-      } else data.individualToolNameKr = koRef.current.value
+      } else data.nameKr = koRef.current.value
     }
     if (enRef.current) {
       if (enRef.current.value.length === 0) {
         enRef.current.focus()
         popToast(false)
         return
-      } else data.individualToolNameEn = enRef.current.value
-    }
-    if (hoverMsgRef.current) {
-      if (hoverMsgRef.current.value.length === 0) {
-        hoverMsgRef.current.focus()
-        popToast(false)
-        return
-      } else data.individualToolMsg = hoverMsgRef.current.value
+      } else data.nameEn = enRef.current.value
     }
     if (descriptionRef.current) {
       if (descriptionRef.current.value.length === 0) {
         descriptionRef.current.focus()
         popToast(false)
         return
-      } else data.individualToolInfo = descriptionRef.current.value
+      } else data.info = descriptionRef.current.value
+    }
+    if (hoverMsgRef.current) {
+      if (hoverMsgRef.current.value.length === 0) {
+        hoverMsgRef.current.focus()
+        popToast(false)
+        return
+      } else data.msg = hoverMsgRef.current.value
     }
     if (topicRef.current) {
       if (topicRef.current.value.length === 0) {
         topicRef.current.focus()
         popToast(false)
         return
-      } else data.individualToolTopic = topicRef.current.value
+      } else data.topic = topicRef.current.value
     }
-    if (category) data.individualToolTag = category
-    if (country) data.individualToolCountry = country
+    if (categories) data.categories = categories
+    if (country) data.country = country
     if (thumbnail === '') {
       popToast('섬네일')
       return
-    } else data.individualToolLogo = thumbnail
+    } else data.image = thumbnail
 
-    dispatch(createSelfMainTmpInfo(data))
-      .then(e => {
-        if (e.meta.requestStatus === 'fulfilled')
-          navigate('/admin/contents/self/specific')
-        else
-          toast('🚨저장이 실패했어요!', {
-            type: 'error',
-            theme: 'colored',
-          })
-      })
-      .catch(err => toast.error(err))
+    dispatch(selfMainTmpSave(data))
+    navigate('/admin/contents/self/specific')
   }
 
   return (
@@ -145,12 +133,12 @@ const AdminSelfMain = () => {
             <BsTriangleFill className={styles.arrowDown} />
           </div>
         </div>
-        <CategoryGroup
+        <DuplicatedCategoryGroup
           title={'프로덕트 분류'}
           required={false}
           list={categoryList}
-          category={category}
-          setCategory={setCategory}
+          categories={categories}
+          setCategories={setCategories}
         />
         <CategoryGroup
           title={'프로덕트 국가'}
