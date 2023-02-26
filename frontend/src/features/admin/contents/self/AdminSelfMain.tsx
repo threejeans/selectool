@@ -18,6 +18,7 @@ const AdminSelfMain = () => {
   const koRef = useRef<HTMLInputElement | null>(null)
   const enRef = useRef<HTMLInputElement | null>(null)
   const descriptionRef = useRef<HTMLInputElement | null>(null)
+  const hoverMsgRef = useRef<HTMLInputElement | null>(null)
   const topicRef = useRef<HTMLSelectElement | null>(null)
 
   const categoryList = ['디자인', '개발', '마케팅', '기획', 'Other']
@@ -37,6 +38,7 @@ const AdminSelfMain = () => {
       individualToolNameKr: '',
       individualToolNameEn: '',
       individualToolInfo: '',
+      individualToolMsg: '',
       individualToolTopic: '',
       individualToolTag: '',
       individualToolCountry: '',
@@ -56,6 +58,13 @@ const AdminSelfMain = () => {
         popToast(false)
         return
       } else data.individualToolNameEn = enRef.current.value
+    }
+    if (hoverMsgRef.current) {
+      if (hoverMsgRef.current.value.length === 0) {
+        hoverMsgRef.current.focus()
+        popToast(false)
+        return
+      } else data.individualToolMsg = hoverMsgRef.current.value
     }
     if (descriptionRef.current) {
       if (descriptionRef.current.value.length === 0) {
@@ -113,6 +122,12 @@ const AdminSelfMain = () => {
           placeholder={'예시: 프로젝트 관림 및 기록 소프트웨어'}
           required={true}
         />
+        <TextInputBox
+          textRef={hoverMsgRef}
+          title={'프로덕트 호버 메세지'}
+          placeholder={'예시: Better Togather'}
+          required={true}
+        />
         <div>
           <h5 className={styles.label}>
             프로덕트 토픽{<span className={styles.required}>{'*'}</span>}
@@ -161,7 +176,7 @@ const AdminSelfMain = () => {
           color={'white'}
           size={'md'}
           text={'Save'}
-          onClick={(e: React.MouseEvent) => console.log(e.target)}
+          onClick={() => toast('임시 저장 구현 중')}
         />
         <AdminButton
           color={'next'}

@@ -327,7 +327,7 @@ const AdminSelfSpecific = () => {
             color={'white'}
             size={'md'}
             text={'Save'}
-            onClick={(e: React.MouseEvent) => console.log(e.target)}
+            onClick={() => toast('임시 저장 구현 중')}
           />
           <AdminButton
             color={'next'}
