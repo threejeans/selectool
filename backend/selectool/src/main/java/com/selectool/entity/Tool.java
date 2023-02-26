@@ -26,8 +26,6 @@ public class Tool {
 
     private String topic;
 
-//    private String category;
-
     private String country;
 
     private String image;
