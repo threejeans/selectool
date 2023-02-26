@@ -13,7 +13,8 @@ public interface ToolService {
     public ToolResponse getTool(Long userId, Long toolId);
     // 툴 등록
     public ToolResponse createTool(ToolCreateRequest request);
+    // 툴 삭제
+    public void deleteTool(Long toolId);
     //TODO
     // 툴 수정
-    // 툴 삭제
 }

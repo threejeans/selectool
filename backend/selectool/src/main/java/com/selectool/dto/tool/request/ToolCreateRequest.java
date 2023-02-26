@@ -19,8 +19,6 @@ public class ToolCreateRequest {
 
     private String topic;
 
-    private String category;
-
     private String country;
 
     private String image;
@@ -31,6 +29,8 @@ public class ToolCreateRequest {
 
     private String ios;
 
+    private List<ToolCategoryCreateRequest> categories;
+
     private List<ToolFunctionCreateRequest> toolFunctions;
 
     private List<ClientCreateRequest> clients;
@@ -38,18 +38,18 @@ public class ToolCreateRequest {
     private List<ToolPlanCreateRequest> plans;
 
     @Builder
-    public ToolCreateRequest(String nameKr, String nameEn, String info, String msg, String topic, String category, String country, String image, String url, String aos, String ios, List<ToolFunctionCreateRequest> toolFunctions, List<ClientCreateRequest> clients, List<ToolPlanCreateRequest> plans) {
+    public ToolCreateRequest(String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, List<ToolCategoryCreateRequest> categories, List<ToolFunctionCreateRequest> toolFunctions, List<ClientCreateRequest> clients, List<ToolPlanCreateRequest> plans) {
         this.nameKr = nameKr;
         this.nameEn = nameEn;
         this.info = info;
         this.msg = msg;
         this.topic = topic;
-        this.category = category;
         this.country = country;
         this.image = image;
         this.url = url;
         this.aos = aos;
         this.ios = ios;
+        this.categories = categories;
         this.toolFunctions = toolFunctions;
         this.clients = clients;
         this.plans = plans;

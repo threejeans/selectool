@@ -21,24 +21,24 @@ public class ToolListResponse {
 
     private String msg;
 
-    private String category;
-
     private String country;
 
     private String image;
 
     private Boolean isBookmarked;
 
+    private List<ToolCategoryResponse> categories;
+
     @Builder
-    public ToolListResponse(Long id, String nameKr, String nameEn, String info, String msg, String category, String country, String image, Boolean isBookmarked) {
+    public ToolListResponse(Long id, String nameKr, String nameEn, String info, String msg, String country, String image, Boolean isBookmarked, List<ToolCategoryResponse> categories) {
         this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
         this.info = info;
         this.msg = msg;
-        this.category = category;
         this.country = country;
         this.image = image;
         this.isBookmarked = isBookmarked;
+        this.categories = categories;
     }
 }

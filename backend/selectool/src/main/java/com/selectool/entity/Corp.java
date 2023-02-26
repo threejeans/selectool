@@ -28,14 +28,14 @@ public class Corp {
 
     private String teamNameEn;
 
-    private String category;
-
     private String image;
 
     private String url;
 
     private String content;
 
+    @OneToMany(mappedBy = "corp", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CorpCategory> corpCategories = new ArrayList<>();
 
     @OneToMany(mappedBy = "corp", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CorpBranch> corpBranches = new ArrayList<>();
@@ -50,17 +50,17 @@ public class Corp {
     private List<CorpTool> corpTools = new ArrayList<>();
 
     @Builder
-    public Corp(Long id, String nameKr, String nameEn, String info, String teamNameKr, String teamNameEn, String category, String image, String url, String content, List<CorpBranch> corpBranches, List<CorpCulture> corpCultures, List<CorpBookmark> corpBookmarks, List<CorpTool> corpTools) {
+    public Corp(Long id, String nameKr, String nameEn, String info, String teamNameKr, String teamNameEn, String image, String url, String content, List<CorpCategory> corpCategories, List<CorpBranch> corpBranches, List<CorpCulture> corpCultures, List<CorpBookmark> corpBookmarks, List<CorpTool> corpTools) {
         this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
         this.info = info;
         this.teamNameKr = teamNameKr;
         this.teamNameEn = teamNameEn;
-        this.category = category;
         this.image = image;
         this.url = url;
         this.content = content;
+        this.corpCategories = corpCategories;
         this.corpBranches = corpBranches;
         this.corpCultures = corpCultures;
         this.corpBookmarks = corpBookmarks;

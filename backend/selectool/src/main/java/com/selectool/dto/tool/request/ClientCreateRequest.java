@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ClientCreateRequest {
-    private Long id;
+    private Long id = 0L;
 
     private String name;
 

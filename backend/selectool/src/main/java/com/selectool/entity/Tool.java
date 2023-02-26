@@ -26,7 +26,7 @@ public class Tool {
 
     private String topic;
 
-    private String category;
+//    private String category;
 
     private String country;
 
@@ -38,6 +38,8 @@ public class Tool {
 
     private String ios;
 
+    @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ToolCategory> toolCategories = new ArrayList<>();
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolPlan> toolPlans = new ArrayList<>();
@@ -55,19 +57,19 @@ public class Tool {
     private List<CorpTool> corpTools = new ArrayList<>();
 
     @Builder
-    public Tool(Long id, String nameKr, String nameEn, String info, String msg, String topic, String category, String country, String image, String url, String aos, String ios, List<ToolPlan> toolPlans, List<ToolFunction> toolFunctions, List<ToolClient> toolClients, List<ToolBookmark> toolBookmarks, List<CorpTool> corpTools) {
+    public Tool(Long id, String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, List<ToolCategory> toolCategories, List<ToolPlan> toolPlans, List<ToolFunction> toolFunctions, List<ToolClient> toolClients, List<ToolBookmark> toolBookmarks, List<CorpTool> corpTools) {
         this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
         this.info = info;
         this.msg = msg;
         this.topic = topic;
-        this.category = category;
         this.country = country;
         this.image = image;
         this.url = url;
         this.aos = aos;
         this.ios = ios;
+        this.toolCategories = toolCategories;
         this.toolPlans = toolPlans;
         this.toolFunctions = toolFunctions;
         this.toolClients = toolClients;

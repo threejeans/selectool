@@ -1,5 +1,6 @@
 package com.selectool.dto.tool.response;
 
+import com.selectool.entity.ToolCategory;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +20,6 @@ public class ToolResponse {
 
     private String msg;
 
-    private String category;
-
     private String country;
 
     private String image;
@@ -33,6 +32,8 @@ public class ToolResponse {
 
     private Boolean isBookmarked;
 
+    private List<ToolCategoryResponse> categories;
+
     private List<ToolFunctionResponse> toolFunctions;
 
     private List<ClientResponse> clients;
@@ -40,19 +41,19 @@ public class ToolResponse {
     private List<ToolPlanResponse> plans;
 
     @Builder
-    public ToolResponse(Long id, String nameKr, String nameEn, String info, String msg, String category, String country, String image, String url, String aos, String ios, Boolean isBookmarked, List<ToolFunctionResponse> toolFunctions, List<ClientResponse> clients, List<ToolPlanResponse> plans) {
+    public ToolResponse(Long id, String nameKr, String nameEn, String info, String msg, String country, String image, String url, String aos, String ios, Boolean isBookmarked, List<ToolCategoryResponse> categories, List<ToolFunctionResponse> toolFunctions, List<ClientResponse> clients, List<ToolPlanResponse> plans) {
         this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
         this.info = info;
         this.msg = msg;
-        this.category = category;
         this.country = country;
         this.image = image;
         this.url = url;
         this.aos = aos;
         this.ios = ios;
         this.isBookmarked = isBookmarked;
+        this.categories = categories;
         this.toolFunctions = toolFunctions;
         this.clients = clients;
         this.plans = plans;

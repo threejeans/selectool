@@ -26,17 +26,9 @@ import static com.selectool.exception.NotFoundException.TOOL_NOT_FOUND;
 public class ToolServiceImpl implements ToolService {
     private final ToolRepo toolRepo;
 
-    private final ToolPlanRepo toolPlanRepo;
-
-    private final ToolPlanFunctionRepo toolPlanFunctionRepo;
-
     private final ClientRepo clientRepo;
 
-    private final ToolClientRepo toolClientRepo;
-
     private final ToolBookmarkRepo toolBookmarkRepo;
-
-    private final CorpToolRepo corpToolRepo;
 
     @Override
     public List<ToolListResponse> getToolList(Long userId) {
@@ -56,10 +48,16 @@ public class ToolServiceImpl implements ToolService {
                         .nameEn(tool.getNameEn())
                         .info(tool.getInfo())
                         .msg(tool.getMsg())
-                        .category(tool.getCategory())
+//                        .category(tool.getCategory())
                         .country(tool.getCountry())
                         .image(tool.getImage())
                         .isBookmarked(bookmarkMap.get(tool) != null)
+                        .categories(tool.getToolCategories().stream()
+                                .map(category -> ToolCategoryResponse.builder()
+                                        .name(category.getName())
+                                        .build())
+                                .collect(Collectors.toList())
+                        )
                         .build())
                 .collect(Collectors.toList());
     }
@@ -82,12 +80,21 @@ public class ToolServiceImpl implements ToolService {
                 .info(request.getInfo())
                 .msg(request.getMsg())
                 .topic(request.getTopic())
-                .category(request.getCategory())
                 .image(request.getImage())
                 .url(request.getUrl())
                 .aos(request.getAos())
                 .ios(request.getIos())
                 .build();
+
+        // 툴 카테고리 생성
+        List<ToolCategory> toolCategories = request.getCategories().stream()
+                .map(category -> ToolCategory.builder()
+                        .name(category.getName())
+                        .tool(tool)
+                        .build()
+                )
+                .collect(Collectors.toList());
+        tool.setToolCategories(toolCategories);
 
         // 툴 플랜 생성
         List<ToolPlan> toolPlans = request.getPlans().stream()
@@ -113,7 +120,6 @@ public class ToolServiceImpl implements ToolService {
                         }
                 )
                 .collect(Collectors.toList());
-
         tool.setToolPlans(toolPlans);
 
         // 툴 기능 생성
@@ -125,14 +131,43 @@ public class ToolServiceImpl implements ToolService {
                         .build()
                 )
                 .collect(Collectors.toList());
-
         tool.setToolFunctions(toolFunctions);
 
-        //TODO: 툴 주요 고객 생성
-        tool.setToolClients(new ArrayList<>());
+        // 툴 주요 고객 생성
+        List<ToolClient> toolClients = request.getClients().stream()
+                .map(client -> {
+                            ToolClient toolClient = ToolClient.builder()
+                                    .tool(tool)
+                                    .build();
+
+                            Client c = clientRepo.findById(client.getId())
+                                    .orElse(
+                                            Client.builder()
+                                                    .name(client.getName())
+                                                    .image(client.getImage())
+                                                    .url(client.getUrl())
+                                                    .build()
+                                    );
+                            clientRepo.save(c);
+                            toolClient.setClient(c);
+
+                            return toolClient;
+                        }
+                )
+                .collect(Collectors.toList());
+        tool.setToolClients(toolClients);
 
         toolRepo.save(tool);
         return entityToDTO(null, tool);
+    }
+
+    @Override
+    @Transactional
+    public void deleteTool(Long toolId) {
+        Tool tool = toolRepo.findById(toolId)
+                .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+        toolRepo.delete(tool);
     }
 
     public ToolResponse entityToDTO(Long userId, Tool tool) {
@@ -149,13 +184,18 @@ public class ToolServiceImpl implements ToolService {
                 .nameEn(tool.getNameEn())
                 .info(tool.getInfo())
                 .msg(tool.getMsg())
-                .category(tool.getCategory())
                 .country(tool.getCountry())
                 .image(tool.getImage())
                 .url(tool.getUrl())
                 .aos(tool.getAos())
                 .ios(tool.getIos())
                 .isBookmarked(!toolBookmarks.isEmpty())
+                .categories(tool.getToolCategories().stream()
+                        .map(category -> ToolCategoryResponse.builder()
+                                .name(category.getName())
+                                .build())
+                        .collect(Collectors.toList())
+                )
                 .toolFunctions(
                         tool.getToolFunctions().stream()
                                 .map(toolFunction ->
