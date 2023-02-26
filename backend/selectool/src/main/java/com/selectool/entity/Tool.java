@@ -1,9 +1,6 @@
 package com.selectool.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +9,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Getter
+@Setter
 public class Tool {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,9 +46,6 @@ public class Tool {
     private List<ToolFunction> toolFunctions = new ArrayList<>();
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Guide> guides = new ArrayList<>();
-
-    @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolClient> toolClients = new ArrayList<>();
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -60,7 +55,7 @@ public class Tool {
     private List<CorpTool> corpTools = new ArrayList<>();
 
     @Builder
-    public Tool(Long id, String nameKr, String nameEn, String info, String msg, String topic, String category, String country, String image, String url, String aos, String ios, List<ToolPlan> toolPlans, List<ToolFunction> toolFunctions, List<Guide> guides, List<ToolClient> toolClients, List<ToolBookmark> toolBookmarks, List<CorpTool> corpTools) {
+    public Tool(Long id, String nameKr, String nameEn, String info, String msg, String topic, String category, String country, String image, String url, String aos, String ios, List<ToolPlan> toolPlans, List<ToolFunction> toolFunctions, List<ToolClient> toolClients, List<ToolBookmark> toolBookmarks, List<CorpTool> corpTools) {
         this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
@@ -75,7 +70,6 @@ public class Tool {
         this.ios = ios;
         this.toolPlans = toolPlans;
         this.toolFunctions = toolFunctions;
-        this.guides = guides;
         this.toolClients = toolClients;
         this.toolBookmarks = toolBookmarks;
         this.corpTools = corpTools;

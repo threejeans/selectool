@@ -34,7 +34,7 @@ public class Corp {
 
     private String url;
 
-    private boolean content;
+    private String content;
 
 
     @OneToMany(mappedBy = "corp", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -50,7 +50,7 @@ public class Corp {
     private List<CorpTool> corpTools = new ArrayList<>();
 
     @Builder
-    public Corp(Long id, String nameKr, String nameEn, String info, String teamNameKr, String teamNameEn, String category, String image, String url, boolean content, List<CorpBranch> corpBranches, List<CorpCulture> corpCultures, List<CorpBookmark> corpBookmarks, List<CorpTool> corpTools) {
+    public Corp(Long id, String nameKr, String nameEn, String info, String teamNameKr, String teamNameEn, String category, String image, String url, String content, List<CorpBranch> corpBranches, List<CorpCulture> corpCultures, List<CorpBookmark> corpBookmarks, List<CorpTool> corpTools) {
         this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;

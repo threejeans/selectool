@@ -36,10 +36,6 @@ public class Guide {
 
     private String toolImage;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tool_id")
-    private Tool tool;
-
     @OneToMany(mappedBy = "guide", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GuideCategory> guideCategories = new ArrayList<>();
 
@@ -47,7 +43,7 @@ public class Guide {
     private List<GuideBookmark> guideBookmarks = new ArrayList<>();
 
     @Builder
-    public Guide(Long id, String title, LocalDateTime date, String content, String source, String toolName, String func, String url, String image, String toolImage, Tool tool, List<GuideCategory> guideCategories, List<GuideBookmark> guideBookmarks) {
+    public Guide(Long id, String title, LocalDateTime date, String content, String source, String toolName, String func, String url, String image, String toolImage, List<GuideCategory> guideCategories, List<GuideBookmark> guideBookmarks) {
         this.id = id;
         this.title = title;
         this.date = date;
@@ -58,7 +54,6 @@ public class Guide {
         this.url = url;
         this.image = image;
         this.toolImage = toolImage;
-        this.tool = tool;
         this.guideCategories = guideCategories;
         this.guideBookmarks = guideBookmarks;
     }

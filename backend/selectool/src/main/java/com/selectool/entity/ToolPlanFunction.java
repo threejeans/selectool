@@ -18,13 +18,13 @@ public class ToolPlanFunction {
     private String func;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tool_id")
-    private Tool tool;
+    @JoinColumn(name = "tool_plan_id")
+    private ToolPlan toolPlan;
 
     @Builder
-    public ToolPlanFunction(Long id, String func, Tool tool) {
+    public ToolPlanFunction(Long id, String func, ToolPlan toolPlan) {
         this.id = id;
         this.func = func;
-        this.tool = tool;
+        this.toolPlan = toolPlan;
     }
 }

@@ -150,6 +150,7 @@ public class ToolController {
                 .url("툴 주소 url" + toolId)
                 .aos("안드로이드 평점" + toolId)
                 .ios("애플 평점" + toolId)
+                .isBookmarked(random.nextInt(2) == 0)
                 .toolFunctions(toolFunctions)
                 .clients(clients)
                 .plans(plans)
