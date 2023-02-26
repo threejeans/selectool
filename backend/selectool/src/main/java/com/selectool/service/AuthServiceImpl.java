@@ -1,7 +1,7 @@
 package com.selectool.service;
 
 import com.selectool.config.JwtUtil;
-import com.selectool.dto.response.ServiceTokenResponse;
+import com.selectool.dto.user.response.ServiceTokenResponse;
 import com.selectool.entity.Auth;
 import com.selectool.exception.NotFoundException;
 import com.selectool.exception.NotMatchException;

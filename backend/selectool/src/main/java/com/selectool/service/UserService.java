@@ -2,9 +2,9 @@ package com.selectool.service;
 
 
 import com.selectool.config.Constant;
-import com.selectool.dto.request.UserCreateRequest;
-import com.selectool.dto.request.UserUpdateRequest;
-import com.selectool.dto.response.UserResponse;
+import com.selectool.dto.user.request.UserCreateRequest;
+import com.selectool.dto.user.request.UserUpdateRequest;
+import com.selectool.dto.user.response.UserResponse;
 
 public interface UserService {
     //회원가입

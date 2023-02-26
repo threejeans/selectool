@@ -1,7 +1,7 @@
 package com.selectool.service;
 
 
-import com.selectool.dto.response.ServiceTokenResponse;
+import com.selectool.dto.user.response.ServiceTokenResponse;
 
 public interface AuthService {
     //토큰 재발급

@@ -2,9 +2,9 @@ package com.selectool.service;
 
 import com.selectool.config.Constant;
 import com.selectool.config.JwtUtil;
-import com.selectool.dto.request.UserCreateRequest;
-import com.selectool.dto.response.ServiceTokenResponse;
-import com.selectool.dto.response.UserResponse;
+import com.selectool.dto.user.request.UserCreateRequest;
+import com.selectool.dto.user.response.ServiceTokenResponse;
+import com.selectool.dto.user.response.UserResponse;
 import com.selectool.entity.Auth;
 import com.selectool.repository.AuthRepo;
 import com.selectool.social.google.GoogleOAuth;
@@ -12,7 +12,6 @@ import com.selectool.social.google.GoogleOAuthToken;
 import com.selectool.social.google.GoogleUser;
 import com.selectool.social.kakao.KakaoOAuth;
 import com.selectool.social.kakao.KakaoOAuthToken;
-import com.selectool.social.kakao.KakaoProfile;
 import com.selectool.social.kakao.KakaoUser;
 import com.selectool.social.naver.NaverOAuth;
 import com.selectool.social.naver.NaverOAuthToken;
@@ -24,7 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Service
@@ -35,10 +33,7 @@ public class OAuthServiceImpl implements OAuthService {
     private final AuthRepo authRepo;
     private final GoogleOAuth googleOauth;
     private final NaverOAuth naverOauth;
-
     private final KakaoOAuth kakaoOauth;
-
-    private final HttpServletResponse response;
     private final UserService userService;
     private final JwtUtil jwtUtil;
     @Value("${token.refresh_token.expiration_time}")

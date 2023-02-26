@@ -1,6 +1,6 @@
 package com.selectool.service;
 
-import com.selectool.dto.request.EmailRequest;
+import com.selectool.dto.user.request.EmailRequest;
 import com.selectool.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class EmailServiceImpl implements EmailService {
         message.setSubject(emailRequest.getTitle());
 
         message.setText(emailRequest.getContent(), "utf-8", "html"); //내용, charset타입, subtype
-        message.setFrom(new InternetAddress(id,"SELECTOOL_ADMIN")); //보내는 사람의 메일 주소, 보내는 사람 이름
+        message.setFrom(new InternetAddress(id, "SELECTOOL_ADMIN")); //보내는 사람의 메일 주소, 보내는 사람 이름
 
         return message;
     }

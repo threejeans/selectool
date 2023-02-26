@@ -1,9 +1,9 @@
 package com.selectool.service;
 
 import com.selectool.config.JwtAdminUtil;
-import com.selectool.dto.request.CodeRequest;
-import com.selectool.dto.request.EmailRequest;
-import com.selectool.dto.response.ServiceTokenResponse;
+import com.selectool.dto.user.request.CodeRequest;
+import com.selectool.dto.user.request.EmailRequest;
+import com.selectool.dto.user.response.ServiceTokenResponse;
 import com.selectool.entity.Admin;
 import com.selectool.entity.AuthAdmin;
 import com.selectool.entity.Code;
@@ -65,7 +65,7 @@ public class AdminServiceImpl implements AdminService {
 
         String content = codeContent;
         content += code + "</td></tr></tbody></table></div>";
-
+        log.info("코드: " + code);
         // 코드 저장
         codeRepo.save(
                 Code.builder()

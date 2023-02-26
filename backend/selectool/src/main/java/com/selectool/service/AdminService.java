@@ -1,10 +1,7 @@
 package com.selectool.service;
 
-import com.selectool.dto.request.CodeRequest;
-import com.selectool.dto.response.ServiceTokenResponse;
-
-import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
+import com.selectool.dto.user.request.CodeRequest;
+import com.selectool.dto.user.response.ServiceTokenResponse;
 
 public interface AdminService {
     // 인증 코드 메일 보내기
