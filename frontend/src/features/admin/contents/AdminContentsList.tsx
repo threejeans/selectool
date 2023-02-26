@@ -35,20 +35,22 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
   const ContentItems = () => {
     const tmp = contentsList.map((item, index) => {
       if (Math.ceil((index + 1) / entry) === page) {
-        let description = `${item.description}`
+        let description = `${item.info}`
         if (description.length > 15)
           description = description.substring(0, 15) + '...'
         return (
           <tr key={index} onClick={() => console.log(item)}>
-            <td className={styles.one}>{item.index}</td>
-            <td className={styles.two}>{item.type}</td>
-            <td className={styles.thr}>{item.title}</td>
+            <td className={styles.one}>{item.id}</td>
+            <td className={styles.two}>{item.category}</td>
+            <td className={styles.thr}>
+              {item.nameKr}/{item.nameEn}
+            </td>
             <td className={styles.fur}>{description}</td>
             <td className={styles.fiv}>
               <span
                 onClick={e => {
                   e.stopPropagation()
-                  console.log(`delete ${item.index}`)
+                  console.log(`delete ${item.id}`)
                 }}
               >
                 <AdminButton
@@ -61,7 +63,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
               <span
                 onClick={e => {
                   e.stopPropagation()
-                  console.log(`read ${item.index}`)
+                  console.log(`read ${item.id}`)
                 }}
               >
                 <AdminButton
@@ -136,7 +138,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
             <thead>
               <tr>
                 <th className={styles.one}>번호</th>
-                <th className={styles.two}>위치</th>
+                <th className={styles.two}>분류</th>
                 <th className={styles.thr}>제목</th>
                 <th className={styles.fur}>내용</th>
                 <th className={styles.fiv}>관리</th>

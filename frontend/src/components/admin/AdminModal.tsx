@@ -6,14 +6,26 @@ type ModelProps = {
   isModal: boolean
   setIsModal: () => void
   children: React.ReactNode
+  outer: boolean
 }
 
-const AdminModal = ({ isModal, setIsModal, children, ...rest }: ModelProps) => {
+const AdminModal = ({
+  isModal,
+  setIsModal,
+  children,
+  outer,
+  ...rest
+}: ModelProps) => {
   return (
     <>
       {isModal ? (
         <div className={styles.container}>
-          <div className={styles.background} onClick={setIsModal} />
+          <div
+            className={styles.background}
+            onClick={() => {
+              if (outer) setIsModal()
+            }}
+          />
           <div className={styles.block} {...rest}>
             <button className={styles.close} onClick={setIsModal}>
               <IoMdClose />
