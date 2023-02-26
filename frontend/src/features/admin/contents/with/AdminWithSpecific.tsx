@@ -58,6 +58,7 @@ const AdminWithSpecific = () => {
   // 자회사 사이트 관련
   const [subsidiary, setSubsidiary] = useState(1)
   const subsidiaryInputRefs = useRef<HTMLInputElement[]>([])
+  const subsidiaryNameRefs = useRef<HTMLInputElement[]>([])
   const subsidiarySiteRefs = useRef<HTMLInputElement[]>([])
   const [subsidiaryImages, setSubsidiaryImages] = useState<string[]>([])
 
@@ -75,9 +76,11 @@ const AdminWithSpecific = () => {
             <h5 className={styles.label}>자회사 사이트 {index + 1}</h5>
             <ThumbSiteInput
               idx={index}
+              subName={'자회사 이름'}
               subTitle={'자회사 사이트'}
               required={false}
               inputRefs={subsidiaryInputRefs}
+              nameRefs={subsidiaryNameRefs}
               siteRefs={subsidiarySiteRefs}
               images={subsidiaryImages}
               setImages={setSubsidiaryImages}
@@ -91,6 +94,7 @@ const AdminWithSpecific = () => {
   const [inCorpTool, setInCorpTool] = useState(1)
   const inCorpToolRefs = useRef<HTMLInputElement[]>([])
   const inCorpToolInputRefs = useRef<HTMLInputElement[]>([])
+  const inCorpToolNameRefs = useRef<HTMLInputElement[]>([])
   const inCorpToolSiteRefs = useRef<HTMLInputElement[]>([])
   const [inCorpToolImages, setInCorpToolImages] = useState<string[]>([])
 
@@ -120,9 +124,11 @@ const AdminWithSpecific = () => {
             <h5 className={styles.label}>사내 협업툴 이미지</h5>
             <ThumbSiteInput
               idx={index}
+              subName={'사내 협업툴 이름'}
               subTitle={'사내 협업툴 사이트'}
               required={false}
               inputRefs={inCorpToolInputRefs}
+              nameRefs={inCorpToolNameRefs}
               siteRefs={inCorpToolSiteRefs}
               images={inCorpToolImages}
               setImages={setInCorpToolImages}
