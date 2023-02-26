@@ -1,0 +1,125 @@
+.container {
+  width: 100vw;
+  height: 2500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.contents {
+  width: 100%;
+  max-width: 1120px;
+  height: 85%;
+}
+
+.detail_title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.margin_left {
+  margin-left: 20px;
+}
+
+.main_contents {
+  width: 100%;
+  height: 650px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.highlight {
+  color: white;
+  background: linear-gradient(85.04deg, #60a9f6 1.89%, #80d672 93.48%);
+}
+
+.line {
+  border: none;
+  border-top: 0.5px dashed #8d8d8d;
+  color: #fff;
+  background-color: #fff;
+  height: 1px;
+  width: 100%;
+  margin-block: 30px;
+}
+
+.a_tag {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 26px;
+  align-items: center;
+  letter-spacing: 0.02em;
+  color: #a8a8a8;
+  margin-top: 30px;
+}
+
+.a_tag:hover {
+  color: #414141;
+}
+
+.right {
+  text-align: end;
+}
+
+.image_section {
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image_container {
+  position: absolute;
+}
+
+.image_front_01 {
+  position: relative;
+  width: 340px;
+  top: 50px;
+  left: 30px;
+  filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
+}
+
+.image_back_01 {
+  position: absolute;
+  width: 300px;
+  top: -50px;
+  left: -120px;
+  filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
+}
+
+.image_front_02 {
+  position: relative;
+  width: 280px;
+  top: 50px;
+  left: 100px;
+  filter: drop-shadow(2px 2px 20px rgba(96, 169, 246, 0.35));
+}
+
+.image_back_02 {
+  position: absolute;
+  width: 240px;
+  top: -50px;
+  left: -72px;
+  filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
+}
+
+.image_front_03 {
+  position: relative;
+  width: 380px;
+  top: 50px;
+  left: -10px;
+  filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
+}
+
+.image_back_03 {
+  position: absolute;
+  width: 380px;
+  left: 30px;
+  top: -50px;
+  filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
+}

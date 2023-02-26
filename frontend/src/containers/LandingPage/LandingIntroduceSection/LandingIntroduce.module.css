@@ -1,0 +1,71 @@
+.container {
+  width: 100vw;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  text-align: end;
+  background-color: #FCFCFC;
+}
+
+.contents {
+  width: 100%;
+  max-width: 1120px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.margin_right {
+  margin-right: 20px;
+}
+
+.bubble_container {
+  width: 360px;
+  height: 100px;
+  background: #FFFFFF;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bubble_em_left {
+  position: absolute;
+  width: 40px;
+  left: 20px;
+  top: -20px;
+}
+
+.bubble_em_right {
+  position: absolute;
+  width: 40px;
+  right: 20px;
+  bottom: -20px;
+}
+
+.bubble_text {
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 24px;
+
+  text-align: center;
+  letter-spacing: 0.02em;
+
+  color: #333333;
+}
+
+.bubble_01 {
+  margin-top: -120px;
+}
+
+.bubble_02 {
+  margin-left: 120px;
+}
+
+.bubble_03 {
+  margin-top: 120px;
+}
