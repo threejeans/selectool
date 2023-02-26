@@ -16,6 +16,7 @@ export type SelfMainTmpInfo = {
   individualToolNameKr: string
   individualToolNameEn: string
   individualToolInfo: string
+  individualToolMsg: string
   individualToolTopic: string
   individualToolTag: string
   individualToolCountry: string
@@ -94,6 +95,7 @@ const initialState: ContentsState = {
     individualToolNameKr: '',
     individualToolNameEn: '',
     individualToolInfo: '',
+    individualToolMsg: '',
     individualToolTopic: '',
     individualToolTag: '',
     individualToolCountry: '',
