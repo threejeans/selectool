@@ -109,4 +109,24 @@ public class ToolController {
         toolService.deleteTool(toolId);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/tools/{toolId}/bookmarks")
+    @ApiOperation(value = "툴 북마크에 등록")
+    public ResponseEntity<?> addBookmarkTool(
+            @LoginUser User user,
+            @PathVariable Long toolId
+    ) {
+        toolService.addBookmark(user.getId(), toolId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/tools/{toolId}/bookmarks")
+    @ApiOperation(value = "툴 북마크 해제")
+    public ResponseEntity<?> unBookmarkTool(
+            @LoginUser User user,
+            @PathVariable Long toolId
+    ) {
+        toolService.unBookmark(user.getId(), toolId);
+        return ResponseEntity.ok().build();
+    }
 }
