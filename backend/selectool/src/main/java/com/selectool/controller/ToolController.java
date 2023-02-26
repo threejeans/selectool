@@ -2,6 +2,8 @@ package com.selectool.controller;
 
 import com.selectool.config.login.Admin;
 import com.selectool.config.login.LoginAdmin;
+import com.selectool.config.login.LoginUser;
+import com.selectool.config.login.User;
 import com.selectool.dto.tool.request.ClientCreateRequest;
 import com.selectool.dto.tool.request.ToolCreateRequest;
 import com.selectool.dto.tool.response.ClientResponse;
@@ -30,10 +32,9 @@ public class ToolController {
     @GetMapping("/clients")
     @ApiOperation(value = "이름으로 주요 고객 검색(name 을 보내지 않을 경우 전체 목록)")
     public ResponseEntity<List<ClientResponse>> getClientList(
-//            @LoginAdmin Admin admin,
+            @LoginAdmin User user,
             @RequestParam(defaultValue = "") String name
     ) {
-        System.out.println(name.trim().isEmpty());
         List<ClientResponse> response = clientService.getClientList(name.trim());
         return ResponseEntity.ok(response);
     }
@@ -41,7 +42,7 @@ public class ToolController {
     @GetMapping("/clients/{clientId}")
     @ApiOperation(value = "주요 고객 단건 조회")
     public ResponseEntity<ClientResponse> getClient(
-//            @LoginAdmin Admin admin,
+            @LoginAdmin User user,
             @PathVariable Long clientId
     ) {
         System.out.println(clientId);
@@ -73,19 +74,19 @@ public class ToolController {
     @GetMapping("/tools")
     @ApiOperation(value = "전체 툴 목록 조회")
     public ResponseEntity<List<ToolListResponse>> getToolList(
-//            @LoginUser User user
+            @LoginUser User user
     ) {
-        List<ToolListResponse> response = toolService.getToolList(0L);
+        List<ToolListResponse> response = toolService.getToolList(user.getId());
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/tools/{toolId}")
     @ApiOperation(value = "툴 단건 상세 조회")
     public ResponseEntity<ToolResponse> getTool(
-//            @LoginUser User user
+            @LoginUser User user,
             @PathVariable Long toolId
     ) {
-        ToolResponse response = toolService.getTool(0L, toolId);
+        ToolResponse response = toolService.getTool(user.getId(), toolId);
         return ResponseEntity.ok(response);
     }
 

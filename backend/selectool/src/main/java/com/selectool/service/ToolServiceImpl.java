@@ -79,6 +79,7 @@ public class ToolServiceImpl implements ToolService {
                 .nameEn(request.getNameEn())
                 .info(request.getInfo())
                 .msg(request.getMsg())
+                .country(request.getCountry())
                 .topic(request.getTopic())
                 .image(request.getImage())
                 .url(request.getUrl())
