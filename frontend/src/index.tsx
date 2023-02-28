@@ -21,7 +21,8 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { store } from './app/store'
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistor, store } from './app/store'
 import Layout from './components/Layout'
 import './styles/globals.css'
 
@@ -146,7 +147,9 @@ const router = createBrowserRouter([
 
 root.render(
   <Provider store={store}>
-    <RouterProvider router={router} />
-    <ToastContainer autoClose={2000} />
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={router} />
+      <ToastContainer autoClose={2000} />
+    </PersistGate>
   </Provider>,
 )
