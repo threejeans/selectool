@@ -17,6 +17,7 @@ import {
 } from 'types/dataTypes'
 import {
   createTool,
+  resetTmpTool,
   selectTmpTool,
   selfSpecificTmpSave,
 } from '../adminContentsSlice'
@@ -231,7 +232,7 @@ const AdminSelfSpecific = () => {
             return
           }
           const tmp: ClientType = {
-            id: '',
+            id: 0,
             name: mainClientNameRefs.current[i].value,
             image: mainClientImages[i],
             url: mainClientSiteRefs.current[i].value,
@@ -299,6 +300,7 @@ const AdminSelfSpecific = () => {
       dispatch(createTool(tmpTool))
         .then(data => {
           console.log(data)
+          dispatch(resetTmpTool())
           navigate('/admin/contents/self/list')
         })
         .catch(err => {
