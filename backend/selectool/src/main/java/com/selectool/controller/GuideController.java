@@ -45,8 +45,8 @@ public class GuideController {
     @PostMapping("/guides")
     @ApiOperation(value = "가이드 생성")
     public ResponseEntity<?> createGuide(
-            @LoginAdmin Admin admin,
-            GuideCreateRequest request
+//            @LoginAdmin Admin admin,
+            @RequestBody GuideCreateRequest request
     ) {
         GuideResponse response = guideService.createGuide(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
