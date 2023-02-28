@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
 import { RootState } from 'app/store'
 import { toast } from 'react-toastify'
-import { ToolType } from 'types/dataTypes'
+import { CategoryType, GuideType, ToolType } from 'types/dataTypes'
 
 const SELF = 'self'
 const WITH = 'with'
@@ -13,11 +13,13 @@ export type TYPE_GUIDE = 'guide'
 
 type ContentsType = {
   id: number
-  nameKr: string
+  title?: string
+  nameKr?: string
   nameEn: string
-  info: string
+  info?: string
+  content: string
   msg: string
-  category: string
+  categories: CategoryType[]
   country: string
   image: string
   isBookmarked: boolean
@@ -26,6 +28,7 @@ type ContentsType = {
 interface ContentsState {
   contentsList: ContentsType[]
   tmpTool: ToolType
+  tmpGuide: GuideType
   status: 'idle' | 'loading' | 'success' | 'failed'
 }
 
@@ -47,20 +50,60 @@ const initialState: ContentsState = {
     aos: '',
     ios: '',
   },
+  tmpGuide: {
+    title: '',
+    date: undefined,
+    content: '',
+    source: '',
+    toolName: '',
+    func: '',
+    categories: [],
+    url: '',
+    image: '',
+    toolImage: '',
+  },
   status: 'idle',
 }
+const getApiUrl = (type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE) => {
+  switch (type) {
+    case 'self':
+      return '/self/tools'
+    case 'guide':
+      return '/board/guides'
+  }
+}
+
 export const getContentsList = createAsyncThunk(
   'adminContents/getContentsList',
   async ({ type }: any, { rejectWithValue }) => {
     try {
-      let contents = ''
-      switch (type) {
-        case 'self':
-          contents = 'tools'
-          break
-      }
-      const response = await apiAxios.get(`/${type}/${contents}`)
-      // console.log(response)
+      const response = await apiAxios.get(`${getApiUrl(type)}`)
+      return response.data
+    } catch (error: any) {
+      console.error(error) //
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
+export const getContent = createAsyncThunk(
+  'adminContents/getContent',
+  async ({ type, id }: any, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.get(`${getApiUrl(type)}/${id}`)
+      return response.data
+    } catch (error: any) {
+      console.error(error) //
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
+export const deleteItem = createAsyncThunk(
+  'adminContents/deleteGuide',
+  async ({ type, id }: any, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.delete(`${getApiUrl(type)}/${id}`)
       return response.data
     } catch (error: any) {
       console.error(error) //
@@ -74,6 +117,20 @@ export const createTool = createAsyncThunk(
   async (data: ToolType, { rejectWithValue }) => {
     try {
       const response = await apiAxios.post('/self/tools', data)
+      console.log('Async Response', response)
+      return response.data
+    } catch (error: any) {
+      console.error(error) //
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
+export const createGuide = createAsyncThunk(
+  'adminContents/createGuide',
+  async (data: GuideType, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.post('/board/guides', data)
       console.log('Async Response', response)
       return response.data
     } catch (error: any) {
@@ -143,6 +200,24 @@ export const adminContentsSlice = createSlice({
         ios: '',
       }
     },
+    guideSave: (state, { payload }) => {
+      console.log(payload)
+      state.tmpGuide = payload
+    },
+    resetTmpGuide: state => {
+      state.tmpGuide = {
+        title: '',
+        date: undefined,
+        content: '',
+        source: '',
+        toolName: '',
+        func: '',
+        categories: [],
+        url: '',
+        image: '',
+        toolImage: '',
+      }
+    },
   },
   extraReducers: builder => {
     builder
@@ -174,10 +249,13 @@ export const {
   selfSpecificTmpSave,
   withToolSave,
   resetTmpTool,
+  guideSave,
+  resetTmpGuide,
 } = adminContentsSlice.actions
 
 export const selectContentsList = (state: RootState) =>
   state.adminContents.contentsList
 export const selectTmpTool = (state: RootState) => state.adminContents.tmpTool
+export const selectTmpGuide = (state: RootState) => state.adminContents.tmpGuide
 
 export default adminContentsSlice.reducer

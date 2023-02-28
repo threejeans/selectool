@@ -1,16 +1,19 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { debounce } from 'lodash'
+import { useEffect, useState } from 'react'
 
+import AdminButton from 'components/admin/AdminButton'
+import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminContentsList.module.css'
+import swal from 'sweetalert'
 import {
+  deleteItem,
+  getContent,
   getContentsList,
   selectContentsList,
   TYPE_GUIDE,
   TYPE_SELF,
   TYPE_WITH,
 } from './adminContentsSlice'
-import AdminButton from 'components/admin/AdminButton'
 type ContentsListProps = {
   type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE
 }
@@ -20,7 +23,6 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
   const [totalPage, setTotalPage] = useState(1)
   const [page, setPage] = useState(1)
   const [entry, setEntry] = useState(10)
-  const [remain, setRemain] = useState(0)
 
   const dispatch = useAppDispatch()
 
@@ -32,47 +34,61 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
     setTotalPage(Math.ceil(contentsList.length / entry))
   }, [entry, contentsList])
 
+  const handleRead = (id: number) => {
+    dispatch(getContent({ type, id })).then(data => console.log(data))
+  }
+
+  const handleDelete = (id: number) => {
+    swal({
+      title: '정말로 삭제 하시겠습니까??',
+      icon: 'warning',
+      buttons: ['취소', '삭제'],
+      dangerMode: true,
+    }).then(willDelete => {
+      if (willDelete) {
+        dispatch(deleteItem({ type, id })).then(data => {
+          if (data.meta.requestStatus === 'fulfilled') {
+            swal('삭제가 완료되었습니다.', { icon: 'success' })
+            dispatch(getContentsList({ type }))
+          } else swal('삭제에 실패하였습니다.', { icon: 'warning' })
+        })
+      } else {
+        toast('🥕 삭제가 취소되었습니다.', { autoClose: 1000 })
+      }
+    })
+  }
+
   const ContentItems = () => {
     const tmp = contentsList.map((item, index) => {
       if (Math.ceil((index + 1) / entry) === page) {
-        let description = `${item.info}`
+        let description = item.info ? `${item.info}` : `${item.content}`
         if (description.length > 15)
           description = description.substring(0, 15) + '...'
         return (
-          <tr key={index} onClick={() => console.log(item)}>
+          <tr key={index} onClick={() => handleRead(item.id)}>
             <td className={styles.one}>{item.id}</td>
-            <td className={styles.two}>{item.category}</td>
+            <td className={styles.two}>
+              {item.categories.map(item => {
+                return `${item.name || ''}/`
+              })}
+            </td>
             <td className={styles.thr}>
-              {item.nameKr}/{item.nameEn}
+              {item.nameKr ? `${item.nameKr}/${item.nameEn}` : `${item.title}`}
             </td>
             <td className={styles.fur}>{description}</td>
             <td className={styles.fiv}>
-              <span
-                onClick={e => {
-                  e.stopPropagation()
-                  console.log(`delete ${item.id}`)
-                }}
-              >
-                <AdminButton
-                  color={'primary'}
-                  size={'sm'}
-                  text={'삭제'}
-                  onClick={undefined}
-                />
-              </span>{' '}
-              <span
-                onClick={e => {
-                  e.stopPropagation()
-                  console.log(`read ${item.id}`)
-                }}
-              >
-                <AdminButton
-                  color={'secondary'}
-                  size={'sm'}
-                  text={'열람'}
-                  onClick={undefined}
-                />
-              </span>
+              <AdminButton
+                color={'primary'}
+                size={'sm'}
+                text={'삭제'}
+                onClick={() => handleDelete(item.id)}
+              />{' '}
+              <AdminButton
+                color={'secondary'}
+                size={'sm'}
+                text={'열람'}
+                onClick={() => handleRead(item.id)}
+              />
             </td>
           </tr>
         )
