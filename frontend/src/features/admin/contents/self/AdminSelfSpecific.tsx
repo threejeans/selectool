@@ -10,12 +10,15 @@ import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
 import {
   ClientType,
-  createTool,
   PlanFunctionType,
   PlanType,
+  TmpToolSpecificType,
+  ToolFuncType,
+} from 'types/dataTypes'
+import {
+  createTool,
   selectTmpTool,
   selfSpecificTmpSave,
-  ToolFuncType,
 } from '../adminContentsSlice'
 
 const AdminSelfSpecific = () => {
@@ -184,11 +187,11 @@ const AdminSelfSpecific = () => {
 
   // 작성된 데이터 정제
   const handleComplete = () => {
-    const data = {
+    const data: TmpToolSpecificType = {
       url: '',
-      toolFunctions: [{}],
-      clients: [{}],
-      plans: [{}],
+      toolFunctions: [],
+      clients: [],
+      plans: [],
       aos: '',
       ios: '',
     }
@@ -228,7 +231,7 @@ const AdminSelfSpecific = () => {
             return
           }
           const tmp: ClientType = {
-            id: 0,
+            id: '',
             name: mainClientNameRefs.current[i].value,
             image: mainClientImages[i],
             url: mainClientSiteRefs.current[i].value,
@@ -276,7 +279,6 @@ const AdminSelfSpecific = () => {
     if (!iosRef.current) return
     data.aos = aosRef.current.value || '정보없음'
     data.ios = iosRef.current.value || '정보없음'
-
     dispatch(selfSpecificTmpSave(data))
   }
 
@@ -293,6 +295,7 @@ const AdminSelfSpecific = () => {
       tmpTool.plans
     ) {
       console.log('Specific complate', tmpTool)
+      console.log(JSON.stringify(tmpTool))
       dispatch(createTool(tmpTool))
         .then(data => {
           console.log(data)

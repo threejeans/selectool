@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
 import { RootState } from 'app/store'
 import { toast } from 'react-toastify'
+import { ToolType } from 'types/dataTypes'
 
 const SELF = 'self'
 const WITH = 'with'
@@ -9,44 +10,6 @@ const GUIDE = 'guide'
 export type TYPE_SELF = 'self'
 export type TYPE_WITH = 'with'
 export type TYPE_GUIDE = 'guide'
-
-export type ClientType = {
-  id: number
-  name: string
-  image: string
-  url: string
-}
-export type PlanFunctionType = {
-  func: string
-}
-export type PlanType = {
-  title: string
-  volume: string
-  cost: string
-  planFunctions: PlanFunctionType[]
-}
-export type ToolFuncType = {
-  name: string
-  content: string
-}
-export type ToolType = {
-  // main
-  nameKr: string
-  nameEn: string
-  info: string
-  msg: string
-  topic: string
-  categories: string[]
-  country: string
-  image: string
-  // specific
-  url: string
-  toolFunctions: ToolFuncType[]
-  clients: ClientType[]
-  plans: PlanType[]
-  aos: string
-  ios: string
-}
 
 type ContentsType = {
   id: number
@@ -97,7 +60,7 @@ export const getContentsList = createAsyncThunk(
           break
       }
       const response = await apiAxios.get(`/${type}/${contents}`)
-      console.log(response) //
+      // console.log(response)
       return response.data
     } catch (error: any) {
       console.error(error) //

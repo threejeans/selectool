@@ -14,13 +14,15 @@ import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
 import {
   ClientType,
-  createTool,
   PlanFunctionType,
   PlanType,
-  popToast,
-  selectTmpTool,
   ToolFuncType,
   ToolType,
+} from 'types/dataTypes'
+import {
+  createTool,
+  popToast,
+  selectTmpTool,
   withToolSave,
 } from '../adminContentsSlice'
 
@@ -257,7 +259,10 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
         return
       } else data.topic = topicRef.current.value
     }
-    if (categories) data.categories = categories
+    if (categories)
+      data.categories = categories.map(item => {
+        return { name: item }
+      })
     if (country) data.country = country
     if (thumbnail === '') {
       popToast('섬네일')
@@ -324,7 +329,7 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
         if (planTitleRef.current[i].value) {
           const t: PlanFunctionType[] = []
           if (planFuncRef.current[i]) {
-            planFuncRef.current[i].map((item: any, _) => {
+            planFuncRef.current[i].map((item, _) => {
               t.push(item.value)
             })
           }
