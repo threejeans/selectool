@@ -1,10 +1,4 @@
-import baseAxios, {
-  AxiosInstance,
-  AxiosInterceptorManager,
-  AxiosRequestConfig,
-  AxiosResponse,
-} from 'axios'
-import { getCookie, setCookie } from 'util/cookie'
+import baseAxios, { AxiosInstance } from 'axios'
 
 type CustomResponseFormat<T = any> = {
   response: T
@@ -25,8 +19,12 @@ const apiAxios: AxiosInstance = baseAxios.create({
 
 export const axiosMiddleware =
   (store: any) => (next: (arg0: any) => any) => (action: { type: string }) => {
-    // console.log('action:', action)
-    if (action.type.startsWith('auth')) setInterceptors(store)
+    // console.log('action: ', action)
+    if (
+      action.type.startsWith('auth') ||
+      action.type.startsWith('adminContents')
+    )
+      setInterceptors(store)
     return next(action)
   }
 
@@ -34,10 +32,11 @@ export const setInterceptors = (store: { getState: () => any }) => {
   if (!store) {
     return
   }
-
   apiAxios.interceptors.request.use(config => {
-    const accessToken = store.getState().auth.accessToken
-    console.log(config)
+    const accessToken =
+      store.getState().auth.accessToken ||
+      store.getState().adminAuth.accessToken
+    // console.log(config)
     config.headers = config.headers ?? {}
     if (accessToken !== undefined)
       config.headers['Authorization'] = `Bearer ${accessToken}`
