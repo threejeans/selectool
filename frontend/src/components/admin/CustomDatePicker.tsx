@@ -9,11 +9,11 @@ import {
 } from 'react-icons/ai'
 import styles from 'styles/admin/components/CustomDatePicker.module.css'
 
-const CustomDatePicker = ({ date, setDate }: any) => {
+const CustomDatePicker = ({ dateRef, date, setDate }: any) => {
   const years = _.range(2010, getYear(new Date()) + 1, 1)
   const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={dateRef}>
       <DatePicker
         className={styles.datepicker}
         selected={date}
