@@ -2,14 +2,19 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
 import { RootState } from 'app/store'
 import { toast } from 'react-toastify'
-import { CategoryType, GuideType, ToolType } from 'types/dataTypes'
+import {
+  CategoryType,
+  GuideType,
+  ToolType,
+  TypeId,
+  TYPE_GUIDE,
+  TYPE_SELF,
+  TYPE_WITH,
+} from 'types/dataTypes'
 
 const SELF = 'self'
 const WITH = 'with'
 const GUIDE = 'guide'
-export type TYPE_SELF = 'self'
-export type TYPE_WITH = 'with'
-export type TYPE_GUIDE = 'guide'
 
 type ContentsType = {
   id: number
@@ -75,7 +80,7 @@ const getApiUrl = (type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE) => {
 
 export const getContentsList = createAsyncThunk(
   'adminContents/getContentsList',
-  async ({ type }: any, { rejectWithValue }) => {
+  async ({ type }: TypeId, { rejectWithValue }) => {
     try {
       const response = await apiAxios.get(`${getApiUrl(type)}`)
       return response.data
@@ -88,7 +93,7 @@ export const getContentsList = createAsyncThunk(
 
 export const getContent = createAsyncThunk(
   'adminContents/getContent',
-  async ({ type, id }: any, { rejectWithValue }) => {
+  async ({ type, id }: TypeId, { rejectWithValue }) => {
     try {
       const response = await apiAxios.get(`${getApiUrl(type)}/${id}`)
       return response.data
@@ -101,7 +106,7 @@ export const getContent = createAsyncThunk(
 
 export const deleteItem = createAsyncThunk(
   'adminContents/deleteGuide',
-  async ({ type, id }: any, { rejectWithValue }) => {
+  async ({ type, id }: TypeId, { rejectWithValue }) => {
     try {
       const response = await apiAxios.delete(`${getApiUrl(type)}/${id}`)
       return response.data

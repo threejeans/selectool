@@ -1,6 +1,8 @@
 // 공통 type 지정
 
-import { DateYMD } from 'react-aws-s3-typescript/dist/types'
+export type TYPE_SELF = 'self'
+export type TYPE_WITH = 'with'
+export type TYPE_GUIDE = 'guide'
 
 // tool, 혼자써요 필요 type
 export type CategoryType = {
@@ -78,4 +80,10 @@ export type GuideType = {
   url: string
   image: string
   toolImage: string
+}
+
+// read
+export type TypeId = {
+  type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE
+  id?: number
 }
