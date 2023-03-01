@@ -8,6 +8,7 @@ import AdminContentsList from 'features/admin/contents/AdminContentsList'
 import AdminGuide from 'features/admin/contents/guide/AdminGuide'
 import AdminSelfMain from 'features/admin/contents/self/AdminSelfMain'
 import AdminSelfSpecific from 'features/admin/contents/self/AdminSelfSpecific'
+import AdminSelfTool from 'features/admin/contents/self/AdminSelfTool'
 import AdminWithMain from 'features/admin/contents/with/AdminWithMain'
 import AdminWithSpecific from 'features/admin/contents/with/AdminWithSpecific'
 import AdminData from 'features/admin/data/AdminData'
@@ -94,6 +95,7 @@ const router = createBrowserRouter([
               {
                 path: '',
                 children: [
+                  { path: '', element: <AdminSelfTool /> },
                   { path: 'main', element: <AdminSelfMain /> },
                   { path: 'specific', element: <AdminSelfSpecific /> },
                 ],
