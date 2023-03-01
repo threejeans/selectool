@@ -1,5 +1,6 @@
 package com.selectool.config.login;
 
+import com.selectool.exception.NotAuthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+
+import static com.selectool.exception.NotAuthorizedException.NOT_AUTHORIZED;
 
 @Component
 @RequiredArgsConstructor
@@ -31,14 +34,13 @@ public class LoginAdminArgumentResolver implements HandlerMethodArgumentResolver
 
         try {
             String authorizationHeader = webRequest.getHeader("Authorization");
+            assert authorizationHeader != null;
             String jwt = authorizationHeader.replace("Bearer%20", "").replace("Bearer ", "");
             Claims body = Jwts.parser().setSigningKey(SecretKey)
                     .parseClaimsJws(jwt).getBody();
-            Admin admin = new Admin(Long.valueOf(String.valueOf(body.get("id"))));
-            return admin;
-        } catch (ClassCastException e) {
-            //throw new NotMatchException(TOKEN_NOT_MATCH);
-            throw new RuntimeException("error");
+            return new Admin(Long.valueOf(String.valueOf(body.get("id"))));
+        } catch (Exception e) {
+            throw new NotAuthorizedException(NOT_AUTHORIZED);
         }
     }
 }

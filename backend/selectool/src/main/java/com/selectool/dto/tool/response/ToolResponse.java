@@ -1,6 +1,5 @@
 package com.selectool.dto.tool.response;
 
-import com.selectool.entity.ToolCategory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;

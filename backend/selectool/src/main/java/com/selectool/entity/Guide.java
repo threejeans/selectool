@@ -3,6 +3,7 @@ package com.selectool.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,7 +13,8 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Getter
-public class Guide {
+@Setter
+public class Guide extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "guide_id")

@@ -1,9 +1,6 @@
 package com.selectool.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +9,8 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Getter
-public class Corp {
+@Setter
+public class Corp extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "corp_id")
