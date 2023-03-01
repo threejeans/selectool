@@ -4,6 +4,7 @@ import com.selectool.dto.tool.request.ToolCreateRequest;
 import com.selectool.dto.tool.request.ToolPlanCreateRequest;
 import com.selectool.dto.tool.response.*;
 import com.selectool.entity.*;
+import com.selectool.exception.DuplicateException;
 import com.selectool.exception.NotFoundException;
 import com.selectool.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +18,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.selectool.exception.NotFoundException.TOOL_NOT_FOUND;
+import static com.selectool.exception.DuplicateException.TOOL_BOOKMARK_DUPLICATED;
+import static com.selectool.exception.NotFoundException.*;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Slf4j
 public class ToolServiceImpl implements ToolService {
+    private final UserRepo userRepo;
+
     private final ToolRepo toolRepo;
 
     private final ClientRepo clientRepo;
@@ -79,6 +83,7 @@ public class ToolServiceImpl implements ToolService {
                 .nameEn(request.getNameEn())
                 .info(request.getInfo())
                 .msg(request.getMsg())
+                .country(request.getCountry())
                 .topic(request.getTopic())
                 .image(request.getImage())
                 .url(request.getUrl())
@@ -170,7 +175,45 @@ public class ToolServiceImpl implements ToolService {
         toolRepo.delete(tool);
     }
 
-    public ToolResponse entityToDTO(Long userId, Tool tool) {
+    @Override
+    @Transactional
+    public void addBookmark(Long userId, Long toolId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+
+        Tool tool = toolRepo.findById(toolId)
+                .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+        // 이미 등록된 북마크 체크
+        if (!toolBookmarkRepo.findByToolAndUserId(tool, userId).isEmpty())
+            throw new DuplicateException(TOOL_BOOKMARK_DUPLICATED);
+
+        ToolBookmark toolBookmark = ToolBookmark.builder()
+                .user(user)
+                .tool(tool)
+                .build();
+
+        toolBookmarkRepo.save(toolBookmark);
+    }
+
+    @Override
+    @Transactional
+    public void unBookmark(Long userId, Long toolId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+
+        Tool tool = toolRepo.findById(toolId)
+                .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+        // 등록된 북마크인지 체크
+        List<ToolBookmark> bookmarks = toolBookmarkRepo.findByToolAndUserId(tool, userId);
+        if (bookmarks.isEmpty())
+            throw new NotFoundException(TOOL_BOOKMARK_NOT_FOUND);
+
+        toolBookmarkRepo.deleteAll(bookmarks);
+    }
+
+    private ToolResponse entityToDTO(Long userId, Tool tool) {
         List<ToolBookmark> toolBookmarks;
         if (userId != null) {
             toolBookmarks = toolBookmarkRepo.findByToolAndUserId(tool, userId);

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.selectool.exception.NotFoundException.TOOL_NOT_CLIENT;
+import static com.selectool.exception.NotFoundException.CLIENT_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +42,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientResponse getClient(Long clientId) {
         Client response = clientRepo.findById(clientId)
-                .orElseThrow(() -> new NotFoundException(TOOL_NOT_CLIENT));
+                .orElseThrow(() -> new NotFoundException(CLIENT_NOT_FOUND));
         return ClientResponse.builder()
                 .id(response.getId())
                 .name(response.getName())
@@ -73,7 +73,7 @@ public class ClientServiceImpl implements ClientService {
     @Transactional
     public void deleteClient(Long clientId) {
         Client client = clientRepo.findById(clientId)
-                .orElseThrow(() -> new NotFoundException(TOOL_NOT_CLIENT));
+                .orElseThrow(() -> new NotFoundException(CLIENT_NOT_FOUND));
 
         clientRepo.delete(client);
     }
