@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,7 +23,7 @@ public class ToolPlanCreateRequest {
     private String cost;
 
     @ApiModelProperty(value = "툴 가격 플랜 기능 목록")
-    private List<ToolPlanFunctionCreateRequest> planFunctions;
+    private List<ToolPlanFunctionCreateRequest> planFunctions = new ArrayList<>();
 
     @Builder
     public ToolPlanCreateRequest(String title, String volume, String cost, List<ToolPlanFunctionCreateRequest> planFunctions) {

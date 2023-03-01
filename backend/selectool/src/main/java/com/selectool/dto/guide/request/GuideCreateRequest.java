@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -41,7 +42,7 @@ public class GuideCreateRequest {
     private String toolImage;
 
     @ApiModelProperty(value = "카테고리 분류 목록")
-    private List<GuideCategoryCreateRequest> categories;
+    private List<GuideCategoryCreateRequest> categories = new ArrayList<>();
 
     @Builder
     public GuideCreateRequest(String title, LocalDateTime date, String content, String source, String toolName, String func, String url, String image, String toolImage, List<GuideCategoryCreateRequest> categories) {

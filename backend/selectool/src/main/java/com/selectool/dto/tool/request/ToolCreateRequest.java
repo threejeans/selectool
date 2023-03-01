@@ -6,12 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @ApiModel(value = "툴 생성 모델")
 public class ToolCreateRequest {
+    private Long id = 0L;
+
     @ApiModelProperty(value = "툴 국문명")
     private String nameKr;
 
@@ -43,19 +46,20 @@ public class ToolCreateRequest {
     private String ios;
 
     @ApiModelProperty(value = "툴 분류 목록")
-    private List<ToolCategoryCreateRequest> categories;
+    private List<ToolCategoryCreateRequest> categories = new ArrayList<>();
 
     @ApiModelProperty(value = "툴 핵심 기능 목록")
-    private List<ToolFunctionCreateRequest> toolFunctions;
+    private List<ToolFunctionCreateRequest> toolFunctions = new ArrayList<>();
 
     @ApiModelProperty(value = "주요 고객 목록")
-    private List<ClientCreateRequest> clients;
+    private List<ClientCreateRequest> clients = new ArrayList<>();
 
     @ApiModelProperty(value = "툴 가격 플랜 목록")
-    private List<ToolPlanCreateRequest> plans;
+    private List<ToolPlanCreateRequest> plans = new ArrayList<>();
 
     @Builder
-    public ToolCreateRequest(String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, List<ToolCategoryCreateRequest> categories, List<ToolFunctionCreateRequest> toolFunctions, List<ClientCreateRequest> clients, List<ToolPlanCreateRequest> plans) {
+    public ToolCreateRequest(Long id, String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, List<ToolCategoryCreateRequest> categories, List<ToolFunctionCreateRequest> toolFunctions, List<ClientCreateRequest> clients, List<ToolPlanCreateRequest> plans) {
+        this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
         this.info = info;

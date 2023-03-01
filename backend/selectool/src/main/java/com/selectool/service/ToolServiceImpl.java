@@ -213,7 +213,7 @@ public class ToolServiceImpl implements ToolService {
         toolBookmarkRepo.deleteAll(bookmarks);
     }
 
-    public ToolResponse entityToDTO(Long userId, Tool tool) {
+    private ToolResponse entityToDTO(Long userId, Tool tool) {
         List<ToolBookmark> toolBookmarks;
         if (userId != null) {
             toolBookmarks = toolBookmarkRepo.findByToolAndUserId(tool, userId);

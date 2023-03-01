@@ -26,19 +26,19 @@ public class GuideController {
     @GetMapping("/guides")
     @ApiOperation(value = "가이드 목록 조회")
     public ResponseEntity<List<GuideResponse>> getGuideList(
-//            @LoginUser User user,
+            @LoginUser User user
     ) {
-        List<GuideResponse> response = guideService.getGuideList(0L);
+        List<GuideResponse> response = guideService.getGuideList(user.getId());
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/guides/{guideId}")
     @ApiOperation(value = "가이드 단건 조회")
     public ResponseEntity<GuideResponse> getGuide(
-//            @LoginUser User user,
+            @LoginUser User user,
             @PathVariable Long guideId
     ) {
-        GuideResponse response = guideService.getGuide(0L, guideId);
+        GuideResponse response = guideService.getGuide(user.getId(), guideId);
         return ResponseEntity.ok(response);
     }
 
