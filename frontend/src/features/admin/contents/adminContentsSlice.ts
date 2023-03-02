@@ -1,130 +1,89 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
 import { RootState } from 'app/store'
-import { s3Config } from 'util/s3Config'
-import S3 from 'react-aws-s3-typescript'
 import { toast } from 'react-toastify'
+import {
+  CategoryType,
+  GuideType,
+  ToolType,
+  TypeId,
+  TYPE_GUIDE,
+  TYPE_SELF,
+  TYPE_WITH,
+} from 'types/dataTypes'
 
 const SELF = 'self'
 const WITH = 'with'
 const GUIDE = 'guide'
-export type TYPE_SELF = 'self'
-export type TYPE_WITH = 'with'
-export type TYPE_GUIDE = 'guide'
-
-export type SelfMainTmpInfo = {
-  individualToolNameKr: string
-  individualToolNameEn: string
-  individualToolInfo: string
-  individualToolTopic: string
-  individualToolTag: string
-  individualToolCountry: string
-  individualToolLogo: string
-}
-export type WithMainTmpInfo = {
-  groupCorpNameKr: string
-  groupCorpNameEn: string
-  groupCorpInfo: string
-  groupCorpTeamNameKr: string
-  groupCorpTeamNameEn: string
-  groupCorpTag: string
-  groupCorpLogo: string
-}
-export type CoreFuncType = {
-  CoreFuncSubTitle: string
-  CoreFuncContent: string
-}
-
-export type ClientInfoType = {
-  ClientImage: string
-  ClientSiteUrl: string
-}
-export type PlanInfoType = {
-  PlanName: string
-  PlanVolume: string
-  PlanPricing: string
-  PlanFunc: string[]
-}
-export type SelfSpecificTmpInfo = {
-  individualDetailToolUrl: string
-  individualDetailCoreFunc: CoreFuncType[]
-  individualDetailClient: ClientInfoType[]
-  individualDetailPlan: PlanInfoType[]
-  individualDetailAosReviewRate: string | ''
-  individualDetailiosReviewRate: string | ''
-}
 
 type ContentsType = {
-  index: number
-  type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE
-  title: string
-  description: string
+  id: number
+  title?: string
+  nameKr?: string
+  nameEn: string
+  info?: string
+  content: string
+  msg: string
+  categories: CategoryType[]
+  country: string
+  image: string
+  isBookmarked: boolean
 }
 
 interface ContentsState {
   contentsList: ContentsType[]
-  selfMainTmpInfo: SelfMainTmpInfo
-  selfSpecificTmpInfo: SelfSpecificTmpInfo
-  withMainTmpInfo: WithMainTmpInfo
+  tmpTool: ToolType
+  tmpGuide: GuideType
   status: 'idle' | 'loading' | 'success' | 'failed'
 }
 
 const initialState: ContentsState = {
-  contentsList: [
-    {
-      index: 1,
-      type: SELF,
-      title: '피그마',
-      description:
-        '15글자 이상은 단축되도록 css로 처리를 했는데, 적용이 되는 지 확인이 필요한 부분',
-    },
-    { index: 2, type: SELF, title: '피그마', description: '메신저기반' },
-    { index: 3, type: SELF, title: '피그마', description: '메신저기반' },
-    { index: 4, type: SELF, title: '피그마', description: '메신저기반' },
-    { index: 5, type: SELF, title: '피그마', description: '메신저기반' },
-    { index: 6, type: SELF, title: '피그마', description: '메신저기반' },
-    { index: 7, type: SELF, title: '피그마', description: '메신저기반' },
-    { index: 8, type: SELF, title: '피그마', description: '메신저기반' },
-    { index: 9, type: SELF, title: '피그마', description: '메신저기반' },
-    { index: 10, type: SELF, title: '피그마', description: '메신저기반' },
-    { index: 11, type: SELF, title: '피그마', description: '메신저기반' },
-    { index: 12, type: SELF, title: '피그마', description: '메신저기반' },
-  ],
-  selfMainTmpInfo: {
-    individualToolNameKr: '',
-    individualToolNameEn: '',
-    individualToolInfo: '',
-    individualToolTopic: '',
-    individualToolTag: '',
-    individualToolCountry: '',
-    individualToolLogo: '',
+  contentsList: [],
+  tmpTool: {
+    nameKr: '',
+    nameEn: '',
+    info: '',
+    msg: '',
+    topic: '',
+    categories: [],
+    country: '',
+    image: '',
+    url: '',
+    toolFunctions: [],
+    clients: [],
+    plans: [],
+    aos: '',
+    ios: '',
   },
-  selfSpecificTmpInfo: {
-    individualDetailToolUrl: '',
-    individualDetailCoreFunc: [],
-    individualDetailClient: [],
-    individualDetailPlan: [],
-    individualDetailAosReviewRate: '',
-    individualDetailiosReviewRate: '',
-  },
-  withMainTmpInfo: {
-    groupCorpNameKr: '',
-    groupCorpNameEn: '',
-    groupCorpInfo: '',
-    groupCorpTeamNameKr: '',
-    groupCorpTeamNameEn: '',
-    groupCorpTag: '',
-    groupCorpLogo: '',
+  tmpGuide: {
+    title: '',
+    date: undefined,
+    content: '',
+    source: '',
+    toolName: '',
+    func: '',
+    categories: [],
+    url: '',
+    image: '',
+    toolImage: '',
   },
   status: 'idle',
 }
+const getApiUrl = (type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE) => {
+  switch (type) {
+    case 'self':
+      return '/self/tools'
+    case 'guide':
+      return '/board/guides'
+  }
+}
+
 export const getContentsList = createAsyncThunk(
   'adminContents/getContentsList',
-  async ({ type }: any, { rejectWithValue }) => {
+  async ({ type }: TypeId, { rejectWithValue }) => {
     try {
-      const response = await apiAxios.get(`/admin/contents/${type}`)
-      console.log(response) //
-      return response
+      const response = await apiAxios.get(`${getApiUrl(type)}`)
+      return response.data
     } catch (error: any) {
       console.error(error) //
       return rejectWithValue(error.message)
@@ -132,27 +91,55 @@ export const getContentsList = createAsyncThunk(
   },
 )
 
-export const createSelfMainTmpInfo = createAsyncThunk(
-  'adminContents/createSelfMainTmpInfo',
-  async (params: SelfMainTmpInfo, { rejectWithValue }) => {
+export const getContent = createAsyncThunk(
+  'adminContents/getContent',
+  async ({ type, id }: TypeId, { rejectWithValue }) => {
     try {
-      const response = await apiAxios.post('/admin/self/main', params)
-      return response
+      const response = await apiAxios.get(`${getApiUrl(type)}/${id}`)
+      return response.data
     } catch (error: any) {
-      console.error(error)
+      console.error(error) //
       return rejectWithValue(error.message)
     }
   },
 )
 
-export const createWithMainTmpInfo = createAsyncThunk(
-  'adminContents/createWithMainTmpInfo',
-  async (params: WithMainTmpInfo, { rejectWithValue }) => {
+export const deleteItem = createAsyncThunk(
+  'adminContents/deleteGuide',
+  async ({ type, id }: TypeId, { rejectWithValue }) => {
     try {
-      const response = await apiAxios.post('/admin/with/main', params)
-      return response
+      const response = await apiAxios.delete(`${getApiUrl(type)}/${id}`)
+      return response.data
     } catch (error: any) {
-      console.error(error)
+      console.error(error) //
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
+export const createTool = createAsyncThunk(
+  'adminContents/createTool',
+  async (data: ToolType, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.post('/self/tools', data)
+      console.log('Async Response', response)
+      return response.data
+    } catch (error: any) {
+      console.error(error) //
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
+export const createGuide = createAsyncThunk(
+  'adminContents/createGuide',
+  async (data: GuideType, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.post('/board/guides', data)
+      console.log('Async Response', response)
+      return response.data
+    } catch (error: any) {
+      console.error(error) //
       return rejectWithValue(error.message)
     }
   },
@@ -164,10 +151,10 @@ export const popToast = (text: string | false) => {
 
 export const createSelfSpecificTmpInfo = createAsyncThunk(
   'adminContents/createSelfSpecificTmpInfo',
-  async (params: SelfSpecificTmpInfo, { rejectWithValue }) => {
+  async (params: any, { rejectWithValue }) => {
     try {
       const response = await apiAxios.post('/admin/self/specific', params)
-      return response
+      return response.data
     } catch (error: any) {
       console.error(error)
       return rejectWithValue(error.message)
@@ -179,28 +166,101 @@ export const adminContentsSlice = createSlice({
   name: 'adminContents',
   initialState,
   reducers: {
-    sss: (state, { payload }) => {
-      state.contentsList = payload
+    selfMainTmpSave: (state, { payload }) => {
+      state.tmpTool.nameKr = payload.nameKr
+      state.tmpTool.nameEn = payload.nameEn
+      state.tmpTool.info = payload.info
+      state.tmpTool.msg = payload.msg
+      state.tmpTool.topic = payload.topic
+      state.tmpTool.categories = payload.categories
+      state.tmpTool.country = payload.country
+      state.tmpTool.image = payload.image
+    },
+    selfSpecificTmpSave: (state, { payload }) => {
+      state.tmpTool.url = payload.url
+      state.tmpTool.toolFunctions = payload.toolFunctions
+      state.tmpTool.clients = payload.clients
+      state.tmpTool.plans = payload.plans
+      state.tmpTool.aos = payload.aos
+      state.tmpTool.ios = payload.ios
+    },
+    withToolSave: (state, { payload }) => {
+      state.tmpTool = payload
+    },
+    resetTmpTool: state => {
+      state.tmpTool = {
+        nameKr: '',
+        nameEn: '',
+        info: '',
+        msg: '',
+        topic: '',
+        categories: [],
+        country: '',
+        image: '',
+        url: '',
+        toolFunctions: [],
+        clients: [],
+        plans: [],
+        aos: '',
+        ios: '',
+      }
+    },
+    guideSave: (state, { payload }) => {
+      console.log(payload)
+      state.tmpGuide = payload
+    },
+    resetTmpGuide: state => {
+      state.tmpGuide = {
+        title: '',
+        date: undefined,
+        content: '',
+        source: '',
+        toolName: '',
+        func: '',
+        categories: [],
+        url: '',
+        image: '',
+        toolImage: '',
+      }
     },
   },
   extraReducers: builder => {
     builder
-      .addCase(createSelfMainTmpInfo.pending, state => {
+      .addCase(getContentsList.pending, state => {
         state.status = 'loading'
       })
-      .addCase(createSelfMainTmpInfo.fulfilled, (state, { payload }) => {
-        state.selfMainTmpInfo = payload.data
+      .addCase(getContentsList.fulfilled, (state, { payload }) => {
+        state.contentsList = payload
         state.status = 'success'
       })
-      .addCase(createSelfMainTmpInfo.rejected, state => {
+      .addCase(getContentsList.rejected, state => {
+        state.status = 'failed'
+      })
+      .addCase(createTool.pending, state => {
+        state.status = 'loading'
+      })
+      .addCase(createTool.fulfilled, state => {
+        resetTmpTool()
+        state.status = 'success'
+      })
+      .addCase(createTool.rejected, state => {
         state.status = 'failed'
       })
   },
 })
 
-export const { sss } = adminContentsSlice.actions
+export const {
+  selfMainTmpSave,
+  selfSpecificTmpSave,
+  withToolSave,
+  resetTmpTool,
+  guideSave,
+  resetTmpGuide,
+} = adminContentsSlice.actions
 
 export const selectContentsList = (state: RootState) =>
   state.adminContents.contentsList
+export const selectTmpTool = (state: RootState) => state.adminContents.tmpTool
+export const selectTmpGuide = (state: RootState) => state.adminContents.tmpGuide
 
 export default adminContentsSlice.reducer

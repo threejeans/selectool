@@ -8,6 +8,7 @@ import AdminContentsList from 'features/admin/contents/AdminContentsList'
 import AdminGuide from 'features/admin/contents/guide/AdminGuide'
 import AdminSelfMain from 'features/admin/contents/self/AdminSelfMain'
 import AdminSelfSpecific from 'features/admin/contents/self/AdminSelfSpecific'
+import AdminSelfTool from 'features/admin/contents/self/AdminSelfTool'
 import AdminWithMain from 'features/admin/contents/with/AdminWithMain'
 import AdminWithSpecific from 'features/admin/contents/with/AdminWithSpecific'
 import AdminData from 'features/admin/data/AdminData'
@@ -23,7 +24,8 @@ import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { store } from './app/store'
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistor, store } from './app/store'
 import Layout from './components/Layout'
 import './styles/globals.css'
 
@@ -113,6 +115,7 @@ const router = createBrowserRouter([
               {
                 path: '',
                 children: [
+                  { path: '', element: <AdminSelfTool /> },
                   { path: 'main', element: <AdminSelfMain /> },
                   { path: 'specific', element: <AdminSelfSpecific /> },
                 ],
@@ -166,7 +169,9 @@ const router = createBrowserRouter([
 
 root.render(
   <Provider store={store}>
-    <RouterProvider router={router} />
-    <ToastContainer autoClose={2000} />
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={router} />
+      <ToastContainer autoClose={2000} />
+    </PersistGate>
   </Provider>,
 )

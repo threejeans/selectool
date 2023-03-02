@@ -28,7 +28,8 @@ const AdminContents = () => {
   const manage = [
     {
       title: '혼자써요',
-      write: 'self/main',
+      write: 'self',
+      // write: 'self/main',
       list: 'self/list',
     },
     {
@@ -60,6 +61,7 @@ const AdminContents = () => {
           )
         })}
       </div>
+      <div className={styles.title} />
     </div>
   )
 }

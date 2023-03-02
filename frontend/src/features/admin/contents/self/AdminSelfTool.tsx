@@ -22,11 +22,12 @@ import {
 import {
   createTool,
   popToast,
+  resetTmpTool,
   selectTmpTool,
   withToolSave,
 } from '../adminContentsSlice'
 
-const AdminWithToolDetail = ({ setIsModal }: any) => {
+const AdminSelfTool = () => {
   const tmpTool = useAppSelector(selectTmpTool)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -372,7 +373,8 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
       dispatch(createTool(tmpTool))
         .then(data => {
           console.log(data)
-          setIsModal()
+          dispatch(resetTmpTool())
+          navigate('/admin/contents/self/list')
         })
         .catch(err => {
           console.error(err)
@@ -380,9 +382,9 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
     }
   }, [tmpTool])
   return (
-    <div className={styles.modalContainer}>
+    <div className={styles.container}>
       <div className={styles.wrap}>
-        <h3 className={styles.title}>사내 협업툴 상세정보</h3>
+        <h3 className={styles.title}>혼자써요 main/specific</h3>
         {/* main */}
         <div className={styles.section}>
           <TextInputBox
@@ -426,6 +428,25 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
               <BsTriangleFill className={styles.arrowDown} />
             </div>
           </div>
+          <DuplicatedCategoryGroup
+            title={'프로덕트 분류'}
+            required={false}
+            list={categoryList}
+            categories={categories}
+            setCategories={setCategories}
+          />
+          <CategoryGroup
+            title={'프로덕트 국가'}
+            required={false}
+            list={countryList}
+            category={country}
+            setCategory={setCountry}
+          />
+          <h5 className={styles.label}>
+            썸네일 이미지 <span className={styles.required}>{'*'}</span>
+          </h5>
+          <ThumbnailInput thumbnail={thumbnail} setThumbnail={setThumbnail} />
+
           {/* specific */}
           <div className={styles.section}>
             <TextInputBox
@@ -454,31 +475,13 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
               />
             </div>
           </div>
-          <DuplicatedCategoryGroup
-            title={'프로덕트 분류'}
-            required={false}
-            list={categoryList}
-            categories={categories}
-            setCategories={setCategories}
-          />
-          <CategoryGroup
-            title={'프로덕트 국가'}
-            required={false}
-            list={countryList}
-            category={country}
-            setCategory={setCountry}
-          />
-          <h5 className={styles.label}>
-            썸네일 이미지 <span className={styles.required}>{'*'}</span>
-          </h5>
-          <ThumbnailInput thumbnail={thumbnail} setThumbnail={setThumbnail} />
         </div>
         <div className={styles.btnGroup}>
           <AdminButton
             color={'white'}
             size={'md'}
             text={'Close'}
-            onClick={setIsModal}
+            onClick={() => navigate('/admin/contents')}
           />
           <AdminButton
             color={'white'}
@@ -498,4 +501,4 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
   )
 }
 
-export default AdminWithToolDetail
+export default AdminSelfTool

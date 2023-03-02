@@ -2,6 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
 import { RootState } from 'app/store'
 
+type authAdmin = {
+  email: string
+  auth?: string
+}
+
 export interface AuthState {
   accessToken: string | undefined
   tmpEmail: string
@@ -16,7 +21,7 @@ const initialState: AuthState = {
 
 export const loginAdmin = createAsyncThunk(
   'admin/auth/loginAdmin',
-  async ({ email }: any, { rejectWithValue }) => {
+  async ({ email }: authAdmin, { rejectWithValue }) => {
     try {
       const response = await apiAxios.post('/admin/login', { email: email })
       console.log(response) //
@@ -27,9 +32,10 @@ export const loginAdmin = createAsyncThunk(
     }
   },
 )
+
 export const authAdmin = createAsyncThunk(
   'admin/auth/authAdmin',
-  async ({ email, auth }: any, { rejectWithValue }) => {
+  async ({ email, auth }: authAdmin, { rejectWithValue }) => {
     try {
       const response = await apiAxios.post('/admin/auth', { email, auth })
       console.log(response)
