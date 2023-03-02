@@ -11,14 +11,18 @@ export type SelfMainInfo = {
   individualToolLogo: string
 }
 
+export type coreFunc = {
+  "subTitle": string
+  "content": string
+}
+
 export type SelfSpecificInfo = {
   individualToolNameKr: string
   individualToolNameEn: string
   individualToolInfo: string
   individualToolLogo: string
   individualToolUrl: string
-  individualCorefuncSubTitle: string
-  individualCorefuncContent: string
+  individualCorefunc: Array<coreFunc>
   individualClient: Array<Array<string>>
   individualToolPricing: Array<Array<string>>
   individualToolReviewRateAs: number

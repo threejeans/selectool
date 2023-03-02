@@ -1,7 +1,10 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
 const SelfDetail = () => {
-  return <div></div>
+  const { tool } = useParams()
+
+  return <div>{tool}</div>
 }
 
 export default SelfDetail

@@ -16,7 +16,9 @@ import Mypage from 'features/auth/Mypage'
 import Guide from 'features/guide/Guide'
 import LandingPage from 'features/landing/LandingPage'
 import Self from 'features/self/Self'
+import SelfDetail from 'features/self/SelfDetail'
 import With from 'features/with/With'
+import WithDetail from 'features/with/WithDetail'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
@@ -47,9 +49,27 @@ const router = createBrowserRouter([
     element: <Layout title={'혼자써요'} description={''} children={<Self />} />,
   },
   {
+    path: 'self/:tool',
+    element: (
+      <Layout
+        title={'혼자써요'}
+        description={''}
+        // eslint-disable-next-line react/no-children-prop
+        children={<SelfDetail />}
+      />
+    ),
+  },
+  {
     path: 'with',
     // eslint-disable-next-line react/no-children-prop
     element: <Layout title={'함께써요'} description={''} children={<With />} />,
+  },
+  {
+    path: 'with/:corp',
+    element: (
+      // eslint-disable-next-line react/no-children-prop
+      <Layout title={'함께써요'} description={''} children={<WithDetail />} />
+    ),
   },
   {
     path: 'guide',
