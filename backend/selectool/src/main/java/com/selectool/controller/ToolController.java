@@ -128,4 +128,22 @@ public class ToolController {
         toolService.unBookmark(user.getId(), toolId);
         return ResponseEntity.ok().build();
     }
+
+    /* 비 로그인 유저 조회 */
+    @GetMapping("nomember/tools")
+    @ApiOperation(value = "비 로그인 전체 툴 목록 조회", tags = "비 로그인 조회")
+    public ResponseEntity<List<ToolListResponse>> getNoMemberToolList(
+    ) {
+        List<ToolListResponse> response = toolService.getToolList(0L);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("nomember/tools/{toolId}")
+    @ApiOperation(value = "비 로그인 툴 단건 상세 조회", tags = "비 로그인 조회")
+    public ResponseEntity<ToolResponse> getNoMemberTool(
+            @PathVariable Long toolId
+    ) {
+        ToolResponse response = toolService.getTool(0L, toolId);
+        return ResponseEntity.ok(response);
+    }
 }

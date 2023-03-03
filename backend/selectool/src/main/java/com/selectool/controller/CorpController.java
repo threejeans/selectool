@@ -81,4 +81,22 @@ public class CorpController {
         corpService.unBookmark(user.getId(), corpId);
         return ResponseEntity.ok().build();
     }
+
+    /* 비 로그인 유저 조회 */
+    @GetMapping("nomember/corps")
+    @ApiOperation(value = "비 로그인 기업 목록 조회", tags = "비 로그인 조회")
+    public ResponseEntity<List<CorpResponse>> getNoMemberCorpList(
+    ) {
+        List<CorpResponse> response = corpService.getCorpList(0L);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("nomember/corps/{corpId}")
+    @ApiOperation(value = "비 로그인 기업 단건 조회", tags = "비 로그인 조회")
+    public ResponseEntity<CorpResponse> getNoMemberCorp(
+            @PathVariable Long corpId
+    ) {
+        CorpResponse response = corpService.getCorp(0L, corpId);
+        return ResponseEntity.ok(response);
+    }
 }

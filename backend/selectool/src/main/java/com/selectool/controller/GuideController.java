@@ -82,4 +82,22 @@ public class GuideController {
         guideService.unBookmark(user.getId(), guideId);
         return ResponseEntity.ok().build();
     }
+
+    /* 비로그인 유저 조회 */
+    @GetMapping("nomember/guides")
+    @ApiOperation(value = "비 로그인 가이드 목록 조회", tags = "비 로그인 조회")
+    public ResponseEntity<List<GuideResponse>> getNoMemberGuideList(
+    ) {
+        List<GuideResponse> response = guideService.getGuideList(0L);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("nomember/guides/{guideId}")
+    @ApiOperation(value = "비 로그인 가이드 단건 조회", tags = "비 로그인 조회")
+    public ResponseEntity<GuideResponse> getNoMemberGuide(
+            @PathVariable Long guideId
+    ) {
+        GuideResponse response = guideService.getGuide(0L, guideId);
+        return ResponseEntity.ok(response);
+    }
 }
