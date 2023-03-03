@@ -1,6 +1,5 @@
 package com.selectool.controller;
 
-import com.selectool.config.JwtUtil;
 import com.selectool.config.login.Admin;
 import com.selectool.config.login.LoginAdmin;
 import com.selectool.config.login.LoginUser;
@@ -15,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -25,36 +23,22 @@ import java.util.List;
 public class GuideController {
     private final GuideService guideService;
 
-    private final JwtUtil jwtUtil;
-
     @GetMapping("/guides")
     @ApiOperation(value = "가이드 목록 조회")
     public ResponseEntity<List<GuideResponse>> getGuideList(
-            HttpServletRequest request
+            @LoginUser User user
     ) {
-        Long userId = null;
-        try{
-            userId = jwtUtil.getUserIdByHeader(request);
-        } catch (Exception e) {
-            userId = 0L;
-        }
-        List<GuideResponse> response = guideService.getGuideList(userId);
+        List<GuideResponse> response = guideService.getGuideList(user.getId());
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/guides/{guideId}")
     @ApiOperation(value = "가이드 단건 조회")
     public ResponseEntity<GuideResponse> getGuide(
-            HttpServletRequest request,
+            @LoginUser User user,
             @PathVariable Long guideId
     ) {
-        Long userId = null;
-        try{
-            userId = jwtUtil.getUserIdByHeader(request);
-        } catch (Exception e) {
-            userId = 0L;
-        }
-        GuideResponse response = guideService.getGuide(userId, guideId);
+        GuideResponse response = guideService.getGuide(user.getId(), guideId);
         return ResponseEntity.ok(response);
     }
 
