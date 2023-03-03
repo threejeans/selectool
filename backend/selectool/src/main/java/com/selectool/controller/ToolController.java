@@ -1,5 +1,6 @@
 package com.selectool.controller;
 
+import com.selectool.config.JwtUtil;
 import com.selectool.config.login.Admin;
 import com.selectool.config.login.LoginAdmin;
 import com.selectool.config.login.LoginUser;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -28,10 +30,11 @@ public class ToolController {
     private final ToolService toolService;
     private final ClientService clientService;
 
+    private final JwtUtil jwtUtil;
+
     @GetMapping("/clients")
     @ApiOperation(value = "이름으로 주요 고객 검색(name 을 보내지 않을 경우 전체 목록)")
     public ResponseEntity<List<ClientResponse>> getClientList(
-            @LoginAdmin User user,
             @RequestParam(defaultValue = "") String name
     ) {
         List<ClientResponse> response = clientService.getClientList(name.trim());
@@ -41,10 +44,8 @@ public class ToolController {
     @GetMapping("/clients/{clientId}")
     @ApiOperation(value = "주요 고객 단건 조회")
     public ResponseEntity<ClientResponse> getClient(
-            @LoginAdmin User user,
             @PathVariable Long clientId
     ) {
-        System.out.println(clientId);
         ClientResponse response = clientService.getClient(clientId);
         return ResponseEntity.ok(response);
     }
@@ -73,19 +74,31 @@ public class ToolController {
     @GetMapping("/tools")
     @ApiOperation(value = "전체 툴 목록 조회")
     public ResponseEntity<List<ToolListResponse>> getToolList(
-            @LoginUser User user
+            HttpServletRequest request
     ) {
-        List<ToolListResponse> response = toolService.getToolList(user.getId());
+        Long userId = null;
+        try{
+            userId = jwtUtil.getUserIdByHeader(request);
+        } catch (Exception e) {
+            userId = 0L;
+        }
+        List<ToolListResponse> response = toolService.getToolList(userId);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/tools/{toolId}")
     @ApiOperation(value = "툴 단건 상세 조회")
     public ResponseEntity<ToolResponse> getTool(
-            @LoginUser User user,
+            HttpServletRequest request,
             @PathVariable Long toolId
     ) {
-        ToolResponse response = toolService.getTool(user.getId(), toolId);
+        Long userId = null;
+        try{
+            userId = jwtUtil.getUserIdByHeader(request);
+        } catch (Exception e) {
+            userId = 0L;
+        }
+        ToolResponse response = toolService.getTool(userId, toolId);
         return ResponseEntity.ok(response);
     }
 

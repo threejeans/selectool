@@ -6,9 +6,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
@@ -94,7 +96,7 @@ public class JwtUtil {
     // 유효성 검색, refreshtoken정보 읽기
     public Claims getClaimsToken(String token) {
         return Jwts.parser()
-                .setSigningKey(DatatypeConverter.parseBase64Binary(REFRESH_KEY))
+                .setSigningKey(ACCESS_KEY)
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -121,5 +123,12 @@ public class JwtUtil {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    // Header로 부터 userId 추출
+    public Long getUserIdByHeader(HttpServletRequest request) {
+        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        Claims body = getClaimsToken(header.replace("Bearer%20", "").replace("Bearer ", ""));
+        return Long.valueOf(String.valueOf(body.get("id")));
     }
 }
