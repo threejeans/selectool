@@ -31,7 +31,6 @@ public class ToolController {
     @GetMapping("/clients")
     @ApiOperation(value = "이름으로 주요 고객 검색(name 을 보내지 않을 경우 전체 목록)")
     public ResponseEntity<List<ClientResponse>> getClientList(
-            @LoginAdmin User user,
             @RequestParam(defaultValue = "") String name
     ) {
         List<ClientResponse> response = clientService.getClientList(name.trim());
@@ -41,7 +40,6 @@ public class ToolController {
     @GetMapping("/clients/{clientId}")
     @ApiOperation(value = "주요 고객 단건 조회")
     public ResponseEntity<ClientResponse> getClient(
-            @LoginAdmin User user,
             @PathVariable Long clientId
     ) {
         System.out.println(clientId);
