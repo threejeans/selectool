@@ -1,32 +1,32 @@
-import { getSelfSpecificInfoAPI } from 'api/self'
+import { getWithSpecificInfoAPI } from 'api/with'
 import { useAppDispatch } from 'app/hooks'
-import { SelfDetailMain } from 'containers/Self'
+import { WithDetailMain } from 'containers/With'
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { setSelfSpecificInfo } from 'reducers/selfReducer'
+import { setWithSpecificInfo } from 'reducers/withReducer'
 import styles from 'styles/pages/commons/Content.module.css'
 
-const SelfDetail = () => {
-  const { toolId } = useParams()
+const WithDetail = () => {
+  const { corpId } = useParams()
   const dispatch = useAppDispatch()
 
-  const getSelfSpecificInfo = async () => {
-    dispatch(setSelfSpecificInfo(await getSelfSpecificInfoAPI(toolId)))
+  const getWithSpecificInfo = async () => {
+    dispatch(setWithSpecificInfo(await getWithSpecificInfoAPI(corpId)))
   }
 
   useEffect(() => {
-    getSelfSpecificInfo()
-  }, [])
+    getWithSpecificInfo()
+  })
 
   return (
     <div className={`${styles.layout} ${styles.detailLayout}`}>
       <div className={styles.container}>
         <div className={styles.contentLayout}>
-          <SelfDetailMain />
+          <WithDetailMain />
         </div>
       </div>
     </div>
   )
 }
 
-export default SelfDetail
+export default WithDetail

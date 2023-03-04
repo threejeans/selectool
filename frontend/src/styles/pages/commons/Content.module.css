@@ -8,6 +8,10 @@
   background-color: white;
 }
 
+.detailLayout {
+  background-color: #fbfbfb;
+}
+
 .container {
   width: 100%;
   max-width: 1280px;
@@ -19,4 +23,11 @@
   flex-direction: column;
 
   row-gap: 4rem;
+}
+
+.contentLayout {
+  display: flex;
+  flex-direction: row;
+
+  column-gap: 2rem;
 }

@@ -1,0 +1,21 @@
+.cardLayout {
+  width: 100%;
+  height: fit-content;
+
+  background: #ffffff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.cardContent {
+  padding-block: 60px;
+  padding-inline: 48px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 28px;
+}
+
+.line {
+  width: 100%;
+  color: #bdbdbd;
+}

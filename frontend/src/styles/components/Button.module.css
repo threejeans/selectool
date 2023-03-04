@@ -18,6 +18,15 @@
   background: #5581df;
 }
 
+.secondary {
+  color: #60a9f6;
+  background: white;
+}
+
+.secondary:active {
+  background: rgba(96, 169, 246, 0.12);
+}
+
 .outlined {
   color: #60a9f6;
   border: 1px solid #60a9f6;
@@ -33,4 +42,18 @@
   font-size: 18px;
   width: 180px;
   height: 60px;
+}
+
+.mdShort {
+  font-weight: 400;
+  font-size: 16px;
+  width: 120px;
+  height: 46px;
+}
+
+.mdLong {
+  font-weight: 400;
+  font-size: 16px;
+  width: 250px;
+  height: 46px;
 }

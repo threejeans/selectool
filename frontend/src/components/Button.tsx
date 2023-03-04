@@ -22,6 +22,10 @@ const sizeHandler = (size: string) => {
   switch (size) {
     case 'sm':
       return styles.sm
+    case 'mdLong':
+      return styles.mdLong
+    case 'mdShort':
+      return styles.mdShort
     case 'md':
       return styles.md
     case 'lg':
