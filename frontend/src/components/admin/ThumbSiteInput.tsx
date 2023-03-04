@@ -30,7 +30,7 @@ const ThumbSiteInput = ({
   nameRefs,
   images,
   setImages,
-  values = [],
+  values,
   setValues,
   disabled = false,
 }: ThumbSiteInputProps) => {
@@ -94,6 +94,7 @@ const ThumbSiteInput = ({
       </div>
       {subName && nameRefs && (
         <TextInputBox
+          idx={idx}
           textRef={(el: any) => (nameRefs.current[idx] = el)}
           title={subName}
           placeholder={disabled ? '직접 입력이 불가합니다.' : '예시: AP그룹'}
@@ -104,6 +105,7 @@ const ThumbSiteInput = ({
       {subTitle &&
         sRef && ( // Ref 입력방식
           <TextInputBox
+            idx={idx}
             textRef={(el: any) => (sRef.current[idx] = el)}
             title={subTitle}
             placeholder={
@@ -118,6 +120,7 @@ const ThumbSiteInput = ({
       {subTitle &&
         setValues && ( // state 입력방식
           <TextInputBox
+            idx={idx}
             values={values}
             setValues={setValues}
             title={subTitle}
