@@ -51,7 +51,7 @@ const router = createBrowserRouter([
     element: <Layout title={'혼자써요'} description={''} children={<Self />} />,
   },
   {
-    path: 'self/:tool',
+    path: 'self/:toolId',
     element: (
       <Layout
         title={'혼자써요'}
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
     element: <Layout title={'함께써요'} description={''} children={<With />} />,
   },
   {
-    path: 'with/:corp',
+    path: 'with/:corpId',
     element: (
       // eslint-disable-next-line react/no-children-prop
       <Layout title={'함께써요'} description={''} children={<WithDetail />} />

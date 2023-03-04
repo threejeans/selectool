@@ -9,15 +9,14 @@ import styles from 'styles/pages/commons/Content.module.css'
 const SelfMain = () => {
   const contents = ['ALL', '디자인', '개발', '마케팅', '기획', 'Other']
   const dispatch = useAppDispatch()
-  const mainInfoList = useAppSelector(selfMainInfoList);
-
-  useEffect(() => {
-    getselfMainInfoList()
-  }, [])
 
   const getselfMainInfoList = async () => {
     dispatch(setSelfMainInfoList(await getSelfMainInfoAPI()))
   }
+
+  useEffect(() => {
+    getselfMainInfoList()
+  }, [])
 
   return (
     <div className={styles.mainLayout}>
@@ -26,8 +25,8 @@ const SelfMain = () => {
         filterTypes={contents}
         placeholder={'툴 이름을 입력해주세요'}
       />
-      <Suspense fallback={<SelfCardGrid list={mainInfoList} isSpinner />}>
-        <SelfCardGrid list={mainInfoList} />
+      <Suspense fallback={<SelfCardGrid isSpinner />}>
+        <SelfCardGrid />
       </Suspense>
     </div>
   )

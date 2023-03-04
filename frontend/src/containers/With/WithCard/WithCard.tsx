@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import styles from './withCard.module.css'
-import { WithMainInfo } from 'types/DataTypes'
+import { WithMainInfo } from 'types/dataTypes'
 
 type CardProps = {
   data: WithMainInfo

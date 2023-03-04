@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { WithMainInfo } from 'types/DataTypes'
+import { WithMainInfo } from 'types/dataTypes'
 
 export interface WithState {
   withMainInfoList: WithMainInfo[]

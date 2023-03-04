@@ -27,9 +27,10 @@
 }
 
 .hoverContentLayout {
-  width: 100%;
+  width: 218px;
   height: 200px;
-
+  /* 단어 기준으로 줄바꿈 할 시 */
+  /* word-break: keep-all; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,7 +52,7 @@
 
 .aTag {
   font-weight: 300;
-  font-size: 18px;
+  font-size: 16px;
   color: white;
 }
 
