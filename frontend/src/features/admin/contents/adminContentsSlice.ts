@@ -179,6 +179,20 @@ export const popToast = (text: string | false) => {
   toast(`🚨 ${text != '' ? text : '콘텐츠 내용'}이 입력되지 않았어요!`)
 }
 
+export const searchClient = createAsyncThunk(
+  'adminContents/searchClient',
+  async (key: string, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.get(`/self/clients?name=${key}`)
+      // console.log('Async Response', response)
+      return response.data
+    } catch (error: any) {
+      console.error(error) //
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
 export const searchTool = createAsyncThunk(
   'adminContents/searchTool',
   async (key: string, { rejectWithValue }) => {
