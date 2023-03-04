@@ -50,6 +50,7 @@ export type TmpToolSpecificType = {
 
 // create 시 필요한 모든 데이터
 export type ToolType = {
+  id?: number
   // main
   nameKr: string
   nameEn: string
@@ -94,6 +95,32 @@ export type GuideType = {
   url: string
   image: string
   toolImage: string
+}
+
+// 함께써요
+export type CultureType = {
+  content: string
+  title: string
+}
+export type BranchType = {
+  image: string
+  name: string
+}
+export type CorpType = {
+  id?: number
+  nameKr: string
+  nameEn: string
+  info: string
+  teamNameKr: string
+  teamNameEn: string
+  categories: CategoryType[]
+  image: string
+  url: string
+  content: string
+  cultures: CultureType[]
+  branches: BranchType[]
+  tools: ToolType[]
+  isBookmarked?: boolean
 }
 
 // read
