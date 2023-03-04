@@ -4,6 +4,7 @@ import { RootState } from 'app/store'
 import { toast } from 'react-toastify'
 import {
   CategoryType,
+  CorpType,
   GuideType,
   ToolType,
   TypeId,
@@ -34,6 +35,7 @@ interface ContentsState {
   contentsList: ContentsType[]
   tmpTool: ToolType
   tmpGuide: GuideType
+  tmpCorp: CorpType
   status: 'idle' | 'loading' | 'success' | 'failed'
 }
 
@@ -67,6 +69,22 @@ const initialState: ContentsState = {
     image: '',
     toolImage: '',
   },
+  tmpCorp: {
+    id: undefined,
+    nameKr: '',
+    nameEn: '',
+    info: '',
+    teamNameKr: '',
+    teamNameEn: '',
+    categories: [],
+    image: '',
+    url: '',
+    content: '',
+    cultures: [],
+    branches: [],
+    tools: [],
+    isBookmarked: undefined,
+  },
   status: 'idle',
 }
 const getApiUrl = (type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE) => {
@@ -75,6 +93,8 @@ const getApiUrl = (type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE) => {
       return '/self/tools'
     case 'guide':
       return '/board/guides'
+    case 'with':
+      return '/with/corps'
   }
 }
 
