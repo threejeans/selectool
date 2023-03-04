@@ -130,17 +130,6 @@ export type TypeId = {
 }
 
 // with
-export type BranchType = {
-  id: number
-  image: string
-  name: string
-}
-
-export type CultureType = {
-  id: number
-  content: string
-  title: string
-}
 
 export type WithToolType = {
   id: number
