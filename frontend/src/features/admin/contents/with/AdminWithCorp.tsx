@@ -1,22 +1,28 @@
-import { useAppDispatch } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import AdminButton from 'components/admin/AdminButton'
 import AdminModal from 'components/admin/AdminModal'
-import CategoryGroup from 'components/admin/CategoryGroup'
 import DuplicatedCategoryGroup from 'components/admin/DuplicatedCategoryGroup'
-import SearchBox from 'components/admin/SearchBox'
+import SearchInputBox from 'components/admin/SearchBox'
 import SectionPlusBtn from 'components/admin/SectionPlusBtn'
 import TextInputBox from 'components/admin/TextInputBox'
 import ThumbnailInput from 'components/admin/ThumbnailInput'
 import ThumbSiteInput from 'components/admin/ThumbSiteInput'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
-import { CorpType, ToolType } from 'types/dataTypes'
-import { popToast } from '../adminContentsSlice'
+import { BranchType, CorpType, CultureType, ToolType } from 'types/dataTypes'
+import {
+  createCorp,
+  popToast,
+  resetTmpCorp,
+  selectTmpCorp,
+  withCorpSave,
+} from '../adminContentsSlice'
 import AdminWithToolDetail from './AdminWithToolDetail'
 
 const AdminWithCorp = () => {
+  const tmpCorp = useAppSelector(selectTmpCorp)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   // main
@@ -77,11 +83,14 @@ const AdminWithCorp = () => {
   const [subsidiary, setSubsidiary] = useState(1)
   const subsidiaryInputRefs = useRef<HTMLInputElement[]>([])
   const subsidiaryNameRefs = useRef<HTMLInputElement[]>([])
-  const subsidiarySiteRefs = useRef<HTMLInputElement[]>([])
+  // const subsidiarySiteRefs = useRef<HTMLInputElement[]>([])
   const [subsidiaryImages, setSubsidiaryImages] = useState<string[]>([])
 
   const SubsidiarySectionGroup = () => {
-    if (subsidiaryInputRefs.current && subsidiarySiteRefs.current)
+    if (
+      subsidiaryInputRefs.current
+      // && subsidiarySiteRefs.current
+    )
       return [...Array(subsidiary)].map((_, index) => {
         return (
           <div key={index} className={styles.section}>
@@ -99,7 +108,7 @@ const AdminWithCorp = () => {
               required={false}
               inputRefs={subsidiaryInputRefs}
               nameRefs={subsidiaryNameRefs}
-              siteRefs={subsidiarySiteRefs}
+              // siteRefs={subsidiarySiteRefs}
               images={subsidiaryImages}
               setImages={setSubsidiaryImages}
             />
@@ -111,9 +120,8 @@ const AdminWithCorp = () => {
   // 사내 협업툴 관련
   const [inCorpTool, setInCorpTool] = useState(1)
   const inCorpToolInputRefs = useRef<HTMLInputElement[]>([])
-  const [inCorpToolNames, setInCorpToolNames] = useState<string[]>([])
-  const [inCorpToolSites, setInCorpToolSites] = useState<string[]>([])
   const [inCorpToolImages, setInCorpToolImages] = useState<string[]>([])
+  const [inCorpToolSites, setInCorpToolSites] = useState<string[]>([])
   const [tools, setTools] = useState<ToolType[]>([])
 
   const InCorpToolSectionGroup = () => {
@@ -127,21 +135,19 @@ const AdminWithCorp = () => {
               value={inCorpTool}
               setValue={setInCorpTool}
             />
-            <div style={{ position: 'relative' }}>
-              <TextInputBox
-                idx={index}
-                values={inCorpToolNames}
-                setValues={setInCorpToolNames}
-                title={`사내 협업툴 이름 ${index + 1}`}
-                placeholder={'예시: 슬랙'}
-                required={false}
-              />
-              <SearchBox
-                idx={index}
-                values={inCorpToolNames}
-                setValues={setInCorpToolNames}
-              />
-            </div>
+            <SearchInputBox
+              idx={index}
+              title={`사내 협업툴 이름 ${index + 1}`}
+              placeholder={'예시: 슬랙'}
+              required={false}
+              // 검색 반영
+              datas={tools}
+              setDatas={setTools}
+              images={inCorpToolImages}
+              setImages={setInCorpToolImages}
+              sites={inCorpToolSites}
+              setSites={setInCorpToolSites}
+            />
             <h5 className={styles.label}>
               사내 협업툴 이미지
               <span className={styles.required}>
@@ -248,19 +254,70 @@ const AdminWithCorp = () => {
         return
       } else data.url = siteRef.current.value
     }
+    if (contentRef.current) {
+      if (contentRef.current.value.length === 0) {
+        contentRef.current.focus()
+        popToast(false)
+        return
+      } else data.content = contentRef.current.value
+    }
 
-    // dispatch(createWithMainTmpInfo(data))
-    //   .then(e => {
-    //     if (e.meta.requestStatus === 'fulfilled')
-    //       navigate('/admin/contents/with/specific')
-    //     else
-    //       toast('🚨저장이 실패했어요!', {
-    //         type: 'error',
-    //         theme: 'colored',
-    //       })
-    //   })
-    //   .catch(err => toast.error(err))
+    if (corpCultureSubTitleRefs.current && corpCultureDescriptionRefs.current) {
+      const tmp: CultureType[] = []
+      for (let i = 0; i < corpCulture; i++) {
+        const t: CultureType = {
+          title: corpCultureSubTitleRefs.current[i].value,
+          content: corpCultureDescriptionRefs.current[i].value,
+        }
+        tmp.push(t)
+      }
+      data.cultures = tmp
+    }
+    if (subsidiaryNameRefs.current) {
+      const tmp: BranchType[] = []
+      for (let i = 0; i < corpCulture; i++) {
+        const t: BranchType = {
+          image: subsidiaryImages[i],
+          name: subsidiaryNameRefs.current[i].value,
+        }
+        tmp.push(t)
+      }
+      data.branches = tmp
+    }
+    if (tools) {
+      const tmp: ToolType[] = []
+      for (let i = 0; i < inCorpTool; i++) {
+        if (tools[i].id) tmp.push(tools[i])
+      }
+      data.tools = tmp
+    }
+    dispatch(withCorpSave(data))
   }
+
+  useEffect(() => {
+    if (
+      tmpCorp.nameKr &&
+      tmpCorp.nameEn &&
+      tmpCorp.info &&
+      tmpCorp.teamNameKr &&
+      tmpCorp.teamNameEn &&
+      tmpCorp.image &&
+      tmpCorp.url &&
+      tmpCorp.content
+    ) {
+      console.log('Corp complate', tmpCorp)
+      dispatch(createCorp(tmpCorp))
+        .then(data => {
+          console.log(data)
+          dispatch(resetTmpCorp())
+          navigate('/admin/contents/with/list')
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    }
+  }, [tmpCorp])
+
   return (
     <>
       <div className={styles.container}>
