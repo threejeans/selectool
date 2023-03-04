@@ -1,6 +1,6 @@
 import { RootState } from 'app/store'
 import { createSlice } from '@reduxjs/toolkit'
-import { SelfMainInfo, ToolType } from 'types/dataTypes'
+import { SelfMainInfo, ToolType } from 'types/types'
 
 export interface SelfState {
   isFilterModal: boolean

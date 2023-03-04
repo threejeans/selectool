@@ -1,6 +1,6 @@
 import { baseURL } from 'app/apiAxios'
 import axios, { AxiosInstance } from 'axios'
-import { WithCorpType } from 'types/dataTypes'
+import { WithCorpType } from 'types/types'
 
 const authAxios: AxiosInstance = axios.create({
   baseURL: baseURL,

@@ -1,8 +1,8 @@
-import { ToolType } from './../types/dataTypes'
+import { ToolType } from '../types/types'
 import axios, { AxiosInstance } from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import apiAxios, { baseURL } from 'app/apiAxios'
-import { SelfMainInfo } from 'types/dataTypes'
+import { SelfMainInfo } from 'types/types'
 
 const authAxios: AxiosInstance = axios.create({
   baseURL: baseURL,

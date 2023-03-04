@@ -1,6 +1,6 @@
 import { RootState } from 'app/store'
 import { createSlice } from '@reduxjs/toolkit'
-import { WithCorpType } from 'types/dataTypes'
+import { WithCorpType } from 'types/types'
 
 export interface WithState {
   withMainInfoList: WithCorpType[]

@@ -3,7 +3,7 @@ import Spinner from 'components/Spinner'
 import { searchClient } from 'features/admin/contents/adminContentsSlice'
 import React, { useEffect, useState } from 'react'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
-import { ClientType } from 'types/dataTypes'
+import { ClientType } from 'types/types'
 
 type SearchClientProp = {
   idx: number

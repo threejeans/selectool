@@ -11,7 +11,7 @@ import {
   TYPE_GUIDE,
   TYPE_SELF,
   TYPE_WITH,
-} from 'types/dataTypes'
+} from 'types/types'
 
 const SELF = 'self'
 const WITH = 'with'

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 import styles from './SelfCard.module.css'
 import { Link } from 'react-router-dom'
-import { SelfMainInfo } from 'types/dataTypes'
+import { SelfMainInfo } from 'types/types'
 
 type CardProps = {
   data: SelfMainInfo

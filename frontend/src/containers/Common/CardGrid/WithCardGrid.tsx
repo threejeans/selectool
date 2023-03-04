@@ -1,7 +1,7 @@
 import Spinner from 'components/Spinner'
 import { WithCard } from 'containers/With'
 import React from 'react'
-import { WithCorpType } from 'types/dataTypes'
+import { WithCorpType } from 'types/types'
 import styles from './CardGrid.module.css'
 
 type GridProps = {
