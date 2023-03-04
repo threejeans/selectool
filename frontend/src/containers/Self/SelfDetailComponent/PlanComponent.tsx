@@ -1,5 +1,5 @@
 import React from 'react'
-import { PlanFunctionType } from 'types/dataTypes'
+import { PlanFunctionType } from 'types/types'
 import styles from './SelfDetailComponent.module.css'
 
 type PlanProps = {

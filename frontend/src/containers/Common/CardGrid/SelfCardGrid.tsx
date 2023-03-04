@@ -3,7 +3,7 @@ import Spinner from 'components/Spinner'
 import { SelfCard } from 'containers/Self'
 import React from 'react'
 import { selfMainInfoList } from 'reducers/selfReducer'
-import { SelfMainInfo } from 'types/dataTypes'
+import { SelfMainInfo } from 'types/types'
 import styles from './CardGrid.module.css'
 
 type GridProps = {
