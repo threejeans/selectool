@@ -16,11 +16,7 @@ import rootReducer from 'reducers'
 const persistConfig = {
   key: 'selectool-auth',
   storage,
-  whitelist: [
-    'auth',
-    'adminContents',
-    // 'adminAuth'
-  ],
+  whitelist: ['auth', 'adminContents', 'adminAuth'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

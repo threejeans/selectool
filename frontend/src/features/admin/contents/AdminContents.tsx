@@ -34,7 +34,8 @@ const AdminContents = () => {
     },
     {
       title: '함께써요',
-      write: 'with/main',
+      write: 'with',
+      // write: 'with/main',
       list: 'with/list',
     },
     {

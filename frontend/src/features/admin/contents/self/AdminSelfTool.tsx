@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import AdminButton from 'components/admin/AdminButton'
 import CategoryGroup from 'components/admin/CategoryGroup'
 import DuplicatedCategoryGroup from 'components/admin/DuplicatedCategoryGroup'
+import SearchClient from 'components/admin/SearchClient'
 import SectionPlusBtn from 'components/admin/SectionPlusBtn'
 import TextInputBox from 'components/admin/TextInputBox'
 import ThumbnailInput from 'components/admin/ThumbnailInput'
@@ -93,6 +94,9 @@ const AdminSelfTool = () => {
   const mainClientNameRefs = useRef<HTMLInputElement[]>([])
   const mainClientSiteRefs = useRef<HTMLInputElement[]>([])
   const [mainClientImages, setMainClientImages] = useState<string[]>([])
+  const [mainClientNames, setMainClientNames] = useState<string[]>([])
+  const [mainClientSites, setMainClientSites] = useState<string[]>([])
+  const [mainClients, setMainClients] = useState<ClientType[]>([])
 
   const MainClientSectionGroup = () => {
     if (mainClientInputRefs.current && mainClientSiteRefs.current)
@@ -105,7 +109,17 @@ const AdminSelfTool = () => {
               value={mainClient}
               setValue={setMainClient}
             />
-            <h5 className={styles.label}>주요 고객사 이미지 {index + 1}</h5>
+            <SearchClient
+              idx={index}
+              images={mainClientImages}
+              setImages={setMainClientImages}
+              names={mainClientNames}
+              setNames={setMainClientNames}
+              sites={mainClientSites}
+              setSites={setMainClientSites}
+              clients={mainClients}
+              setClients={setMainClients}
+            />
             <ThumbSiteInput
               idx={index}
               subName={'주요 고객사 이름'}
@@ -446,34 +460,33 @@ const AdminSelfTool = () => {
             썸네일 이미지 <span className={styles.required}>{'*'}</span>
           </h5>
           <ThumbnailInput thumbnail={thumbnail} setThumbnail={setThumbnail} />
-
-          {/* specific */}
-          <div className={styles.section}>
+        </div>
+        {/* specific */}
+        <div className={styles.section}>
+          <TextInputBox
+            textRef={siteRef}
+            title={'프로덕트 사이트'}
+            placeholder={'예시: https://www.jandi.com/landing/kr'}
+            required={true}
+          />
+        </div>
+        {CoreFuncSectionGroup()}
+        {MainClientSectionGroup()}
+        {CostPlanGroup()}
+        <div className={styles.section}>
+          <div className={styles.halfSection}>
             <TextInputBox
-              textRef={siteRef}
-              title={'프로덕트 사이트'}
-              placeholder={'예시: https://www.jandi.com/landing/kr'}
-              required={true}
+              textRef={aosRef}
+              title={'플레이스토어 평점'}
+              placeholder={''}
+              required={false}
             />
-          </div>
-          {CoreFuncSectionGroup()}
-          {MainClientSectionGroup()}
-          {CostPlanGroup()}
-          <div className={styles.section}>
-            <div className={styles.halfSection}>
-              <TextInputBox
-                textRef={aosRef}
-                title={'플레이스토어 평점'}
-                placeholder={''}
-                required={false}
-              />
-              <TextInputBox
-                textRef={iosRef}
-                title={'앱스토어 평점'}
-                placeholder={''}
-                required={false}
-              />
-            </div>
+            <TextInputBox
+              textRef={iosRef}
+              title={'앱스토어 평점'}
+              placeholder={''}
+              required={false}
+            />
           </div>
         </div>
         <div className={styles.btnGroup}>
