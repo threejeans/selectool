@@ -3,10 +3,10 @@ import React, { useState } from 'react'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import styles from './withCard.module.css'
-import { WithMainInfo } from 'types/dataTypes'
+import { WithCorpType } from 'types/dataTypes'
 
 type CardProps = {
-  data: WithMainInfo
+  data: WithCorpType
 }
 
 const WithCard = ({ data }: CardProps) => {
@@ -19,7 +19,7 @@ const WithCard = ({ data }: CardProps) => {
   }
 
   return (
-    <Link to={`/with/${data.withCorpNameEn.toLowerCase()}`}>
+    <Link to={`/with/${data.id}`}>
       <div
         className={styles.cardContainer}
         onMouseEnter={() => setHover(true)}
@@ -37,31 +37,24 @@ const WithCard = ({ data }: CardProps) => {
           <div className={styles.hoverContainer}>
             <div className={styles.hoverCompanyContainer}>
               <div>
-                <img
-                  src={data.withCorpLogo}
-                  className={styles.companyLogoHover}
-                ></img>
+                <img src={data.image} className={styles.companyLogoHover}></img>
               </div>
               <div className={styles.textContainerHover}>
-                <div className={styles.companyNameHover}>
-                  {data.withCorpNameKr}
-                </div>
-                <div className={styles.descriptionHover}>
-                  {data.withCorpInfo}
-                </div>
+                <div className={styles.companyNameHover}>{data.nameKr}</div>
+                <div className={styles.descriptionHover}>{data.info}</div>
               </div>
             </div>
             <hr className={styles.lineHover}></hr>
             <div className={styles.selectoolContainer}>
               <div className={styles.selectoolTitle}>
-                {data.withCorpNameKr}&apos;s{' '}
+                {data.teamNameKr}&apos;s{' '}
                 <span className={styles.selectoolPoint}>SELECTOOL</span>
               </div>
               <div className={styles.toolLayout}>
-                {data.withCorpTool.map((tool, idx) => (
+                {data.tools.map((tool, idx) => (
                   <div className={styles.toolContainer} key={idx}>
-                    <img src={tool.toolLogo} className={styles.toolLogo}></img>
-                    <div className={styles.toolName}>{tool.toolName}</div>
+                    <img src={tool.image} className={styles.toolLogo}></img>
+                    <div className={styles.toolName}>{tool.nameKr}</div>
                   </div>
                 ))}
               </div>
@@ -70,16 +63,14 @@ const WithCard = ({ data }: CardProps) => {
         ) : (
           <div className={styles.contentsContainer}>
             <div className={styles.companyLogoContainer}>
-              <img src={data.withCorpLogo} className={styles.companyLogo}></img>
+              <img src={data.image} className={styles.companyLogo}></img>
             </div>
             <div className={styles.textContainer}>
               <div className={styles.companyInfoContainer}>
-                <div className={styles.companyName}>{data.withCorpNameKr}</div>
-                <div className={styles.companyCoName}>
-                  {data.withTeamNameKr}
-                </div>
+                <div className={styles.companyName}>{data.nameKr}</div>
+                <div className={styles.companyCoName}>{data.teamNameEn}</div>
               </div>
-              <div className={styles.description}>{data.withCorpInfo}</div>
+              <div className={styles.description}>{data.info}</div>
             </div>
           </div>
         )}

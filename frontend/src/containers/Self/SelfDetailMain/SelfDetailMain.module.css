@@ -4,3 +4,45 @@
   flex-direction: column;
   row-gap: 36px;
 }
+
+.toolFunctionsLayout {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(360px, max-content));
+  column-gap: 80px;
+  row-gap: 28px;
+}
+
+.clientsLayout {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(160px, max-content));
+  column-gap: 60px;
+  row-gap: 20px;
+}
+
+.client {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+}
+
+.plansLayout {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(240px, max-content));
+  column-gap: 60px;
+  row-gap: 60px;
+}
+
+.ratingsLayout {
+  display: flex;
+  flex-direction: row;
+  row-gap: 20px;
+
+  justify-content: center;
+}
+
+.ratingLine {
+  border: 1px dashed #cdcdcd;
+}

@@ -102,30 +102,40 @@ export type TypeId = {
   id?: number
 }
 
-export type toolInfo = {
-  toolLogo: string
-  toolName: string
+// with
+export type BranchType = {
+  id: number
+  image: string
+  name: string
 }
 
-export type WithMainInfo = {
-  withCorpNameKr: string
-  withCorpNameEn: string
-  withCorpInfo: string
-  withTeamNameKr: string
-  withTeamNameEn: string
-  withCorpTag: string
-  withCorpLogo: string
-  withCorpTool: Array<toolInfo>
+export type CultureType = {
+  id: number
+  content: string
+  title: string
 }
 
-export type WithSpecificInfo = {
-  withCorpNameKr: string
-  withCorpNameEn: string
-  withCorpInfo: string
-  withCorpLogo: string
-  withCorpUrl: string
-  withCorpInfoDetail: string
-  withCorpCulture: Array<Array<string>>
-  withCorpBranch: Array<Array<string>>
-  withCorpTool: Array<Array<string>>
+export type WithToolType = {
+  id: number
+  image: string
+  nameEn: string
+  nameKr: string
+  url: string
+}
+
+export type WithCorpType = {
+  id?: number
+  image: string
+  info: string
+  isBookmarked: boolean
+  nameEn: string
+  nameKr: string
+  teamNameEn: string
+  teamNameKr: string
+  url: string
+  content: string
+  branches: BranchType[]
+  categories: CategoryType[]
+  cultures: CultureType[]
+  tools: WithToolType[]
 }

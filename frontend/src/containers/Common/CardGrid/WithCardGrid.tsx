@@ -1,12 +1,12 @@
 import Spinner from 'components/Spinner'
 import { WithCard } from 'containers/With'
 import React from 'react'
-import { WithMainInfo } from 'types/dataTypes'
+import { WithCorpType } from 'types/dataTypes'
 import styles from './CardGrid.module.css'
 
 type GridProps = {
   isSpinner?: boolean
-  list: WithMainInfo[]
+  list: WithCorpType[]
 }
 
 const CardGrid = ({ isSpinner = false, list }: GridProps) => {

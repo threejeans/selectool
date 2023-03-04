@@ -1,17 +1,51 @@
-import { WithMainInfo } from 'types/dataTypes'
+import { baseURL } from 'app/apiAxios'
+import axios, { AxiosInstance } from 'axios'
+import { WithCorpType } from 'types/dataTypes'
 
-// api 대신 임시 더미 데이터 불러옴
+const authAxios: AxiosInstance = axios.create({
+  baseURL: baseURL,
+})
+
 export const getWithMainInfoAPI = async () => {
-  let withMainInfoList: WithMainInfo[] = []
+  let withMainInfoList: WithCorpType[] = []
 
-  await fetch('/data/withMainInfo.json')
-    .then(res => res.json())
+  await authAxios
+    .get('/with/nomember/corps')
     .then(res => {
-      withMainInfoList = res.withMainInfoList
+      withMainInfoList = res.data
     })
     .catch(err => {
       console.log(err)
     })
 
   return withMainInfoList
+}
+
+export const getWithSpecificInfoAPI = async (corpId?: string) => {
+  let withSpecificInfo: WithCorpType = {
+    image: '',
+    info: '',
+    isBookmarked: false,
+    nameEn: '',
+    nameKr: '',
+    teamNameEn: '',
+    teamNameKr: '',
+    url: '',
+    content: '',
+    branches: [],
+    categories: [],
+    cultures: [],
+    tools: [],
+  }
+
+  await authAxios
+    .get(`/with/nomember/corps/${corpId}`)
+    .then(res => {
+      withSpecificInfo = res.data
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
+  return withSpecificInfo
 }

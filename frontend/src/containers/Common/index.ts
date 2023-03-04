@@ -8,4 +8,5 @@ export {
 export {
   DetailContentCard as DetailContentCard,
   DetailMainCard as DetailMainCard,
+  CommonCardSection as CommonCardSection,
 } from './ContentCard'
