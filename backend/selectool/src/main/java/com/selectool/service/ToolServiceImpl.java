@@ -35,8 +35,10 @@ public class ToolServiceImpl implements ToolService {
     private final ToolBookmarkRepo toolBookmarkRepo;
 
     @Override
-    public List<ToolListResponse> getToolList(Long userId) {
-        List<Tool> response = toolRepo.findAll();
+    public List<ToolListResponse> getToolList(Long userId, String name) {
+        List<Tool> response;
+        if (name.isEmpty()) response = toolRepo.findAll();
+        else response = toolRepo.findByNameKrContainingOrNameEnContainingIgnoreCase(name, name);
 
         List<ToolBookmark> toolBookmarks = toolBookmarkRepo.findByUserId(userId);
         Map<Tool, Boolean> bookmarkMap = new HashMap<>();

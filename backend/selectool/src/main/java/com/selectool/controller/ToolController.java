@@ -71,11 +71,12 @@ public class ToolController {
 
 
     @GetMapping("/tools")
-    @ApiOperation(value = "전체 툴 목록 조회")
+    @ApiOperation(value = "전체 툴 목록 조회 및 이름으로 검색(name 을 보내지 않을 경우 전체 목록)")
     public ResponseEntity<List<ToolListResponse>> getToolList(
-            @LoginUser User user
+            @LoginUser User user,
+            @RequestParam(defaultValue = "") String name
     ) {
-        List<ToolListResponse> response = toolService.getToolList(user.getId());
+        List<ToolListResponse> response = toolService.getToolList(user.getId(), name.trim());
         return ResponseEntity.ok(response);
     }
 
@@ -131,10 +132,11 @@ public class ToolController {
 
     /* 비 로그인 유저 조회 */
     @GetMapping("nomember/tools")
-    @ApiOperation(value = "비 로그인 전체 툴 목록 조회", tags = "비 로그인 조회")
+    @ApiOperation(value = "비 로그인 전체 툴 목록 조회 및 이름으로 검색(name 을 보내지 않을 경우 전체 목록)", tags = "비 로그인 조회")
     public ResponseEntity<List<ToolListResponse>> getNoMemberToolList(
+            @RequestParam(defaultValue = "") String name
     ) {
-        List<ToolListResponse> response = toolService.getToolList(0L);
+        List<ToolListResponse> response = toolService.getToolList(0L, name.trim());
         return ResponseEntity.ok(response);
     }
 

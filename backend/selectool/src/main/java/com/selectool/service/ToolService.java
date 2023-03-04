@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ToolService {
     // 툴 목록 조회
-    public List<ToolListResponse> getToolList(Long userId);
+    public List<ToolListResponse> getToolList(Long userId, String name);
     // 툴 단건 상세 조회
     public ToolResponse getTool(Long userId, Long toolId);
     // 툴 등록
