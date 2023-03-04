@@ -1,10 +1,16 @@
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
 
 type TextInputBoxProps = {
-  textRef: any
+  textRef?: any
   title: string
   placeholder: string
   required: boolean
+  idx?: number
+  value?: string
+  setValue?: React.Dispatch<React.SetStateAction<string>>
+  values?: string[]
+  setValues?: React.Dispatch<React.SetStateAction<string[]>>
+  disabled?: boolean
 }
 
 const TextInputBox = ({
@@ -12,6 +18,12 @@ const TextInputBox = ({
   title,
   placeholder,
   required,
+  idx,
+  value,
+  setValue,
+  values = [],
+  setValues,
+  disabled = false,
 }: TextInputBoxProps) => {
   return (
     <div>
@@ -24,6 +36,16 @@ const TextInputBox = ({
         className={styles.input}
         type='text'
         placeholder={placeholder}
+        value={idx ? values[idx] : value}
+        onChange={e => {
+          if (idx) {
+            values[idx] = e.target.value
+            if (setValues) setValues([...values])
+          } else {
+            if (setValue) setValue(e.target.value)
+          }
+        }}
+        disabled={disabled}
       />
     </div>
   )
