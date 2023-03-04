@@ -7,14 +7,17 @@ import S3 from 'react-aws-s3-typescript'
 
 type ThumbSiteInputProps = {
   idx: number
-  subName: string
-  subTitle: string
+  subName?: string
+  subTitle?: string
   required: boolean
   inputRefs: React.MutableRefObject<HTMLInputElement[]>
-  siteRefs: React.MutableRefObject<HTMLInputElement[]>
-  nameRefs: React.MutableRefObject<HTMLInputElement[]>
+  siteRefs?: React.MutableRefObject<HTMLInputElement[]>
+  nameRefs?: React.MutableRefObject<HTMLInputElement[]>
   images: string[]
   setImages: React.Dispatch<React.SetStateAction<string[]>>
+  values?: string[]
+  setValues?: React.Dispatch<React.SetStateAction<string[]>>
+  disabled?: boolean
 }
 
 const ThumbSiteInput = ({
@@ -27,6 +30,9 @@ const ThumbSiteInput = ({
   nameRefs,
   images,
   setImages,
+  values,
+  setValues,
+  disabled = false,
 }: ThumbSiteInputProps) => {
   const iRef = inputRefs
   const sRef = siteRefs
@@ -69,7 +75,7 @@ const ThumbSiteInput = ({
           <h5>추천 사이즈 50 x 50</h5>
           <h5>JPG, PNG, GIF 등</h5>
           <a href='#' onClick={() => handleUpload(idx)}>
-            이미지 업로드 하기
+            {disabled ? '직접 업로드가 불가합니다.' : '이미지 업로드 하기'}
           </a>
           <input
             ref={(el: any) => {
@@ -82,21 +88,51 @@ const ThumbSiteInput = ({
               handlePhoto(e, idx)
             }}
             style={{ display: 'none' }}
+            disabled={disabled}
           />
         </div>
       </div>
-      <TextInputBox
-        textRef={(el: any) => (nameRefs.current[idx] = el)}
-        title={subName}
-        placeholder={'예시: AP그룹'}
-        required={required}
-      />
-      <TextInputBox
-        textRef={(el: any) => (sRef.current[idx] = el)}
-        title={subTitle}
-        placeholder={'예시: https://www.apgroup.com/int/ko'}
-        required={required}
-      />
+      {subName && nameRefs && (
+        <TextInputBox
+          idx={idx}
+          textRef={(el: any) => (nameRefs.current[idx] = el)}
+          title={subName}
+          placeholder={disabled ? '직접 입력이 불가합니다.' : '예시: AP그룹'}
+          required={required}
+          disabled={disabled}
+        />
+      )}
+      {subTitle &&
+        sRef && ( // Ref 입력방식
+          <TextInputBox
+            idx={idx}
+            textRef={(el: any) => (sRef.current[idx] = el)}
+            title={subTitle}
+            placeholder={
+              disabled
+                ? '직접 입력이 불가합니다.'
+                : '예시: https://www.apgroup.com/int/ko'
+            }
+            required={required}
+            disabled={disabled}
+          />
+        )}
+      {subTitle &&
+        setValues && ( // state 입력방식
+          <TextInputBox
+            idx={idx}
+            values={values}
+            setValues={setValues}
+            title={subTitle}
+            placeholder={
+              disabled
+                ? '직접 입력이 불가합니다.'
+                : '예시: https://www.apgroup.com/int/ko'
+            }
+            required={required}
+            disabled={disabled}
+          />
+        )}
     </div>
   )
 }
