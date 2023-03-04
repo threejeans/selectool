@@ -57,6 +57,7 @@ public class ToolServiceImpl implements ToolService {
                         .topic(tool.getTopic())
                         .country(tool.getCountry())
                         .image(tool.getImage())
+                        .url(tool.getUrl())
                         .isBookmarked(bookmarkMap.get(tool) != null)
                         .categories(tool.getToolCategories().stream()
                                 .map(category -> ToolCategoryResponse.builder()
