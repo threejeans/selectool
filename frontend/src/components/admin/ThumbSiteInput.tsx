@@ -15,6 +15,8 @@ type ThumbSiteInputProps = {
   nameRefs?: React.MutableRefObject<HTMLInputElement[]>
   images: string[]
   setImages: React.Dispatch<React.SetStateAction<string[]>>
+  names?: string[]
+  setNames?: React.Dispatch<React.SetStateAction<string[]>>
   values?: string[]
   setValues?: React.Dispatch<React.SetStateAction<string[]>>
   disabled?: boolean
@@ -30,6 +32,8 @@ const ThumbSiteInput = ({
   nameRefs,
   images,
   setImages,
+  names,
+  setNames,
   values,
   setValues,
   disabled = false,
@@ -98,6 +102,21 @@ const ThumbSiteInput = ({
           textRef={(el: any) => (nameRefs.current[idx] = el)}
           title={subName}
           placeholder={disabled ? '직접 입력이 불가합니다.' : '예시: AP그룹'}
+          required={required}
+          disabled={disabled}
+        />
+      )}
+      {subName && setNames && (
+        <TextInputBox
+          idx={idx}
+          values={names}
+          setValues={setNames}
+          title={subName}
+          placeholder={
+            disabled
+              ? '직접 입력이 불가합니다.'
+              : '예시: https://www.apgroup.com/int/ko'
+          }
           required={required}
           disabled={disabled}
         />
