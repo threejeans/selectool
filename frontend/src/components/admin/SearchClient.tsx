@@ -35,6 +35,7 @@ const SearchClient = ({
   const [itemList, setItemList] = useState<ClientType[]>([])
 
   const handleItem = (item: ClientType) => {
+    setSearch('')
     images[idx] = item.image
     setImages([...images])
     names[idx] = item.name
@@ -45,7 +46,6 @@ const SearchClient = ({
   }
 
   const resetData = () => {
-    setSearch('')
     setIsDrop(false)
     setIsLoading(false)
     setItemList([])
@@ -102,7 +102,7 @@ const SearchClient = ({
               </button>
             )
           })}
-          {!isLoading && (
+          {isLoading && (
             <div className={styles.loadingSpinner}>
               <Spinner />
             </div>
