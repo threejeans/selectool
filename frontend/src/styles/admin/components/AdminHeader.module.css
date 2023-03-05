@@ -59,5 +59,27 @@
   }
   .collaped {
     display: flex;
+    position: relative;
+  }
+  .guideLine {
+    width: 8rem;
+    height: 2px;
+    border-radius: 1px;
+    background-color: var(--gray-scale-color-g10);
+  }
+  .collapedBtnGroup {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 100%;
+    right: 0;
+    width: 8rem;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 2px;
+    border: 2px solid var(--gray-scale-color-g10);
+    background-color: white;
   }
 }

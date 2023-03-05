@@ -5,6 +5,7 @@ import { AiOutlineMenu } from 'react-icons/ai'
 import Logo from 'assets/selectool_logo.svg'
 import styles from 'styles/admin/components/AdminHeader.module.css'
 import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
+import { useState } from 'react'
 
 type AdminMenuLinkProps = {
   path: string
@@ -34,7 +35,7 @@ const AdminMenuLink = ({ path, title }: AdminMenuLinkProps) => {
 const AdminHeader = ({ title }: AdminHeaderProps) => {
   const accessToken = useAppSelector(selectAccessToken)
   // state
-  const dispatcth = useAppDispatch()
+  const [isAside, setIsAside] = useState(false)
   return (
     <div className={styles.header}>
       <div className={styles.container}>
@@ -53,10 +54,31 @@ const AdminHeader = ({ title }: AdminHeaderProps) => {
         </div>
 
         <div className={styles.collaped}>
-          <button>
-            <AiOutlineMenu className={styles.manuBtn} />
-          </button>
-          {/* 수정중 */}
+          {accessToken && (
+            <>
+              <button>
+                <AiOutlineMenu
+                  className={styles.manuBtn}
+                  onClick={() => {
+                    setIsAside(!isAside)
+                  }}
+                />
+              </button>
+              {/* 수정중 */}
+              <div
+                className={isAside ? styles.collapedBtnGroup : styles.menu}
+                onClick={() => {
+                  setIsAside(false)
+                }}
+              >
+                <AdminMenuLink path={'contents'} title={'콘텐츠 관리'} />
+                <span className={styles.guideLine} />
+                <AdminMenuLink path={'data'} title={'데이터 관리'} />
+                <span className={styles.guideLine} />
+                <AdminMenuLink path={'alarm'} title={'알림 관리'} />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
