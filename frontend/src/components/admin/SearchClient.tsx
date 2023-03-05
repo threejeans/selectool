@@ -42,6 +42,8 @@ const SearchClient = ({
     setNames([...names])
     sites[idx] = item.url
     setSites([...sites])
+    clients[idx] = item
+    setClients([...clients])
     resetData()
   }
 
