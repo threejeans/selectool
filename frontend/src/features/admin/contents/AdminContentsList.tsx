@@ -7,7 +7,7 @@ import ContentsDetail from 'components/admin/ContentsDetail'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminContentsList.module.css'
 import swal from 'sweetalert'
-import { TYPE_GUIDE, TYPE_SELF, TYPE_WITH } from 'types/dataTypes'
+import { TYPE_GUIDE, TYPE_SELF, TYPE_WITH } from 'types/types'
 import {
   deleteItem,
   getContentsList,

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
 
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
-import { ToolType } from 'types/dataTypes'
+import { ToolType } from 'types/types'
 
 type SearchBoxProps = {
   title: string

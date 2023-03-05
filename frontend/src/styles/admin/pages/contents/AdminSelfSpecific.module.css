@@ -47,7 +47,7 @@
   background-color: var(--gray-scale-color-g05);
   border-radius: 10px;
   box-sizing: border-box;
-  padding: 2% 2%;
+  padding: 1.6rem;
   margin-bottom: 1rem;
   position: relative;
 }

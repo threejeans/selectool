@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
-import { BranchType, CorpType, CultureType, ToolType } from 'types/dataTypes'
+import { BranchType, CorpType, CultureType, ToolType } from 'types/types'
 import {
   createCorp,
   popToast,
