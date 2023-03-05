@@ -323,6 +323,12 @@ const AdminSelfTool = () => {
             image: mainClientImages[i],
             url: mainClientSites[i],
           }
+          if (
+            tmp.name == mainClients[i].name &&
+            tmp.image == mainClients[i].image &&
+            tmp.url == mainClients[i].url
+          )
+            tmp.id = mainClients[i].id
           data.clients.push(tmp)
         } else {
           toast(`${i + 1}번 고객사 이미지를 첨부해주세요.`)
