@@ -19,7 +19,7 @@ import {
   PlanType,
   ToolFuncType,
   ToolType,
-} from 'types/dataTypes'
+} from 'types/types'
 import {
   createTool,
   popToast,
@@ -91,15 +91,13 @@ const AdminSelfTool = () => {
   // 주요 고객사 이미지 섹션 관련
   const [mainClient, setMainClient] = useState(1)
   const mainClientInputRefs = useRef<HTMLInputElement[]>([])
-  const mainClientNameRefs = useRef<HTMLInputElement[]>([])
-  const mainClientSiteRefs = useRef<HTMLInputElement[]>([])
   const [mainClientImages, setMainClientImages] = useState<string[]>([])
   const [mainClientNames, setMainClientNames] = useState<string[]>([])
   const [mainClientSites, setMainClientSites] = useState<string[]>([])
   const [mainClients, setMainClients] = useState<ClientType[]>([])
 
   const MainClientSectionGroup = () => {
-    if (mainClientInputRefs.current && mainClientSiteRefs.current)
+    if (mainClientInputRefs.current)
       return [...Array(mainClient)].map((_, index) => {
         return (
           <div key={index} className={styles.section}>
@@ -126,10 +124,12 @@ const AdminSelfTool = () => {
               subTitle={'주요 고객사 사이트'}
               required={true}
               inputRefs={mainClientInputRefs}
-              siteRefs={mainClientSiteRefs}
-              nameRefs={mainClientNameRefs}
               images={mainClientImages}
               setImages={setMainClientImages}
+              names={mainClientNames}
+              setNames={setMainClientNames}
+              values={mainClientSites}
+              setValues={setMainClientSites}
             />
           </div>
         )
@@ -304,27 +304,31 @@ const AdminSelfTool = () => {
     }
 
     // 주요고객사
-    if (mainClientSiteRefs.current && mainClientNameRefs.current) {
+    if (mainClientSites && mainClientNames) {
       // 여기만 값 참조
       for (let i = 0; i < mainClient; i++) {
         console.log(mainClientImages[i])
         if (mainClientImages[i]) {
-          if (!mainClientNameRefs.current[i].value) {
-            mainClientNameRefs.current[i].focus()
-            toast('고객사 이름를 입력해주세요.')
+          if (!mainClientNames[i]) {
+            toast('주요 고객사 이름를 입력해주세요.')
             return
           }
-          if (!mainClientSiteRefs.current[i].value) {
-            mainClientSiteRefs.current[i].focus()
-            toast('고객사 주소를 입력해주세요.')
+          if (!mainClientSites[i]) {
+            toast('주요 고객사 주소를 입력해주세요.')
             return
           }
           const tmp: ClientType = {
             id: 0,
-            name: mainClientNameRefs.current[i].value,
+            name: mainClientNames[i],
             image: mainClientImages[i],
-            url: mainClientSiteRefs.current[i].value,
+            url: mainClientSites[i],
           }
+          if (
+            tmp.name == mainClients[i].name &&
+            tmp.image == mainClients[i].image &&
+            tmp.url == mainClients[i].url
+          )
+            tmp.id = mainClients[i].id
           data.clients.push(tmp)
         } else {
           toast(`${i + 1}번 고객사 이미지를 첨부해주세요.`)

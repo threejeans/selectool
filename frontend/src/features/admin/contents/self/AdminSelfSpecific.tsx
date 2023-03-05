@@ -14,7 +14,7 @@ import {
   PlanType,
   TmpToolSpecificType,
   ToolFuncType,
-} from 'types/dataTypes'
+} from 'types/types'
 import {
   createTool,
   resetTmpTool,

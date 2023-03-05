@@ -1,0 +1,62 @@
+.rightSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 36px;
+}
+
+.content {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: #6f6f6f;
+}
+
+.branchLayout {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(160px, max-content));
+  column-gap: 60px;
+  row-gap: 20px;
+}
+
+.branch {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+}
+
+.culturesLayout {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(360px, max-content));
+  column-gap: 80px;
+  row-gap: 28px;
+}
+
+.toolsLayout {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(100px, max-content));
+  column-gap: 60px;
+  row-gap: 20px;
+}
+
+.toolContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+}
+
+.toolImage {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.toolName {
+  font-weight: 400;
+  font-size: 14px;
+  color: #6f6f6f;
+}

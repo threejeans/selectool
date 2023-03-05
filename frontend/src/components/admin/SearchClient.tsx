@@ -3,7 +3,7 @@ import Spinner from 'components/Spinner'
 import { searchClient } from 'features/admin/contents/adminContentsSlice'
 import React, { useEffect, useState } from 'react'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
-import { ClientType } from 'types/dataTypes'
+import { ClientType } from 'types/types'
 
 type SearchClientProp = {
   idx: number
@@ -35,17 +35,19 @@ const SearchClient = ({
   const [itemList, setItemList] = useState<ClientType[]>([])
 
   const handleItem = (item: ClientType) => {
+    setSearch('')
     images[idx] = item.image
     setImages([...images])
     names[idx] = item.name
     setNames([...names])
     sites[idx] = item.url
     setSites([...sites])
+    clients[idx] = item
+    setClients([...clients])
     resetData()
   }
 
   const resetData = () => {
-    setSearch('')
     setIsDrop(false)
     setIsLoading(false)
     setItemList([])
@@ -102,7 +104,7 @@ const SearchClient = ({
               </button>
             )
           })}
-          {!isLoading && (
+          {isLoading && (
             <div className={styles.loadingSpinner}>
               <Spinner />
             </div>

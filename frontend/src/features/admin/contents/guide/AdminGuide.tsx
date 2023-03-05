@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
-import { GuideType } from 'types/dataTypes'
+import { GuideType } from 'types/types'
 import {
   createGuide,
   guideSave,

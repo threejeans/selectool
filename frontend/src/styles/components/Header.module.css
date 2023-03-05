@@ -47,6 +47,7 @@
 
 .unselected {
   color: var(--gray-scale-color-g30);
+  cursor: pointer;
 }
 .selected {
   color: var(--primary-color-main);
