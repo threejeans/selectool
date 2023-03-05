@@ -136,9 +136,9 @@ const AdminSelfTool = () => {
       })
   }
   // 가격 플랜 관련
-  const planTitleRef = useRef<any>([])
-  const planVolumeRef = useRef<any>([])
-  const planCostRef = useRef<any>([])
+  const planTitleRef = useRef<HTMLInputElement[]>([])
+  const planVolumeRef = useRef<HTMLInputElement[]>([])
+  const planCostRef = useRef<HTMLInputElement[]>([])
   const planFuncRef = useRef<any[][]>([[], [], [], []])
   const [costPlan, setCostPlan] = useState(1)
   const [planInfo, setPlanInfo] = useState<number[]>([1, 1, 1, 1])
@@ -307,7 +307,6 @@ const AdminSelfTool = () => {
     if (mainClientSites && mainClientNames) {
       // 여기만 값 참조
       for (let i = 0; i < mainClient; i++) {
-        console.log(mainClientImages[i])
         if (mainClientImages[i]) {
           if (!mainClientNames[i]) {
             toast('주요 고객사 이름를 입력해주세요.')
@@ -324,6 +323,7 @@ const AdminSelfTool = () => {
             url: mainClientSites[i],
           }
           if (
+            mainClients[i] &&
             tmp.name == mainClients[i].name &&
             tmp.image == mainClients[i].image &&
             tmp.url == mainClients[i].url
@@ -344,13 +344,13 @@ const AdminSelfTool = () => {
       planCostRef.current &&
       planFuncRef.current
     ) {
-      for (let i = 0; i < planTitleRef.current.length; i++) {
+      for (let i = 0; i < costPlan; i++) {
         if (planTitleRef.current[i].value) {
           const t: PlanFunctionType[] = []
           if (planFuncRef.current[i]) {
-            planFuncRef.current[i].map((item, _) => {
-              t.push(item.value)
-            })
+            for (let j = 0; j < planInfo[i]; j++) {
+              t.push(planFuncRef.current[i][j].value)
+            }
           }
           const tmp: PlanType = {
             title: planTitleRef.current[i].value,

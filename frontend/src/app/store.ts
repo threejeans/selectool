@@ -17,8 +17,8 @@ const persistConfig = {
   key: 'selectool-auth',
   storage,
   whitelist: [
-    'auth',
-    'adminAuth',
+    // 'auth',
+    // 'adminAuth',
     'adminContents',
     //
   ],
