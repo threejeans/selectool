@@ -61,7 +61,7 @@ const AdminSelfTool = () => {
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
-              max={4}
+              max={8}
               value={coreFunc}
               setValue={setCoreFunc}
             />
@@ -103,7 +103,7 @@ const AdminSelfTool = () => {
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
-              max={8}
+              max={16}
               value={mainClient}
               setValue={setMainClient}
             />
@@ -150,7 +150,7 @@ const AdminSelfTool = () => {
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
-              max={4}
+              max={8}
               value={costPlan}
               setValue={setCostPlan}
             />

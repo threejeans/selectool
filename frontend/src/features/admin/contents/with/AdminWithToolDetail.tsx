@@ -59,7 +59,7 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
-              max={4}
+              max={8}
               value={coreFunc}
               setValue={setCoreFunc}
             />
@@ -100,7 +100,7 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
-              max={8}
+              max={16}
               value={mainClient}
               setValue={setMainClient}
             />
@@ -135,7 +135,7 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
-              max={4}
+              max={8}
               value={costPlan}
               setValue={setCostPlan}
             />
