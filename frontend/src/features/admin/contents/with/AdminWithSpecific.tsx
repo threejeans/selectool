@@ -28,7 +28,7 @@ const AdminWithSpecific = () => {
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
-              max={4}
+              max={8}
               value={corpCulture}
               setValue={setCorpCulture}
             />
@@ -69,7 +69,7 @@ const AdminWithSpecific = () => {
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
-              max={4}
+              max={8}
               value={subsidiary}
               setValue={setSubsidiary}
             />
@@ -109,7 +109,7 @@ const AdminWithSpecific = () => {
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
-              max={8}
+              max={16}
               value={inCorpTool}
               setValue={setInCorpTool}
             />
