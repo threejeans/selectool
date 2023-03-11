@@ -124,9 +124,9 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
   const planTitleRef = useRef<any>([])
   const planVolumeRef = useRef<any>([])
   const planCostRef = useRef<any>([])
-  const planFuncRef = useRef<any[][]>([[], [], [], []])
+  const planFuncRef = useRef<any[][]>([[], [], [], [], [], [], [], []])
   const [costPlan, setCostPlan] = useState(1)
-  const [planInfo, setPlanInfo] = useState<number[]>([1, 1, 1, 1])
+  const [planInfo, setPlanInfo] = useState<number[]>([1, 1, 1, 1, 1, 1, 1, 1])
 
   const CostPlanGroup = () => {
     if (planTitleRef.current && planVolumeRef.current && planCostRef.current)

@@ -139,9 +139,9 @@ const AdminSelfTool = () => {
   const planTitleRef = useRef<HTMLInputElement[]>([])
   const planVolumeRef = useRef<HTMLInputElement[]>([])
   const planCostRef = useRef<HTMLInputElement[]>([])
-  const planFuncRef = useRef<any[][]>([[], [], [], []])
+  const planFuncRef = useRef<any[][]>([[], [], [], [], [], [], [], []])
   const [costPlan, setCostPlan] = useState(1)
-  const [planInfo, setPlanInfo] = useState<number[]>([1, 1, 1, 1])
+  const [planInfo, setPlanInfo] = useState<number[]>([1, 1, 1, 1, 1, 1, 1, 1])
 
   const CostPlanGroup = () => {
     if (planTitleRef.current && planVolumeRef.current && planCostRef.current)
