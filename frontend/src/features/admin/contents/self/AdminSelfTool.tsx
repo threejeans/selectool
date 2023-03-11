@@ -13,6 +13,7 @@ import { BsTriangleFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
+import swal from 'sweetalert'
 import {
   ClientType,
   PlanFunctionType,
@@ -34,10 +35,15 @@ const AdminSelfTool = () => {
   const navigate = useNavigate()
 
   // main
-  const koRef = useRef<HTMLInputElement | null>(null)
-  const enRef = useRef<HTMLInputElement | null>(null)
-  const descriptionRef = useRef<HTMLInputElement | null>(null)
-  const hoverMsgRef = useRef<HTMLInputElement | null>(null)
+  const [nameKr, setNameKr] = useState<string>('')
+  const nameKrRef = useRef<HTMLInputElement | null>(null)
+  const [nameEn, setNameEn] = useState<string>('')
+  const nameEnRef = useRef<HTMLInputElement | null>(null)
+  const [info, setInfo] = useState<string>('')
+  const infoRef = useRef<HTMLInputElement | null>(null)
+  const [msg, setMsg] = useState<string>('')
+  const msgRef = useRef<HTMLInputElement | null>(null)
+  const [topic, setTopic] = useState<string>('')
   const topicRef = useRef<HTMLSelectElement | null>(null)
 
   const categoryList = ['디자인', '개발', '마케팅', '기획', 'Other']
@@ -45,38 +51,44 @@ const AdminSelfTool = () => {
   const countryList = ['국내', '해외']
   const [country, setCountry] = useState('국내')
 
-  const [thumbnail, setThumbnail] = useState('')
+  const [image, setImage] = useState<string>('')
 
   // specific
-  const siteRef = useRef<HTMLInputElement | null>(null)
+  const [url, setUrl] = useState('')
+  const urlRef = useRef<HTMLInputElement | null>(null)
+
   // 핵심 기능 관련
-  const coreFuncNameRefs = useRef<HTMLInputElement[]>([])
-  const coreFuncDetailRefs = useRef<HTMLInputElement[]>([])
-  const [coreFunc, setCoreFunc] = useState(1)
+  const [toolFunction, setToolFunction] = useState(1)
+  const [toolFunctionNames, setToolFunctionNames] = useState<string[]>([])
+  const toolFunctionNameRefs = useRef<HTMLInputElement[]>([])
+  const [toolFunctionContents, setToolFunctionContents] = useState<string[]>([])
+  const toolFunctionContentRefs = useRef<HTMLInputElement[]>([])
 
   const CoreFuncSectionGroup = () => {
-    if (coreFuncNameRefs.current && coreFuncDetailRefs.current)
-      return [...Array(coreFunc)].map((_, index) => {
+    if (toolFunctionNameRefs.current && toolFunctionContentRefs.current)
+      return [...Array(toolFunction)].map((_, index) => {
         return (
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
               max={8}
-              value={coreFunc}
-              setValue={setCoreFunc}
+              value={toolFunction}
+              setValue={setToolFunction}
             />
             <TextInputBox
-              textRef={(el: HTMLInputElement) =>
-                (coreFuncNameRefs.current[index] = el)
-              }
+              idx={index}
+              values={toolFunctionNames}
+              setValues={setToolFunctionNames}
+              focusesRef={toolFunctionNameRefs}
               title={`프로덕트 핵심 기능 ${index + 1}`}
               placeholder={'예시: 주제별 대화방'}
               required={false}
             />
             <TextInputBox
-              textRef={(el: HTMLInputElement) =>
-                (coreFuncDetailRefs.current[index] = el)
-              }
+              idx={index}
+              values={toolFunctionContents}
+              setValues={setToolFunctionContents}
+              focusesRef={toolFunctionContentRefs}
               title={'프로덕트 상세 설명'}
               placeholder={
                 '예시: 조직 구성과 업무 문화에 맞게 주제별 대화방을 개설해 효율적으로 소통할 수 있습니다.'
@@ -136,15 +148,28 @@ const AdminSelfTool = () => {
       })
   }
   // 가격 플랜 관련
-  const planTitleRef = useRef<HTMLInputElement[]>([])
-  const planVolumeRef = useRef<HTMLInputElement[]>([])
-  const planCostRef = useRef<HTMLInputElement[]>([])
-  const planFuncRef = useRef<any[][]>([[], [], [], [], [], [], [], []])
+  const [planTitles, setPlanTitles] = useState<string[]>([])
+  const planTitleRefs = useRef<HTMLInputElement[]>([])
+  const [planVolumes, setPlanVolumes] = useState<string[]>([])
+  const planVolumeRefs = useRef<HTMLInputElement[]>([])
+  const [planCosts, setPlanCosts] = useState<string[]>([]) // costs?!?!
+  const planCostRefs = useRef<HTMLInputElement[]>([])
+  const [planFunctions, setPlanFunctions] = useState<string[][]>([
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+  ])
+  const planFuncRefs = useRef<[][]>([[], [], [], [], [], [], [], []])
   const [costPlan, setCostPlan] = useState(1)
   const [planInfo, setPlanInfo] = useState<number[]>([1, 1, 1, 1, 1, 1, 1, 1])
 
   const CostPlanGroup = () => {
-    if (planTitleRef.current && planVolumeRef.current && planCostRef.current)
+    if (planTitleRefs.current && planVolumeRefs.current && planCostRefs.current)
       return [...Array(costPlan)].map((_, index) => {
         return (
           <div key={index} className={styles.section}>
@@ -155,20 +180,29 @@ const AdminSelfTool = () => {
               setValue={setCostPlan}
             />
             <TextInputBox
-              textRef={(el: any) => (planTitleRef.current[index] = el)}
+              idx={index}
+              values={planTitles}
+              setValues={setPlanTitles}
+              focusesRef={planTitleRefs}
               title={`가격 플랜 이름 ${index + 1}`}
               placeholder={'예시: Basic'}
               required={false}
             />
             <div className={styles.halfSection}>
               <TextInputBox
-                textRef={(el: any) => (planVolumeRef.current[index] = el)}
+                idx={index}
+                values={planVolumes}
+                setValues={setPlanVolumes}
+                focusesRef={planVolumeRefs}
                 title={'가격 플랜 용량'}
                 placeholder={'예시: 멤버당 1GB'}
                 required={false}
               />
               <TextInputBox
-                textRef={(el: any) => (planCostRef.current[index] = el)}
+                idx={index}
+                values={planCosts}
+                setValues={setPlanCosts}
+                focusesRef={planCostRefs}
                 title={'가격 플랜 가격'}
                 placeholder={'예시: 멤버당 0원'}
                 required={false}
@@ -200,9 +234,11 @@ const AdminSelfTool = () => {
                       />
                     </span>
                     <TextInputBox
-                      textRef={(el: any) =>
-                        (planFuncRef.current[index][jndex] = el)
-                      }
+                      idx={index}
+                      jdx={jndex}
+                      walues={planFunctions}
+                      setWalues={setPlanFunctions}
+                      focusesesRef={planFuncRefs}
                       title={`가격 플랜 기능 ${index + 1} - ${jndex + 1}`}
                       placeholder={'예시: 무제한 대화방 개설'}
                       required={false}
@@ -217,7 +253,9 @@ const AdminSelfTool = () => {
   }
 
   // AOS, IOS 정보
+  const [aos, setAos] = useState<string>('')
   const aosRef = useRef<HTMLInputElement | null>(null)
+  const [ios, setIos] = useState<string>('')
   const iosRef = useRef<HTMLInputElement | null>(null)
 
   // 작성된 데이터 정제
@@ -239,72 +277,72 @@ const AdminSelfTool = () => {
       ios: '',
     }
 
-    if (koRef.current) {
-      if (koRef.current.value.length === 0) {
-        koRef.current.focus()
+    if (nameKrRef.current) {
+      if (!nameKr) {
+        nameKrRef.current.focus()
         popToast(false)
         return
-      } else data.nameKr = koRef.current.value
+      } else data.nameKr = nameKr
     }
-    if (enRef.current) {
-      if (enRef.current.value.length === 0) {
-        enRef.current.focus()
+    if (nameEnRef.current) {
+      if (!nameEn) {
+        nameEnRef.current.focus()
         popToast(false)
         return
-      } else data.nameEn = enRef.current.value
+      } else data.nameEn = nameEn
     }
-    if (descriptionRef.current) {
-      if (descriptionRef.current.value.length === 0) {
-        descriptionRef.current.focus()
+    if (infoRef.current) {
+      if (!info) {
+        infoRef.current.focus()
         popToast(false)
         return
-      } else data.info = descriptionRef.current.value
+      } else data.info = info
     }
-    if (hoverMsgRef.current) {
-      if (hoverMsgRef.current.value.length === 0) {
-        hoverMsgRef.current.focus()
+    if (msgRef.current) {
+      if (!msg) {
+        msgRef.current.focus()
         popToast(false)
         return
-      } else data.msg = hoverMsgRef.current.value
+      } else data.msg = msg
     }
     if (topicRef.current) {
-      if (topicRef.current.value.length === 0) {
+      if (!topic) {
         topicRef.current.focus()
         popToast(false)
         return
-      } else data.topic = topicRef.current.value
+      } else data.topic = topic
     }
     if (categories)
       data.categories = categories.map(item => {
         return { name: item }
       })
     if (country) data.country = country
-    if (thumbnail === '') {
+    if (image === '') {
       popToast('섬네일')
       return
-    } else data.image = thumbnail
+    } else data.image = image
 
     // 프로덕트 사이트
-    if (siteRef.current)
-      if (!siteRef.current.value) {
-        siteRef.current.focus()
+    if (urlRef.current)
+      if (!url) {
+        urlRef.current.focus()
         toast('프로덕트 사이트를 입력해주세요.')
         return
-      } else data.url = siteRef.current.value
+      } else data.url = url
 
     // 핵심 기능
-    if (coreFuncNameRefs.current && coreFuncDetailRefs.current) {
-      for (let i = 0; i < coreFuncNameRefs.current.length; i++) {
+    if (toolFunctionNameRefs.current && toolFunctionContentRefs.current) {
+      for (let i = 0; i < toolFunction; i++) {
         const tmp: ToolFuncType = {
-          name: coreFuncNameRefs.current[i].value,
-          content: coreFuncDetailRefs.current[i].value,
+          name: toolFunctionNames[i],
+          content: toolFunctionContents[i],
         }
         data.toolFunctions.push(tmp)
       }
     }
 
     // 주요고객사
-    if (mainClientSites && mainClientNames) {
+    if (mainClientInputRefs.current && mainClientSites && mainClientNames) {
       // 여기만 값 참조
       for (let i = 0; i < mainClient; i++) {
         if (mainClientImages[i]) {
@@ -331,6 +369,7 @@ const AdminSelfTool = () => {
             tmp.id = mainClients[i].id
           data.clients.push(tmp)
         } else {
+          mainClientInputRefs.current[i].focus()
           toast(`${i + 1}번 고객사 이미지를 첨부해주세요.`)
           return
         }
@@ -339,39 +378,37 @@ const AdminSelfTool = () => {
 
     // 가격 플랜 별 기능
     if (
-      planTitleRef.current &&
-      planVolumeRef.current &&
-      planCostRef.current &&
-      planFuncRef.current
+      planTitleRefs.current &&
+      planVolumeRefs.current &&
+      planCostRefs.current &&
+      planFuncRefs.current
     ) {
       for (let i = 0; i < costPlan; i++) {
-        if (planTitleRef.current[i].value) {
+        if (planTitles[i]) {
           const t: PlanFunctionType[] = []
-          if (planFuncRef.current[i]) {
+          if (planFuncRefs.current[i]) {
             for (let j = 0; j < planInfo[i]; j++) {
-              t.push(planFuncRef.current[i][j].value)
+              t.push({ func: planFunctions[i][j] })
             }
           }
           const tmp: PlanType = {
-            title: planTitleRef.current[i].value,
-            volume: planVolumeRef.current[i].value,
-            cost: planCostRef.current[i].value,
+            title: planTitles[i],
+            volume: planVolumes[i],
+            cost: planCosts[i],
             planFunctions: t,
           }
           data.plans.push(tmp)
         } else {
+          planTitleRefs.current[i].focus()
           toast('제목이 입력되지 않은 플랜은 저장되지 않습니다.')
-          planTitleRef.current[i].focus()
           return
         }
       }
     }
 
     // 스토어 점수
-    if (!aosRef.current) return
-    if (!iosRef.current) return
-    data.aos = aosRef.current.value
-    data.ios = iosRef.current.value
+    data.aos = aos
+    data.ios = ios
 
     dispatch(withToolSave(data))
   }
@@ -388,17 +425,47 @@ const AdminSelfTool = () => {
       tmpTool.plans
     ) {
       console.log('Specific complate', tmpTool)
-      dispatch(createTool(tmpTool))
-        .then(data => {
-          console.log(data)
-          dispatch(resetTmpTool())
-          navigate('/admin/contents/self/list')
-        })
-        .catch(err => {
-          console.error(err)
-        })
+      swal({
+        title: '저장 하시겠습니까?',
+        icon: 'info',
+        buttons: ['취소', '저장'],
+      }).then(willSave => {
+        if (willSave) {
+          dispatch(createTool(tmpTool))
+            .then(data => {
+              if (data.meta.requestStatus === 'fulfilled') {
+                swal('저장이 완료되었습니다.', { icon: 'success' }).then(_ => {
+                  dispatch(resetTmpTool())
+                  navigate('/admin/contents/self/list')
+                })
+              } else toast('등록중 에러가 발생했어요.')
+            })
+            .catch(err => {
+              swal('저장이 실패하였습니다.', { icon: 'warning' })
+              console.error(err)
+            })
+        } else {
+          toast('🥕 저장이 취소되었습니다.', { autoClose: 1000 })
+        }
+      })
     }
   }, [tmpTool])
+
+  const handleCancel = () => {
+    swal({
+      title: '돌아가시겠습니까?',
+      icon: 'warning',
+      text: '저장하지 않은 내용은 삭제됩니다.',
+      buttons: ['머무르기', '메인으로'],
+      dangerMode: true,
+    }).then(willCancel => {
+      if (willCancel) {
+        toast('🥕 작성이 취소되었습니다.', { autoClose: 1000 })
+        navigate('/admin/contents')
+      }
+    })
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.wrap}>
@@ -406,25 +473,33 @@ const AdminSelfTool = () => {
         {/* main */}
         <div className={styles.section}>
           <TextInputBox
-            textRef={koRef}
+            value={nameKr}
+            setValue={setNameKr}
+            focusRef={nameKrRef}
             title={'프로덕트 이름'}
             placeholder={'예시: 노션, 피그마'}
             required={true}
           />
           <TextInputBox
-            textRef={enRef}
+            value={nameEn}
+            setValue={setNameEn}
+            focusRef={nameEnRef}
             title={'프로덕트 영문명'}
             placeholder={'예시: Notion, Figma'}
             required={true}
           />
           <TextInputBox
-            textRef={descriptionRef}
+            value={info}
+            setValue={setInfo}
+            focusRef={infoRef}
             title={'프로덕트 한 줄 소개'}
             placeholder={'예시: 프로젝트 관림 및 기록 소프트웨어'}
             required={true}
           />
           <TextInputBox
-            textRef={hoverMsgRef}
+            value={msg}
+            setValue={setMsg}
+            focusRef={msgRef}
             title={'프로덕트 호버 메세지'}
             placeholder={'예시: Better Togather'}
             required={true}
@@ -434,7 +509,12 @@ const AdminSelfTool = () => {
               프로덕트 토픽{<span className={styles.required}>{'*'}</span>}
             </h5>
             <div className={styles.selectBox}>
-              <select ref={topicRef} className={styles.select}>
+              <select
+                value={topic}
+                onChange={e => setTopic(e.target.value)}
+                ref={topicRef}
+                className={styles.select}
+              >
                 <option value=''>선택</option>
                 <option value='디자인'>디자인</option>
                 <option value='화상회의'>화상회의</option>
@@ -463,12 +543,14 @@ const AdminSelfTool = () => {
           <h5 className={styles.label}>
             썸네일 이미지 <span className={styles.required}>{'*'}</span>
           </h5>
-          <ThumbnailInput thumbnail={thumbnail} setThumbnail={setThumbnail} />
+          <ThumbnailInput thumbnail={image} setThumbnail={setImage} />
         </div>
         {/* specific */}
         <div className={styles.section}>
           <TextInputBox
-            textRef={siteRef}
+            value={url}
+            setValue={setUrl}
+            focusRef={urlRef}
             title={'프로덕트 사이트'}
             placeholder={'예시: https://www.jandi.com/landing/kr'}
             required={true}
@@ -480,13 +562,17 @@ const AdminSelfTool = () => {
         <div className={styles.section}>
           <div className={styles.halfSection}>
             <TextInputBox
-              textRef={aosRef}
+              value={aos}
+              setValue={setAos}
+              focusRef={aosRef}
               title={'플레이스토어 평점'}
               placeholder={''}
               required={false}
             />
             <TextInputBox
-              textRef={iosRef}
+              value={ios}
+              setValue={setIos}
+              focusRef={iosRef}
               title={'앱스토어 평점'}
               placeholder={''}
               required={false}
@@ -498,13 +584,13 @@ const AdminSelfTool = () => {
             color={'white'}
             size={'md'}
             text={'Close'}
-            onClick={() => navigate('/admin/contents')}
+            onClick={handleCancel}
           />
           <AdminButton
             color={'white'}
             size={'md'}
             text={'Save'}
-            onClick={() => toast('임시 저장 구현 중')}
+            onClick={() => console.log('구현중')}
           />
           <AdminButton
             color={'next'}
