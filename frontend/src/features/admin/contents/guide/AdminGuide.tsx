@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
+import swal from 'sweetalert'
 import { GuideType } from 'types/dataTypes'
 import {
   createGuide,
@@ -21,12 +22,17 @@ const AdminGuide = () => {
   const tmpGuide = useAppSelector(selectTmpGuide)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const guideRef = useRef<HTMLInputElement | null>(null) // 이름
-  const dateRef = useRef<HTMLDivElement | null>(null) // 일자 포커스용
+
+  const [title, setTitle] = useState<string>('')
+  const titleRef = useRef<HTMLInputElement | null>(null)
   const [date, setDate] = useState<Date | null>() // 일자
-  const contentsRef = useRef<HTMLInputElement | null>(null) // 내용
+  const dateRef = useRef<HTMLDivElement | null>(null) // 일자 포커스용
+  const [content, setContent] = useState<string>('')
+  const contentRef = useRef<HTMLInputElement | null>(null) // 내용
+  const [source, setSource] = useState<string>('')
   const sourceRef = useRef<HTMLInputElement | null>(null) // 출처
-  const toolRef = useRef<HTMLInputElement | null>(null) // 툴 분류
+  const [toolName, setToolName] = useState<string>('')
+  const toolNameRef = useRef<HTMLInputElement | null>(null) // 툴 분류
 
   const funcList = ['디자인', '개발', '기획', '마케팅']
   const [func, setFunc] = useState('') // 기능 분류
@@ -38,8 +44,9 @@ const AdminGuide = () => {
     setCategories([])
   }, [func])
 
+  const [url, setUrl] = useState<string>('')
   const urlRef = useRef<HTMLInputElement | null>(null) // 콘텐츠 링크 URL
-  const [thumbnail, setThumbnail] = useState('') // 썸네일 이미지
+  const [image, setImage] = useState('') // 썸네일 이미지
   const [toolImage, setToolImage] = useState('') // 툴 이미지
 
   const handleComplete = () => {
@@ -55,36 +62,36 @@ const AdminGuide = () => {
       image: '',
       toolImage: '',
     }
-    if (guideRef.current)
-      if (!guideRef.current.value) {
-        guideRef.current.focus()
+    if (titleRef.current)
+      if (!title) {
+        titleRef.current.focus()
         toast('가이드 이름을 입력해주세요.')
         return
-      } else data.title = guideRef.current.value
+      } else data.title = title
     if (dateRef.current)
       if (!date) {
         dateRef.current.focus()
         toast('날짜를 입력해주세요.')
         return
       } else data.date = date
-    if (contentsRef.current)
-      if (!contentsRef.current.value) {
-        contentsRef.current.focus()
+    if (contentRef.current)
+      if (!content) {
+        contentRef.current.focus()
         toast('콘텐츠 내용을 입력해주세요.')
         return
-      } else data.content = contentsRef.current.value
+      } else data.content = content
     if (sourceRef.current)
-      if (!sourceRef.current.value) {
+      if (!source) {
         sourceRef.current.focus()
         toast('출처를 입력해주세요.')
         return
-      } else data.source = sourceRef.current.value
-    if (toolRef.current)
-      if (!toolRef.current.value) {
-        toolRef.current.focus()
+      } else data.source = source
+    if (toolNameRef.current)
+      if (!toolName) {
+        toolNameRef.current.focus()
         toast('툴 이름을 입력해주세요.')
         return
-      } else data.toolName = toolRef.current.value
+      } else data.toolName = toolName
     if (!func) {
       toast('기능 분류를 선택해주세요.')
       return
@@ -99,15 +106,15 @@ const AdminGuide = () => {
         }
       })
     if (urlRef.current)
-      if (!urlRef.current.value) {
+      if (!url) {
         urlRef.current.focus()
         toast('콘텐츠 링크를 입력해주세요.')
         return
-      } else data.url = urlRef.current.value
-    if (!thumbnail) {
+      } else data.url = url
+    if (!image) {
       toast('썸네일 이미지를 첨부해주세요.')
       return
-    } else data.image = thumbnail
+    } else data.image = image
     if (!toolImage) {
       toast('썸네일 이미지를 첨부해주세요.')
       return
@@ -128,27 +135,55 @@ const AdminGuide = () => {
       tmpGuide.toolImage
     ) {
       console.log('Guide complate', tmpGuide)
-      console.log(JSON.stringify(tmpGuide))
-      dispatch(createGuide(tmpGuide))
-        .then(data => {
-          if (data.meta.requestStatus === 'fulfilled') {
-            console.log(data)
-            dispatch(resetTmpGuide())
-            navigate('/admin/contents/guide/list')
-          } else toast('등록중 에러가 발생했어요.')
-        })
-        .catch(err => {
-          console.error(err)
-        })
+      swal({
+        title: '저장 하시겠습니까?',
+        icon: 'info',
+        buttons: ['취소', '저장'],
+      }).then(willSave => {
+        if (willSave) {
+          dispatch(createGuide(tmpGuide))
+            .then(data => {
+              if (data.meta.requestStatus === 'fulfilled') {
+                swal('저장이 완료되었습니다.', { icon: 'success' }).then(_ => {
+                  console.log(data)
+                  dispatch(resetTmpGuide())
+                  navigate('/admin/contents/guide/list')
+                })
+              } else toast('등록중 에러가 발생했어요.')
+            })
+            .catch(err => {
+              console.error(err)
+            })
+        } else {
+          toast('🥕 저장이 취소되었습니다.', { autoClose: 1000 })
+        }
+      })
     }
   }, [tmpGuide])
+
+  const handleCancel = () => {
+    swal({
+      title: '돌아가시겠습니까?',
+      icon: 'warning',
+      text: '저장하지 않은 내용은 삭제됩니다.',
+      buttons: ['머무르기', '메인으로'],
+      dangerMode: true,
+    }).then(willCancel => {
+      if (willCancel) {
+        toast('🥕 작성이 취소되었습니다.', { autoClose: 1000 })
+        navigate('/admin/contents')
+      }
+    })
+  }
 
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>가이드 main</h3>
       <div className={styles.section}>
         <TextInputBox
-          textRef={guideRef}
+          value={title}
+          setValue={setTitle}
+          focusRef={titleRef}
           title={'가이드 이름'}
           placeholder={'예시: 슬랙에서 인정한 슬랙 잘 쓰는 회사'}
           required={true}
@@ -159,10 +194,12 @@ const AdminGuide = () => {
               콘텐츠 일자<span className={styles.required}>{'*'}</span>
             </h5>
           </div>
-          <CustomDatePicker dateRef={dateRef} date={date} setDate={setDate} />
+          <CustomDatePicker date={date} setDate={setDate} dateRef={dateRef} />
         </div>
         <TextInputBox
-          textRef={contentsRef}
+          value={content}
+          setValue={setContent}
+          focusRef={contentRef}
           title={'콘텐츠 내용'}
           placeholder={
             '예시: 피그마를 제대로 활용하기 위해선 플러그인을 활용할..'
@@ -170,13 +207,17 @@ const AdminGuide = () => {
           required={true}
         />
         <TextInputBox
-          textRef={sourceRef}
+          value={source}
+          setValue={setSource}
+          focusRef={sourceRef}
           title={'콘텐츠 소스'}
           placeholder={'예시: 브런치, 토스 기술 블로그'}
           required={true}
         />
         <TextInputBox
-          textRef={toolRef}
+          value={toolName}
+          setValue={setToolName}
+          focusRef={toolNameRef}
           title={'툴 분류'}
           placeholder={'예시: 노션, 지라'}
           required={true}
@@ -196,7 +237,9 @@ const AdminGuide = () => {
           setCategories={setCategories}
         />
         <TextInputBox
-          textRef={urlRef}
+          value={url}
+          setValue={setUrl}
+          focusRef={urlRef}
           title={'콘텐츠 링크'}
           placeholder={'예시: http://www.google.com/search...'}
           required={true}
@@ -206,7 +249,7 @@ const AdminGuide = () => {
             <h5 className={styles.label}>
               썸네일 이미지<span className={styles.required}>{'*'}</span>
             </h5>
-            <ThumbnailInput thumbnail={thumbnail} setThumbnail={setThumbnail} />
+            <ThumbnailInput thumbnail={image} setThumbnail={setImage} />
           </div>
           <div>
             <h5 className={styles.label}>
@@ -221,7 +264,7 @@ const AdminGuide = () => {
           color={'white'}
           size={'md'}
           text={'Cancel'}
-          onClick={() => navigate('/admin/contents')}
+          onClick={handleCancel}
         />
         <AdminButton
           color={'white'}

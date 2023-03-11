@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
+import swal from 'sweetalert'
 import { BranchType, CorpType, CultureType, ToolType } from 'types/dataTypes'
 import {
   createCorp,
@@ -25,28 +26,39 @@ const AdminWithCorp = () => {
   const tmpCorp = useAppSelector(selectTmpCorp)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+
   // main
-  const koRef = useRef<HTMLInputElement | null>(null)
-  const enRef = useRef<HTMLInputElement | null>(null)
-  const descriptionRef = useRef<HTMLInputElement | null>(null)
-  const teamKoRef = useRef<HTMLInputElement | null>(null)
-  const teamEnRef = useRef<HTMLInputElement | null>(null)
+  const [nameKr, setNameKr] = useState<string>('')
+  const nameKrRef = useRef<HTMLInputElement | null>(null)
+  const [nameEn, setNameEn] = useState<string>('')
+  const nameEnRef = useRef<HTMLInputElement | null>(null)
+  const [info, setInfo] = useState<string>('')
+  const infoRef = useRef<HTMLInputElement | null>(null)
+  const [teamNameKr, setTeamNameKr] = useState<string>('')
+  const teamNameKrRef = useRef<HTMLInputElement | null>(null)
+  const [teamNameEn, setTeamNameEn] = useState<string>('')
+  const teamNameEnRef = useRef<HTMLInputElement | null>(null)
 
   const list = ['금융', '커뮤니티', '모빌리티', '여행/레져', '커머스', 'Other']
   const [categories, setCategories] = useState(['Other'])
 
-  const [thumbnail, setThumbnail] = useState('')
+  const [image, setImage] = useState('')
 
   // specific
-  const siteRef = useRef<HTMLInputElement | null>(null)
+  const [url, setUrl] = useState<string>('')
+  const urlRef = useRef<HTMLInputElement | null>(null)
+  const [content, setContent] = useState<string>('')
   const contentRef = useRef<HTMLInputElement | null>(null)
 
   // 조직문화 관련
-  const corpCultureSubTitleRefs = useRef<HTMLInputElement[]>([])
-  const corpCultureDescriptionRefs = useRef<HTMLInputElement[]>([])
   const [corpCulture, setCorpCulture] = useState(1)
+  const [cultureTitles, setCultureTitles] = useState<string[]>([])
+  const cultureTitleRefs = useRef<HTMLInputElement[]>([])
+  const [cultureContents, setCultureContents] = useState<string[]>([])
+  const cultureContentRefs = useRef<HTMLInputElement[]>([])
+
   const CorpCultureSectionGroup = () => {
-    if (corpCultureSubTitleRefs.current && corpCultureDescriptionRefs.current)
+    if (cultureTitleRefs.current && cultureContentRefs.current)
       return [...Array(corpCulture)].map((_, index) => {
         return (
           <div key={index} className={styles.section}>
@@ -57,17 +69,19 @@ const AdminWithCorp = () => {
               setValue={setCorpCulture}
             />
             <TextInputBox
-              textRef={(el: HTMLInputElement) =>
-                (corpCultureSubTitleRefs.current[index] = el)
-              }
+              idx={index}
+              values={cultureTitles}
+              setValues={setCultureTitles}
+              focusesRef={cultureTitleRefs}
               title={`조직문화 소제목 ${index + 1}`}
               placeholder={'예시: 주제별 대화방'}
               required={false}
             />
             <TextInputBox
-              textRef={(el: HTMLInputElement) =>
-                (corpCultureDescriptionRefs.current[index] = el)
-              }
+              idx={index}
+              values={cultureContents}
+              setValues={setCultureContents}
+              focusesRef={cultureContentRefs}
               title={'조직문화 상세 설명'}
               placeholder={
                 '예시: 조직 구성과 업무 문화에 맞게 주제별 대화방을 개설해 효율적으로 소통할 수 있습니다.'
@@ -80,37 +94,32 @@ const AdminWithCorp = () => {
   }
 
   // 자회사 사이트 관련
-  const [subsidiary, setSubsidiary] = useState(1)
+  const [branch, setBranch] = useState(1)
   const subsidiaryInputRefs = useRef<HTMLInputElement[]>([])
-  const subsidiaryNameRefs = useRef<HTMLInputElement[]>([])
-  // const subsidiarySiteRefs = useRef<HTMLInputElement[]>([])
-  const [subsidiaryImages, setSubsidiaryImages] = useState<string[]>([])
+  const [branchImages, setBranchImages] = useState<string[]>([])
+  const [branchNames, setBranchNames] = useState<string[]>([])
 
   const SubsidiarySectionGroup = () => {
-    if (
-      subsidiaryInputRefs.current
-      // && subsidiarySiteRefs.current
-    )
-      return [...Array(subsidiary)].map((_, index) => {
+    if (subsidiaryInputRefs.current)
+      return [...Array(branch)].map((_, index) => {
         return (
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
               max={8}
-              value={subsidiary}
-              setValue={setSubsidiary}
+              value={branch}
+              setValue={setBranch}
             />
             <h5 className={styles.label}>자회사 사이트 {index + 1}</h5>
             <ThumbSiteInput
               idx={index}
               subName={'자회사 이름'}
-              // subTitle={'자회사 사이트'}
               required={false}
               inputRefs={subsidiaryInputRefs}
-              nameRefs={subsidiaryNameRefs}
-              // siteRefs={subsidiarySiteRefs}
-              images={subsidiaryImages}
-              setImages={setSubsidiaryImages}
+              images={branchImages}
+              setImages={setBranchImages}
+              names={branchNames}
+              setNames={setBranchNames}
             />
           </div>
         )
@@ -201,40 +210,40 @@ const AdminWithCorp = () => {
       tools: [],
     }
 
-    if (koRef.current) {
-      if (koRef.current.value.length === 0) {
-        koRef.current.focus()
+    if (nameKrRef.current) {
+      if (!nameKr) {
+        nameKrRef.current.focus()
         popToast(false)
         return
-      } else data.nameKr = koRef.current.value
+      } else data.nameKr = nameKr
     }
-    if (enRef.current) {
-      if (enRef.current.value.length === 0) {
-        enRef.current.focus()
+    if (nameEnRef.current) {
+      if (!nameEn) {
+        nameEnRef.current.focus()
         popToast(false)
         return
-      } else data.nameEn = enRef.current.value
+      } else data.nameEn = nameEn
     }
-    if (descriptionRef.current) {
-      if (descriptionRef.current.value.length === 0) {
-        descriptionRef.current.focus()
+    if (infoRef.current) {
+      if (!info) {
+        infoRef.current.focus()
         popToast(false)
         return
-      } else data.info = descriptionRef.current.value
+      } else data.info = info
     }
-    if (teamKoRef.current) {
-      if (teamKoRef.current.value.length === 0) {
-        teamKoRef.current.focus()
+    if (teamNameKrRef.current) {
+      if (!teamNameKr) {
+        teamNameKrRef.current.focus()
         popToast(false)
         return
-      } else data.teamNameKr = teamKoRef.current.value
+      } else data.teamNameKr = teamNameKr
     }
-    if (teamEnRef.current) {
-      if (teamEnRef.current.value.length === 0) {
-        teamEnRef.current.focus()
+    if (teamNameEnRef.current) {
+      if (!teamNameEn) {
+        teamNameEnRef.current.focus()
         popToast(false)
         return
-      } else data.teamNameEn = teamEnRef.current.value
+      } else data.teamNameEn = teamNameEn
     }
     if (categories)
       data.categories = categories.map(item => {
@@ -242,43 +251,43 @@ const AdminWithCorp = () => {
           name: item,
         }
       })
-    if (thumbnail === '') {
+    if (image === '') {
       popToast('섬네일')
       return
-    } else data.image = thumbnail
+    } else data.image = image
 
-    if (siteRef.current) {
-      if (siteRef.current.value.length === 0) {
-        siteRef.current.focus()
+    if (urlRef.current) {
+      if (!url) {
+        urlRef.current.focus()
         popToast(false)
         return
-      } else data.url = siteRef.current.value
+      } else data.url = url
     }
     if (contentRef.current) {
-      if (contentRef.current.value.length === 0) {
+      if (!content) {
         contentRef.current.focus()
         popToast(false)
         return
-      } else data.content = contentRef.current.value
+      } else data.content = content
     }
 
-    if (corpCultureSubTitleRefs.current && corpCultureDescriptionRefs.current) {
+    if (cultureTitleRefs.current && cultureContentRefs.current) {
       const tmp: CultureType[] = []
       for (let i = 0; i < corpCulture; i++) {
         const t: CultureType = {
-          title: corpCultureSubTitleRefs.current[i].value,
-          content: corpCultureDescriptionRefs.current[i].value,
+          title: cultureTitles[i],
+          content: cultureContents[i],
         }
         tmp.push(t)
       }
       data.cultures = tmp
     }
-    if (subsidiaryNameRefs.current) {
+    if (branch) {
       const tmp: BranchType[] = []
       for (let i = 0; i < corpCulture; i++) {
         const t: BranchType = {
-          image: subsidiaryImages[i],
-          name: subsidiaryNameRefs.current[i].value,
+          image: branchImages[i],
+          name: branchNames[i],
         }
         tmp.push(t)
       }
@@ -306,18 +315,44 @@ const AdminWithCorp = () => {
       tmpCorp.content
     ) {
       console.log('Corp complate', tmpCorp)
-      dispatch(createCorp(tmpCorp))
-        .then(data => {
-          console.log(data)
-          dispatch(resetTmpCorp())
-          navigate('/admin/contents/with/list')
-        })
-        .catch(err => {
-          console.error(err)
-        })
+      swal({
+        title: '저장 하시겠습니까?',
+        icon: 'info',
+        buttons: ['취소', '저장'],
+      }).then(willSave => {
+        if (willSave) {
+          dispatch(createCorp(tmpCorp))
+            .then(data => {
+              if (data.meta.requestStatus === 'fulfilled') {
+                swal('저장이 완료되었습니다.', { icon: 'success' }).then(_ => {
+                  dispatch(resetTmpCorp())
+                  navigate('/admin/contents/with/list')
+                })
+              } else toast('등록중 에러가 발생했어요.')
+            })
+            .catch(err => {
+              console.error(err)
+            })
+        } else {
+          toast('🥕 저장이 취소되었습니다.', { autoClose: 1000 })
+        }
+      })
     }
   }, [tmpCorp])
-
+  const handleCancel = () => {
+    swal({
+      title: '돌아가시겠습니까?',
+      icon: 'warning',
+      text: '저장하지 않은 내용은 삭제됩니다.',
+      buttons: ['머무르기', '메인으로'],
+      dangerMode: true,
+    }).then(willCancel => {
+      if (willCancel) {
+        toast('🥕 작성이 취소되었습니다.', { autoClose: 1000 })
+        navigate('/admin/contents')
+      }
+    })
+  }
   return (
     <>
       <div className={styles.container}>
@@ -325,19 +360,25 @@ const AdminWithCorp = () => {
           <h3 className={styles.title}>함께써요 main/specific</h3>
           <div className={styles.section}>
             <TextInputBox
-              textRef={koRef}
+              value={nameKr}
+              setValue={setNameKr}
+              focusRef={nameKrRef}
               title={'회사 이름'}
               placeholder={'예시: 토스, 야놀자'}
               required={true}
             />
             <TextInputBox
-              textRef={enRef}
+              value={nameEn}
+              setValue={setNameEn}
+              focusRef={nameEnRef}
               title={'회사 영문명'}
               placeholder={'예시: Toss, Baemin'}
               required={true}
             />
             <TextInputBox
-              textRef={descriptionRef}
+              value={info}
+              setValue={setInfo}
+              focusRef={infoRef}
               title={'회사 한 줄 소개'}
               placeholder={
                 '예시: 숙박, 여행, 레저, 액티비티 정보제공 및 예약 서비스 플랫폼 [야놀자]를 운영하는 기업'
@@ -345,13 +386,17 @@ const AdminWithCorp = () => {
               required={true}
             />
             <TextInputBox
-              textRef={teamKoRef}
+              value={teamNameKr}
+              setValue={setTeamNameKr}
+              focusRef={teamNameKrRef}
               title={'팀 이름'}
               placeholder={'예시: (주)비바 리퍼블리카'}
               required={true}
             />
             <TextInputBox
-              textRef={teamEnRef}
+              value={teamNameEn}
+              setValue={setTeamNameEn}
+              focusRef={teamNameEnRef}
               title={'팀 영문명'}
               placeholder={'예시: Viva Republica'}
               required={true}
@@ -366,11 +411,13 @@ const AdminWithCorp = () => {
             <h5 className={styles.label}>
               썸네일 이미지 <span className={styles.required}>{'*'}</span>
             </h5>
-            <ThumbnailInput thumbnail={thumbnail} setThumbnail={setThumbnail} />{' '}
+            <ThumbnailInput thumbnail={image} setThumbnail={setImage} />{' '}
           </div>
           <div className={styles.section}>
             <TextInputBox
-              textRef={siteRef}
+              value={url}
+              setValue={setUrl}
+              focusRef={urlRef}
               title={'회사 사이트'}
               placeholder={'예시: https://www.jandi.com/landing/kr'}
               required={true}
@@ -378,7 +425,9 @@ const AdminWithCorp = () => {
           </div>
           <div className={styles.section}>
             <TextInputBox
-              textRef={contentRef}
+              value={content}
+              setValue={setContent}
+              focusRef={contentRef}
               title={'기업소개'}
               placeholder={
                 '예시: 토스팀은 바꾸고 싶은 세상의 모습이 있고, 생각만 해도 가슴 뛰는 목표가 있는 조직입니다.'
@@ -394,7 +443,7 @@ const AdminWithCorp = () => {
               color={'white'}
               size={'md'}
               text={'Previous'}
-              onClick={() => navigate('/admin/contents')}
+              onClick={handleCancel}
             />
             <AdminButton
               color={'white'}
