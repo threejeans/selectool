@@ -39,7 +39,6 @@ const ThumbSiteInput = ({
   disabled = false,
 }: ThumbSiteInputProps) => {
   const iRef = inputRefs
-  const sRef = siteRefs
 
   const handleUpload = (index: number) => {
     if (inputRefs.current[index]) inputRefs.current[index].click()
@@ -96,16 +95,6 @@ const ThumbSiteInput = ({
           />
         </div>
       </div>
-      {subName && nameRefs && (
-        <TextInputBox
-          idx={idx}
-          textRef={(el: any) => (nameRefs.current[idx] = el)}
-          title={subName}
-          placeholder={disabled ? '직접 입력이 불가합니다.' : '예시: AP그룹'}
-          required={required}
-          disabled={disabled}
-        />
-      )}
       {subName && setNames && (
         <TextInputBox
           idx={idx}
@@ -119,23 +108,9 @@ const ThumbSiteInput = ({
           }
           required={required}
           disabled={disabled}
+          nonFocus={true}
         />
       )}
-      {subTitle &&
-        sRef && ( // Ref 입력방식
-          <TextInputBox
-            idx={idx}
-            textRef={(el: any) => (sRef.current[idx] = el)}
-            title={subTitle}
-            placeholder={
-              disabled
-                ? '직접 입력이 불가합니다.'
-                : '예시: https://www.apgroup.com/int/ko'
-            }
-            required={required}
-            disabled={disabled}
-          />
-        )}
       {subTitle &&
         setValues && ( // state 입력방식
           <TextInputBox
@@ -150,6 +125,7 @@ const ThumbSiteInput = ({
             }
             required={required}
             disabled={disabled}
+            nonFocus={true}
           />
         )}
     </div>

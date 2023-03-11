@@ -9,7 +9,7 @@ import {
 } from 'react-icons/ai'
 import styles from 'styles/admin/components/CustomDatePicker.module.css'
 
-const CustomDatePicker = ({ dateRef, date, setDate }: any) => {
+const CustomDatePicker = ({ date, setDate, dateRef }: any) => {
   const years = _.range(2010, getYear(new Date()) + 1, 1)
   const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
   return (
