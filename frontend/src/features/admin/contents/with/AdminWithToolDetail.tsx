@@ -20,7 +20,7 @@ import {
   PlanType,
   ToolFuncType,
   ToolType,
-} from 'types/dataTypes'
+} from 'types/types'
 import {
   createTool,
   popToast,
@@ -448,6 +448,7 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
       })
     }
   }, [tmpTool])
+
   const handleCancel = () => {
     swal({
       title: '돌아가시겠습니까?',

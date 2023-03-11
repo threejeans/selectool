@@ -20,7 +20,7 @@ import {
   PlanType,
   ToolFuncType,
   ToolType,
-} from 'types/dataTypes'
+} from 'types/types'
 import {
   createTool,
   popToast,

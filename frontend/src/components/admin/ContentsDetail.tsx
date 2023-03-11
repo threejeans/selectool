@@ -1,7 +1,7 @@
 import { useAppDispatch } from 'app/hooks'
 import { getContent } from 'features/admin/contents/adminContentsSlice'
 import { useEffect, useState } from 'react'
-import { TypeId } from 'types/dataTypes'
+import { TypeId } from 'types/types'
 
 const ContentsDetail = ({ type, id }: TypeId) => {
   const dispatch = useAppDispatch()

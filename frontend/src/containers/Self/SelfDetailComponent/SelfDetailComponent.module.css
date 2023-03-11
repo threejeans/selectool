@@ -1,0 +1,106 @@
+/* rating component */
+
+.ratingLayout {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 360px;
+  height: 100px;
+}
+
+.ratingImage {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.ratingScore {
+  font-weight: 600;
+  font-size: 28px;
+
+  color: #a8a8a8;
+}
+
+.ratingScoreContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.starBox {
+  z-index: 100px;
+  overflow: hidden;
+}
+
+.fullStar {
+  width: 100px;
+  height: 20px;
+}
+
+.emptyStar {
+  z-index: -100px;
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* plan component */
+.planLayout {
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+  align-items: center;
+  width: 240px;
+  height: fit-content;
+}
+
+.planFirstSection {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  align-items: center;
+  color: #000000;
+}
+
+.imogi {
+  font-size: 24px;
+}
+
+.planTitle {
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.planVolume {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.planSecondSection {
+  font-weight: 400;
+  font-size: 18px;
+  color: black;
+}
+
+.planCost {
+  font-weight: 400;
+  font-size: 32px;
+}
+
+.planThirdSection {
+  display: flex;
+  flex-direction: column;
+  row-gap: 18px;
+
+  align-items: center;
+  text-align: center;
+
+  font-weight: 400;
+  font-size: 18px;
+  color: black;
+}

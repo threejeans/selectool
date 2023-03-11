@@ -47,6 +47,7 @@ export type TmpToolSpecificType = {
   aos: string
   ios: string
 }
+
 // create 시 필요한 모든 데이터
 export type ToolType = {
   id?: number
@@ -66,6 +67,19 @@ export type ToolType = {
   plans: PlanType[]
   aos: string
   ios: string
+}
+
+export type SelfMainInfo = {
+  id: number
+  info: string
+  nameKr: string
+  nameEn: string
+  topic: string
+  msg: string
+  categories: CategoryType[]
+  country: string
+  image: string
+  isBookmarked: boolean
 }
 
 // 가이드
@@ -113,4 +127,31 @@ export type CorpType = {
 export type TypeId = {
   type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE
   id?: number
+}
+
+// with
+
+export type WithToolType = {
+  id: number
+  image: string
+  nameEn: string
+  nameKr: string
+  url: string
+}
+
+export type WithCorpType = {
+  id?: number
+  image: string
+  info: string
+  isBookmarked: boolean
+  nameEn: string
+  nameKr: string
+  teamNameEn: string
+  teamNameKr: string
+  url: string
+  content: string
+  branches: BranchType[]
+  categories: CategoryType[]
+  cultures: CultureType[]
+  tools: WithToolType[]
 }

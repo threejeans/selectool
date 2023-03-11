@@ -1,0 +1,20 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  height: fit-content;
+  row-gap: 10px;
+}
+
+.name {
+  font-weight: 400;
+  font-size: 18px;
+  color: black;
+}
+
+.content {
+  font-weight: 400;
+  line-height: 18px;
+  font-size: 14px;
+  color: #6f6f6f;
+}
