@@ -6,12 +6,8 @@ import AdminLogin from 'features/admin/auth/AdminLogin'
 import AdminContents from 'features/admin/contents/AdminContents'
 import AdminContentsList from 'features/admin/contents/AdminContentsList'
 import AdminGuide from 'features/admin/contents/guide/AdminGuide'
-import AdminSelfMain from 'features/admin/contents/self/AdminSelfMain'
-import AdminSelfSpecific from 'features/admin/contents/self/AdminSelfSpecific'
 import AdminSelfTool from 'features/admin/contents/self/AdminSelfTool'
 import AdminWithCorp from 'features/admin/contents/with/AdminWithCorp'
-import AdminWithMain from 'features/admin/contents/with/AdminWithMain'
-import AdminWithSpecific from 'features/admin/contents/with/AdminWithSpecific'
 import AdminData from 'features/admin/data/AdminData'
 import Auth from 'features/auth/Auth'
 import Mypage from 'features/auth/Mypage'
@@ -95,11 +91,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: '',
-                children: [
-                  { path: '', element: <AdminSelfTool /> },
-                  { path: 'main', element: <AdminSelfMain /> },
-                  { path: 'specific', element: <AdminSelfSpecific /> },
-                ],
+                children: [{ path: '', element: <AdminSelfTool /> }],
               },
               { path: 'list', element: <AdminContentsList type='self' /> },
             ],
@@ -109,11 +101,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: '',
-                children: [
-                  { path: '', element: <AdminWithCorp /> },
-                  { path: 'main', element: <AdminWithMain /> },
-                  { path: 'specific', element: <AdminWithSpecific /> },
-                ],
+                children: [{ path: '', element: <AdminWithCorp /> }],
               },
               { path: 'list', element: <AdminContentsList type='with' /> },
             ],
