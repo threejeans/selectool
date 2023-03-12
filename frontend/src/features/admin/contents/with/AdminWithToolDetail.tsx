@@ -18,9 +18,16 @@ import {
   ClientType,
   PlanFunctionType,
   PlanType,
+  AdminSelfComponent,
   ToolFuncType,
   ToolType,
+  AdminWithComponent,
 } from 'types/types'
+import {
+  getTmpStorage,
+  removeTmpStorage,
+  setTmpStorage,
+} from 'util/localStorage'
 import {
   createTool,
   popToast,
@@ -464,6 +471,91 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
     })
   }
 
+  useEffect(() => {
+    const data = getTmpStorage({ key: 'self' }) as AdminSelfComponent | false
+    if (data) {
+      swal({
+        title: '임시 저장된 데이터가 있습니다.',
+        text: '임시 데이터를 불러오겠습니까?',
+        icon: 'info',
+        buttons: ['임시 데이터 삭제', '불러오기'],
+      }).then(willSave => {
+        if (willSave) {
+          setNameKr(data.nameKr)
+          setNameEn(data.nameEn)
+          setInfo(data.info)
+          setMsg(data.msg)
+          setTopic(data.topic)
+          setCategories(data.categories)
+          setCountry(data.country)
+          setImage(data.image)
+          setUrl(data.url)
+          setToolFunction(data.toolFunction)
+          setToolFunctionNames(data.toolFunctionNames)
+          setToolFunctionContents(data.toolFunctionContents)
+          setMainClient(data.mainClient)
+          setMainClientImages(data.mainClientImages)
+          setMainClientNames(data.mainClientNames)
+          setMainClientSites(data.mainClientSites)
+          setMainClients(data.mainClients)
+          setPlanTitles(data.planTitles)
+          setPlanVolumes(data.planVolumes)
+          setPlanCosts(data.planCosts)
+          setPlanFunctions(data.planFunctions)
+          setCostPlan(data.costPlan)
+          setPlanInfo(data.planInfo)
+          setAos(data.aos)
+          setIos(data.ios)
+          swal('임시 저장된 데이터를 불러왔습니다.', { icon: 'success' })
+        } else {
+          removeTmpStorage({ key: 'self' })
+          toast('🥕 임시 데이터가 삭제되었습니다.', { autoClose: 1000 })
+        }
+      })
+    }
+  }, [])
+
+  const tmpSave = () => {
+    const data: AdminSelfComponent = {
+      nameKr: nameKr,
+      nameEn: nameEn,
+      info: info,
+      msg: msg,
+      topic: topic,
+      categories: categories,
+      country: country,
+      image: image,
+      url: url,
+      toolFunction: toolFunction,
+      toolFunctionNames: toolFunctionNames,
+      toolFunctionContents: toolFunctionContents,
+      mainClient: mainClient,
+      mainClientImages: mainClientImages,
+      mainClientNames: mainClientNames,
+      mainClientSites: mainClientSites,
+      mainClients: mainClients,
+      planTitles: planTitles,
+      planVolumes: planVolumes,
+      planCosts: planCosts,
+      planFunctions: planFunctions,
+      costPlan: costPlan,
+      planInfo: planInfo,
+      aos: aos,
+      ios: ios,
+    }
+    swal({
+      title: '임시 저장 하시겠습니까?',
+      icon: 'info',
+      buttons: ['취소', '저장'],
+    }).then(willSave => {
+      if (willSave) {
+        setTmpStorage({ key: 'self', data: data })
+        swal('저장이 완료되었습니다.', { icon: 'success' })
+      } else {
+        toast('🥕 저장이 취소되었습니다.', { autoClose: 1000 })
+      }
+    })
+  }
   return (
     <div className={styles.modalContainer}>
       <div className={styles.wrap}>
@@ -588,7 +680,7 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
             color={'white'}
             size={'md'}
             text={'Save'}
-            onClick={() => toast('임시 저장 구현 중')}
+            onClick={tmpSave}
           />
           <AdminButton
             color={'next'}
