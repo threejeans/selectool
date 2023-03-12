@@ -47,7 +47,7 @@ const WithCard = ({ data }: CardProps) => {
             <hr className={styles.lineHover}></hr>
             <div className={styles.selectoolContainer}>
               <div className={styles.selectoolTitle}>
-                {data.teamNameKr}&apos;s{' '}
+                {data.nameKr}&apos;s{' '}
                 <span className={styles.selectoolPoint}>SELECTOOL</span>
               </div>
               <div className={styles.toolLayout}>
@@ -68,7 +68,7 @@ const WithCard = ({ data }: CardProps) => {
             <div className={styles.textContainer}>
               <div className={styles.companyInfoContainer}>
                 <div className={styles.companyName}>{data.nameKr}</div>
-                <div className={styles.companyCoName}>{data.teamNameEn}</div>
+                <div className={styles.companyCoName}>{data.teamNameKr}</div>
               </div>
               <div className={styles.description}>{data.info}</div>
             </div>
