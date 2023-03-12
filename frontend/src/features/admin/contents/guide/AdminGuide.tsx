@@ -10,7 +10,12 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
 import swal from 'sweetalert'
-import { GuideType } from 'types/types'
+import { AdminGuideComponent, GuideType } from 'types/types'
+import {
+  getTmpStorage,
+  removeTmpStorage,
+  setTmpStorage,
+} from 'util/localStorage'
 import {
   createGuide,
   guideSave,
@@ -176,6 +181,64 @@ const AdminGuide = () => {
     })
   }
 
+  useEffect(() => {
+    const data = getTmpStorage({ key: 'guide' }) as AdminGuideComponent | false
+    if (data) {
+      swal({
+        title: '임시 저장된 데이터가 있습니다.',
+        text: '임시 데이터를 불러오겠습니까?',
+        icon: 'info',
+        buttons: ['임시 데이터 삭제', '불러오기'],
+      }).then(willSave => {
+        if (willSave) {
+          setTitle(data.title)
+          if (data.date) setDate(new Date(data.date))
+          setContent(data.content)
+          setSource(data.source)
+          setToolName(data.toolName)
+          setFunc(data.func)
+          setCategories(data.categories)
+          setCategoryList(data.categoryList)
+          setUrl(data.url)
+          setImage(data.image)
+          setToolImage(data.toolImage)
+          swal('임시 저장된 데이터를 불러왔습니다.', { icon: 'success' })
+        } else {
+          removeTmpStorage({ key: 'guide' })
+          toast('🥕 임시 데이터가 삭제되었습니다.', { autoClose: 1000 })
+        }
+      })
+    }
+  }, [])
+
+  const tmpSave = () => {
+    const data: AdminGuideComponent = {
+      title,
+      date: date ? `${date}` : '', // date는 객체형식
+      content,
+      source,
+      toolName,
+      func,
+      categories,
+      categoryList,
+      url,
+      image,
+      toolImage,
+    }
+    swal({
+      title: '임시 저장 하시겠습니까?',
+      icon: 'info',
+      buttons: ['취소', '저장'],
+    }).then(willSave => {
+      if (willSave) {
+        setTmpStorage({ key: 'guide', data: data })
+        swal('저장이 완료되었습니다.', { icon: 'success' })
+      } else {
+        toast('🥕 저장이 취소되었습니다.', { autoClose: 1000 })
+      }
+    })
+  }
+
   return (
     <div className={styles.container}>
       <h3 className={styles.title}>가이드 main</h3>
@@ -270,7 +333,7 @@ const AdminGuide = () => {
           color={'white'}
           size={'md'}
           text={'Save'}
-          onClick={() => toast('임시 저장 구현 중')}
+          onClick={tmpSave}
         />
         <AdminButton
           color={'next'}

@@ -15,14 +15,14 @@
 .branchLayout {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(160px, max-content));
+  grid-template-columns: repeat(auto-fit, minmax(148px, max-content));
   column-gap: 60px;
   row-gap: 20px;
 }
 
 .branch {
-  width: 160px;
-  height: 160px;
+  width: 148px;
+  height: 132px;
   object-fit: contain;
 }
 
@@ -37,7 +37,7 @@
 .toolsLayout {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(100px, max-content));
+  grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
   column-gap: 60px;
   row-gap: 20px;
 }
@@ -50,8 +50,8 @@
 }
 
 .toolImage {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
 }
 

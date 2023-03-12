@@ -30,7 +30,11 @@ const DetailMainCard = ({
   }
 
   return (
-    <div className={styles.cardLayout}>
+    <div
+      className={`${styles.cardLayout} ${
+        isSelf ? null : styles.withCardLayout
+      }`}
+    >
       <BsFillBookmarkFill
         className={`${styles.bookmark} ${
           isScraped ? styles.bookmarkScraped : null
@@ -57,11 +61,11 @@ const DetailMainCard = ({
             text={isSelf ? '가이드 ↗' : '공유하기'}
           ></Button>
         </div>
-        <Button
-          color={'primary'}
-          size={'mdLong'}
-          text={isSelf ? '구독하기' : '기업블로그 이동 ↗'}
-        />
+        {isSelf ? (
+          <Button color={'primary'} size={'mdLong'} text={'구독하기'} />
+        ) : (
+          ''
+        )}
       </div>
     </div>
   )
