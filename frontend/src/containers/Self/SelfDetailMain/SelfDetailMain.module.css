@@ -16,14 +16,14 @@
 .clientsLayout {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(160px, max-content));
+  grid-template-columns: repeat(auto-fit, minmax(132px, max-content));
   column-gap: 60px;
   row-gap: 20px;
 }
 
 .client {
-  width: 160px;
-  height: 160px;
+  width: 132px;
+  height: 100px;
   object-fit: contain;
 }
 

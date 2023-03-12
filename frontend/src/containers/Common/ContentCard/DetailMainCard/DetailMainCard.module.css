@@ -14,6 +14,10 @@
   padding-inline: 30px;
 }
 
+.withCardLayout {
+  row-gap: 60px;
+}
+
 .bookmark {
   font-size: 26px;
   position: absolute;
