@@ -22,7 +22,7 @@ const PlanComponent = ({
   return (
     <div className={styles.planLayout}>
       <div className={styles.planFirstSection}>
-        <div className={styles.imogi}>{planImogi[idx]}</div>
+        <div className={styles.imogi}>{planImogi[idx % 4]}</div>
         <div className={styles.planTitle}>{title}</div>
         <div className={styles.planVolume}>팀 전체 {volume}</div>
       </div>

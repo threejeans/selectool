@@ -12,15 +12,29 @@
   height: 100px;
 }
 
+.noRatingImage {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  filter: grayscale(100%);
+}
+
 .ratingImage {
   width: 70px;
   height: 70px;
   object-fit: contain;
 }
 
+.noRatingScore {
+  font-weight: 400;
+  font-size: 16px;
+
+  color: #a8a8a8;
+}
+
 .ratingScore {
   font-weight: 600;
-  font-size: 28px;
+  font-size: 26px;
 
   color: #a8a8a8;
 }
@@ -37,14 +51,14 @@
 }
 
 .fullStar {
-  width: 100px;
+  width: 88px;
   height: 20px;
 }
 
 .emptyStar {
   z-index: -100px;
   position: absolute;
-  width: 100px;
+  width: 88px;
   height: 20px;
   object-fit: contain;
 }
@@ -53,7 +67,7 @@
 .planLayout {
   display: flex;
   flex-direction: column;
-  row-gap: 32px;
+  row-gap: 48px;
   align-items: center;
   width: 240px;
   height: fit-content;
@@ -72,6 +86,7 @@
 }
 
 .planTitle {
+  text-align: center;
   font-weight: 600;
   font-size: 24px;
 }
@@ -84,23 +99,25 @@
 .planSecondSection {
   font-weight: 400;
   font-size: 18px;
+  text-align: center;
   color: black;
 }
 
 .planCost {
   font-weight: 400;
-  font-size: 32px;
+  font-size: 28px;
 }
 
 .planThirdSection {
   display: flex;
   flex-direction: column;
-  row-gap: 18px;
+  row-gap: 16px;
 
   align-items: center;
   text-align: center;
 
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
+  line-height: 26px;
   color: black;
 }

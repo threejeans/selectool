@@ -19,7 +19,7 @@ const persistConfig = {
   whitelist: [
     // 'auth',
     // 'adminAuth',
-    'adminContents',
+    // 'adminContents',
     //
   ],
 }

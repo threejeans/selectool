@@ -10,21 +10,37 @@ type RatingProps = {
   ratingScore: string
 }
 const RatingComponent = ({ isAppstore = false, ratingScore }: RatingProps) => {
-  const starView = parseInt(ratingScore) * 23.3
+  let noRating = false
+  const starView =
+    Number(ratingScore) && Number(ratingScore) <= 5
+      ? Number(ratingScore) * 17.3
+      : 0
+  if (starView === 0) {
+    noRating = true
+  }
   return (
     <div className={styles.ratingLayout}>
       <img
-        className={styles.ratingImage}
+        className={noRating ? styles.noRatingImage : styles.ratingImage}
         src={isAppstore ? appstoreImage : playstoreImage}
       ></img>
       <div className={styles.ratingScoreContainer}>
-        <div className={styles.ratingScore}>{ratingScore}</div>
-        <div>
-          <img src={emptyStar} className={styles.emptyStar}></img>
-          <div className={styles.starBox} style={{ width: starView }}>
-            <img src={fullStar} className={styles.fullStar}></img>
+        {noRating ? (
+          <div className={styles.noRatingScore}>
+            <div>웁스!</div>
+            <div>아직 등록된 리뷰가 없어요 :&#40;</div>
           </div>
-        </div>
+        ) : (
+          <>
+            <div className={styles.ratingScore}>{ratingScore}</div>
+            <div>
+              <img src={emptyStar} className={styles.emptyStar}></img>
+              <div className={styles.starBox} style={{ width: starView }}>
+                <img src={fullStar} className={styles.fullStar}></img>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   )
