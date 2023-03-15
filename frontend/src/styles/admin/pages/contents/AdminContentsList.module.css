@@ -49,7 +49,6 @@
   gap: 12px;
 }
 .tableWrap {
-  position: relative;
   height: 43vh;
   overflow-y: scroll;
   flex-grow: 1;
