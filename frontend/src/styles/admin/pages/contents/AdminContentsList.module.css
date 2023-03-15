@@ -19,6 +19,7 @@
 .section {
   background-color: var(--gray-scale-color-g05);
   border-radius: 1.2rem;
+  height: 100%;
   padding: 2rem;
   box-shadow: 5px 5px 5px var(--gray-scale-color-g10);
   display: flex;

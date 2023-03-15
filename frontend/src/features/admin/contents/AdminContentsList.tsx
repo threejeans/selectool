@@ -141,10 +141,6 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.title}>
-          <h3>콘텐츠 수정, 삭제</h3>
-          <h5>* 작성한 게시글 수정 및 삭제 가능한 공간입니다.</h5>
-        </div>
         <div className={styles.section}>
           <h5>SELECTOOL 게시글 목록</h5>
           <hr />
