@@ -21,7 +21,7 @@ const AdminLayout = ({ title, children }: AdminLayoutProps) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   useEffect(() => {
-    dispatch(checkValiableToken())
+    dispatch(checkValiableToken()).catch(() => navigate('login'))
   }, [])
 
   useEffect(() => {
