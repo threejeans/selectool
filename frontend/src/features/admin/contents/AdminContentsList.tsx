@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 import AdminButton from 'components/admin/AdminButton'
 import AdminModal from 'components/admin/AdminModal'
-import ContentsDetail from 'components/admin/ContentsDetail'
+import ContentDetail from 'components/admin/ContentDetail'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminContentsList.module.css'
@@ -26,6 +26,8 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
   const contentsList = useAppSelector(selectContentsList)
   const [totalPage, setTotalPage] = useState(1)
   const [page, setPage] = useState(1)
+  const prev = page === 1
+  const next = totalPage === 1 || totalPage === page
   const [entry, setEntry] = useState(10)
 
   const [isModal, setIsModal] = useState(false)
@@ -204,10 +206,11 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
                 }}
               >
                 <AdminButton
-                  color={'white'}
+                  color={prev ? 'secondary' : 'white'}
                   size={'tag'}
-                  text={'Previous'}
+                  text={'이전 페이지'}
                   onClick={undefined}
+                  disabled={prev}
                 />
               </span>
               <span
@@ -216,10 +219,11 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
                 }}
               >
                 <AdminButton
-                  color={'white'}
+                  color={next ? 'secondary' : 'white'}
                   size={'tag'}
-                  text={'Next'}
+                  text={'다음 페이지'}
                   onClick={undefined}
+                  disabled={next}
                 />
               </span>
             </div>
@@ -231,7 +235,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
         setIsModal={() => setIsModal(false)}
         outer={true}
       >
-        <ContentsDetail type={type} id={targetId} />
+        <ContentDetail type={type} id={targetId} />
       </AdminModal>
     </>
   )
