@@ -29,6 +29,14 @@ export const getTmpStorage = ({ key }: StorageType) => {
   } else return false
 }
 
+export const setStorageToken = (accessToken: string) => {
+  localStorage.setItem('access-token', accessToken)
+}
+
+export const getStorageToken = () => {
+  return localStorage.getItem('access-token') || false
+}
+
 export const removeTmpStorage = ({ key }: StorageType) => {
   localStorage.removeItem(key)
 }

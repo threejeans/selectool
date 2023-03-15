@@ -248,6 +248,9 @@ export const adminContentsSlice = createSlice({
     resetTmpCorp: state => {
       state.tmpCorp = initialState.tmpCorp
     },
+    resetContentList: state => {
+      state.contentsList = []
+    },
   },
   extraReducers: builder => {
     builder
@@ -283,8 +286,10 @@ export const {
   resetTmpGuide,
   withCorpSave,
   resetTmpCorp,
+  resetContentList,
 } = adminContentsSlice.actions
 
+export const selectLoading = (state: RootState) => state.adminContents.status
 export const selectContentsList = (state: RootState) =>
   state.adminContents.contentsList
 export const selectTmpTool = (state: RootState) => state.adminContents.tmpTool

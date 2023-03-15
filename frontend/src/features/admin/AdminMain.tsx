@@ -1,6 +1,5 @@
 import { useAppSelector } from 'app/hooks'
 import AdminButton from 'components/admin/AdminButton'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styles from 'styles/admin/AdminMain.module.css'
 import { selectAccessToken } from './auth/adminAuthSlice'
