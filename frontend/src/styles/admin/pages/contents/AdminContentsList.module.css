@@ -49,6 +49,7 @@
   gap: 12px;
 }
 .tableWrap {
+  position: relative;
   height: 43vh;
   overflow-y: scroll;
   flex-grow: 1;
@@ -66,7 +67,8 @@
 
 .theadTable th,
 .table td {
-  max-height: 3rem;
+  height: 5vh;
+  max-height: 4rem;
   flex-grow: 0;
   font-size: 1.2rem;
 }

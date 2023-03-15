@@ -4,13 +4,16 @@ import { useEffect, useState } from 'react'
 import AdminButton from 'components/admin/AdminButton'
 import AdminModal from 'components/admin/AdminModal'
 import ContentsDetail from 'components/admin/ContentsDetail'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminContentsList.module.css'
 import swal from 'sweetalert'
 import { TYPE_GUIDE, TYPE_SELF, TYPE_WITH } from 'types/types'
+import { selectAccessToken } from '../auth/adminAuthSlice'
 import {
   deleteItem,
   getContentsList,
+  resetContentList,
   selectContentsList,
 } from './adminContentsSlice'
 
@@ -19,6 +22,7 @@ type ContentsListProps = {
 }
 
 const AdminContentsList = ({ type }: ContentsListProps) => {
+  const accessToken = useAppSelector(selectAccessToken)
   const contentsList = useAppSelector(selectContentsList)
   const [totalPage, setTotalPage] = useState(1)
   const [page, setPage] = useState(1)
@@ -27,9 +31,14 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
   const [isModal, setIsModal] = useState(false)
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(getContentsList({ type }))
+    if (accessToken) dispatch(getContentsList({ type }))
+    else navigate('/admin')
+    return () => {
+      dispatch(resetContentList())
+    }
   }, [])
 
   useEffect(() => {
@@ -150,7 +159,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
               <input
                 type='number'
                 min={10}
-                max={50}
+                max={Math.min(contentsList.length + 5, 50)} // 최대갯수 제한
                 step={5}
                 value={entry}
                 onChange={e => setEntry(parseInt(e.target.value))}
@@ -196,7 +205,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
               >
                 <AdminButton
                   color={'white'}
-                  size={'md'}
+                  size={'tag'}
                   text={'Previous'}
                   onClick={undefined}
                 />
@@ -208,7 +217,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
               >
                 <AdminButton
                   color={'white'}
-                  size={'md'}
+                  size={'tag'}
                   text={'Next'}
                   onClick={undefined}
                 />

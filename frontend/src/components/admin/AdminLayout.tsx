@@ -7,7 +7,6 @@ import {
   selectAccessToken,
 } from 'features/admin/auth/adminAuthSlice'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
 import styles from 'styles/admin/components/AdminLayout.module.css'
 
 type AdminLayoutProps = {
