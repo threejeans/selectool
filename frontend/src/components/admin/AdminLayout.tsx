@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
 import AdminHeader from './AdminHeader'
 
-import { useAppSelector } from 'app/hooks'
-import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import {
+  checkValiableToken,
+  selectAccessToken,
+} from 'features/admin/auth/adminAuthSlice'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import styles from 'styles/admin/components/AdminLayout.module.css'
@@ -15,7 +18,12 @@ type AdminLayoutProps = {
 const AdminLayout = ({ title, children }: AdminLayoutProps) => {
   const accessToken = useAppSelector(selectAccessToken)
   const { pathname } = useLocation()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  useEffect(() => {
+    dispatch(checkValiableToken())
+  }, [])
+
   useEffect(() => {
     if (!pathname.startsWith('/admin/login'))
       if (accessToken === undefined) navigate('login')

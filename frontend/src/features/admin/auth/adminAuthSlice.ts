@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import apiAxios from 'app/apiAxios'
+import apiAxios, { baseURL } from 'app/apiAxios'
 import { RootState } from 'app/store'
+import axios from 'axios'
+import { getStorageToken, setStorageToken } from 'util/localStorage'
 
 type authAdmin = {
   email: string
@@ -48,6 +50,29 @@ export const authAdmin = createAsyncThunk(
     }
   },
 )
+
+export const checkValiableToken = createAsyncThunk(
+  'admin/auth/checkValiableToken',
+  async (_, { rejectWithValue }) => {
+    try {
+      const tmpToken = getStorageToken()
+      if (!tmpToken) throw new Error('empty')
+      const option = {
+        url: baseURL + '/board/guides',
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${tmpToken}`,
+        },
+      }
+      const response = await axios(option)
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
 export const adminAuthSlice = createSlice({
   name: 'adminAuth',
   initialState,
@@ -74,8 +99,19 @@ export const adminAuthSlice = createSlice({
         state.status = 'success'
         console.log(payload)
         state.accessToken = payload.accessToken
+        setStorageToken(payload.accessToken)
       })
       .addCase(authAdmin.rejected, state => {
+        state.status = 'failed'
+      })
+      .addCase(checkValiableToken.pending, state => {
+        state.status = 'loading'
+      })
+      .addCase(checkValiableToken.fulfilled, state => {
+        state.status = 'success'
+        state.accessToken = getStorageToken() || ''
+      })
+      .addCase(checkValiableToken.rejected, state => {
         state.status = 'failed'
       })
   },
