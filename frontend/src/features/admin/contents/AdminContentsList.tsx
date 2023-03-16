@@ -3,33 +3,44 @@ import { useEffect, useState } from 'react'
 
 import AdminButton from 'components/admin/AdminButton'
 import AdminModal from 'components/admin/AdminModal'
-import ContentsDetail from 'components/admin/ContentsDetail'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminContentsList.module.css'
 import swal from 'sweetalert'
 import { TYPE_GUIDE, TYPE_SELF, TYPE_WITH } from 'types/types'
+import { selectAccessToken } from '../auth/adminAuthSlice'
 import {
   deleteItem,
   getContentsList,
+  resetContentList,
   selectContentsList,
 } from './adminContentsSlice'
+import ContentDetail from './ContentDetail'
 
 type ContentsListProps = {
   type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE
 }
 
 const AdminContentsList = ({ type }: ContentsListProps) => {
+  const accessToken = useAppSelector(selectAccessToken)
   const contentsList = useAppSelector(selectContentsList)
   const [totalPage, setTotalPage] = useState(1)
   const [page, setPage] = useState(1)
+  const prev = page === 1
+  const next = totalPage === 1 || totalPage === page
   const [entry, setEntry] = useState(10)
 
   const [isModal, setIsModal] = useState(false)
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    dispatch(getContentsList({ type }))
+    if (accessToken) dispatch(getContentsList({ type }))
+    else navigate('/admin')
+    return () => {
+      dispatch(resetContentList())
+    }
   }, [])
 
   useEffect(() => {
@@ -141,10 +152,6 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.title}>
-          <h3>콘텐츠 수정, 삭제</h3>
-          <h5>* 작성한 게시글 수정 및 삭제 가능한 공간입니다.</h5>
-        </div>
         <div className={styles.section}>
           <h5>SELECTOOL 게시글 목록</h5>
           <hr />
@@ -154,7 +161,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
               <input
                 type='number'
                 min={10}
-                max={50}
+                max={Math.min(contentsList.length + 5, 50)} // 최대갯수 제한
                 step={5}
                 value={entry}
                 onChange={e => setEntry(parseInt(e.target.value))}
@@ -199,10 +206,11 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
                 }}
               >
                 <AdminButton
-                  color={'white'}
-                  size={'md'}
-                  text={'Previous'}
+                  color={prev ? 'secondary' : 'white'}
+                  size={'tag'}
+                  text={'이전 페이지'}
                   onClick={undefined}
+                  disabled={prev}
                 />
               </span>
               <span
@@ -211,10 +219,11 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
                 }}
               >
                 <AdminButton
-                  color={'white'}
-                  size={'md'}
-                  text={'Next'}
+                  color={next ? 'secondary' : 'white'}
+                  size={'tag'}
+                  text={'다음 페이지'}
                   onClick={undefined}
+                  disabled={next}
                 />
               </span>
             </div>
@@ -226,7 +235,7 @@ const AdminContentsList = ({ type }: ContentsListProps) => {
         setIsModal={() => setIsModal(false)}
         outer={true}
       >
-        <ContentsDetail type={type} id={targetId} />
+        <ContentDetail type={type} id={targetId} />
       </AdminModal>
     </>
   )

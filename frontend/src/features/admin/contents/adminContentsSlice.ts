@@ -33,6 +33,9 @@ type ContentsType = {
 
 interface ContentsState {
   contentsList: ContentsType[]
+  currentContent: ToolType | GuideType | CorpType | undefined
+  currentType: TYPE_SELF | TYPE_WITH | TYPE_GUIDE | undefined
+  isModified: boolean
   tmpTool: ToolType
   tmpGuide: GuideType
   tmpCorp: CorpType
@@ -41,6 +44,9 @@ interface ContentsState {
 
 const initialState: ContentsState = {
   contentsList: [],
+  currentContent: undefined,
+  currentType: undefined,
+  isModified: false,
   tmpTool: {
     nameKr: '',
     nameEn: '',
@@ -114,7 +120,8 @@ export const getContent = createAsyncThunk(
   async ({ type, id }: TypeId, { rejectWithValue }) => {
     try {
       const response = await apiAxios.get(`${getApiUrl(type)}/${id}`)
-      return response.data
+      const { data } = response
+      return { type: type, data: data }
     } catch (error: any) {
       console.error(error) //
       return rejectWithValue(error.message)
@@ -248,9 +255,35 @@ export const adminContentsSlice = createSlice({
     resetTmpCorp: state => {
       state.tmpCorp = initialState.tmpCorp
     },
+    resetContentList: state => {
+      state.contentsList = []
+    },
+    startModify: state => {
+      state.isModified = true
+    },
+    stopModify: state => {
+      state.isModified = false
+    },
+    resetCurrent: state => {
+      state.currentContent = undefined
+      state.currentType = undefined
+    },
   },
   extraReducers: builder => {
     builder
+      .addCase(getContent.pending, state => {
+        state.status = 'loading'
+      })
+      .addCase(getContent.fulfilled, (state, { payload }) => {
+        state.currentContent = payload.data
+        state.currentType = payload.type
+        state.status = 'success'
+      })
+      .addCase(getContent.rejected, state => {
+        state.currentContent = undefined
+        state.currentType = undefined
+        state.status = 'failed'
+      })
       .addCase(getContentsList.pending, state => {
         state.status = 'loading'
       })
@@ -283,8 +316,19 @@ export const {
   resetTmpGuide,
   withCorpSave,
   resetTmpCorp,
+  resetContentList,
+  startModify,
+  stopModify,
+  resetCurrent,
 } = adminContentsSlice.actions
 
+export const selectLoading = (state: RootState) => state.adminContents.status
+export const selectCurrentContent = (state: RootState) =>
+  state.adminContents.currentContent
+export const selectCurrentType = (state: RootState) =>
+  state.adminContents.currentType
+export const selectIsModified = (state: RootState) =>
+  state.adminContents.isModified
 export const selectContentsList = (state: RootState) =>
   state.adminContents.contentsList
 export const selectTmpTool = (state: RootState) => state.adminContents.tmpTool
