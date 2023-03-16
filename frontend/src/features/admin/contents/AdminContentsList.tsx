@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 
 import AdminButton from 'components/admin/AdminButton'
 import AdminModal from 'components/admin/AdminModal'
-import ContentDetail from 'components/admin/ContentDetail'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminContentsList.module.css'
@@ -16,6 +15,7 @@ import {
   resetContentList,
   selectContentsList,
 } from './adminContentsSlice'
+import ContentDetail from './ContentDetail'
 
 type ContentsListProps = {
   type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE
