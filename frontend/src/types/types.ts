@@ -85,6 +85,7 @@ export type SelfMainInfo = {
 // 가이드
 
 export type GuideType = {
+  id?: number
   title: string
   date?: Date
   content: string
