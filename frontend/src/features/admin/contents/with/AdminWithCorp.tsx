@@ -13,7 +13,18 @@ import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/contents/AdminSelfSpecific.module.css'
 import swal from 'sweetalert'
 
-import { BranchType, CorpType, CultureType, ToolType } from 'types/types'
+import {
+  AdminWithComponent,
+  BranchType,
+  CorpType,
+  CultureType,
+  ToolType,
+} from 'types/types'
+import {
+  getTmpStorage,
+  removeTmpStorage,
+  setTmpStorage,
+} from 'util/localStorage'
 import {
   createCorp,
   popToast,
@@ -340,6 +351,7 @@ const AdminWithCorp = () => {
       })
     }
   }, [tmpCorp])
+
   const handleCancel = () => {
     swal({
       title: '돌아가시겠습니까?',
@@ -354,6 +366,81 @@ const AdminWithCorp = () => {
       }
     })
   }
+
+  useEffect(() => {
+    const data = getTmpStorage({ key: 'with' }) as AdminWithComponent | false
+    if (data) {
+      swal({
+        title: '임시 저장된 데이터가 있습니다.',
+        text: '임시 데이터를 불러오겠습니까?',
+        icon: 'info',
+        buttons: ['임시 데이터 삭제', '불러오기'],
+      }).then(willSave => {
+        if (willSave) {
+          setNameKr(data.nameKr)
+          setNameEn(data.nameEn)
+          setInfo(data.info)
+          setTeamNameKr(data.teamNameKr)
+          setTeamNameEn(data.teamNameEn)
+          setCategories(data.categories)
+          setImage(data.image)
+          setUrl(data.url)
+          setContent(data.content)
+          setCorpCulture(data.corpCulture)
+          setCultureTitles(data.cultureTitles)
+          setCultureContents(data.cultureContents)
+          setBranch(data.branch)
+          setBranchImages(data.branchImages)
+          setBranchNames(data.branchNames)
+          setInCorpTool(data.inCorpTool)
+          setInCorpToolImages(data.inCorpToolImages)
+          setInCorpToolSites(data.inCorpToolSites)
+          setTools(data.tools)
+          swal('임시 저장된 데이터를 불러왔습니다.', { icon: 'success' })
+        } else {
+          removeTmpStorage({ key: 'with' })
+          toast('🥕 임시 데이터가 삭제되었습니다.', { autoClose: 1000 })
+        }
+      })
+    }
+  }, [])
+
+  const tmpSave = () => {
+    const data: AdminWithComponent = {
+      nameKr,
+      nameEn,
+      info,
+      teamNameKr,
+      teamNameEn,
+      categories,
+      image,
+      url,
+      content,
+      corpCulture,
+      cultureTitles,
+      cultureContents,
+      branch,
+      branchImages,
+      branchNames,
+      inCorpTool,
+      inCorpToolImages,
+      inCorpToolSites,
+      tools,
+    }
+    swal({
+      title: '임시 저장 하시겠습니까?',
+      icon: 'info',
+      buttons: ['취소', '저장'],
+    }).then(willSave => {
+      if (willSave) {
+        setTmpStorage({ key: 'with', data: data })
+        swal('저장이 완료되었습니다.', { icon: 'success' })
+      } else {
+        toast('🥕 저장이 취소되었습니다.', { autoClose: 1000 })
+      }
+    })
+  }
+
   return (
     <>
       <div className={styles.container}>
@@ -450,7 +537,7 @@ const AdminWithCorp = () => {
               color={'white'}
               size={'md'}
               text={'Save'}
-              onClick={() => toast('임시 저장 구현 중')}
+              onClick={tmpSave}
             />
             <AdminButton
               color={'next'}

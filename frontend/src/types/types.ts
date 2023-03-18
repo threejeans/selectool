@@ -85,6 +85,7 @@ export type SelfMainInfo = {
 // 가이드
 
 export type GuideType = {
+  id?: number
   title: string
   date?: Date
   content: string
@@ -154,4 +155,68 @@ export type WithCorpType = {
   categories: CategoryType[]
   cultures: CultureType[]
   tools: WithToolType[]
+}
+
+// 임시저장 타입..
+export type AdminSelfComponent = {
+  nameKr: string
+  nameEn: string
+  info: string
+  msg: string
+  topic: string
+  categories: string[]
+  country: string
+  image: string
+  url: string
+  toolFunction: number
+  toolFunctionNames: string[]
+  toolFunctionContents: string[]
+  mainClient: number
+  mainClientImages: string[]
+  mainClientNames: string[]
+  mainClientSites: string[]
+  mainClients: ClientType[]
+  planTitles: string[]
+  planVolumes: string[]
+  planCosts: string[]
+  planFunctions: string[][]
+  costPlan: number
+  planInfo: number[]
+  aos: string
+  ios: string
+}
+export type AdminWithComponent = {
+  nameKr: string
+  nameEn: string
+  info: string
+  teamNameKr: string
+  teamNameEn: string
+  categories: string[]
+  image: string
+  url: string
+  content: string
+  corpCulture: number
+  cultureTitles: string[]
+  cultureContents: string[]
+  branch: number
+  branchImages: string[]
+  branchNames: string[]
+  inCorpTool: number
+  inCorpToolImages: string[]
+  inCorpToolSites: string[]
+  tools: ToolType[]
+}
+
+export type AdminGuideComponent = {
+  title: string
+  date: string
+  content: string
+  source: string
+  toolName: string
+  func: string
+  categories: string[]
+  categoryList: string[]
+  url: string
+  image: string
+  toolImage: string
 }

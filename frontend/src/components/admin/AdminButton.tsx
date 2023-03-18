@@ -6,6 +6,7 @@ type buttonProps = {
   size: string
   text: string
   onClick: any
+  disabled?: boolean
 }
 
 const colorHandler = (color: string) => {
@@ -37,13 +38,21 @@ const sizeHandler = (size: string) => {
       return styles.lgTab
   }
 }
-const AdminButton = ({ color, size, text, onClick, ...rest }: buttonProps) => {
+const AdminButton = ({
+  color,
+  size,
+  text,
+  onClick,
+  disabled = false,
+  ...rest
+}: buttonProps) => {
   return (
     <button
       className={`${styles.commonStyle} ${colorHandler(color)} ${sizeHandler(
         size,
       )}`}
       onClick={onClick}
+      disabled={disabled}
       {...rest}
     >
       {text}

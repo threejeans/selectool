@@ -1,0 +1,190 @@
+.container {
+  width: 80vw;
+  max-width: 1200px;
+  height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.wrap {
+  width: 86%;
+  height: 100%;
+}
+
+.container::-webkit-scrollbar {
+  max-height: 40px;
+  width: 8px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  height: 20%;
+  background: var(--gray-scale-color-g10);
+  border-radius: 10px;
+}
+
+.container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.section {
+  width: 100%;
+  min-height: 4rem;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sectionHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-bottom: 2px solid var(--gray-scale-color-g10);
+  padding: 1rem 0;
+}
+
+.imageWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  margin-bottom: 0.4rem;
+}
+
+.image {
+  width: 120px;
+}
+
+.title {
+  position: relative;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.2rem;
+}
+
+.modify {
+  width: 7rem;
+  height: 1.6rem;
+  position: absolute;
+  top: 0;
+  left: 110%;
+  color: var(--primary-color-main);
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.subTitle {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.info {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.url {
+  color: var(--primary-color-main);
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.functionGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40%, max-content));
+  grid-gap: 1rem 3rem;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.cardGrid {
+  width: 90%;
+  display: grid;
+  grid-gap: 0.2rem;
+  grid-template-areas:
+    'a b b b b b b b b b b b b b b b'
+    '. c c c c c c c c c c c c c c c'
+    '. c c c c c c c c c c c c c c c'
+    '. c c c c c c c c c c c c c c c';
+  align-items: flex-start;
+}
+.a {
+  grid-area: a;
+}
+.b {
+  font-weight: 600;
+  grid-area: b;
+}
+.c {
+  grid-area: c;
+}
+
+.clientGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 2rem 0;
+}
+
+.client {
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.client img {
+  width: 120px;
+}
+
+.planGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  margin: 2rem 0;
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.planTitle {
+  width: 50%;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  word-wrap: break-word;
+}
+.planVolume {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.planCost {
+  font-size: 2rem;
+  font-weight: 500;
+}
