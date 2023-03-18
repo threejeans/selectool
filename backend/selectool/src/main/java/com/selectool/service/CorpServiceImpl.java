@@ -75,6 +75,9 @@ public class CorpServiceImpl implements CorpService {
         // 회사 문화 생성
         List<CorpCulture> corpCultures = request.getCultures().stream()
                 .map(culture -> CorpCulture.builder()
+                        .title(culture.getTitle())
+                        .content(culture.getContent())
+                        .corp(corp)
                         .build()
                 )
                 .collect(Collectors.toList());
@@ -84,15 +87,13 @@ public class CorpServiceImpl implements CorpService {
         // 있는 툴 등록, 없는 툴 생성 및 연결
         List<CorpTool> corpTools = request.getTools().stream()
                 .map(tool -> {
-                            CorpTool corpTool = CorpTool.builder()
-                                    .corp(corp)
-                                    .build();
-
                             Tool t = toolRepo.findById(tool.getId())
-                                    .orElse(createTool(tool));
+                                    .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
 
-                            corpTool.setTool(t);
-                            return corpTool;
+                            return CorpTool.builder()
+                                    .corp(corp)
+                                    .tool(t)
+                                    .build();
                         }
                 )
                 .collect(Collectors.toList());
