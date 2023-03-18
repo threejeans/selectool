@@ -144,22 +144,25 @@ public class ToolServiceImpl implements ToolService {
         // 툴 주요 고객 생성
         List<ToolClient> toolClients = request.getClients().stream()
                 .map(client -> {
-                            ToolClient toolClient = ToolClient.builder()
+
+                            Long clientId = client.getId();
+                            Client c;
+                            if (clientId == 0L) {
+                                c = Client.builder()
+                                        .name(client.getName())
+                                        .image(client.getImage())
+                                        .url(client.getUrl())
+                                        .build();
+                                clientRepo.save(c);
+                            } else {
+                                c = clientRepo.findById(client.getId())
+                                        .orElseThrow(() -> new NotFoundException(CLIENT_NOT_FOUND));
+                            }
+
+                            return ToolClient.builder()
                                     .tool(tool)
+                                    .client(c)
                                     .build();
-
-                            Client c = clientRepo.findById(client.getId())
-                                    .orElse(
-                                            Client.builder()
-                                                    .name(client.getName())
-                                                    .image(client.getImage())
-                                                    .url(client.getUrl())
-                                                    .build()
-                                    );
-                            clientRepo.save(c);
-                            toolClient.setClient(c);
-
-                            return toolClient;
                         }
                 )
                 .collect(Collectors.toList());
