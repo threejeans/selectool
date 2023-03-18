@@ -11,6 +11,7 @@ import styles from './WithDetailMain.module.css'
 const WithDetailMain = () => {
   const specificInfo = useAppSelector(withSpecificInfo)
   const branchDescription = '* 상위 ' + specificInfo.branches.length + '개 기준'
+  console.log(specificInfo)
 
   return (
     <>
@@ -27,11 +28,13 @@ const WithDetailMain = () => {
         <DetailContentCard title='자회사' description={branchDescription}>
           <div className={styles.branchLayout}>
             {specificInfo.branches.map((branch, index) => (
-              <img
-                key={index}
-                src={branch.image}
-                className={styles.branch}
-              ></img>
+              <a href={branch.name} key={index}>
+                <img
+                  key={index}
+                  src={branch.image}
+                  className={styles.branch}
+                ></img>
+              </a>
             ))}
           </div>
         </DetailContentCard>

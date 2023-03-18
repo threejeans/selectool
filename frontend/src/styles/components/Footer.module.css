@@ -8,7 +8,7 @@
 
 .container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1080px;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -31,9 +31,9 @@
 }
 .title {
   color: var(--gray-scale-color-g45);
-  font-size: 3rem;
+  font-size: 1.6rem;
   font-weight: 500;
-  margin-right: 2rem;
+  margin-right: 1.6rem;
 }
 .instaBtn {
   display: flex;
@@ -56,7 +56,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
   gap: 1rem;
 }
 
@@ -69,4 +69,9 @@
   color: var(--gray-scale-color-g30);
   width: 3rem;
   height: 3.2rem;
+}
+
+.copyright {
+  font-size: 0.8rem;
+  font-weight: 200;
 }

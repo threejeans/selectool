@@ -4,9 +4,9 @@
 }
 
 .label {
-  padding-bottom: 6px;
+  padding-bottom: 8px;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   color: white;
 }
 
@@ -16,24 +16,24 @@
 }
 
 .input {
-  width: 15rem;
-  height: 2.6rem;
+  width: 12.2rem;
+  height: 2.2rem;
   background: transparent;
-  border: 2px solid;
+  border: 1px solid;
   border-color: #eeeeee;
   outline: none;
   border-radius: 10px;
-  padding-inline: 1rem;
+  padding-inline: 0.8rem;
 
   font-weight: 400;
-  font-size: 16px;
+  font-size: 12px;
   color: #f5f5f5;
 
   transition: 0.3s;
 }
 
 .input::placeholder {
-  font-size: 16px;
+  font-size: 12px;
   color: rgba(245, 245, 245, 0.6);
 }
 
@@ -103,14 +103,14 @@
 }
 
 .textarea {
-  padding-block: 1rem;
-  width: 34rem;
-  height: 6rem;
+  padding-block: 0.8rem;
+  width: 28rem;
+  height: 5.3rem;
   resize: none;
 
   font-family: 'Pretendard Variable';
   font-weight: 400;
-  font-size: 16px;
+  font-size: 12px;
   color: #f5f5f5;
 }
 

@@ -27,8 +27,7 @@ const RatingComponent = ({ isAppstore = false, ratingScore }: RatingProps) => {
       <div className={styles.ratingScoreContainer}>
         {noRating ? (
           <div className={styles.noRatingScore}>
-            <div>웁스!</div>
-            <div>아직 등록된 리뷰가 없어요 :&#40;</div>
+            <div>등록된 리뷰가 없어요 :&#40;</div>
           </div>
         ) : (
           <>

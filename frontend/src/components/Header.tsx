@@ -60,7 +60,7 @@ const Header = ({ title }: LayoutProps) => {
             <MenuLink path={'/self'} title={'혼자써요'} />
             <MenuLink path={'/with'} title={'함께써요'} />
             <MenuLink path={'/guide'} title={'가이드'} />
-            {' | '}
+            <span className={styles.line}>{' | '}</span>
             {isLogon ? (
               <MenuLink path={'/mypage'} title={'마이페이지'} />
             ) : (
