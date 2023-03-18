@@ -15,6 +15,7 @@
 
 .basic:hover {
   background: rgba(96, 169, 246, 0.1);
+  cursor: pointer;
 }
 
 .basicChecked {

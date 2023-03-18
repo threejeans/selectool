@@ -12,7 +12,7 @@
 }
 
 .image {
-  width: 1020px;
+  width: 900px;
   position: relative;
 }
 
@@ -25,10 +25,10 @@
 }
 
 .scroller {
-  height: 3.4rem;
-  width: 10rem;
-  margin-left: 1.6rem;
-  margin-right: 1.6rem;
+  height: 4.4rem;
+  width: 8rem;
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
   padding-bottom: 0.2rem;
   overflow: hidden;
   position: relative;
@@ -36,18 +36,18 @@
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.scroller:hover{
+.scroller:hover {
   box-shadow: 2px 2px 20px 1px rgba(96, 169, 246, 0.3);
 }
 
 .scroller .scroller_item {
   position: absolute;
-  width: 7rem;
+  width: 8rem;
   text-align: center;
   top: 0;
   font-weight: 800;
   animation: slide 3s infinite;
-  background: linear-gradient(to right, #60A9F6 5.62%, #0BC935 60.05%);
+  background: linear-gradient(to right, #60a9f6 5.62%, #0bc935 60.05%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -61,8 +61,8 @@
 
 .scrollArrow > svg {
   color: white;
-  width: 3.75rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3.6rem;
 }
 
 .scrollArrow:nth-child(1) {
@@ -75,17 +75,6 @@
   animation-delay: 0.3s;
 }
 
-@media (min-width: 48rem) {
-  .scroller {
-    height: 5.4rem;
-    width: 10rem;
-  }
-
-  .scroller .scroller_item {
-    width: 10rem;
-  }
-}
-
 @keyframes slide {
   0% {
     top: 0;
@@ -94,7 +83,6 @@
     top: -1.2em;
   }
 }
-
 
 @keyframes arrow-wave {
   0% {

@@ -10,17 +10,16 @@
 
 .contents {
   width: 100%;
-  max-width: 1120px;
+  max-width: 960px;
   height: 85%;
 }
 
 .detail_title {
   margin: 0;
-  font-weight: 700;
 }
 
 .margin_left {
-  margin-left: 20px;
+  margin-left: 14px;
 }
 
 .main_contents {
@@ -49,7 +48,7 @@
 
 .a_tag {
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 26px;
   align-items: center;
   letter-spacing: 0.02em;
@@ -66,7 +65,7 @@
 }
 
 .image_section {
-  width: 400px;
+  width: 352px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,7 +77,7 @@
 
 .image_front_01 {
   position: relative;
-  width: 340px;
+  width: 260px;
   top: 50px;
   left: 30px;
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
@@ -86,7 +85,7 @@
 
 .image_back_01 {
   position: absolute;
-  width: 300px;
+  width: 240px;
   top: -50px;
   left: -120px;
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
@@ -94,32 +93,32 @@
 
 .image_front_02 {
   position: relative;
-  width: 280px;
-  top: 50px;
+  width: 220px;
+  top: 20px;
   left: 100px;
   filter: drop-shadow(2px 2px 20px rgba(96, 169, 246, 0.35));
 }
 
 .image_back_02 {
   position: absolute;
-  width: 240px;
+  width: 200px;
   top: -50px;
-  left: -72px;
+  left: -60px;
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
 }
 
 .image_front_03 {
   position: relative;
-  width: 380px;
-  top: 50px;
-  left: -10px;
+  width: 340px;
+  top: 30px;
+  left: -32px;
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
 }
 
 .image_back_03 {
   position: absolute;
-  width: 380px;
-  left: 30px;
+  width: 340px;
+  left: 0px;
   top: -50px;
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.25));
 }

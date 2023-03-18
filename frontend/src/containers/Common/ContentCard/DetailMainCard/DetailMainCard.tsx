@@ -51,7 +51,7 @@ const DetailMainCard = ({
       <div className={styles.buttonSection}>
         <div className={styles.smallButtons}>
           <Button
-            color={'secondary'}
+            color={isSelf ? 'secondary' : 'primary'}
             size={'mdShort'}
             text={'웹페이지 ↗'}
           ></Button>

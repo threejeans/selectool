@@ -68,25 +68,25 @@ button {
 }
 
 h1 {
-  font-size: calc(3rem * var(--text-multiplier));
+  font-size: calc(2.6rem * var(--text-multiplier));
   font-weight: 700;
 }
 
 h2 {
-  font-size: calc(2rem * var(--text-multiplier));
-  line-height: calc(2.8rem * var(--text-multiplier));
+  font-size: calc(1.6rem * var(--text-multiplier));
+  line-height: calc(2.6rem * var(--text-multiplier));
   font-weight: 700;
 }
 
 h3 {
-  font-size: calc(1.5rem * var(--text-multiplier));
-  line-height: calc(2.4rem * var(--text-multiplier));
+  font-size: calc(1.3rem * var(--text-multiplier));
+  line-height: calc(2rem * var(--text-multiplier));
   font-weight: 600;
 }
 
 h4 {
-  font-size: calc(1.375rem * var(--text-multiplier));
-  line-height: calc(2rem * var(--text-multiplier));
+  font-size: calc(1.2rem * var(--text-multiplier));
+  line-height: calc(1.8rem * var(--text-multiplier));
   font-weight: 600;
 }
 
