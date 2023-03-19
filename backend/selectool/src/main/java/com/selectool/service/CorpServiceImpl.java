@@ -1,9 +1,6 @@
 package com.selectool.service;
 
-import com.selectool.dto.corp.request.CorpBranchUpdateRequest;
-import com.selectool.dto.corp.request.CorpCategoryUpdateRequest;
 import com.selectool.dto.corp.request.CorpCreateRequest;
-import com.selectool.dto.corp.request.CorpUpdateRequest;
 import com.selectool.dto.corp.response.*;
 import com.selectool.dto.tool.request.ToolCreateRequest;
 import com.selectool.entity.*;
@@ -116,7 +113,7 @@ public class CorpServiceImpl implements CorpService {
 
     @Override
     @Transactional
-    public CorpResponse updateCorp(Long corpId, CorpUpdateRequest request) {
+    public CorpResponse updateCorp(Long corpId, CorpCreateRequest request) {
         Corp corp = corpRepo.findById(corpId)
                 .orElseThrow(() -> new NotFoundException(CORP_NOT_FOUND));
 
