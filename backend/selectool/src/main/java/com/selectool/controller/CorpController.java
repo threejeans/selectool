@@ -5,6 +5,7 @@ import com.selectool.config.login.LoginAdmin;
 import com.selectool.config.login.LoginUser;
 import com.selectool.config.login.User;
 import com.selectool.dto.corp.request.CorpCreateRequest;
+import com.selectool.dto.corp.request.CorpUpdateRequest;
 import com.selectool.dto.corp.response.CorpResponse;
 import com.selectool.service.CorpService;
 import io.swagger.annotations.Api;
@@ -49,6 +50,17 @@ public class CorpController {
             @PathVariable Long corpId
     ) {
         CorpResponse response = corpService.getCorp(user.getId(), corpId);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/corps/{corpId}")
+    @ApiOperation(value = "기업 수정")
+    public ResponseEntity<CorpResponse> updateCorp(
+            @LoginAdmin Admin admin,
+            @PathVariable Long corpId,
+            @RequestBody CorpUpdateRequest request
+    ) {
+        CorpResponse response = corpService.updateCorp(corpId, request);
         return ResponseEntity.ok(response);
     }
 

@@ -1,6 +1,9 @@
 package com.selectool.service;
 
+import com.selectool.dto.corp.request.CorpBranchUpdateRequest;
+import com.selectool.dto.corp.request.CorpCategoryUpdateRequest;
 import com.selectool.dto.corp.request.CorpCreateRequest;
+import com.selectool.dto.corp.request.CorpUpdateRequest;
 import com.selectool.dto.corp.response.*;
 import com.selectool.dto.tool.request.ToolCreateRequest;
 import com.selectool.entity.*;
@@ -34,6 +37,14 @@ public class CorpServiceImpl implements CorpService {
 
     private final ClientRepo clientRepo;
 
+    private final CorpCategoryRepo corpCategoryRepo;
+
+    private final CorpBranchRepo corpBranchRepo;
+
+    private final CorpCultureRepo corpCultureRepo;
+
+    private final CorpToolRepo corpToolRepo;
+
     private final CorpBookmarkRepo corpBookmarkRepo;
 
     @Override
@@ -50,6 +61,7 @@ public class CorpServiceImpl implements CorpService {
                 .url(request.getUrl())
                 .content(request.getContent())
                 .build();
+
 
         // 카테고리 생성
         List<CorpCategory> corpCategories = request.getCategories().stream()
@@ -84,7 +96,6 @@ public class CorpServiceImpl implements CorpService {
         corp.setCorpCultures(corpCultures);
 
         // 회사 사용 툴 등록
-        // 있는 툴 등록, 없는 툴 생성 및 연결
         List<CorpTool> corpTools = request.getTools().stream()
                 .map(tool -> {
                             Tool t = toolRepo.findById(tool.getId())
@@ -100,6 +111,90 @@ public class CorpServiceImpl implements CorpService {
         corp.setCorpTools(corpTools);
 
         corpRepo.save(corp);
+        return entityToDTO(null, corp);
+    }
+
+    @Override
+    @Transactional
+    public CorpResponse updateCorp(Long corpId, CorpUpdateRequest request) {
+        Corp corp = corpRepo.findById(corpId)
+                .orElseThrow(() -> new NotFoundException(CORP_NOT_FOUND));
+
+        // 카테고리 수정 (삭제 후 생성)
+        List<CorpCategory> corpCategories = corp.getCorpCategories();
+        corpCategories.clear();
+        corpCategories.addAll(
+                request.getCategories().stream()
+                        .map(category -> CorpCategory.builder()
+                                .name(category.getName())
+                                .corp(corp)
+                                .build()
+                        )
+                        .collect(Collectors.toList())
+        );
+
+        // 자회사 수정 (삭제 후 생성)
+        List<CorpBranch> corpBranches = corp.getCorpBranches();
+        corpBranches.clear();
+        corpBranches.addAll(
+                request.getBranches().stream()
+                        .map(branch -> CorpBranch.builder()
+                                .name(branch.getName())
+                                .image(branch.getImage())
+                                .corp(corp)
+                                .build()
+                        )
+                        .collect(Collectors.toList())
+        );
+
+        // 회사 문화 수정 (삭제 후 생성)
+        List<CorpCulture> corpCultures = corp.getCorpCultures();
+        corpCultures.clear();
+        corpCultures.addAll(
+                request.getCultures().stream()
+                        .map(culture -> CorpCulture.builder()
+                                .title(culture.getTitle())
+                                .content(culture.getContent())
+                                .corp(corp)
+                                .build()
+                        )
+                        .collect(Collectors.toList())
+        );
+
+
+        // 회사 사용 툴 수정 (삭제 후 생성)
+        List<CorpTool> corpTools = corp.getCorpTools();
+        corpTools.clear();
+        corpTools.addAll(
+                request.getTools().stream()
+                        .map(tool -> {
+                                    Tool t = toolRepo.findById(tool.getId())
+                                            .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+                                    return CorpTool.builder()
+                                            .corp(corp)
+                                            .tool(t)
+                                            .build();
+                                }
+                        )
+                        .collect(Collectors.toList())
+        );
+
+        corp.update(
+                request.getNameKr(),
+                request.getNameEn(),
+                request.getInfo(),
+                request.getTeamNameKr(),
+                request.getTeamNameEn(),
+                request.getImage(),
+                request.getUrl(),
+                request.getContent(),
+                corpCategories,
+                corpBranches,
+                corpCultures,
+                corpTools
+        );
+
         return entityToDTO(null, corp);
     }
 

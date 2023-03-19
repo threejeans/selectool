@@ -9,6 +9,8 @@ public class NotFoundException extends RuntimeException {
     public static final String TOOL_NOT_FOUND = "존재하지 않는 툴입니다.";
     public static final String GUIDE_NOT_FOUND = "존재하지 않는 가이드입니다.";
     public static final String CORP_NOT_FOUND = "존재하지 않는 기업입니다.";
+
+    public static final String CORP_BRANCH_NOT_FOUND = "존재하지 않는 기업 자회사입니다.";
     public static final String CLIENT_NOT_FOUND = "존재하지 않는 주요 고객입니다.";
     public static final String TOOL_BOOKMARK_NOT_FOUND = "북마크에 등록되지 않은 툴입니다.";
     public static final String GUIDE_BOOKMARK_NOT_FOUND = "북마크에 등록되지 않은 가이드입니다.";
