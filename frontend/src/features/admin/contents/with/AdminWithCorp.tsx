@@ -107,12 +107,12 @@ const AdminWithCorp = () => {
 
   // 자회사 사이트 관련
   const [branch, setBranch] = useState(1)
-  const subsidiaryInputRefs = useRef<HTMLInputElement[]>([])
+  const branchInputRefs = useRef<HTMLInputElement[]>([])
   const [branchImages, setBranchImages] = useState<string[]>([])
   const [branchNames, setBranchNames] = useState<string[]>([])
 
   const SubsidiarySectionGroup = () => {
-    if (subsidiaryInputRefs.current)
+    if (branchInputRefs.current)
       return [...Array(branch)].map((_, index) => {
         return (
           <div key={index} className={styles.section}>
@@ -127,7 +127,7 @@ const AdminWithCorp = () => {
               idx={index}
               subName={'자회사 이름'}
               required={false}
-              inputRefs={subsidiaryInputRefs}
+              inputRefs={branchInputRefs}
               images={branchImages}
               setImages={setBranchImages}
               names={branchNames}
@@ -294,9 +294,9 @@ const AdminWithCorp = () => {
       }
       data.cultures = tmp
     }
-    if (branch) {
+    if (branchInputRefs.current) {
       const tmp: BranchType[] = []
-      for (let i = 0; i < corpCulture; i++) {
+      for (let i = 0; i < branch; i++) {
         const t: BranchType = {
           image: branchImages[i],
           name: branchNames[i],
