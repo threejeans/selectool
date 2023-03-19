@@ -59,4 +59,19 @@ public class Guide extends BaseEntity {
         this.guideCategories = guideCategories;
         this.guideBookmarks = guideBookmarks;
     }
+
+    public void update(String title, LocalDateTime date, String content, String source, String toolName, String func, String url, String image, String toolImage, List<GuideCategory> guideCategories) {
+        this.title = title;
+        this.date = date;
+        this.content = content;
+        this.source = source;
+        this.toolName = toolName;
+        this.func = func;
+        this.url = url;
+        this.image = image;
+        this.toolImage = toolImage;
+        this.guideCategories = guideCategories;
+    }
+
+
 }

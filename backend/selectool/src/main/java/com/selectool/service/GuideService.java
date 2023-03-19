@@ -12,11 +12,12 @@ public interface GuideService {
     public List<GuideResponse> getGuideList(Long userId);
     // 가이드 단건 조회
     public GuideResponse getGuide(Long userId, Long guideId);
+    // 가이드 수정
+    public GuideResponse updateGuide(Long guideId, GuideCreateRequest request);
     // 가이드 삭제
     public void deleteGuide(Long guideId);
     // 가이드 북마크 추가
     public void addBookmark(Long userId, Long guideId);
     // 가이드 북마크 해제
     public void unBookmark(Long userId, Long guideId);
-    // 가이드 수정
 }

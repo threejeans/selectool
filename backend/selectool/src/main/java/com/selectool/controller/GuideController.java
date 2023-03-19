@@ -52,6 +52,17 @@ public class GuideController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PutMapping("/guides/{guideId}")
+    @ApiOperation(value = "가이드 수정")
+    public ResponseEntity<?> updateGuide(
+            @LoginAdmin Admin admin,
+            @PathVariable Long guideId,
+            @RequestBody GuideCreateRequest request
+    ) {
+        GuideResponse response = guideService.updateGuide(guideId, request);
+        return ResponseEntity.ok(response);
+    }
+
 
     @DeleteMapping("/guides/{guideId}")
     @ApiOperation(value = "가이드 삭제")
