@@ -58,6 +58,7 @@ public class ToolServiceImpl implements ToolService {
                         .country(tool.getCountry())
                         .image(tool.getImage())
                         .url(tool.getUrl())
+                        .trial(tool.getTrial())
                         .isBookmarked(bookmarkMap.get(tool) != null)
                         .categories(tool.getToolCategories().stream()
                                 .map(category -> ToolCategoryResponse.builder()
@@ -92,6 +93,7 @@ public class ToolServiceImpl implements ToolService {
                 .url(request.getUrl())
                 .aos(request.getAos())
                 .ios(request.getIos())
+                .trial(request.getTrial())
                 .build();
 
         // 툴 카테고리 생성
@@ -239,6 +241,7 @@ public class ToolServiceImpl implements ToolService {
                 .url(tool.getUrl())
                 .aos(tool.getAos())
                 .ios(tool.getIos())
+                .trial(tool.getTrial())
                 .isBookmarked(!toolBookmarks.isEmpty())
                 .categories(tool.getToolCategories().stream()
                         .map(category -> ToolCategoryResponse.builder()

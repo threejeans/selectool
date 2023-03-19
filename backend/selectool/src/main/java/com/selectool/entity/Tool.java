@@ -1,6 +1,10 @@
 package com.selectool.entity;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -36,6 +40,9 @@ public class Tool extends BaseEntity {
 
     private String ios;
 
+    @ColumnDefault("false")
+    private Boolean trial;
+
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolCategory> toolCategories = new ArrayList<>();
 
@@ -55,7 +62,7 @@ public class Tool extends BaseEntity {
     private List<CorpTool> corpTools = new ArrayList<>();
 
     @Builder
-    public Tool(Long id, String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, List<ToolCategory> toolCategories, List<ToolPlan> toolPlans, List<ToolFunction> toolFunctions, List<ToolClient> toolClients, List<ToolBookmark> toolBookmarks, List<CorpTool> corpTools) {
+    public Tool(Long id, String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, Boolean trial, List<ToolCategory> toolCategories, List<ToolPlan> toolPlans, List<ToolFunction> toolFunctions, List<ToolClient> toolClients, List<ToolBookmark> toolBookmarks, List<CorpTool> corpTools) {
         this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
@@ -67,6 +74,7 @@ public class Tool extends BaseEntity {
         this.url = url;
         this.aos = aos;
         this.ios = ios;
+        this.trial = trial;
         this.toolCategories = toolCategories;
         this.toolPlans = toolPlans;
         this.toolFunctions = toolFunctions;
