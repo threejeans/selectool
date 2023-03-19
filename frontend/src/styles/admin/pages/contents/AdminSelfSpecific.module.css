@@ -256,3 +256,14 @@
   justify-content: center;
   align-items: center;
 }
+
+.planCheck {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  display: flex;
+}
+.checkTitle {
+  display: block;
+  margin: 0;
+}
