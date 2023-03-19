@@ -192,6 +192,7 @@ public class CorpServiceImpl implements CorpService {
                 corpTools
         );
 
+        corpRepo.save(corp);
         return entityToDTO(null, corp);
     }
 
