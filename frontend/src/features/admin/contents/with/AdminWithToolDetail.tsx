@@ -155,6 +155,7 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
       })
   }
   // 가격 플랜 관련
+  const [hasTrial, setHasTrial] = useState<boolean>(false)
   const [planTitles, setPlanTitles] = useState<string[]>([])
   const planTitleRefs = useRef<HTMLInputElement[]>([])
   const [planVolumes, setPlanVolumes] = useState<string[]>([])
@@ -186,15 +187,27 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
               value={costPlan}
               setValue={setCostPlan}
             />
-            <TextInputBox
-              idx={index}
-              values={planTitles}
-              setValues={setPlanTitles}
-              focusesRef={planTitleRefs}
-              title={`가격 플랜 이름 ${index + 1}`}
-              placeholder={'예시: Basic'}
-              required={false}
-            />
+            <div style={{ position: 'relative' }}>
+              <TextInputBox
+                idx={index}
+                values={planTitles}
+                setValues={setPlanTitles}
+                focusesRef={planTitleRefs}
+                title={`가격 플랜 이름 ${index + 1}`}
+                placeholder={'예시: Basic'}
+                required={false}
+              />
+              {index === 0 && (
+                <div className={styles.planCheck}>
+                  <h5 className={styles.checkTitle}>* 무료플랜 있음</h5>
+                  <input
+                    type={'checkbox'}
+                    checked={hasTrial}
+                    onChange={e => setHasTrial(e.target.checked)}
+                  />
+                </div>
+              )}
+            </div>
             <div className={styles.halfSection}>
               <TextInputBox
                 idx={index}
@@ -279,6 +292,7 @@ const AdminWithToolDetail = ({ setIsModal }: any) => {
       url: '',
       toolFunctions: [],
       clients: [],
+      trial: hasTrial,
       plans: [],
       aos: '',
       ios: '',
