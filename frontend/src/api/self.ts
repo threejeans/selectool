@@ -36,6 +36,7 @@ export const getSelfSpecificInfoAPI = async (id?: string) => {
     url: '',
     toolFunctions: [],
     clients: [],
+    trial: false,
     plans: [],
     aos: '',
     ios: '',

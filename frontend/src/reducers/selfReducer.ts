@@ -25,6 +25,7 @@ const initialState: SelfState = {
     url: '',
     toolFunctions: [],
     clients: [],
+    trial: false,
     plans: [],
     aos: '',
     ios: '',

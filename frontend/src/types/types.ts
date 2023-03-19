@@ -64,6 +64,7 @@ export type ToolType = {
   url: string
   toolFunctions: ToolFuncType[]
   clients: ClientType[]
+  trial: boolean
   plans: PlanType[]
   aos: string
   ios: string
