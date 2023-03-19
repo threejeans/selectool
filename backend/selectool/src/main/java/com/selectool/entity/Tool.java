@@ -82,4 +82,22 @@ public class Tool extends BaseEntity {
         this.toolBookmarks = toolBookmarks;
         this.corpTools = corpTools;
     }
+
+    public void update(String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, Boolean trial, List<ToolCategory> toolCategories, List<ToolPlan> toolPlans, List<ToolFunction> toolFunctions, List<ToolClient> toolClients) {
+        this.nameKr = nameKr;
+        this.nameEn = nameEn;
+        this.info = info;
+        this.msg = msg;
+        this.topic = topic;
+        this.country = country;
+        this.image = image;
+        this.url = url;
+        this.aos = aos;
+        this.ios = ios;
+        this.trial = trial;
+        this.toolCategories = toolCategories;
+        this.toolPlans = toolPlans;
+        this.toolFunctions = toolFunctions;
+        this.toolClients = toolClients;
+    }
 }

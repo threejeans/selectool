@@ -13,12 +13,12 @@ public interface ToolService {
     public ToolResponse getTool(Long userId, Long toolId);
     // 툴 등록
     public ToolResponse createTool(ToolCreateRequest request);
+    // 툴 수정
+    public ToolResponse updateTool(Long toolId, ToolCreateRequest request);
     // 툴 삭제
     public void deleteTool(Long toolId);
     // 툴 북마크 추가
     public void addBookmark(Long userId, Long toolId);
     // 툴 북마크 해제
     public void unBookmark(Long userId, Long toolId);
-    //TODO
-    // 툴 수정
 }

@@ -176,6 +176,119 @@ public class ToolServiceImpl implements ToolService {
 
     @Override
     @Transactional
+    public ToolResponse updateTool(Long toolId, ToolCreateRequest request) {
+        Tool tool = toolRepo.findById(toolId)
+                .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+        // 툴 카테고리 삭제 후 생성
+        List<ToolCategory> toolCategories = tool.getToolCategories();
+        toolCategories.clear();
+        toolCategories.addAll(request.getCategories().stream()
+                .map(category -> ToolCategory.builder()
+                        .name(category.getName())
+                        .tool(tool)
+                        .build()
+                )
+                .collect(Collectors.toList())
+        );
+
+        // 툴 플랜 삭제 후 생성
+        List<ToolPlan> toolPlans = tool.getToolPlans();
+        toolPlans.clear();
+        toolPlans.addAll(
+                request.getPlans().stream()
+                        .map(plan -> {
+                                    ToolPlan toolPlan = ToolPlan.builder()
+                                            .title(plan.getTitle())
+                                            .volume(plan.getVolume())
+                                            .cost(plan.getCost())
+                                            .tool(tool)
+                                            .build();
+
+                                    List<ToolPlanFunction> toolPlanFunctions = plan.getPlanFunctions().stream()
+                                            .map(planFunc -> ToolPlanFunction.builder()
+                                                    .func(planFunc.getFunc())
+                                                    .toolPlan(toolPlan)
+                                                    .build()
+                                            )
+                                            .collect(Collectors.toList());
+
+                                    toolPlan.setToolPlanFunctions(toolPlanFunctions);
+
+                                    return toolPlan;
+                                }
+                        )
+                        .collect(Collectors.toList())
+        );
+
+        // 툴 기능 삭제 후 생성
+        List<ToolFunction> toolFunctions = tool.getToolFunctions();
+        toolFunctions.clear();
+        toolFunctions.addAll(
+                request.getToolFunctions().stream()
+                        .map(toolFunction -> ToolFunction.builder()
+                                .name(toolFunction.getName())
+                                .content(toolFunction.getContent())
+                                .tool(tool)
+                                .build()
+                        )
+                        .collect(Collectors.toList())
+        );
+
+        // 툴 주요 고객 삭제 후 생성
+        List<ToolClient> toolClients = tool.getToolClients();
+        toolClients.clear();
+        toolClients.addAll(
+                request.getClients().stream()
+                        .map(client -> {
+
+                                    Long clientId = client.getId();
+                                    Client c;
+                                    if (clientId == 0L) {
+                                        c = Client.builder()
+                                                .name(client.getName())
+                                                .image(client.getImage())
+                                                .url(client.getUrl())
+                                                .build();
+                                        clientRepo.save(c);
+                                    } else {
+                                        c = clientRepo.findById(client.getId())
+                                                .orElseThrow(() -> new NotFoundException(CLIENT_NOT_FOUND));
+                                    }
+
+                                    return ToolClient.builder()
+                                            .tool(tool)
+                                            .client(c)
+                                            .build();
+                                }
+                        )
+                        .collect(Collectors.toList())
+        );
+
+        tool.update(
+                request.getNameKr(),
+                request.getNameEn(),
+                request.getInfo(),
+                request.getMsg(),
+                request.getTopic(),
+                request.getCountry(),
+                request.getImage(),
+                request.getUrl(),
+                request.getAos(),
+                request.getIos(),
+                request.getTrial(),
+                toolCategories,
+                toolPlans,
+                toolFunctions,
+                toolClients
+        );
+
+        toolRepo.save(tool);
+        return entityToDTO(null, tool);
+    }
+
+    @Override
+    @Transactional
     public void deleteTool(Long toolId) {
         Tool tool = toolRepo.findById(toolId)
                 .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));

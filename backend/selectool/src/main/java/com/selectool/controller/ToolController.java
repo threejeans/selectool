@@ -98,6 +98,17 @@ public class ToolController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PutMapping("/tools/{toolId}")
+    @ApiOperation(value = "툴 수정")
+    public ResponseEntity<ToolResponse> updateTool(
+            @LoginAdmin Admin admin,
+            @PathVariable Long toolId,
+            @RequestBody ToolCreateRequest request
+    ) {
+        ToolResponse response = toolService.updateTool(toolId, request);
+        return ResponseEntity.ok(response);
+    }
+
     @DeleteMapping("/tools/{toolId}")
     @ApiOperation(value = "툴 삭제")
     public ResponseEntity<?> deleteTool(
