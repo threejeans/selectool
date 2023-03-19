@@ -59,6 +59,7 @@ const initialState: ContentsState = {
     url: '',
     toolFunctions: [],
     clients: [],
+    trial: false,
     plans: [],
     aos: '',
     ios: '',
