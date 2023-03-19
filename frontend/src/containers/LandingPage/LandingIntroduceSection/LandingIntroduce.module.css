@@ -4,12 +4,12 @@
   display: flex;
   justify-content: center;
   text-align: end;
-  background-color: #FCFCFC;
+  background-color: #fcfcfc;
 }
 
 .contents {
   width: 100%;
-  max-width: 1120px;
+  max-width: 960px;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -18,13 +18,13 @@
 }
 
 .margin_right {
-  margin-right: 20px;
+  margin-right: 14px;
 }
 
 .bubble_container {
-  width: 360px;
-  height: 100px;
-  background: #FFFFFF;
+  width: 300px;
+  height: 80px;
+  background: #ffffff;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   position: absolute;
@@ -35,22 +35,22 @@
 
 .bubble_em_left {
   position: absolute;
-  width: 40px;
-  left: 20px;
-  top: -20px;
+  width: 30px;
+  left: 15px;
+  top: -15px;
 }
 
 .bubble_em_right {
   position: absolute;
-  width: 40px;
-  right: 20px;
-  bottom: -20px;
+  width: 30px;
+  right: 15px;
+  bottom: -15px;
 }
 
 .bubble_text {
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 24px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
 
   text-align: center;
   letter-spacing: 0.02em;
@@ -59,7 +59,7 @@
 }
 
 .bubble_01 {
-  margin-top: -120px;
+  margin-top: -100px;
 }
 
 .bubble_02 {
@@ -67,5 +67,5 @@
 }
 
 .bubble_03 {
-  margin-top: 120px;
+  margin-top: 100px;
 }

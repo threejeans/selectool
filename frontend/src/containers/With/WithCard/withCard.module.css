@@ -13,6 +13,7 @@
 }
 
 .cardContainer:hover {
+  transition: 0.3s;
   box-shadow: 2px 2px 20px 1px rgba(96, 169, 246, 0.3);
 }
 
@@ -72,7 +73,7 @@
 
 .companyCoName {
   font-weight: 300;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .description {
@@ -110,7 +111,7 @@
 
 .companyNameHover {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .descriptionHover {

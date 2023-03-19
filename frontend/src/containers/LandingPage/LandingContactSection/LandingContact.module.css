@@ -1,6 +1,6 @@
 .container {
   width: 100vw;
-  height: 750px;
+  height: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,13 +9,17 @@
 
 .contents {
   width: 100%;
-  max-width: 1120px;
-  padding-inline: 80px;
-  height: 360px;
+  max-width: 960px;
+  padding-inline: 60px;
+  height: 300px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(180deg, rgba(96, 169, 246, 0.9) -32.17%, rgba(171, 224, 199, 0.9) 116.11%);
+  background: linear-gradient(
+    180deg,
+    rgba(96, 169, 246, 0.9) -32.17%,
+    rgba(171, 224, 199, 0.9) 116.11%
+  );
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
 }
@@ -23,13 +27,13 @@
 .text {
   text-align: start;
   line-height: 58px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .inputTop {
   display: flex;
-  margin-bottom: 20px;
-  gap: 28px;
+  margin-bottom: 18px;
+  gap: 30px;
 }
 
 .inputBottom {
@@ -43,24 +47,25 @@
   right: 0;
   bottom: 0;
 
-  width: 4rem;
-  height: 1.8rem;
+  width: 3rem;
+  height: 1.6rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  background: #FFFEFE;
+  background: #fffefe;
   border-radius: 5px;
 }
 
 .buttonText {
   font-weight: 600;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 16px;
   letter-spacing: 0.02em;
 
-  background: linear-gradient(106.02deg, #60A9F6 -21%, #19DB43 153.33%);
+  background: linear-gradient(106.02deg, #60a9f6 -21%, #19db43 153.33%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -70,12 +75,12 @@
 }
 
 .button:active {
-  box-shadow: rgba(255, 255, 255, .4) 0 0 0 3px;
+  box-shadow: rgba(255, 255, 255, 0.4) 0 0 0 3px;
 }
 
 .buttonTextDisabled {
   font-weight: 300;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 16px;
   letter-spacing: 0.02em;
   color: rgba(245, 245, 245, 0.6);
@@ -83,6 +88,6 @@
 
 .button:disabled {
   background: transparent;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
   border-color: rgba(245, 245, 245, 0.6);
 }
