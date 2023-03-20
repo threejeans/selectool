@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 260px;
-  height: 400px;
+  width: 212px;
+  height: 330px;
 
   background: #ffffff;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.15);
@@ -24,15 +24,15 @@
   background: #f5f5f5;
   border-radius: 10px 10px 0px 0px;
   width: 100%;
-  height: 60px;
+  height: 52px;
 }
 
 .bookmark {
-  font-size: 26px;
+  font-size: 20px;
   position: absolute;
   color: #cdcdcd;
   filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
-  right: 26px;
+  right: 20px;
   top: -6px;
 }
 
@@ -44,19 +44,22 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-inline: 36px;
-  row-gap: 36px;
-  padding-top: 60px;
+  padding-inline: 24px;
+  row-gap: 24px;
+  padding-top: 52px;
 }
 
 .companyLogo {
-  height: 100px;
+  width: 160px;
+  height: 80px;
+  object-fit: contain;
+  object-position: 0% 50%;
 }
 
 .textContainer {
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
+  row-gap: 14px;
 }
 
 .companyInfoContainer {
@@ -68,17 +71,17 @@
 
 .companyName {
   font-weight: 700;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .companyCoName {
   font-weight: 300;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .description {
   font-weight: 300;
-  font-size: 12px;
+  font-size: 10px;
   color: #595959;
 }
 
@@ -86,37 +89,40 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-inline: 36px;
-  row-gap: 14px;
-  padding-top: 60px;
+  padding-inline: 22px;
+  row-gap: 12px; 
+  padding-top: 52px;
 }
 
 .hoverCompanyContainer {
   display: flex;
   flex-direction: row;
-  column-gap: 16px;
+  column-gap: 12px;
   align-items: center;
+  justify-content: center;
 }
 
 .companyLogoHover {
-  height: 70px;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
 }
 
 .textContainerHover {
   display: flex;
   flex-direction: column;
-  row-gap: 6px;
+  row-gap: 4px;
   color: black;
 }
 
 .companyNameHover {
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .descriptionHover {
   font-weight: 300;
-  font-size: 10px;
+  font-size: 5px;
   color: #595959;
 }
 
@@ -137,12 +143,12 @@
   background: #f6f9ff;
   border-radius: 10px;
   margin-top: 8px;
-  row-gap: 14px;
+  row-gap: 18px;
 }
 
 .selectoolTitle {
   font-weight: 600;
-  font-size: 12px;
+  font-size: 10px;
   color: black;
 }
 
@@ -160,7 +166,7 @@
 .toolLayout {
   display: flex;
   flex-direction: row;
-  column-gap: 16px;
+  column-gap: 18px;
 }
 
 .toolContainer {
@@ -173,12 +179,14 @@
 }
 
 .toolLogo {
-  height: 30px;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
-.toolName {
+.toolNameHover {
   font-weight: 300;
-  font-size: 6px;
+  font-size: 4px;
 
   color: #a8a8a8;
 }

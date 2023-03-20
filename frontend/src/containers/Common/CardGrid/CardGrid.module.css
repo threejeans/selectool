@@ -12,6 +12,6 @@
 }
 
 .withLayout {
-  grid-template-columns: repeat(auto-fit, minmax(260px, max-content));
+  grid-template-columns: repeat(auto-fit, minmax(212px, max-content));
   column-gap: 74px;
 }
