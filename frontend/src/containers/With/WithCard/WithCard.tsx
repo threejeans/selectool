@@ -54,7 +54,7 @@ const WithCard = ({ data }: CardProps) => {
                 {data.tools.map((tool, idx) => (
                   <div className={styles.toolContainer} key={idx}>
                     <img src={tool.image} className={styles.toolLogo}></img>
-                    <div className={styles.toolName}>{tool.nameKr}</div>
+                    <div className={styles.toolNameHover}>{tool.nameKr}</div>
                   </div>
                 ))}
               </div>

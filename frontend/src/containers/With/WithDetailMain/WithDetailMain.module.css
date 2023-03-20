@@ -6,8 +6,8 @@
 }
 
 .content {
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 13px;
   line-height: 20px;
   color: #6f6f6f;
 }
@@ -15,30 +15,30 @@
 .branchLayout {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(148px, max-content));
-  column-gap: 60px;
-  row-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
+  column-gap: 52px;
+  row-gap: 48px;
 }
 
 .branch {
-  width: 148px;
-  height: 132px;
+  width: 120px;
+  height: 80px;
   object-fit: contain;
 }
 
 .culturesLayout {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(360px, max-content));
-  column-gap: 80px;
-  row-gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(310px, max-content));
+  column-gap: 48px;
+  row-gap: 20px;
 }
 
 .toolsLayout {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
-  column-gap: 60px;
+  grid-template-columns: repeat(auto-fit, minmax(66px, max-content));
+  column-gap: 80px;
   row-gap: 20px;
 }
 
@@ -50,13 +50,13 @@
 }
 
 .toolImage {
-  width: 80px;
-  height: 80px;
+  width: 66px;
+  height: 66px;
   object-fit: contain;
 }
 
 .toolName {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   color: #6f6f6f;
 }

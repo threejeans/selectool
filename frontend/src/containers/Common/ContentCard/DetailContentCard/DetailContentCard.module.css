@@ -8,11 +8,11 @@
 }
 
 .cardContent {
-  padding-block: 60px;
-  padding-inline: 48px;
+  padding-block: 38px;
+  padding-inline: 36px;
   display: flex;
   flex-direction: column;
-  row-gap: 28px;
+  row-gap: 20px;
 }
 
 .line {

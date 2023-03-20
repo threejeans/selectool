@@ -39,21 +39,21 @@
 
 .md {
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   width: 180px;
   height: 60px;
 }
 
 .mdShort {
   font-weight: 400;
-  font-size: 16px;
-  width: 120px;
-  height: 46px;
+  font-size: 14px;
+  width: 108px;
+  height: 40px;
 }
 
 .mdLong {
   font-weight: 400;
-  font-size: 16px;
-  width: 250px;
-  height: 46px;
+  font-size: 14px;
+  width: 228px;
+  height: 40px;
 }

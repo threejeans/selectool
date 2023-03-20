@@ -17,9 +17,10 @@ import Self from 'features/self/Self'
 import SelfDetail from 'features/self/SelfDetail'
 import With from 'features/with/With'
 import WithDetail from 'features/with/WithDetail'
+import { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Outlet, RouterProvider, useLocation } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, store } from './app/store'
@@ -29,45 +30,63 @@ import './styles/globals.css'
 const container = document.getElementById('root')!
 const root = createRoot(container)
 
+export default function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 // url이름은 임시로 달아놨습니다.
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <Layout
+    element: (<>
+     <ScrollToTop />
+     <Layout
         title={'홈'}
         description={'셀렉툴 | 올인원 툴 선택, 셀렉툴에서 해결해요.'}
       >
         <LandingPage />
       </Layout>
+    </>  
     ),
   },
   {
     path: 'self',
+    
+    element:  <>
+    <ScrollToTop />
+    <Layout title={'혼자써요'} description={''} 
     // eslint-disable-next-line react/no-children-prop
-    element: <Layout title={'혼자써요'} description={''} children={<Self />} />,
+    children={<Self />} /></>,
   },
   {
     path: 'self/:toolId',
     element: (
-      <Layout
+      <>
+      <ScrollToTop />
+        <Layout
         title={'혼자써요'}
         description={''}
         // eslint-disable-next-line react/no-children-prop
-        children={<SelfDetail />}
-      />
+        children={<SelfDetail />} />
+        </>
     ),
   },
   {
     path: 'with',
     // eslint-disable-next-line react/no-children-prop
-    element: <Layout title={'함께써요'} description={''} children={<With />} />,
+    element: <><ScrollToTop /><Layout title={'함께써요'} description={''} children={<With />} /></>,
   },
   {
     path: 'with/:corpId',
     element: (
       // eslint-disable-next-line react/no-children-prop
-      <Layout title={'함께써요'} description={''} children={<WithDetail />} />
+      <><ScrollToTop /><Layout title={'함께써요'} description={''} children={<WithDetail />} /></>
     ),
   },
   {
