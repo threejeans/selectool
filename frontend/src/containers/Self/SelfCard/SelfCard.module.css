@@ -28,26 +28,27 @@
 }
 
 .hoverContentLayout {
-  width: 216px;
+  width: 180px;
   height: 168px;
   /* 단어 기준으로 줄바꿈 할 시 */
-  /* word-break: keep-all; */
+  word-break: keep-all;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 36px;
+  padding: 32px;
 }
 
-.hoverTextSection {
-  font-size: 18px;
+.hoverTextSection {  
   color: white;
 }
 
 .typeEng {
+  font-size: 18px;
   font-weight: 600;
 }
 
 .hookText {
+  font-size: 17px;
   font-weight: 400;
 }
 

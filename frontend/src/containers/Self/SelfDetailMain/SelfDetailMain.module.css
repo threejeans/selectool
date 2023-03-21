@@ -8,31 +8,31 @@
 .toolFunctionsLayout {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(360px, max-content));
-  column-gap: 80px;
-  row-gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(310px, max-content));
+  column-gap: 48px;
+  row-gap: 20px;
 }
 
 .clientsLayout {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(132px, max-content));
-  column-gap: 60px;
-  row-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
+  column-gap: 52px;
+  row-gap: 48px;
 }
 
 .client {
-  width: 132px;
-  height: 100px;
+  width: 120px;
+  height: 60px;
   object-fit: contain;
 }
 
 .plansLayout {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(240px, max-content));
-  column-gap: 60px;
-  row-gap: 60px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+  column-gap: 52px;
+  row-gap: 48px;
 }
 
 .ratingsLayout {

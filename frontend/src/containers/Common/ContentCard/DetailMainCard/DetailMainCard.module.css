@@ -3,27 +3,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  row-gap: 40px;
+  justify-content: space-between;
 
-  width: 240px;
-  height: 400px;
+  width: 198px;
+  height: 300px;
   background: #ffffff;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   padding-inline: 30px;
+  padding-block: 28px;
 }
 
 .withCardLayout {
-  row-gap: 60px;
+  height: 240px;
 }
 
 .bookmark {
-  font-size: 26px;
+  font-size: 20px;
   position: absolute;
   color: #cdcdcd;
   filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
-  right: 26px;
+  right: 20px;
   top: -6px;
 }
 
@@ -35,32 +35,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 20px;
+  row-gap: 18px;
 }
 
 .image {
-  width: 88px;
-  height: 100px;
+  margin-top: 8px;
+  width: 80px;
+  height: 72px;
   object-fit: contain;
 }
 
 .infoSection {
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 6px;
   align-items: center;
   text-align: center;
 }
 
 .name {
-  font-weight: 600;
-  font-size: 24px;
+  font-weight: 700;
+  font-size: 18px;
   color: #000000;
 }
 
 .info {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 18px;
   color: #6f6f6f;
 }
@@ -68,7 +69,7 @@
 .buttonSection {
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
+  row-gap: 14px;
   align-items: center;
   text-align: center;
 }
@@ -76,5 +77,5 @@
 .smallButtons {
   display: flex;
   flex-direction: row;
-  column-gap: 10px;
+  column-gap: 12px;
 }

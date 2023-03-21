@@ -10,10 +10,10 @@ import {
 } from './adminContentsSlice'
 
 import styles from 'styles/admin/pages/contents/ContentDetail.module.css'
-import SelfMain from 'components/detail/SelfMain'
-import SelfCore from 'components/detail/SelfCore'
-import SelfClients from 'components/detail/SelfClients'
-import SelfPlans from 'components/detail/SelfPlans'
+import SelfMain from 'components/admin/detail/SelfMain'
+import SelfCore from 'components/admin/detail/SelfCore'
+import SelfClients from 'components/admin/detail/SelfClients'
+import SelfPlans from 'components/admin/detail/SelfPlans'
 
 type ContentDetailProps = {
   type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE

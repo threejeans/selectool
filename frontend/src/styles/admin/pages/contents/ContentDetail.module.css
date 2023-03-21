@@ -1,3 +1,10 @@
+input {
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid var(--gray-scale-color-g10);
+}
+
 .container {
   width: 80vw;
   max-width: 1200px;
@@ -55,19 +62,40 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 120px;
+  position: relative;
+  width: 140px;
+  height: 140px;
   margin-bottom: 0.4rem;
 }
 
 .image {
-  width: 120px;
+  width: 140px;
+  background-color: var(--gray-scale-color-g05);
+  border-radius: 12px;
+}
+
+.svgWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--gray-scale-color-g05);
+  opacity: 0.4;
+  font-size: 2rem;
+  cursor: pointer;
+  color: black;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {
   position: relative;
-  text-align: center;
   font-size: 1.6rem;
   font-weight: 600;
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: baseline;
@@ -89,6 +117,12 @@
   gap: 1rem;
 }
 
+.mainTitle {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0;
+}
+
 .subTitle {
   font-size: 1rem;
   font-weight: 400;
@@ -96,13 +130,18 @@
 }
 
 .info {
+  width: 100%;
+  text-align: center;
   font-size: 1rem;
   font-weight: 400;
 }
 
 .url {
+  width: 100%;
+  text-align: center;
   color: var(--primary-color-main);
   margin: 1rem;
+  font-size: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,6 +169,7 @@
   align-items: flex-start;
 }
 .a {
+  position: relative;
   grid-area: a;
 }
 .b {
@@ -139,19 +179,31 @@
 .c {
   grid-area: c;
 }
+.clientName,
+.clientUrl {
+  width: 100%;
+  font-size: 0.8rem;
+}
+.clientName {
+  font-weight: 600;
+}
 
 .clientGrid {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
   margin: 2rem 0;
 }
 
 .client {
-  height: 140px;
+  height: 160px;
+  padding: 1rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 .client img {
   width: 120px;
@@ -171,6 +223,7 @@
   justify-content: flex-start;
   align-items: center;
   gap: 0.4rem;
+  position: relative;
 }
 
 .planTitle {

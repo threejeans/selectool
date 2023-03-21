@@ -13,7 +13,7 @@ const RatingComponent = ({ isAppstore = false, ratingScore }: RatingProps) => {
   let noRating = false
   const starView =
     Number(ratingScore) && Number(ratingScore) <= 5
-      ? Number(ratingScore) * 17.3
+      ? Number(ratingScore) * 15.9
       : 0
   if (starView === 0) {
     noRating = true
