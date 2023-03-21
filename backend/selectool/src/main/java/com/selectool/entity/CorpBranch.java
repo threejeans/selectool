@@ -30,4 +30,9 @@ public class CorpBranch extends BaseEntity {
         this.image = image;
         this.corp = corp;
     }
+
+    public void update(String name, String image) {
+        this.name = name;
+        this.image = image;
+    }
 }

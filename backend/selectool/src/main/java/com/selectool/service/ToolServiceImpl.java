@@ -35,8 +35,10 @@ public class ToolServiceImpl implements ToolService {
     private final ToolBookmarkRepo toolBookmarkRepo;
 
     @Override
-    public List<ToolListResponse> getToolList(Long userId) {
-        List<Tool> response = toolRepo.findAll();
+    public List<ToolListResponse> getToolList(Long userId, String name) {
+        List<Tool> response;
+        if (name.isEmpty()) response = toolRepo.findAll();
+        else response = toolRepo.findByNameKrContainingOrNameEnContainingIgnoreCase(name, name);
 
         List<ToolBookmark> toolBookmarks = toolBookmarkRepo.findByUserId(userId);
         Map<Tool, Boolean> bookmarkMap = new HashMap<>();
@@ -55,6 +57,8 @@ public class ToolServiceImpl implements ToolService {
                         .topic(tool.getTopic())
                         .country(tool.getCountry())
                         .image(tool.getImage())
+                        .url(tool.getUrl())
+                        .trial(tool.getTrial())
                         .isBookmarked(bookmarkMap.get(tool) != null)
                         .categories(tool.getToolCategories().stream()
                                 .map(category -> ToolCategoryResponse.builder()
@@ -89,6 +93,7 @@ public class ToolServiceImpl implements ToolService {
                 .url(request.getUrl())
                 .aos(request.getAos())
                 .ios(request.getIos())
+                .trial(request.getTrial())
                 .build();
 
         // 툴 카테고리 생성
@@ -141,26 +146,142 @@ public class ToolServiceImpl implements ToolService {
         // 툴 주요 고객 생성
         List<ToolClient> toolClients = request.getClients().stream()
                 .map(client -> {
-                            ToolClient toolClient = ToolClient.builder()
+
+                            Long clientId = client.getId();
+                            Client c;
+                            if (clientId == 0L) {
+                                c = Client.builder()
+                                        .name(client.getName())
+                                        .image(client.getImage())
+                                        .url(client.getUrl())
+                                        .build();
+                                clientRepo.save(c);
+                            } else {
+                                c = clientRepo.findById(client.getId())
+                                        .orElseThrow(() -> new NotFoundException(CLIENT_NOT_FOUND));
+                            }
+
+                            return ToolClient.builder()
                                     .tool(tool)
+                                    .client(c)
                                     .build();
-
-                            Client c = clientRepo.findById(client.getId())
-                                    .orElse(
-                                            Client.builder()
-                                                    .name(client.getName())
-                                                    .image(client.getImage())
-                                                    .url(client.getUrl())
-                                                    .build()
-                                    );
-                            clientRepo.save(c);
-                            toolClient.setClient(c);
-
-                            return toolClient;
                         }
                 )
                 .collect(Collectors.toList());
         tool.setToolClients(toolClients);
+
+        toolRepo.save(tool);
+        return entityToDTO(null, tool);
+    }
+
+    @Override
+    @Transactional
+    public ToolResponse updateTool(Long toolId, ToolCreateRequest request) {
+        Tool tool = toolRepo.findById(toolId)
+                .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+        // 툴 카테고리 삭제 후 생성
+        List<ToolCategory> toolCategories = tool.getToolCategories();
+        toolCategories.clear();
+        toolCategories.addAll(request.getCategories().stream()
+                .map(category -> ToolCategory.builder()
+                        .name(category.getName())
+                        .tool(tool)
+                        .build()
+                )
+                .collect(Collectors.toList())
+        );
+
+        // 툴 플랜 삭제 후 생성
+        List<ToolPlan> toolPlans = tool.getToolPlans();
+        toolPlans.clear();
+        toolPlans.addAll(
+                request.getPlans().stream()
+                        .map(plan -> {
+                                    ToolPlan toolPlan = ToolPlan.builder()
+                                            .title(plan.getTitle())
+                                            .volume(plan.getVolume())
+                                            .cost(plan.getCost())
+                                            .tool(tool)
+                                            .build();
+
+                                    List<ToolPlanFunction> toolPlanFunctions = plan.getPlanFunctions().stream()
+                                            .map(planFunc -> ToolPlanFunction.builder()
+                                                    .func(planFunc.getFunc())
+                                                    .toolPlan(toolPlan)
+                                                    .build()
+                                            )
+                                            .collect(Collectors.toList());
+
+                                    toolPlan.setToolPlanFunctions(toolPlanFunctions);
+
+                                    return toolPlan;
+                                }
+                        )
+                        .collect(Collectors.toList())
+        );
+
+        // 툴 기능 삭제 후 생성
+        List<ToolFunction> toolFunctions = tool.getToolFunctions();
+        toolFunctions.clear();
+        toolFunctions.addAll(
+                request.getToolFunctions().stream()
+                        .map(toolFunction -> ToolFunction.builder()
+                                .name(toolFunction.getName())
+                                .content(toolFunction.getContent())
+                                .tool(tool)
+                                .build()
+                        )
+                        .collect(Collectors.toList())
+        );
+
+        // 툴 주요 고객 삭제 후 생성
+        List<ToolClient> toolClients = tool.getToolClients();
+        toolClients.clear();
+        toolClients.addAll(
+                request.getClients().stream()
+                        .map(client -> {
+
+                                    Long clientId = client.getId();
+                                    Client c;
+                                    if (clientId == 0L) {
+                                        c = Client.builder()
+                                                .name(client.getName())
+                                                .image(client.getImage())
+                                                .url(client.getUrl())
+                                                .build();
+                                        clientRepo.save(c);
+                                    } else {
+                                        c = clientRepo.findById(client.getId())
+                                                .orElseThrow(() -> new NotFoundException(CLIENT_NOT_FOUND));
+                                    }
+
+                                    return ToolClient.builder()
+                                            .tool(tool)
+                                            .client(c)
+                                            .build();
+                                }
+                        )
+                        .collect(Collectors.toList())
+        );
+
+        tool.update(
+                request.getNameKr(),
+                request.getNameEn(),
+                request.getInfo(),
+                request.getMsg(),
+                request.getTopic(),
+                request.getCountry(),
+                request.getImage(),
+                request.getUrl(),
+                request.getAos(),
+                request.getIos(),
+                request.getTrial(),
+                toolCategories,
+                toolPlans,
+                toolFunctions,
+                toolClients
+        );
 
         toolRepo.save(tool);
         return entityToDTO(null, tool);
@@ -233,6 +354,7 @@ public class ToolServiceImpl implements ToolService {
                 .url(tool.getUrl())
                 .aos(tool.getAos())
                 .ios(tool.getIos())
+                .trial(tool.getTrial())
                 .isBookmarked(!toolBookmarks.isEmpty())
                 .categories(tool.getToolCategories().stream()
                         .map(category -> ToolCategoryResponse.builder()
