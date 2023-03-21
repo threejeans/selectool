@@ -45,6 +45,9 @@ public class ToolCreateRequest {
     @ApiModelProperty(value = "툴 애플 평점")
     private String ios;
 
+    @ApiModelProperty(value = "무료 플랜 유무")
+    private Boolean trial = false;
+
     @ApiModelProperty(value = "툴 분류 목록")
     private List<ToolCategoryCreateRequest> categories = new ArrayList<>();
 
@@ -58,7 +61,7 @@ public class ToolCreateRequest {
     private List<ToolPlanCreateRequest> plans = new ArrayList<>();
 
     @Builder
-    public ToolCreateRequest(Long id, String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, List<ToolCategoryCreateRequest> categories, List<ToolFunctionCreateRequest> toolFunctions, List<ClientCreateRequest> clients, List<ToolPlanCreateRequest> plans) {
+    public ToolCreateRequest(Long id, String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, Boolean trial, List<ToolCategoryCreateRequest> categories, List<ToolFunctionCreateRequest> toolFunctions, List<ClientCreateRequest> clients, List<ToolPlanCreateRequest> plans) {
         this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
@@ -70,6 +73,7 @@ public class ToolCreateRequest {
         this.url = url;
         this.aos = aos;
         this.ios = ios;
+        this.trial = trial;
         this.categories = categories;
         this.toolFunctions = toolFunctions;
         this.clients = clients;

@@ -31,7 +31,6 @@ public class ToolController {
     @GetMapping("/clients")
     @ApiOperation(value = "이름으로 주요 고객 검색(name 을 보내지 않을 경우 전체 목록)")
     public ResponseEntity<List<ClientResponse>> getClientList(
-            @LoginAdmin User user,
             @RequestParam(defaultValue = "") String name
     ) {
         List<ClientResponse> response = clientService.getClientList(name.trim());
@@ -41,7 +40,6 @@ public class ToolController {
     @GetMapping("/clients/{clientId}")
     @ApiOperation(value = "주요 고객 단건 조회")
     public ResponseEntity<ClientResponse> getClient(
-            @LoginAdmin User user,
             @PathVariable Long clientId
     ) {
         System.out.println(clientId);
@@ -71,11 +69,12 @@ public class ToolController {
 
 
     @GetMapping("/tools")
-    @ApiOperation(value = "전체 툴 목록 조회")
+    @ApiOperation(value = "전체 툴 목록 조회 및 이름으로 검색(name 을 보내지 않을 경우 전체 목록)")
     public ResponseEntity<List<ToolListResponse>> getToolList(
-            @LoginUser User user
+            @LoginUser User user,
+            @RequestParam(defaultValue = "") String name
     ) {
-        List<ToolListResponse> response = toolService.getToolList(user.getId());
+        List<ToolListResponse> response = toolService.getToolList(user.getId(), name.trim());
         return ResponseEntity.ok(response);
     }
 
@@ -97,6 +96,17 @@ public class ToolController {
     ) {
         ToolResponse response = toolService.createTool(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping("/tools/{toolId}")
+    @ApiOperation(value = "툴 수정")
+    public ResponseEntity<ToolResponse> updateTool(
+            @LoginAdmin Admin admin,
+            @PathVariable Long toolId,
+            @RequestBody ToolCreateRequest request
+    ) {
+        ToolResponse response = toolService.updateTool(toolId, request);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/tools/{toolId}")
@@ -127,5 +137,24 @@ public class ToolController {
     ) {
         toolService.unBookmark(user.getId(), toolId);
         return ResponseEntity.ok().build();
+    }
+
+    /* 비 로그인 유저 조회 */
+    @GetMapping("nomember/tools")
+    @ApiOperation(value = "비 로그인 전체 툴 목록 조회 및 이름으로 검색(name 을 보내지 않을 경우 전체 목록)", tags = "비 로그인 조회")
+    public ResponseEntity<List<ToolListResponse>> getNoMemberToolList(
+            @RequestParam(defaultValue = "") String name
+    ) {
+        List<ToolListResponse> response = toolService.getToolList(0L, name.trim());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("nomember/tools/{toolId}")
+    @ApiOperation(value = "비 로그인 툴 단건 상세 조회", tags = "비 로그인 조회")
+    public ResponseEntity<ToolResponse> getNoMemberTool(
+            @PathVariable Long toolId
+    ) {
+        ToolResponse response = toolService.getTool(0L, toolId);
+        return ResponseEntity.ok(response);
     }
 }

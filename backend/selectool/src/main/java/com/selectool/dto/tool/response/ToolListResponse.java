@@ -37,6 +37,12 @@ public class ToolListResponse {
     @ApiModelProperty(value = "툴 썸네일 이미지 주소")
     private String image;
 
+    @ApiModelProperty(value = "툴 사이트 주소")
+    private String url;
+
+    @ApiModelProperty(value = "무료 플랜 유무")
+    private Boolean trial;
+
     @ApiModelProperty(value = "툴 북마크 여부")
     private Boolean isBookmarked;
 
@@ -44,7 +50,7 @@ public class ToolListResponse {
     private List<ToolCategoryResponse> categories;
 
     @Builder
-    public ToolListResponse(Long id, String nameKr, String nameEn, String info, String msg, String topic, String country, String image, Boolean isBookmarked, List<ToolCategoryResponse> categories) {
+    public ToolListResponse(Long id, String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, Boolean trial, Boolean isBookmarked, List<ToolCategoryResponse> categories) {
         this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
@@ -53,6 +59,8 @@ public class ToolListResponse {
         this.topic = topic;
         this.country = country;
         this.image = image;
+        this.url = url;
+        this.trial = trial;
         this.isBookmarked = isBookmarked;
         this.categories = categories;
     }
