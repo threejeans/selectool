@@ -15,7 +15,7 @@ const SelfCore = () => {
   const { toolFunctions } = useAppSelector(selectCurrentContent) as ToolType
 
   const dispatch = useAppDispatch()
-  const [toolFunc, setToolFunc] = useState<number>(toolFunctions.length)
+  const [cnt, setCnt] = useState<number>(toolFunctions.length)
   const [tmpToolFunctions, setTmpToolFunctions] =
     useState<ToolFuncType[]>(toolFunctions)
 
@@ -25,14 +25,14 @@ const SelfCore = () => {
     if (isModified) {
       const tmp = { ...tool }
       const t: ToolFuncType[] = [] // 갯수만큼만 복사
-      for (let i = 0; i < toolFunc; i++) t.push(tmpToolFunctions[i])
+      for (let i = 0; i < cnt; i++) t.push(tmpToolFunctions[i])
       tmp.toolFunctions = t
 
       dispatch(updateTool(tmp))
         .then(e => {
           console.log(e)
           const tf = e.payload.toolFunctions as ToolFuncType[]
-          setToolFunc(tf.length)
+          setCnt(tf.length)
           setTmpToolFunctions(tf)
           setIsMofifed(false)
         })
@@ -52,15 +52,15 @@ const SelfCore = () => {
       <div className={styles.functionGrid}>
         {isModified ? (
           <>
-            {[...Array(toolFunc)].map((_, index) => {
+            {[...Array(cnt)].map((_, index) => {
               return (
                 <div key={index} className={styles.cardGrid}>
                   <span className={styles.a}>
                     <SectionPlusBtn
                       idx={index}
                       max={8}
-                      value={toolFunc}
-                      setValue={setToolFunc}
+                      value={cnt}
+                      setValue={setCnt}
                     />
                   </span>
                   <input
