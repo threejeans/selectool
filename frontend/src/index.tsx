@@ -13,6 +13,7 @@ import Auth from 'features/auth/Auth'
 import Mypage from 'features/auth/Mypage'
 import Guide from 'features/guide/Guide'
 import LandingPage from 'features/landing/LandingPage'
+import NotFound404 from 'features/notFound404/NotFound404'
 import Self from 'features/self/Self'
 import SelfDetail from 'features/self/SelfDetail'
 import With from 'features/with/With'
@@ -20,86 +21,118 @@ import WithDetail from 'features/with/WithDetail'
 import { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { createBrowserRouter, Outlet, RouterProvider, useLocation } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+  useLocation,
+} from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, store } from './app/store'
 import Layout from './components/Layout'
 import './styles/globals.css'
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById('root')!
 const root = createRoot(container)
 
 export default function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    window.scrollTo(0, 0)
+  }, [pathname])
 
-  return null;
+  return null
 }
 
 // url이름은 임시로 달아놨습니다.
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (<>
-     <ScrollToTop />
-     <Layout
-        title={'홈'}
-        description={'셀렉툴 | 올인원 툴 선택, 셀렉툴에서 해결해요.'}
-      >
-        <LandingPage />
-      </Layout>
-    </>  
+    element: (
+      <>
+        <ScrollToTop />
+        <Layout
+          title={'홈'}
+          description={'셀렉툴 | 올인원 툴 선택, 셀렉툴에서 해결해요.'}
+        >
+          <LandingPage />
+        </Layout>
+      </>
     ),
   },
   {
     path: 'self',
-    
-    element:  <>
-    <ScrollToTop />
-    <Layout title={'혼자써요'} description={''} 
-    // eslint-disable-next-line react/no-children-prop
-    children={<Self />} /></>,
+    element: (
+      <>
+        <ScrollToTop />
+        <Layout title={'혼자써요'} description={'셀렉툴 | 혼자써요'}>
+          <Self />
+        </Layout>
+      </>
+    ),
   },
   {
     path: 'self/:toolId',
     element: (
       <>
-      <ScrollToTop />
-        <Layout
-        title={'혼자써요'}
-        description={''}
-        // eslint-disable-next-line react/no-children-prop
-        children={<SelfDetail />} />
-        </>
+        <ScrollToTop />
+        <Layout title={'혼자써요'} description={'셀렉툴 | 혼자써요'}>
+          <SelfDetail />
+        </Layout>
+      </>
     ),
   },
   {
     path: 'with',
-    // eslint-disable-next-line react/no-children-prop
-    element: <><ScrollToTop /><Layout title={'함께써요'} description={''} children={<With />} /></>,
+    element: (
+      <>
+        <ScrollToTop />
+        <Layout title={'함께써요'} description={'셀렉툴 | 함께써요'}>
+          <With />
+        </Layout>
+      </>
+    ),
   },
   {
     path: 'with/:corpId',
     element: (
-      // eslint-disable-next-line react/no-children-prop
-      <><ScrollToTop /><Layout title={'함께써요'} description={''} children={<WithDetail />} /></>
+      <>
+        <ScrollToTop />
+        <Layout title={'함께써요'} description={'셀렉툴 | 함께써요'}>
+          <WithDetail />
+        </Layout>
+      </>
     ),
   },
   {
     path: 'guide',
     // eslint-disable-next-line react/no-children-prop
-    element: <Layout title={'가이드'} description={''} children={<Guide />} />,
+    element: (
+      <Layout title={'가이드'} description={'셀렉툴 | 가이드'}>
+        <Guide />
+      </Layout>
+    ),
   },
   {
     path: 'mypage',
     element: (
-      <Layout title={'마이페이지'} description={'셀렉툴 마이페이지'}>
+      <Layout title={'마이페이지'} description={'셀렉툴 | 마이페이지'}>
         <Mypage />
       </Layout>
+    ),
+  },
+  {
+    path: 'error',
+    element: (
+      <>
+        <ScrollToTop />
+        <Layout title={'404'} description={'셀렉툴 | 404NotFound'}>
+          <NotFound404 />
+        </Layout>
+      </>
     ),
   },
   {

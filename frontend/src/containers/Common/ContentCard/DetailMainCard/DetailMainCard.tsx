@@ -8,9 +8,9 @@ type ÇardProps = {
   image?: string
   nameKr?: string
   info?: string
-  button1?: string
-  button2?: string
-  button3?: string
+  button1ClickEvent: () => void
+  button2ClickEvent: () => void
+  button3ClickEvent: () => void
 }
 
 const DetailMainCard = ({
@@ -18,9 +18,9 @@ const DetailMainCard = ({
   image,
   nameKr,
   info,
-  button1,
-  button2,
-  button3,
+  button1ClickEvent,
+  button2ClickEvent,
+  button3ClickEvent,
 }: ÇardProps) => {
   const [isScraped, setScraped] = useState(false)
 
@@ -54,15 +54,21 @@ const DetailMainCard = ({
             color={isSelf ? 'secondary' : 'primary'}
             size={'mdShort'}
             text={'웹페이지 ↗'}
+            clickEvent={button1ClickEvent}
           ></Button>
           <Button
             color={'secondary'}
             size={'mdShort'}
             text={isSelf ? '가이드 ↗' : '공유하기'}
+            clickEvent={button2ClickEvent}
           ></Button>
         </div>
         {isSelf ? (
-          <Button color={'primary'} size={'mdLong'} text={'구독하기'} />
+          <Button 
+            color={'primary'} 
+            size={'mdLong'} 
+            text={'구독하기'} 
+            clickEvent={button3ClickEvent} />
         ) : (
           ''
         )}

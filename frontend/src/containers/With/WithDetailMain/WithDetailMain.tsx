@@ -5,6 +5,7 @@ import {
   DetailMainCard,
 } from 'containers/Common'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { withSpecificInfo } from 'reducers/withReducer'
 import styles from './WithDetailMain.module.css'
 
@@ -19,7 +20,9 @@ const WithDetailMain = () => {
         image={specificInfo.image}
         nameKr={specificInfo.nameKr}
         info={specificInfo.info}
-        button1={specificInfo.url}
+        button1ClickEvent={() => {document.location.href = specificInfo.url}}
+        button2ClickEvent={() => {alert('서비스 준비중입니다.')}}
+        button3ClickEvent={() => {alert('서비스 준비중입니다.')}}
       />
       <div className={styles.rightSection}>
         <DetailContentCard title='기업 소개' description='* 공식 홈페이지 기준'>
