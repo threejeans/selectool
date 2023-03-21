@@ -10,7 +10,7 @@ type PlanProps = {
   planFunc: PlanFunctionType[]
 }
 
-const planImogi = ['🧑🏻‍💻 👩🏻‍💻', '👫🏻', '🏢', '🖥']
+const planImogi = ['👩🏻‍💻', '👫🏻', '🏢', '🖥']
 
 const PlanComponent = ({
   idx,

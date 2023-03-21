@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
 import { RootState } from 'app/store'
 import { toast } from 'react-toastify'
@@ -148,7 +148,21 @@ export const createTool = createAsyncThunk(
   async (data: ToolType, { rejectWithValue }) => {
     try {
       const response = await apiAxios.post('/self/tools', data)
-      console.log('Async Response', response)
+      console.log('Async Create Response', response)
+      return response.data
+    } catch (error: any) {
+      console.error(error) //
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
+export const updateTool = createAsyncThunk(
+  'adminContents/updateTool',
+  async (data: ToolType, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.put(`/self/tools/${data.id}`, data)
+      console.log('Async Update Response', response)
       return response.data
     } catch (error: any) {
       console.error(error) //
@@ -170,6 +184,7 @@ export const createGuide = createAsyncThunk(
     }
   },
 )
+
 export const createCorp = createAsyncThunk(
   'adminContents/createCorp',
   async (data: CorpType, { rejectWithValue }) => {
@@ -303,6 +318,17 @@ export const adminContentsSlice = createSlice({
         state.status = 'success'
       })
       .addCase(createTool.rejected, state => {
+        state.status = 'failed'
+      })
+      .addCase(updateTool.pending, state => {
+        state.status = 'loading'
+      })
+      .addCase(updateTool.fulfilled, (state, { payload }) => {
+        state.currentContent = payload
+        state.currentType = 'self'
+        state.status = 'success'
+      })
+      .addCase(updateTool.rejected, state => {
         state.status = 'failed'
       })
   },
