@@ -1,7 +1,6 @@
 import { ToolType } from '../types/types'
 import axios, { AxiosInstance } from 'axios'
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import apiAxios, { baseURL } from 'app/apiAxios'
+import { baseURL } from 'app/apiAxios'
 import { SelfMainInfo } from 'types/types'
 
 const authAxios: AxiosInstance = axios.create({
@@ -9,22 +8,29 @@ const authAxios: AxiosInstance = axios.create({
 })
 
 export const getSelfMainInfoAPI = async () => {
-  let selfMainInfoList: SelfMainInfo[] = []
+  const selfMainInfoList: SelfMainInfo[] = []
+  const response = {
+    isNotFound404: false,
+    data: selfMainInfoList,
+  }
 
   await authAxios
     .get('/self/nomember/tools')
     .then(res => {
-      selfMainInfoList = res.data
+      response.data = res.data
     })
     .catch(err => {
       console.log(err)
+      if (err.request.status === 404) {
+        response.isNotFound404 = true
+      }
     })
 
-  return selfMainInfoList
+  return response
 }
 
 export const getSelfSpecificInfoAPI = async (id?: string) => {
-  let selfSpecificInfo: ToolType = {
+  const selfSpecificInfo: ToolType = {
     nameKr: '',
     nameEn: '',
     info: '',
@@ -42,14 +48,22 @@ export const getSelfSpecificInfoAPI = async (id?: string) => {
     ios: '',
   }
 
+  const response = {
+    isNotFound404: false,
+    data: selfSpecificInfo,
+  }
+
   await authAxios
     .get(`/self/nomember/tools/${id}`)
     .then(res => {
-      selfSpecificInfo = res.data
+      response.data = res.data
     })
     .catch(err => {
       console.log(err)
+      if (err.request.status === 404) {
+        response.isNotFound404 = true
+      }
     })
 
-  return selfSpecificInfo
+  return response
 }

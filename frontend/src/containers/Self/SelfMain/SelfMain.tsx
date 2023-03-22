@@ -3,15 +3,22 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { SelfCardGrid, FilterSection } from 'containers/Common'
 import React, { Suspense, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { selfMainInfoList, setSelfMainInfoList } from 'reducers/selfReducer'
+import { useNavigate } from 'react-router-dom'
+import { setSelfMainInfoList } from 'reducers/selfReducer'
 import styles from 'styles/pages/commons/Content.module.css'
 
 const SelfMain = () => {
   const contents = ['ALL', '디자인', '개발', '마케팅', '기획', 'Other']
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const getselfMainInfoList = async () => {
-    dispatch(setSelfMainInfoList(await getSelfMainInfoAPI()))
+    const response = await getSelfMainInfoAPI()
+    if (response.isNotFound404) {
+      navigate('/error')
+    } else {
+      dispatch(setSelfMainInfoList(response.data))
+    }
   }
 
   useEffect(() => {

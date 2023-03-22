@@ -7,22 +7,30 @@ const authAxios: AxiosInstance = axios.create({
 })
 
 export const getWithMainInfoAPI = async () => {
-  let withMainInfoList: WithCorpType[] = []
+  const withMainInfoList: WithCorpType[] = []
+
+  const response = {
+    isNotFound404: false,
+    data: withMainInfoList,
+  }
 
   await authAxios
     .get('/with/nomember/corps')
     .then(res => {
-      withMainInfoList = res.data
+      response.data = res.data
     })
     .catch(err => {
       console.log(err)
+      if (err.request.status === 404) {
+        response.isNotFound404 = true
+      }
     })
 
-  return withMainInfoList
+  return response
 }
 
 export const getWithSpecificInfoAPI = async (corpId?: string) => {
-  let withSpecificInfo: WithCorpType = {
+  const withSpecificInfo: WithCorpType = {
     image: '',
     info: '',
     isBookmarked: false,
@@ -38,14 +46,22 @@ export const getWithSpecificInfoAPI = async (corpId?: string) => {
     tools: [],
   }
 
+  const response = {
+    isNotFound404: false,
+    data: withSpecificInfo,
+  }
+
   await authAxios
     .get(`/with/nomember/corps/${corpId}`)
     .then(res => {
-      withSpecificInfo = res.data
+      response.data = res.data
     })
     .catch(err => {
       console.log(err)
+      if (err.request.status === 404) {
+        response.isNotFound404 = true
+      }
     })
 
-  return withSpecificInfo
+  return response
 }

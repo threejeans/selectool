@@ -44,8 +44,8 @@ const SelfFilterModal = () => {
           />
         </div>
         <div className={styles.buttonContainer}>
-          <Button color={'outlined'} size={'md'} text={'초기화'}></Button>
-          <Button color={'primary'} size={'md'} text={'다 골랐어요!'}></Button>
+          <Button color={'outlined'} size={'md'} text={'초기화'} clickEvent={() => {alert('서비스 준비중입니다.')}}></Button>
+          <Button color={'primary'} size={'md'} text={'다 골랐어요!'} clickEvent={() => {alert('서비스 준비중입니다.')}}></Button>
         </div>
       </div>
     </Modal>

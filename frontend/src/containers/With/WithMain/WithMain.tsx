@@ -2,6 +2,7 @@ import { getWithMainInfoAPI } from 'api/with'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { WithCardGrid, FilterSection } from 'containers/Common'
 import React, { Suspense, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { setWithMainInfoList, withMainInfoList } from 'reducers/withReducer'
 import styles from 'styles/pages/commons/Content.module.css'
 
@@ -15,6 +16,7 @@ const WithMain = () => {
     'Other',
   ]
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const mainInfoList = useAppSelector(withMainInfoList)
 
   useEffect(() => {
@@ -22,7 +24,12 @@ const WithMain = () => {
   }, [])
 
   const getWithMainInfoList = async () => {
-    dispatch(setWithMainInfoList(await getWithMainInfoAPI()))
+    const response = await getWithMainInfoAPI()
+    if (response.isNotFound404) {
+      navigate('/error')
+    } else {
+      dispatch(setWithMainInfoList(response.data))
+    }
   }
 
   return (
