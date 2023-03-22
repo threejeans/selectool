@@ -127,6 +127,7 @@ input {
   font-size: 1rem;
   font-weight: 400;
   margin: 0;
+  position: relative;
 }
 
 .info {
@@ -240,4 +241,10 @@ input {
 .planCost {
   font-size: 2rem;
   font-weight: 500;
+}
+.planFunc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
