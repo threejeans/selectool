@@ -43,16 +43,16 @@
   border-radius: 5px;
   box-sizing: border-box;
 
-  width: 120px;
-  height: 50px;
+  width: 100px;
+  height: 40px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   text-align: center;
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 12px;
   color: black;
 }
 
@@ -68,8 +68,8 @@
   border-radius: 5px;
   box-sizing: border-box;
 
-  width: 120px;
-  height: 50px;
+  width: 100px;
+  height: 40px;
 
   display: flex;
   justify-content: center;
@@ -77,7 +77,7 @@
 
   text-align: center;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 12px;
   color: #60a9f6;
 }
 

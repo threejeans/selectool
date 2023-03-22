@@ -3,7 +3,7 @@ import {
   selectCurrentContent,
   updateTool,
 } from 'features/admin/contents/adminContentsSlice'
-import { SetStateAction, useRef, useState } from 'react'
+import { useState } from 'react'
 import { BsArrowUpRight } from 'react-icons/bs'
 import { ToolType } from 'types/types'
 import ModifyButton from './ModifyButton'
@@ -11,7 +11,7 @@ import ModifyButton from './ModifyButton'
 import styles from 'styles/admin/pages/contents/ContentDetail.module.css'
 import ImageInput from '../ImageInput'
 
-const SelfMain = () => {
+const SelfInfo = () => {
   const tool = useAppSelector(selectCurrentContent) as ToolType
   const { image, nameKr, nameEn, info, url } = useAppSelector(
     selectCurrentContent,
@@ -102,4 +102,4 @@ const SelfMain = () => {
   )
 }
 
-export default SelfMain
+export default SelfInfo

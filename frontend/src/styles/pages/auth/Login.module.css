@@ -1,6 +1,6 @@
 .container {
   min-height: 50vh;
-  min-width: 50vw;
+  min-width: 44vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,39 +9,37 @@
 
 .title {
   margin-top: 1rem;
-  font-family: "Noto Sans KR";
-  font-size: 2.6rem;
-  font-weight: bolder;
+  font-size: 2rem;
+  font-weight: 800;
   font-stretch: ultra-condensed;
 }
 
 .description {
   margin-top: 1rem;
-  font-family: "Noto Sans KR";
-  font-size: 20px;
+  font-size: 18px;
   color: var(--gray-scale-color-g25);
 }
 
 .buttonGroup {
-  margin: 1.6rem 0;
-  width: 100%;
+  margin: 2.8rem 0;
+  width: 92%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
 }
 .buttonGroup > a {
-  border-radius: 1rem;
-  width: 25%;
-  height: 4rem;
-  box-shadow: 5px 5px 5px var(--gray-scale-color-g20);
-  font-size: 1.2rem;
-  font-family: "Noto Sans KR";
+  border-radius: 1.4rem;
+  width: 10rem;
+  height: 3.6rem;
+  box-shadow: 1px 2px 4px var(--gray-scale-color-g20);
+  font-size: 1rem;
+  font-family: 'Noto Sans KR';
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 5%;
+  gap: 8%;
 }
 .buttonGroup > a:hover {
   cursor: pointer;
@@ -52,8 +50,8 @@
 
 .privacy {
   max-width: 600px;
-  font-family: "Noto Sans KR";
   font-size: 16px;
+  line-height: 24px;
   text-align: center;
   color: var(--gray-scale-color-g20);
 }
