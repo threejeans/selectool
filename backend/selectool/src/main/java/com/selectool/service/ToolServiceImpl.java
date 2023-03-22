@@ -1,5 +1,6 @@
 package com.selectool.service;
 
+import com.selectool.dto.tool.filter.ToolFilter;
 import com.selectool.dto.tool.request.ToolCreateRequest;
 import com.selectool.dto.tool.request.ToolPlanCreateRequest;
 import com.selectool.dto.tool.response.*;
@@ -35,10 +36,8 @@ public class ToolServiceImpl implements ToolService {
     private final ToolBookmarkRepo toolBookmarkRepo;
 
     @Override
-    public List<ToolListResponse> getToolList(Long userId, String name) {
-        List<Tool> response;
-        if (name.isEmpty()) response = toolRepo.findAll();
-        else response = toolRepo.findByNameKrContainingOrNameEnContainingIgnoreCase(name, name);
+    public List<ToolListResponse> getToolList(Long userId, ToolFilter filter) {
+        List<Tool> response = toolRepo.searchByFilter(filter);
 
         List<ToolBookmark> toolBookmarks = toolBookmarkRepo.findByUserId(userId);
         Map<Tool, Boolean> bookmarkMap = new HashMap<>();

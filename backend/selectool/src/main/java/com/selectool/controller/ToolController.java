@@ -4,6 +4,7 @@ import com.selectool.config.login.Admin;
 import com.selectool.config.login.LoginAdmin;
 import com.selectool.config.login.LoginUser;
 import com.selectool.config.login.User;
+import com.selectool.dto.tool.filter.ToolFilter;
 import com.selectool.dto.tool.request.ClientCreateRequest;
 import com.selectool.dto.tool.request.ToolCreateRequest;
 import com.selectool.dto.tool.response.ClientResponse;
@@ -72,9 +73,16 @@ public class ToolController {
     @ApiOperation(value = "전체 툴 목록 조회 및 이름으로 검색(name 을 보내지 않을 경우 전체 목록)")
     public ResponseEntity<List<ToolListResponse>> getToolList(
             @LoginUser User user,
-            @RequestParam(defaultValue = "") String name
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(defaultValue = "") String country,
+            @RequestParam(value = "category", required = false, defaultValue = "") List<String> categories
     ) {
-        List<ToolListResponse> response = toolService.getToolList(user.getId(), name.trim());
+        ToolFilter filter = ToolFilter.builder()
+                .name(name.trim())
+                .country(country.trim())
+                .categories(categories)
+                .build();
+        List<ToolListResponse> response = toolService.getToolList(user.getId(), filter);
         return ResponseEntity.ok(response);
     }
 
@@ -143,9 +151,16 @@ public class ToolController {
     @GetMapping("nomember/tools")
     @ApiOperation(value = "비 로그인 전체 툴 목록 조회 및 이름으로 검색(name 을 보내지 않을 경우 전체 목록)", tags = "비 로그인 조회")
     public ResponseEntity<List<ToolListResponse>> getNoMemberToolList(
-            @RequestParam(defaultValue = "") String name
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(defaultValue = "") String country,
+            @RequestParam(value = "category", required = false, defaultValue = "") List<String> categories
     ) {
-        List<ToolListResponse> response = toolService.getToolList(0L, name.trim());
+        ToolFilter filter = ToolFilter.builder()
+                .name(name.trim())
+                .country(country.trim())
+                .categories(categories)
+                .build();
+        List<ToolListResponse> response = toolService.getToolList(0L, filter);
         return ResponseEntity.ok(response);
     }
 
