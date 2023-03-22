@@ -29,6 +29,31 @@ export const getSelfMainInfoAPI = async () => {
   return response
 }
 
+export const getSelfSearchListAPI = async (value: string) => {
+  const selfMainInfoList: SelfMainInfo[] = []
+  const response = {
+    statusCode: 200,
+    data: selfMainInfoList,
+  }
+
+  await authAxios
+    .get('/self/nomember/tools', { params: { name: value } })
+    .then(res => {
+      response.data = res.data
+      if (!res.data.length) {
+        response.statusCode = 400
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      if (err.request.status === 404) {
+        response.statusCode = 404
+      }
+    })
+
+  return response
+}
+
 export const getSelfSpecificInfoAPI = async (id?: string) => {
   const selfSpecificInfo: ToolType = {
     nameKr: '',

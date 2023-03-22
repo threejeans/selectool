@@ -2,25 +2,31 @@ import { RootState } from 'app/store'
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface CommonState {
-  isNotFound404: boolean
+  searchValue: string
+  isNoSearchData: boolean
 }
 
 const initialState: CommonState = {
-  isNotFound404: false,
+  searchValue: '',
+  isNoSearchData: false,
 }
 
 const commonReducer = createSlice({
   name: 'commonReducer',
   initialState: initialState,
   reducers: {
-    setNotFound404: state => {
-      state.isNotFound404 = !state.isNotFound404
+    setSearchValue(state, { payload: input }) {
+      return { ...state, searchValue: input }
+    },
+    changeSearchDataStatus(state, { payload: input }) {
+      return { ...state, isNoSearchData: input }
     },
   },
 })
 
-export const { setNotFound404 } = commonReducer.actions
+export const { setSearchValue, changeSearchDataStatus } = commonReducer.actions
 
-export const notFound404State = (state: RootState) => state.common.isNotFound404
+export const searchValue = (state: RootState) => state.common.searchValue
+export const searchDataState = (state: RootState) => state.common.isNoSearchData
 
 export default commonReducer.reducer
