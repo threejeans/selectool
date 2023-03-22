@@ -6,11 +6,20 @@ import styles from 'styles/admin/pages/contents/ContentDetail.module.css'
 import { s3Config } from 'util/s3Config'
 
 type ImageInputProps = {
-  image: string
-  setImage: React.Dispatch<React.SetStateAction<string>>
+  image?: string
+  setImage?: React.Dispatch<React.SetStateAction<string>>
+  idx?: number
+  images?: string[]
+  setImages?: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const ImageInput = ({ image, setImage }: ImageInputProps) => {
+const ImageInput = ({
+  image,
+  setImage,
+  idx,
+  images,
+  setImages,
+}: ImageInputProps) => {
   const thumbnailRef = useRef<HTMLInputElement | null>(null)
 
   const handleUpload = () => {
@@ -28,7 +37,11 @@ const ImageInput = ({ image, setImage }: ImageInputProps) => {
     ReactS3Client.uploadFile(file, 'thumbnails/' + file.name)
       .then(data => {
         console.log(data.location)
-        setImage(data.location)
+        if (setImage) setImage(data.location)
+        if (setImages && images && idx) {
+          images[idx] = data.location
+          setImages([...images])
+        }
       })
       .catch(err => console.error(err))
   }
