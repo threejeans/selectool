@@ -34,11 +34,12 @@ public class CorpController {
     }
 
     @GetMapping("/corps")
-    @ApiOperation(value = "기업 목록 조회")
+    @ApiOperation(value = "기업 목록 조회 및 이름으로 검색(name 을 보내지 않을 경우 전체 목록)")
     public ResponseEntity<List<CorpResponse>> getCorpList(
-            @LoginUser User user
+            @LoginUser User user,
+            @RequestParam(defaultValue = "") String name
     ) {
-        List<CorpResponse> response = corpService.getCorpList(user.getId());
+        List<CorpResponse> response = corpService.getCorpList(user.getId(), name.trim());
         return ResponseEntity.ok(response);
     }
 
@@ -95,10 +96,11 @@ public class CorpController {
 
     /* 비 로그인 유저 조회 */
     @GetMapping("nomember/corps")
-    @ApiOperation(value = "비 로그인 기업 목록 조회", tags = "비 로그인 조회")
+    @ApiOperation(value = "비 로그인 기업 목록 조회 및 이름으로 검색(name 을 보내지 않을 경우 전체 목록)", tags = "비 로그인 조회")
     public ResponseEntity<List<CorpResponse>> getNoMemberCorpList(
+            @RequestParam(defaultValue = "") String name
     ) {
-        List<CorpResponse> response = corpService.getCorpList(0L);
+        List<CorpResponse> response = corpService.getCorpList(0L, name.trim());
         return ResponseEntity.ok(response);
     }
 

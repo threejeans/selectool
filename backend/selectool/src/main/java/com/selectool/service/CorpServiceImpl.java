@@ -197,8 +197,10 @@ public class CorpServiceImpl implements CorpService {
     }
 
     @Override
-    public List<CorpResponse> getCorpList(Long userId) {
-        List<Corp> response = corpRepo.findAll();
+    public List<CorpResponse> getCorpList(Long userId, String name) {
+        List<Corp> response;
+        if (name.isEmpty()) response = corpRepo.findAll();
+        else response = corpRepo.findByNameKrContainingOrNameEnContainingIgnoreCase(name, name);
 
         List<CorpBookmark> corpBookmarks = corpBookmarkRepo.findByUserId(userId);
         Map<Corp, Boolean> bookmarkMap = new HashMap<>();
