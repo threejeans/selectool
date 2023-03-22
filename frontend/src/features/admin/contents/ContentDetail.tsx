@@ -10,10 +10,16 @@ import {
 } from './adminContentsSlice'
 
 import styles from 'styles/admin/pages/contents/ContentDetail.module.css'
-import SelfMain from 'components/admin/detail/SelfMain'
+
+import SelfInfo from 'components/admin/detail/SelfInfo'
 import SelfCore from 'components/admin/detail/SelfCore'
 import SelfClients from 'components/admin/detail/SelfClients'
 import SelfPlans from 'components/admin/detail/SelfPlans'
+
+import WithInfo from 'components/admin/detail/WithInfo'
+import WithBranches from 'components/admin/detail/WithBranches'
+import WithCultures from 'components/admin/detail/WithCultures'
+import WithTools from 'components/admin/detail/WithTools'
 
 type ContentDetailProps = {
   type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE
@@ -44,14 +50,21 @@ const ContentDetail = ({ type, id }: ContentDetailProps) => {
       case 'self':
         return (
           <>
-            <SelfMain />
+            <SelfInfo />
             <SelfCore />
             <SelfClients />
             <SelfPlans />
           </>
         )
       case 'with':
-        return <></>
+        return (
+          <>
+            <WithInfo />
+            <WithBranches />
+            <WithCultures />
+            <WithTools />
+          </>
+        )
       case 'guide':
         return <></>
       default:
