@@ -29,6 +29,31 @@ export const getWithMainInfoAPI = async () => {
   return response
 }
 
+export const getWithSearchListAPI = async (value: string) => {
+  const withMainInfoList: WithCorpType[] = []
+  const response = {
+    statusCode: 200,
+    data: withMainInfoList,
+  }
+  await authAxios
+    .get('/with/nomember/corps', { params: { name: value } })
+    .then(res => {
+      console.log(value, res.data)
+      response.data = res.data
+      if (!res.data.length) {
+        response.statusCode = 400
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      if (err.request.status === 404) {
+        response.statusCode = 404
+      }
+    })
+
+  return response
+}
+
 export const getWithSpecificInfoAPI = async (corpId?: string) => {
   const withSpecificInfo: WithCorpType = {
     image: '',

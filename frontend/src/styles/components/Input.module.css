@@ -71,8 +71,8 @@
   box-sizing: border-box;
 
   font-family: 'Pretendard Variable';
-  font-weight: 300;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 14px;
   color: #595959;
 
   transition: 0.1s;
@@ -83,7 +83,7 @@
 }
 
 .search::placeholder {
-  font-size: 16px;
+  font-size: 14px;
   color: rgba(189, 189, 189, 0.6);
 }
 

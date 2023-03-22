@@ -5,9 +5,17 @@ import FilterGrid from '../FilterGrid'
 import styles from './FilterSection.module.css'
 import filterIcon from 'assets/filter_icon.svg'
 import filterIconSelected from 'assets/filter_icon_selected.svg'
-import { useAppDispatch } from 'app/hooks'
-import { changeFilterModalStatus } from 'reducers/selfReducer'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import {
+  changeFilterModalStatus,
+  setSelfMainInfoList,
+} from 'reducers/selfReducer'
 import SelfFilterModal from 'containers/Self/SelfFilterModal/SelfFilterModal'
+import { changeSearchDataStatus, searchValue } from 'reducers/commonReducer'
+import { getSelfSearchListAPI } from 'api/self'
+import { useNavigate } from 'react-router-dom'
+import { getWithSearchListAPI } from 'api/with'
+import { setWithMainInfoList } from 'reducers/withReducer'
 
 export type filterProps = {
   isFilterButton?: boolean
@@ -26,15 +34,48 @@ const FilterSection = ({
   filterTypes = [],
   placeholder,
 }: filterProps) => {
-  const dispatcth = useAppDispatch()
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const searchContent = useAppSelector(searchValue)
+
   const openModal = () => {
-    dispatcth(changeFilterModalStatus())
+    dispatch(changeFilterModalStatus())
   }
 
   const items = [...new Array(filterTypes.length)].map(
     (data, idx) =>
       (data = { type: 'basic', isSelected: false, content: filterTypes[idx] }),
   )
+
+  const searchEvent = async () => {
+    if (isFilterButton) {
+      const response = await getSelfSearchListAPI(searchContent)
+      switch (response.statusCode) {
+        case 404:
+          navigate('/error')
+          return
+        case 400:
+          dispatch(changeSearchDataStatus(true))
+          return
+        default:
+          dispatch(setSelfMainInfoList(response.data))
+          dispatch(changeSearchDataStatus(false))
+      }
+    } else {
+      const response = await getWithSearchListAPI(searchContent)
+      switch (response.statusCode) {
+        case 404:
+          navigate('/error')
+          return
+        case 400:
+          dispatch(changeSearchDataStatus(true))
+          return
+        default:
+          dispatch(setWithMainInfoList(response.data))
+          dispatch(changeSearchDataStatus(false))
+      }
+    }
+  }
 
   return (
     <div className={styles.layout}>
@@ -55,7 +96,7 @@ const FilterSection = ({
             />
           </button>
         ) : null}
-        <SearchForm placeholder={placeholder} />
+        <SearchForm placeholder={placeholder} submitEvent={searchEvent} />
       </div>
     </div>
   )

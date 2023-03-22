@@ -3,6 +3,11 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { WithCardGrid, FilterSection } from 'containers/Common'
 import React, { Suspense, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import {
+  changeSearchDataStatus,
+  searchDataState,
+  searchValue,
+} from 'reducers/commonReducer'
 import { setWithMainInfoList, withMainInfoList } from 'reducers/withReducer'
 import styles from 'styles/pages/commons/Content.module.css'
 
@@ -18,10 +23,8 @@ const WithMain = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const mainInfoList = useAppSelector(withMainInfoList)
-
-  useEffect(() => {
-    getWithMainInfoList()
-  }, [])
+  const isNoSearchData = useAppSelector(searchDataState)
+  const searchContent = useAppSelector(searchValue)
 
   const getWithMainInfoList = async () => {
     const response = await getWithMainInfoAPI()
@@ -32,15 +35,43 @@ const WithMain = () => {
     }
   }
 
+  useEffect(() => {
+    getWithMainInfoList()
+    if (searchContent === '') {
+      dispatch(changeSearchDataStatus(false))
+    }
+  }, [])
+
   return (
     <div className={styles.mainLayout}>
       <FilterSection
         filterTypes={filterTypes}
         placeholder={'기업명을 입력해주세요'}
       />
-      <Suspense fallback={<WithCardGrid isSpinner list={[]} />}>
-        <WithCardGrid list={mainInfoList} />
-      </Suspense>
+      {isNoSearchData ? (
+        <div className={styles.noSearchLayout}>
+          <div className={styles.noSearchMainText}>
+            아쉽게도 &#39;{searchContent}&#39;와 일치하는 기업이 없어요 :&#40;
+          </div>
+          <div className={styles.noSearchSubText}>
+            <a>기업 등록 요청</a>을 해주시면 검토 후 빠른 시일 내에
+            제공해드릴게요
+          </div>
+          <a
+            className={styles.noSearchResetText}
+            onClick={() => {
+              dispatch(changeSearchDataStatus(false))
+              getWithMainInfoList()
+            }}
+          >
+            다른 기업 둘러보기 →
+          </a>
+        </div>
+      ) : (
+        <Suspense fallback={<WithCardGrid isSpinner list={[]} />}>
+          <WithCardGrid list={mainInfoList} />
+        </Suspense>
+      )}
     </div>
   )
 }
