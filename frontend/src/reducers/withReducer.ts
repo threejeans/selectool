@@ -5,6 +5,7 @@ import { WithCorpType } from 'types/types'
 export interface WithState {
   withMainInfoList: WithCorpType[]
   withSpecificInfo: WithCorpType
+  isToolSpecificModal: boolean
 }
 
 const initialState: WithState = {
@@ -24,6 +25,7 @@ const initialState: WithState = {
     cultures: [],
     tools: [],
   },
+  isToolSpecificModal: false,
 }
 
 const withReducer = createSlice({
@@ -36,14 +38,23 @@ const withReducer = createSlice({
     setWithSpecificInfo(state, { payload: input }) {
       return { ...state, withSpecificInfo: input }
     },
+    changeToolSpecificModalStatus: state => {
+      state.isToolSpecificModal = !state.isToolSpecificModal
+    },
   },
 })
 
-export const { setWithMainInfoList, setWithSpecificInfo } = withReducer.actions
+export const {
+  setWithMainInfoList,
+  setWithSpecificInfo,
+  changeToolSpecificModalStatus,
+} = withReducer.actions
 
 export const withMainInfoList = (state: RootState) =>
   state.with.withMainInfoList
 export const withSpecificInfo = (state: RootState) =>
   state.with.withSpecificInfo
+export const toolSpecificModalState = (state: RootState) =>
+  state.with.isToolSpecificModal
 
 export default withReducer.reducer

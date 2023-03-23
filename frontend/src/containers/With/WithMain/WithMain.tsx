@@ -1,9 +1,10 @@
 import { getWithMainInfoAPI } from 'api/with'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
-import { WithCardGrid, FilterSection } from 'containers/Common'
+import { WithCardGrid, FilterSection, RegisterModal } from 'containers/Common'
 import React, { Suspense, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
+  changeRegisterModalStatus,
   changeSearchDataStatus,
   searchDataState,
   searchValue,
@@ -22,7 +23,7 @@ const WithMain = () => {
   ]
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const mainInfoList = useAppSelector(withMainInfoList)
+
   const isNoSearchData = useAppSelector(searchDataState)
   const searchContent = useAppSelector(searchValue)
 
@@ -35,15 +36,17 @@ const WithMain = () => {
     }
   }
 
+  if (searchContent === '') {
+    dispatch(changeSearchDataStatus(false))
+  }
+
   useEffect(() => {
     getWithMainInfoList()
-    if (searchContent === '') {
-      dispatch(changeSearchDataStatus(false))
-    }
   }, [])
 
   return (
     <div className={styles.mainLayout}>
+      <RegisterModal />
       <FilterSection
         filterTypes={filterTypes}
         placeholder={'기업명을 입력해주세요'}
@@ -54,8 +57,10 @@ const WithMain = () => {
             아쉽게도 &#39;{searchContent}&#39;와 일치하는 기업이 없어요 :&#40;
           </div>
           <div className={styles.noSearchSubText}>
-            <a>기업 등록 요청</a>을 해주시면 검토 후 빠른 시일 내에
-            제공해드릴게요
+            <a onClick={() => dispatch(changeRegisterModalStatus())}>
+              기업 등록 요청
+            </a>
+            을 해주시면 검토 후 빠른 시일 내에 제공해드릴게요
           </div>
           <a
             className={styles.noSearchResetText}
@@ -68,8 +73,8 @@ const WithMain = () => {
           </a>
         </div>
       ) : (
-        <Suspense fallback={<WithCardGrid isSpinner list={[]} />}>
-          <WithCardGrid list={mainInfoList} />
+        <Suspense fallback={<WithCardGrid isSpinner />}>
+          <WithCardGrid />
         </Suspense>
       )}
     </div>

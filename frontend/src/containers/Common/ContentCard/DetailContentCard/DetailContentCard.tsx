@@ -6,11 +6,17 @@ type ContentProps = {
   title: string
   description: string
   children: React.ReactNode
+  isWith?: boolean
 }
 
-const DetailContentCard = ({ title, description, children }: ContentProps) => {
+const DetailContentCard = ({
+  title,
+  description,
+  children,
+  isWith = false,
+}: ContentProps) => {
   return (
-    <div className={styles.cardLayout}>
+    <div className={isWith ? styles.cardWithLayout : styles.cardLayout}>
       <div className={styles.cardContent}>
         <CardTitle title={title} description={description} />
         <hr className={styles.line}></hr>

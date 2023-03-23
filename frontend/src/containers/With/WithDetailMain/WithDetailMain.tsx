@@ -1,28 +1,40 @@
-import { useAppSelector } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import {
   CommonCardSection,
   DetailContentCard,
   DetailMainCard,
 } from 'containers/Common'
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { withSpecificInfo } from 'reducers/withReducer'
+import { useState } from 'react'
+import {
+  changeToolSpecificModalStatus,
+  withSpecificInfo,
+} from 'reducers/withReducer'
+import WithToolModal from '../WithToolModal'
 import styles from './WithDetailMain.module.css'
 
 const WithDetailMain = () => {
   const specificInfo = useAppSelector(withSpecificInfo)
   const branchDescription = '* 상위 ' + specificInfo.branches.length + '개 기준'
   console.log(specificInfo)
+  const dispatch = useAppDispatch()
+  const [toolId, setToolId] = useState(0)
 
   return (
     <>
+      <WithToolModal toolId={toolId} />
       <DetailMainCard
         image={specificInfo.image}
         nameKr={specificInfo.nameKr}
         info={specificInfo.info}
-        button1ClickEvent={() => {document.location.href = specificInfo.url}}
-        button2ClickEvent={() => {alert('서비스 준비중입니다.')}}
-        button3ClickEvent={() => {alert('서비스 준비중입니다.')}}
+        button1ClickEvent={() => {
+          document.location.href = specificInfo.url
+        }}
+        button2ClickEvent={() => {
+          alert('서비스 준비중입니다.')
+        }}
+        button3ClickEvent={() => {
+          alert('서비스 준비중입니다.')
+        }}
       />
       <div className={styles.rightSection}>
         <DetailContentCard title='기업 소개' description='* 공식 홈페이지 기준'>
@@ -58,7 +70,14 @@ const WithDetailMain = () => {
         >
           <div className={styles.toolsLayout}>
             {specificInfo.tools.map((tool, index) => (
-              <div key={index} className={styles.toolContainer}>
+              <div
+                key={index}
+                className={styles.toolContainer}
+                onClick={() => {
+                  setToolId(tool.id)
+                  dispatch(changeToolSpecificModalStatus())
+                }}
+              >
                 <img src={tool.image} className={styles.toolImage}></img>
                 <div className={styles.toolName}>{tool.nameKr}</div>
               </div>
