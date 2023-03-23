@@ -1,3 +1,4 @@
+import { useAppDispatch } from 'app/hooks'
 import AdminLayout from 'components/admin/AdminLayout'
 import AdminMain from 'features/admin/AdminMain'
 import AdminAlarm from 'features/admin/alarm/AdminAlarm'

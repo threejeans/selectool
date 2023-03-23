@@ -9,7 +9,6 @@ import { selfSpecificInfo } from 'reducers/selfReducer'
 import styles from './SelfDetailMain.module.css'
 import RatingComponent from '../SelfDetailComponent/RatingComponent'
 import PlanComponent from '../SelfDetailComponent/PlanComponent'
-import { useNavigate } from 'react-router-dom'
 
 const SelfDetailMain = () => {
   const specificInfo = useAppSelector(selfSpecificInfo)
@@ -24,9 +23,15 @@ const SelfDetailMain = () => {
         image={specificInfo.image}
         nameKr={specificInfo.nameKr}
         info={specificInfo.info}
-        button1ClickEvent={() => {document.location.href = specificInfo.url}}
-        button2ClickEvent={() => {alert('서비스 준비중입니다.')}}
-        button3ClickEvent={() => {alert('서비스 준비중입니다.')}}
+        button1ClickEvent={() => {
+          document.location.href = specificInfo.url
+        }}
+        button2ClickEvent={() => {
+          alert('서비스 준비중입니다.')
+        }}
+        button3ClickEvent={() => {
+          alert('서비스 준비중입니다.')
+        }}
       />
       <div className={styles.rightSection}>
         <DetailContentCard title='핵심 기능' description='* 공식 홈페이지 기준'>

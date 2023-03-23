@@ -1,6 +1,6 @@
 .container {
   min-height: 50vh;
-  min-width: 44vw;
+  min-width: 46vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,7 +9,7 @@
 
 .title {
   margin-top: 1rem;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 800;
   font-stretch: ultra-condensed;
 }
@@ -21,7 +21,7 @@
 }
 
 .buttonGroup {
-  margin: 2.8rem 0;
+  margin: 3rem 0;
   width: 92%;
   display: flex;
   flex-direction: row;

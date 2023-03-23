@@ -7,6 +7,11 @@
   border-radius: 20px;
 }
 
+.cardWithLayout {
+  width: 94%;
+  height: fit-content;
+}
+
 .cardContent {
   padding-block: 38px;
   padding-inline: 36px;
