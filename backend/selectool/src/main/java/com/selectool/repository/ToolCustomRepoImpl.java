@@ -4,16 +4,14 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.selectool.dto.tool.filter.ToolFilter;
-
-import static com.selectool.entity.QTool.tool;
-import static org.springframework.util.StringUtils.hasText;
-
-import static com.selectool.entity.QToolCategory.toolCategory;
-
 import com.selectool.entity.Tool;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import static com.selectool.entity.QTool.tool;
+import static com.selectool.entity.QToolCategory.toolCategory;
+import static org.springframework.util.StringUtils.hasText;
 
 @Repository
 public class ToolCustomRepoImpl implements ToolCustomRepo {
@@ -50,6 +48,8 @@ public class ToolCustomRepoImpl implements ToolCustomRepo {
                                 .select(toolCategory.tool.id)
                                 .from(toolCategory)
                                 .where(toolCategory.name.in(categories))
+                                .groupBy(toolCategory.tool.id)
+                                .having(toolCategory.count().eq((long) categories.size()))
                 );
     }
 }
