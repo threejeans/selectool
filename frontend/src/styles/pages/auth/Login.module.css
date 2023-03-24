@@ -1,6 +1,7 @@
 .container {
   min-height: 50vh;
-  min-width: 46vw;
+  width: 46vw;
+  min-width: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,7 +10,7 @@
 
 .title {
   margin-top: 1rem;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 800;
   font-stretch: ultra-condensed;
 }

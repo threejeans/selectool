@@ -1,9 +1,10 @@
 .modalLayout {
   width: 44vw;
+  min-width: 400px;
   height: 72vh;
   overflow-y: scroll;
   margin-block: 44px;
-  padding-inline: 20px;
+  padding-inline: 2vh;
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -57,6 +58,7 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
+  text-align: center;
   color: #6f6f6f;
 }
 

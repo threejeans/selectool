@@ -20,7 +20,7 @@ const CardGrid = ({ isSpinner = false }: GridProps) => {
       ) : mainInfoList.length > 0 ? (
         mainInfoList.map((data, idx) => <WithCard data={data} key={idx} />)
       ) : (
-        <div>등록된 tool이 없습니다</div>
+        <Spinner />
       )}
     </div>
   )
