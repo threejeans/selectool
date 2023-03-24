@@ -84,6 +84,7 @@ const FilterContent = ({ title, filterTypes }: ContentProps) => {
             type={'modalBasic'}
             isSelected={false}
             content={type}
+            clickEvent={() => alert('클릭')}
           />
         ))}
       </div>

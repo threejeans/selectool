@@ -1,5 +1,5 @@
 import { useAppSelector } from 'app/hooks'
-import Spinner from 'components/Spinner'
+import ContentSpinner from 'components/ContentSpinner'
 import { SelfCard } from 'containers/Self'
 import React from 'react'
 import { selfMainInfoList } from 'reducers/selfReducer'
@@ -15,11 +15,11 @@ const SelfCardGrid = ({ isSpinner = false }: GridProps) => {
   return (
     <div className={`${styles.layout} ${styles.selfLayout}`}>
       {isSpinner ? (
-        <Spinner />
+        <ContentSpinner />
       ) : mainInfoList.length > 0 ? (
         mainInfoList.map((data, idx) => <SelfCard data={data} key={idx} />)
       ) : (
-        <Spinner />
+        <ContentSpinner />
       )}
     </div>
   )

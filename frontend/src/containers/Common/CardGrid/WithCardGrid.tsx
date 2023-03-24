@@ -1,9 +1,8 @@
 import { useAppSelector } from 'app/hooks'
-import Spinner from 'components/Spinner'
+import ContentSpinner from 'components/ContentSpinner'
 import { WithCard } from 'containers/With'
 import React from 'react'
 import { withMainInfoList } from 'reducers/withReducer'
-import { WithCorpType } from 'types/types'
 import styles from './CardGrid.module.css'
 
 type GridProps = {
@@ -16,11 +15,11 @@ const CardGrid = ({ isSpinner = false }: GridProps) => {
   return (
     <div className={`${styles.layout} ${styles.withLayout}`}>
       {isSpinner ? (
-        <Spinner />
+        <ContentSpinner />
       ) : mainInfoList.length > 0 ? (
         mainInfoList.map((data, idx) => <WithCard data={data} key={idx} />)
       ) : (
-        <Spinner />
+        <ContentSpinner />
       )}
     </div>
   )
