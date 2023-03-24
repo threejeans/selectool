@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from 'axios'
 import { baseURL } from 'app/apiAxios'
 import { SelfMainInfo } from 'types/types'
 
-const authAxios: AxiosInstance = axios.create({
+const basicAxios: AxiosInstance = axios.create({
   baseURL: baseURL,
 })
 
@@ -14,7 +14,7 @@ export const getSelfMainInfoAPI = async () => {
     data: selfMainInfoList,
   }
 
-  await authAxios
+  await basicAxios
     .get('/self/nomember/tools')
     .then(res => {
       response.data = res.data
@@ -36,8 +36,33 @@ export const getSelfSearchListAPI = async (value: string) => {
     data: selfMainInfoList,
   }
 
-  await authAxios
+  await basicAxios
     .get('/self/nomember/tools', { params: { name: value } })
+    .then(res => {
+      response.data = res.data
+      if (!res.data.length) {
+        response.statusCode = 400
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      if (err.request.status === 404) {
+        response.statusCode = 404
+      }
+    })
+
+  return response
+}
+
+export const getSelfCategoryListAPI = async (params: string) => {
+  const selfMainInfoList: SelfMainInfo[] = []
+  const response = {
+    statusCode: 200,
+    data: selfMainInfoList,
+  }
+
+  await basicAxios
+    .get(`/self/nomember/tools?${params}`)
     .then(res => {
       response.data = res.data
       if (!res.data.length) {
@@ -78,7 +103,7 @@ export const getSelfSpecificInfoAPI = async (id?: string) => {
     data: selfSpecificInfo,
   }
 
-  await authAxios
+  await basicAxios
     .get(`/self/nomember/tools/${id}`)
     .then(res => {
       response.data = res.data

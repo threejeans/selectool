@@ -19,19 +19,13 @@ import { setWithMainInfoList } from 'reducers/withReducer'
 
 export type filterProps = {
   isFilterButton?: boolean
-  filterTypes: Array<string>
   placeholder?: string
-}
-
-export type filterDataProps = {
-  items: Array<ChipProps>
 }
 
 const isFilterButtonSelected = false
 
 const FilterSection = ({
   isFilterButton = false,
-  filterTypes = [],
   placeholder,
 }: filterProps) => {
   const dispatch = useAppDispatch()
@@ -41,11 +35,6 @@ const FilterSection = ({
   const openModal = () => {
     dispatch(changeFilterModalStatus())
   }
-
-  const items = [...new Array(filterTypes.length)].map(
-    (data, idx) =>
-      (data = { type: 'basic', isSelected: false, content: filterTypes[idx] }),
-  )
 
   const searchEvent = async () => {
     if (isFilterButton) {
@@ -80,7 +69,7 @@ const FilterSection = ({
   return (
     <div className={styles.layout}>
       <SelfFilterModal />
-      <FilterGrid items={items}></FilterGrid>
+      <FilterGrid isSelf={isFilterButton}></FilterGrid>
       <div className={styles.rightSection}>
         {isFilterButton ? (
           <button

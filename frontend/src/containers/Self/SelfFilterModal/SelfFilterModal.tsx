@@ -28,15 +28,16 @@ const SelfFilterModal = () => {
             title='💵 가격 범위'
             filterTypes={[
               '전체',
-              '5천원 이하',
-              '5천원 ~ 1만원',
-              '1만원 ~ 5만원',
-              '5만원 이상',
+              '무료 플랜',
+              // '5천원 이하',
+              // '5천원 ~ 1만원',
+              // '1만원 ~ 5만원',
+              // '5만원 이상',
             ]}
           />
           <FilterContent
             title='🗃 정렬'
-            filterTypes={['가나다순', '북마크 많은 순', '무료 플랜']}
+            filterTypes={['가나다순', '북마크 많은 순']}
           />
           <FilterContent
             title='🌐 국가'
@@ -44,8 +45,22 @@ const SelfFilterModal = () => {
           />
         </div>
         <div className={styles.buttonContainer}>
-          <Button color={'outlined'} size={'md'} text={'초기화'} clickEvent={() => {alert('서비스 준비중입니다.')}}></Button>
-          <Button color={'primary'} size={'md'} text={'다 골랐어요!'} clickEvent={() => {alert('서비스 준비중입니다.')}}></Button>
+          <Button
+            color={'outlined'}
+            size={'md'}
+            text={'초기화'}
+            clickEvent={() => {
+              alert('서비스 준비중입니다.')
+            }}
+          ></Button>
+          <Button
+            color={'primary'}
+            size={'md'}
+            text={'다 골랐어요!'}
+            clickEvent={() => {
+              alert('서비스 준비중입니다.')
+            }}
+          ></Button>
         </div>
       </div>
     </Modal>
@@ -69,6 +84,7 @@ const FilterContent = ({ title, filterTypes }: ContentProps) => {
             type={'modalBasic'}
             isSelected={false}
             content={type}
+            clickEvent={() => alert('클릭')}
           />
         ))}
       </div>

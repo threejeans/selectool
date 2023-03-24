@@ -13,7 +13,6 @@ import { setSelfMainInfoList } from 'reducers/selfReducer'
 import styles from 'styles/pages/commons/Content.module.css'
 
 const SelfMain = () => {
-  const contents = ['ALL', '디자인', '개발', '마케팅', '기획', 'Other']
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const isNoSearchData = useAppSelector(searchDataState)
@@ -39,11 +38,7 @@ const SelfMain = () => {
   return (
     <div className={styles.mainLayout}>
       <RegisterModal isSelf />
-      <FilterSection
-        isFilterButton
-        filterTypes={contents}
-        placeholder={'툴 이름을 입력해주세요'}
-      />
+      <FilterSection isFilterButton placeholder={'툴 이름을 입력해주세요'} />
       {isNoSearchData ? (
         <div className={styles.noSearchLayout}>
           <div className={styles.noSearchMainText}>

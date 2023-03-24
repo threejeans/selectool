@@ -1,17 +1,125 @@
+import { getSelfCategoryListAPI, getSelfMainInfoAPI } from 'api/self'
+import { getWithCategoryListAPI, getWithMainInfoAPI } from 'api/with'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import Chip from 'components/Chip'
-import React, { useState } from 'react'
-import { filterDataProps } from '../FilterSection/FilterSection'
+import React, { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+import {
+  selfCategoryFilterList,
+  setSelfCategoryFilterList,
+  setSelfMainInfoList,
+} from 'reducers/selfReducer'
+import {
+  setWithCategoryFilterList,
+  setWithMainInfoList,
+  withCategoryFilterList,
+} from 'reducers/withReducer'
 import styles from './FilterGrid.module.css'
 
-const FilterGrid = ({ items = [] }: filterDataProps) => {
+export type filterDataProps = {
+  isSelf?: boolean
+}
+
+const FilterGrid = ({ isSelf = false }: filterDataProps) => {
+  const dispatch = useAppDispatch()
+  const categoryList = isSelf
+    ? useAppSelector(selfCategoryFilterList)
+    : useAppSelector(withCategoryFilterList)
+  const allSelectedRef = useRef({ isAllSelected: false })
+  const categoryListRef = useRef({ categoryList: categoryList })
+  const navigate = useNavigate()
+
+  const clickEvent = async (content: string) => {
+    if (isSelf && content === 'ALL') {
+      allSelectedRef.current.isAllSelected =
+        !allSelectedRef.current.isAllSelected
+      const newList = allSelectedRef.current.isAllSelected
+        ? categoryList.map(item =>
+            !item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
+          )
+        : categoryList.map(item =>
+            item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
+          )
+      dispatch(setSelfCategoryFilterList(newList))
+      categoryListRef.current.categoryList = newList
+    } else {
+      const newList = categoryList.map(item =>
+        item.content === content
+          ? { ...item, isSelected: !item.isSelected }
+          : item,
+      )
+      categoryListRef.current.categoryList = newList
+      if (isSelf) {
+        dispatch(setSelfCategoryFilterList(newList))
+      } else {
+        dispatch(setWithCategoryFilterList(newList))
+      }
+    }
+
+    const categoryStringList = categoryListRef.current.categoryList
+      .filter(item => item.isSelected && item.content !== 'ALL')
+      .map(item => item.content)
+    let params = categoryStringList.join('&category=')
+    if (categoryStringList.length >= 1) {
+      params = 'category=' + params
+    }
+    const response = isSelf
+      ? await getSelfCategoryListAPI(params)
+      : await getWithCategoryListAPI(params)
+
+    switch (response.statusCode) {
+      case 404:
+        navigate('/error')
+        return
+      case 400:
+        alert(
+          '해당 카테고리에 해당하는 툴이 없습니다. 빠른 시일 내에 제공해드릴게요.',
+        )
+        dispatch(
+          isSelf
+            ? setSelfCategoryFilterList(
+                categoryList.map(item =>
+                  item.isSelected
+                    ? { ...item, isSelected: !item.isSelected }
+                    : item,
+                ),
+              )
+            : setWithCategoryFilterList(
+                categoryList.map(item =>
+                  item.isSelected
+                    ? { ...item, isSelected: !item.isSelected }
+                    : item,
+                ),
+              ),
+        )
+        // eslint-disable-next-line no-case-declarations
+        const responseData = isSelf
+          ? await getSelfMainInfoAPI()
+          : await getWithMainInfoAPI()
+        if (isSelf) {
+          dispatch(setSelfMainInfoList(responseData.data))
+        } else {
+          dispatch(setWithMainInfoList(responseData.data))
+        }
+        return
+      default:
+        if (isSelf) {
+          dispatch(setSelfMainInfoList(response.data))
+        } else {
+          dispatch(setWithMainInfoList(response.data))
+        }
+    }
+  }
+
   return (
     <div className={styles.layout}>
-      {items.map((item, idx) => (
+      {categoryList.map((item, idx) => (
         <Chip
           key={idx}
           type={item.type}
           isSelected={item.isSelected}
           content={item.content}
+          clickEvent={() => clickEvent(item.content)}
         />
       ))}
     </div>

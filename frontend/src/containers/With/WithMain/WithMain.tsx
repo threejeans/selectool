@@ -9,18 +9,10 @@ import {
   searchDataState,
   searchValue,
 } from 'reducers/commonReducer'
-import { setWithMainInfoList, withMainInfoList } from 'reducers/withReducer'
+import { setWithMainInfoList } from 'reducers/withReducer'
 import styles from 'styles/pages/commons/Content.module.css'
 
 const WithMain = () => {
-  const filterTypes = [
-    '금융',
-    '커뮤니티',
-    '모빌리티',
-    '여행/레저',
-    '커머스',
-    'Other',
-  ]
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -47,10 +39,7 @@ const WithMain = () => {
   return (
     <div className={styles.mainLayout}>
       <RegisterModal />
-      <FilterSection
-        filterTypes={filterTypes}
-        placeholder={'기업명을 입력해주세요'}
-      />
+      <FilterSection placeholder={'기업명을 입력해주세요'} />
       {isNoSearchData ? (
         <div className={styles.noSearchLayout}>
           <div className={styles.noSearchMainText}>
