@@ -4,6 +4,7 @@ import com.selectool.config.login.Admin;
 import com.selectool.config.login.LoginAdmin;
 import com.selectool.config.login.LoginUser;
 import com.selectool.config.login.User;
+import com.selectool.dto.corp.filter.CorpFilter;
 import com.selectool.dto.corp.request.CorpCreateRequest;
 import com.selectool.dto.corp.response.CorpResponse;
 import com.selectool.service.CorpService;
@@ -34,12 +35,17 @@ public class CorpController {
     }
 
     @GetMapping("/corps")
-    @ApiOperation(value = "기업 목록 조회 및 이름으로 검색(name 을 보내지 않을 경우 전체 목록)")
+    @ApiOperation(value = "기업 목록 조회 및 이름으로 검색")
     public ResponseEntity<List<CorpResponse>> getCorpList(
             @LoginUser User user,
-            @RequestParam(defaultValue = "") String name
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(value = "category", required = false, defaultValue = "") List<String> categories
     ) {
-        List<CorpResponse> response = corpService.getCorpList(user.getId(), name.trim());
+        CorpFilter filter = CorpFilter.builder()
+                .name(name.trim())
+                .categories(categories)
+                .build();
+        List<CorpResponse> response = corpService.getCorpList(user.getId(), filter);
         return ResponseEntity.ok(response);
     }
 
@@ -96,11 +102,16 @@ public class CorpController {
 
     /* 비 로그인 유저 조회 */
     @GetMapping("nomember/corps")
-    @ApiOperation(value = "비 로그인 기업 목록 조회 및 이름으로 검색(name 을 보내지 않을 경우 전체 목록)", tags = "비 로그인 조회")
+    @ApiOperation(value = "비 로그인 기업 목록 조회 및 검색", tags = "비 로그인 조회")
     public ResponseEntity<List<CorpResponse>> getNoMemberCorpList(
-            @RequestParam(defaultValue = "") String name
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(value = "category", required = false, defaultValue = "") List<String> categories
     ) {
-        List<CorpResponse> response = corpService.getCorpList(0L, name.trim());
+        CorpFilter filter = CorpFilter.builder()
+                .name(name.trim())
+                .categories(categories)
+                .build();
+        List<CorpResponse> response = corpService.getCorpList(0L, filter);
         return ResponseEntity.ok(response);
     }
 

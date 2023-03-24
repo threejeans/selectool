@@ -1,5 +1,6 @@
 package com.selectool.service;
 
+import com.selectool.dto.corp.filter.CorpFilter;
 import com.selectool.dto.corp.request.CorpCreateRequest;
 import com.selectool.dto.corp.response.*;
 import com.selectool.dto.tool.request.ToolCreateRequest;
@@ -197,10 +198,8 @@ public class CorpServiceImpl implements CorpService {
     }
 
     @Override
-    public List<CorpResponse> getCorpList(Long userId, String name) {
-        List<Corp> response;
-        if (name.isEmpty()) response = corpRepo.findAll();
-        else response = corpRepo.findByNameKrContainingOrNameEnContainingIgnoreCase(name, name);
+    public List<CorpResponse> getCorpList(Long userId, CorpFilter filter) {
+        List<Corp> response = corpRepo.searchByFilter(filter);
 
         List<CorpBookmark> corpBookmarks = corpBookmarkRepo.findByUserId(userId);
         Map<Corp, Boolean> bookmarkMap = new HashMap<>();

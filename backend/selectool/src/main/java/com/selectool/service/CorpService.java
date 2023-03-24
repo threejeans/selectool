@@ -1,5 +1,6 @@
 package com.selectool.service;
 
+import com.selectool.dto.corp.filter.CorpFilter;
 import com.selectool.dto.corp.request.CorpCreateRequest;
 import com.selectool.dto.corp.response.CorpResponse;
 
@@ -11,7 +12,7 @@ public interface CorpService {
     // 기업 수정
     public CorpResponse updateCorp(Long corpId, CorpCreateRequest request);
     // 기업 목록 조회
-    public List<CorpResponse> getCorpList(Long userId, String name);
+    public List<CorpResponse> getCorpList(Long userId, CorpFilter filter);
     // 기업 단건 조회
     public CorpResponse getCorp(Long userId, Long corpId);
     // 기업 삭제
