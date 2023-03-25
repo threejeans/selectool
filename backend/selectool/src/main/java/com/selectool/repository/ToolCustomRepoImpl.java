@@ -45,11 +45,9 @@ public class ToolCustomRepoImpl implements ToolCustomRepo {
         return categories.isEmpty() ? null :
                 tool.id.in(
                         JPAExpressions
-                                .select(toolCategory.tool.id)
+                                .selectDistinct(toolCategory.tool.id)
                                 .from(toolCategory)
                                 .where(toolCategory.name.in(categories))
-                                .groupBy(toolCategory.tool.id)
-                                .having(toolCategory.count().eq((long) categories.size()))
                 );
     }
 }

@@ -40,11 +40,9 @@ public class CorpCustomRepoImpl implements CorpCustomRepo {
         return categories.isEmpty() ? null :
                 corp.id.in(
                         JPAExpressions
-                                .select(corpCategory.corp.id)
+                                .selectDistinct(corpCategory.corp.id)
                                 .from(corpCategory)
                                 .where(corpCategory.name.in(categories))
-                                .groupBy(corpCategory.corp.id)
-                                .having(corpCategory.count().eq((long) categories.size()))
                 );
     }
 }
