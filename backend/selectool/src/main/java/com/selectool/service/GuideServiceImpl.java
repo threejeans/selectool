@@ -1,9 +1,9 @@
 package com.selectool.service;
 
+import com.selectool.dto.guide.filter.GuideFilter;
 import com.selectool.dto.guide.request.GuideCreateRequest;
 import com.selectool.dto.guide.response.GuideCategoryResponse;
 import com.selectool.dto.guide.response.GuideResponse;
-import com.selectool.dto.tool.response.ToolResponse;
 import com.selectool.entity.*;
 import com.selectool.exception.DuplicateException;
 import com.selectool.exception.NotFoundException;
@@ -65,8 +65,8 @@ public class GuideServiceImpl implements GuideService {
     }
 
     @Override
-    public List<GuideResponse> getGuideList(Long userId) {
-        List<Guide> response = guideRepo.findAll();
+    public List<GuideResponse> getGuideList(Long userId, GuideFilter filter) {
+        List<Guide> response = guideRepo.searchByFilter(filter);
 
         List<GuideBookmark> guideBookmarks = guideBookmarkRepo.findByUserId(userId);
         Map<Guide, Boolean> bookmarkMap = new HashMap<>();
