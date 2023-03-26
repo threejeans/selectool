@@ -16,10 +16,16 @@ public class ToolFilter {
 
     List<String> categories = new ArrayList<>();
 
+    Boolean onlyTrial;
+
+    String orderTarget;
+
     @Builder
-    public ToolFilter(String name, String country, List<String> categories) {
+    public ToolFilter(String name, String country, List<String> categories, Boolean onlyTrial, String orderTarget) {
         this.name = name;
         this.country = country;
         this.categories = categories;
+        this.onlyTrial = onlyTrial;
+        this.orderTarget = orderTarget;
     }
 }

@@ -75,12 +75,16 @@ public class ToolController {
             @LoginUser User user,
             @RequestParam(defaultValue = "") String name,
             @RequestParam(defaultValue = "") String country,
-            @RequestParam(value = "category", required = false, defaultValue = "") List<String> categories
+            @RequestParam(value = "category", required = false, defaultValue = "") List<String> categories,
+            @RequestParam(defaultValue = "false") Boolean onlyTrial,
+            @RequestParam(defaultValue = "name") String orderTarget
     ) {
         ToolFilter filter = ToolFilter.builder()
                 .name(name.trim())
                 .country(country.trim())
                 .categories(categories)
+                .onlyTrial(onlyTrial)
+                .orderTarget(orderTarget)
                 .build();
         List<ToolListResponse> response = toolService.getToolList(user.getId(), filter);
         return ResponseEntity.ok(response);
@@ -153,12 +157,16 @@ public class ToolController {
     public ResponseEntity<List<ToolListResponse>> getNoMemberToolList(
             @RequestParam(defaultValue = "") String name,
             @RequestParam(defaultValue = "") String country,
-            @RequestParam(value = "category", required = false, defaultValue = "") List<String> categories
+            @RequestParam(value = "category", required = false, defaultValue = "") List<String> categories,
+            @RequestParam(defaultValue = "false") Boolean onlyTrial,
+            @RequestParam(defaultValue = "name") String orderTarget
     ) {
         ToolFilter filter = ToolFilter.builder()
                 .name(name.trim())
                 .country(country.trim())
                 .categories(categories)
+                .onlyTrial(onlyTrial)
+                .orderTarget(orderTarget)
                 .build();
         List<ToolListResponse> response = toolService.getToolList(0L, filter);
         return ResponseEntity.ok(response);
