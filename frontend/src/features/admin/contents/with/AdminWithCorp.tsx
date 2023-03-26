@@ -51,7 +51,7 @@ const AdminWithCorp = () => {
   const [teamNameEn, setTeamNameEn] = useState<string>('')
   const teamNameEnRef = useRef<HTMLInputElement | null>(null)
 
-  const list = ['금융', '커뮤니티', '모빌리티', '여행/레져', '커머스', 'Other']
+  const list = ['금융', '커뮤니티', '모빌리티', '여행/레저', '커머스', 'Other']
   const [categories, setCategories] = useState(['Other'])
 
   const [image, setImage] = useState('')
