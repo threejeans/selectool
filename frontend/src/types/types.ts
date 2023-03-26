@@ -88,7 +88,7 @@ export type SelfMainInfo = {
 export type GuideType = {
   id?: number
   title: string
-  date?: Date
+  date?: Date | string
   content: string
   source: string
   toolName: string
@@ -97,6 +97,7 @@ export type GuideType = {
   url: string
   image: string
   toolImage: string
+  isBookmarked?: boolean
 }
 
 // 함께써요

@@ -15,7 +15,8 @@
 .container {
   width: 100%;
   max-width: 1080px;
-  padding-block: 15rem;
+  padding-block: 12rem;
+  min-height: 80vh;
 }
 
 .mainLayout {
