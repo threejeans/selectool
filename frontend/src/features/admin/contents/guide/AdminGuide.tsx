@@ -8,6 +8,7 @@ import ThumbnailInput from 'components/admin/ThumbnailInput'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { getCategoryList } from 'reducers/guideReducer'
 import styles from 'styles/admin/pages/contents/AdminSelfMain.module.css'
 import swal from 'sweetalert'
 import { AdminGuideComponent, GuideType } from 'types/types'
@@ -347,52 +348,3 @@ const AdminGuide = () => {
 }
 
 export default AdminGuide
-
-const getCategoryList = (value: string) => {
-  switch (value) {
-    case '디자인':
-      return ['일반 디자인', 'UI', 'UX', 'BX', '타이포그래피', '리소스']
-    case '개발':
-      return [
-        '일반 개발',
-        '웹 개발',
-        'java',
-        'react',
-        'vue.js',
-        'angular',
-        ' node.js',
-        'python',
-        'PHP',
-        'infra',
-        'structure',
-        'database',
-        'andriod',
-        'ios',
-        'git',
-        '빅데이터/AI/머신러닝',
-        '노코드/로우코드',
-        '업무 자동화',
-      ]
-    case '기획':
-      return [
-        '서비스 기획',
-        '전략 기획',
-        '프로덕트 관리',
-        '데이터 분석',
-        '조직문화/HR',
-        '그로스해킹',
-        '고객 지원',
-      ]
-    case '마케팅':
-      return [
-        '일반 마케팅',
-        '브랜드 마케팅',
-        '그로스 마케팅',
-        '콘텐츠 마케팅',
-        '트렌드',
-        'SEO',
-      ]
-    default:
-      return ['기능분류가 선택되지 않았습니다.']
-  }
-}
