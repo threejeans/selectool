@@ -9,16 +9,59 @@ import {
   searchDataState,
   searchValue,
 } from 'reducers/commonReducer'
-import { setSelfMainInfoList } from 'reducers/selfReducer'
+import {
+  changeFilterModalCheckedStatus,
+  selfCategoryFilterList,
+  selfModalFilterList,
+  setSelfCategoryFilterList,
+  setSelfCategoryFilterParams,
+  setSelfMainInfoList,
+  setSelfModalFilterList,
+  setSelfModalFilterParams,
+} from 'reducers/selfReducer'
 import styles from 'styles/pages/commons/Content.module.css'
+import { filterList } from '../SelfFilterModal/SelfFilterModal'
 
 const SelfMain = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const isNoSearchData = useAppSelector(searchDataState)
   const searchContent = useAppSelector(searchValue)
+  const modalFilterList = useAppSelector(selfModalFilterList)
+  const categoryList = useAppSelector(selfCategoryFilterList)
+  const newList: filterList = {
+    cost: [...modalFilterList['cost']],
+    sort: [...modalFilterList['sort']],
+    country: [...modalFilterList['country']],
+  }
+
+  const resetItems = () => {
+    newList['cost'] = newList['cost'].map(item =>
+      item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
+    )
+    newList['sort'] = newList['sort'].map(item =>
+      item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
+    )
+    newList['country'] = newList['country'].map(item =>
+      item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
+    )
+    dispatch(setSelfModalFilterList(newList))
+    dispatch(setSelfModalFilterParams(''))
+
+    dispatch(
+      setSelfCategoryFilterList(
+        categoryList.map(item =>
+          item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
+        ),
+      ),
+    )
+    dispatch(setSelfCategoryFilterParams(''))
+  }
 
   const getselfMainInfoList = async () => {
+    resetItems()
+    dispatch(changeFilterModalCheckedStatus(false))
+
     const response = await getSelfMainInfoAPI()
     if (response.isNotFound404) {
       navigate('/error')

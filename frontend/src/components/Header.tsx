@@ -1,4 +1,6 @@
 import Logo from 'assets/selectool_logo.svg'
+import LogoDark from 'assets/selectool_logo_dark.svg'
+import Favicon from 'assets/favicon.png'
 import { useEffect, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from 'app/hooks'
@@ -9,22 +11,36 @@ import styles from 'styles/components/Header.module.css'
 type MenuLinkProps = {
   path: string
   title: string
+  scrollPosition?: number
+  isHome?: boolean
 }
 
 type LayoutProps = {
   title: string
 }
 
-const MenuLink = ({ path, title }: MenuLinkProps) => {
+const MenuLink = ({
+  path,
+  title,
+  scrollPosition = 0,
+  isHome = false,
+}: MenuLinkProps) => {
   const { pathname } = useLocation()
   return (
     <Link
       className={
-        pathname.startsWith(path) ? styles.selected : styles.unselected
+        pathname.startsWith(path)
+          ? styles.selected
+          : scrollPosition < 100 && isHome
+          ? styles.unselected_home
+          : styles.unselected
       }
       to={path}
     >
-      {title}
+      {/* <div className={styles.link_layout}> */}
+      <div>{title}</div>
+      {/* <hr className={styles.active_bar} />
+      </div> */}
     </Link>
   )
 }
@@ -45,26 +61,56 @@ const Header = ({ title }: LayoutProps) => {
   const modalOpen = () => dispatcth(loginModalOpen())
   return (
     <>
-      <header
-        className={
-          scrollPosition < 100 && title === '홈'
-            ? styles.header
-            : styles.change_header
-        }
-      >
-        <div className={styles.container}>
-          <Link to={'/'}>
-            <img className={styles.logo} src={Logo} alt={'셀렉툴 로고'} />
+      <header className={styles.header}>
+        <div
+          className={
+            scrollPosition < 100 && title === '홈'
+              ? styles.container
+              : scrollPosition < 200 && title === '홈'
+              ? styles.middle_container
+              : styles.change_container
+          }
+        >
+          <Link to={'/'} className={styles.logo_container}>
+            <img className={styles.favicon} src={Favicon} alt={'셀렉툴 로고'} />
+            <img
+              className={styles.logo}
+              src={scrollPosition < 100 && title === '홈' ? Logo : LogoDark}
+              alt={'셀렉툴 로고'}
+            />
+            <span className={styles.line}>{' | '}</span>
           </Link>
           <div className={styles.menu}>
-            <MenuLink path={'/self'} title={'혼자써요'} />
-            <MenuLink path={'/with'} title={'함께써요'} />
-            <MenuLink path={'/guide'} title={'가이드'} />
+            <MenuLink
+              path={'/self'}
+              title={'혼자써요'}
+              scrollPosition={scrollPosition}
+              isHome={title === '홈'}
+            />
+            <MenuLink
+              path={'/with'}
+              title={'함께써요'}
+              scrollPosition={scrollPosition}
+              isHome={title === '홈'}
+            />
+            <MenuLink
+              path={'/guide'}
+              title={'가이드'}
+              scrollPosition={scrollPosition}
+              isHome={title === '홈'}
+            />
             <span className={styles.line}>{' | '}</span>
             {isLogon ? (
               <MenuLink path={'/mypage'} title={'마이페이지'} />
             ) : (
-              <a className={styles.unselected} onClick={modalOpen}>
+              <a
+                className={
+                  scrollPosition < 100 && title === '홈'
+                    ? styles.unselected_home
+                    : styles.unselected
+                }
+                onClick={modalOpen}
+              >
                 로그인
               </a>
             )}

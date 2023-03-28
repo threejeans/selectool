@@ -9,7 +9,11 @@ import {
   searchDataState,
   searchValue,
 } from 'reducers/commonReducer'
-import { setWithMainInfoList } from 'reducers/withReducer'
+import {
+  setWithCategoryFilterList,
+  setWithMainInfoList,
+  withCategoryFilterList,
+} from 'reducers/withReducer'
 import styles from 'styles/pages/commons/Content.module.css'
 
 const WithMain = () => {
@@ -18,8 +22,20 @@ const WithMain = () => {
 
   const isNoSearchData = useAppSelector(searchDataState)
   const searchContent = useAppSelector(searchValue)
+  const categoryList = useAppSelector(withCategoryFilterList)
+
+  const resetItems = () => {
+    dispatch(
+      setWithCategoryFilterList(
+        categoryList.map(item =>
+          item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
+        ),
+      ),
+    )
+  }
 
   const getWithMainInfoList = async () => {
+    resetItems()
     const response = await getWithMainInfoAPI()
     if (response.isNotFound404) {
       navigate('/error')

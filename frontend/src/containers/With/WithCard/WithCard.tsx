@@ -51,7 +51,7 @@ const WithCard = ({ data }: CardProps) => {
                 <span className={styles.selectoolPoint}>SELECTOOL</span>
               </div>
               <div className={styles.toolLayout}>
-                {data.tools.map((tool, idx) => (
+                {data.tools.slice(0, 3).map((tool, idx) => (
                   <div className={styles.toolContainer} key={idx}>
                     <img src={tool.image} className={styles.toolLogo}></img>
                     <div className={styles.toolNameHover}>{tool.nameKr}</div>

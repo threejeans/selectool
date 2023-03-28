@@ -50,7 +50,7 @@
 }
 
 .companyLogo {
-  width: 160px;
+  width: 124px;
   height: 80px;
   object-fit: contain;
   object-position: 0% 50%;
@@ -90,7 +90,7 @@
   flex-direction: column;
   width: 100%;
   padding-inline: 22px;
-  row-gap: 12px; 
+  row-gap: 12px;
   padding-top: 52px;
 }
 
