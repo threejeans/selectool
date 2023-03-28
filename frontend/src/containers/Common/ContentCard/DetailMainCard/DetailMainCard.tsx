@@ -64,11 +64,12 @@ const DetailMainCard = ({
           ></Button>
         </div>
         {isSelf ? (
-          <Button 
-            color={'primary'} 
-            size={'mdLong'} 
-            text={'구독하기'} 
-            clickEvent={button3ClickEvent} />
+          <Button
+            color={'primary'}
+            size={'mdLong'}
+            text={'구독하기'}
+            clickEvent={button3ClickEvent}
+          />
         ) : (
           ''
         )}

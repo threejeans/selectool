@@ -15,7 +15,8 @@
 
 .clientsLayout {
   display: grid;
-  justify-content: center;
+  margin-inline: 40px;
+  /* justify-content: center; */
   grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
   column-gap: 52px;
   row-gap: 48px;

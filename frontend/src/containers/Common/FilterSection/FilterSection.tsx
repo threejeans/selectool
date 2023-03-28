@@ -8,6 +8,7 @@ import filterIconSelected from 'assets/filter_icon_selected.svg'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import {
   changeFilterModalStatus,
+  filterModalCheckedState,
   setSelfMainInfoList,
 } from 'reducers/selfReducer'
 import SelfFilterModal from 'containers/Self/SelfFilterModal/SelfFilterModal'
@@ -22,8 +23,6 @@ export type filterProps = {
   placeholder?: string
 }
 
-const isFilterButtonSelected = false
-
 const FilterSection = ({
   isFilterButton = false,
   placeholder,
@@ -31,6 +30,7 @@ const FilterSection = ({
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const searchContent = useAppSelector(searchValue)
+  const filterModalCheckedStatus = useAppSelector(filterModalCheckedState)
 
   const openModal = () => {
     dispatch(changeFilterModalStatus())
@@ -74,12 +74,12 @@ const FilterSection = ({
         {isFilterButton ? (
           <button
             className={
-              isFilterButtonSelected ? styles.buttonSelected : styles.button
+              filterModalCheckedStatus ? styles.buttonSelected : styles.button
             }
             onClick={openModal}
           >
             <img
-              src={isFilterButtonSelected ? filterIconSelected : filterIcon}
+              src={filterModalCheckedStatus ? filterIconSelected : filterIcon}
               alt=''
               className={styles.iconImage}
             />

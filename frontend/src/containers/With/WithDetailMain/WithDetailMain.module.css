@@ -14,7 +14,8 @@
 
 .branchLayout {
   display: grid;
-  justify-content: center;
+  margin-left: 40px;
+  /* justify-content: center; */
   grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
   column-gap: 52px;
   row-gap: 48px;
@@ -36,8 +37,9 @@
 
 .toolsLayout {
   display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(66px, max-content));
+  margin-inline: 60px;
+  /* justify-content: center; */
+  grid-template-columns: repeat(auto-fit, minmax(60px, max-content));
   column-gap: 80px;
   row-gap: 20px;
 }
@@ -50,8 +52,8 @@
 }
 
 .toolImage {
-  width: 66px;
-  height: 66px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
 }
 
@@ -59,4 +61,20 @@
   font-weight: 400;
   font-size: 12px;
   color: #6f6f6f;
+}
+
+.toast {
+  transition: 0.3s;
+  position: absolute;
+  top: 38%;
+  left: 38%;
+  padding-inline: 20px;
+  padding-block: 10px;
+  min-width: 100px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background: #60a9f6;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 14px 14px 14px 0px;
 }

@@ -54,7 +54,7 @@
   height: 16px;
   object-fit: contain;
 }
- 
+
 .emptyStar {
   z-index: -100px;
   position: absolute;

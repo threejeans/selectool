@@ -4,7 +4,7 @@ import {
   DetailContentCard,
   DetailMainCard,
 } from 'containers/Common'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   changeToolSpecificModalStatus,
   withSpecificInfo,
@@ -15,13 +15,31 @@ import styles from './WithDetailMain.module.css'
 const WithDetailMain = () => {
   const specificInfo = useAppSelector(withSpecificInfo)
   const branchDescription = '* 상위 ' + specificInfo.branches.length + '개 기준'
-  console.log(specificInfo)
   const dispatch = useAppDispatch()
   const [toolId, setToolId] = useState(0)
+  const [toastStatus, setToastStatus] = useState(false)
+  const handleToast = () => {
+    setToastStatus(true)
+  }
+
+  const copyLink = async () => {
+    await navigator.clipboard.writeText(
+      `https://www.selectool.info/with/${specificInfo.id}`,
+    )
+    handleToast()
+  }
+
+  useEffect(() => {
+    if (toastStatus) {
+      setTimeout(() => setToastStatus(false), 1000)
+    }
+  })
 
   return (
     <>
       <WithToolModal toolId={toolId} />
+      {toastStatus && <div className={styles.toast}>링크가 복사되었어요</div>}
+
       <DetailMainCard
         image={specificInfo.image}
         nameKr={specificInfo.nameKr}
@@ -30,7 +48,7 @@ const WithDetailMain = () => {
           document.location.href = specificInfo.url
         }}
         button2ClickEvent={() => {
-          alert('서비스 준비중입니다.')
+          copyLink()
         }}
         button3ClickEvent={() => {
           alert('서비스 준비중입니다.')

@@ -5,8 +5,11 @@ import Chip from 'components/Chip'
 import React, { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
+  filterModalCheckedState,
   selfCategoryFilterList,
+  selfModalFilterParams,
   setSelfCategoryFilterList,
+  setSelfCategoryFilterParams,
   setSelfMainInfoList,
 } from 'reducers/selfReducer'
 import {
@@ -25,6 +28,8 @@ const FilterGrid = ({ isSelf = false }: filterDataProps) => {
   const categoryList = isSelf
     ? useAppSelector(selfCategoryFilterList)
     : useAppSelector(withCategoryFilterList)
+  const filterModalCheckedStatus = useAppSelector(filterModalCheckedState)
+  const modalFilterParams = useAppSelector(selfModalFilterParams)
   const allSelectedRef = useRef({ isAllSelected: false })
   const categoryListRef = useRef({ categoryList: categoryList })
   const navigate = useNavigate()
@@ -40,6 +45,20 @@ const FilterGrid = ({ isSelf = false }: filterDataProps) => {
         : categoryList.map(item =>
             item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
           )
+      dispatch(setSelfCategoryFilterList(newList))
+      categoryListRef.current.categoryList = newList
+    } else if (
+      isSelf &&
+      content !== 'ALL' &&
+      allSelectedRef.current.isAllSelected
+    ) {
+      allSelectedRef.current.isAllSelected =
+        !allSelectedRef.current.isAllSelected
+      const newList = categoryList.map(item =>
+        item.content === content || item.content === 'ALL'
+          ? { ...item, isSelected: !item.isSelected }
+          : item,
+      )
       dispatch(setSelfCategoryFilterList(newList))
       categoryListRef.current.categoryList = newList
     } else {
@@ -63,6 +82,15 @@ const FilterGrid = ({ isSelf = false }: filterDataProps) => {
     if (categoryStringList.length >= 1) {
       params = 'category=' + params
     }
+
+    dispatch(setSelfCategoryFilterParams(params))
+
+    if (isSelf && params && filterModalCheckedStatus) {
+      params += '&' + modalFilterParams
+    } else if (isSelf && !params && filterModalCheckedStatus) {
+      params += modalFilterParams
+    }
+
     const response = isSelf
       ? await getSelfCategoryListAPI(params)
       : await getWithCategoryListAPI(params)
@@ -92,12 +120,16 @@ const FilterGrid = ({ isSelf = false }: filterDataProps) => {
                 ),
               ),
         )
+
         // eslint-disable-next-line no-case-declarations
         const responseData = isSelf
-          ? await getSelfMainInfoAPI()
+          ? filterModalCheckedStatus
+            ? await getSelfCategoryListAPI(modalFilterParams)
+            : await getSelfMainInfoAPI()
           : await getWithMainInfoAPI()
         if (isSelf) {
           dispatch(setSelfMainInfoList(responseData.data))
+          dispatch(setSelfCategoryFilterParams(''))
         } else {
           dispatch(setWithMainInfoList(responseData.data))
         }
