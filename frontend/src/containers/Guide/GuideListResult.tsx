@@ -1,19 +1,48 @@
-import { useAppSelector } from 'app/hooks'
-import React from 'react'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { BiChevronDown } from 'react-icons/bi'
-import { selectCategories, selectGuideList } from 'reducers/guideReducer'
+import {
+  plusContentCnt,
+  selectCategories,
+  selectContentCnt,
+  selectGuideList,
+} from 'reducers/guideReducer'
 import { GuideType } from 'types/types'
 import styles from './GuideContent.module.css'
 
 const GuideListResult = () => {
   const guideList = useAppSelector(selectGuideList)
   const categories = useAppSelector(selectCategories)
+  const contentCnt = useAppSelector(selectContentCnt)
+
+  const dispatch = useAppDispatch()
+
   const getResult = () => {
-    const tmp: GuideType[] = []
+    const tmp = new Set<GuideType>([])
+    const max = Math.min(contentCnt, guideList.length)
     if (!categories.length) {
-      guideList.map(item => tmp.push(item))
+      for (let i = 0; i < max; i++) {
+        tmp.add(guideList[i])
+      }
+    } else {
+      let i = 0
+      while (tmp.size < max && i < categories.length) {
+        const cate = categories[i]
+        for (let j = 0; j < guideList.length; j++) {
+          if (tmp.size >= max) break
+          const cur = guideList[j]
+          const { categories } = cur
+          for (let k = 0; k < categories.length; k++) {
+            if (categories[k].name === cate) {
+              tmp.add(cur)
+              break
+            }
+          }
+        }
+        i++
+      }
     }
-    return tmp.map((item, index) => {
+    return [...Array.from(tmp)].map((item, index) => {
+      console.log(item.categories)
       return (
         <a
           className={styles.guideItem}
@@ -55,7 +84,10 @@ const GuideListResult = () => {
     <>
       <div className={styles.guideGrid}>{getResult()}</div>
       <div className={styles.moreGroup}>
-        <button className={styles.moreButton}>
+        <button
+          className={styles.moreButton}
+          onClick={() => dispatch(plusContentCnt())}
+        >
           더보기
           <BiChevronDown />
         </button>
