@@ -1,6 +1,6 @@
 .container {
   min-height: 50vh;
-  width: 46vw;
+  width: 40vw;
   min-width: 600px;
   display: flex;
   flex-direction: column;
@@ -32,6 +32,7 @@
 .buttonGroup > a {
   border-radius: 1.4rem;
   width: 10rem;
+  padding-inline: 0.5vw;
   height: 3.6rem;
   box-shadow: 1px 2px 4px var(--gray-scale-color-g20);
   font-size: 1rem;
