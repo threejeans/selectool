@@ -66,8 +66,8 @@
 .toast {
   transition: 0.3s;
   position: absolute;
-  top: 38%;
-  left: 38%;
+  top: 42%;
+  left: 36%;
   padding-inline: 20px;
   padding-block: 10px;
   min-width: 100px;
