@@ -1,5 +1,5 @@
 .modalLayout {
-  width: 46vw;
+  width: calc(400px + 25vw);
   min-width: 400px;
   height: 72vh;
   overflow-y: scroll;
