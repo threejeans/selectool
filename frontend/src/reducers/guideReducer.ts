@@ -8,6 +8,7 @@ export interface GuideState {
   randomList: number[]
   guideList: GuideType[]
   categories: string[]
+  contentCnt: number
   status: 'idle' | 'loading' | 'success' | 'failed'
 }
 
@@ -15,6 +16,7 @@ const initialState: GuideState = {
   randomList: [],
   guideList: [],
   categories: [],
+  contentCnt: 10,
   status: 'idle',
 }
 
@@ -48,6 +50,13 @@ const guideSlice = createSlice({
     setCategoryFilter: (state, { payload }) => {
       state.categories = payload
     },
+    plusContentCnt: state => {
+      if (state.contentCnt < state.guideList.length)
+        state.contentCnt += Math.min(
+          5,
+          state.guideList.length - state.contentCnt,
+        )
+    },
   },
   extraReducers: builder => {
     builder
@@ -63,12 +72,14 @@ const guideSlice = createSlice({
       })
   },
 })
-export const { setRandomList, setCategoryFilter } = guideSlice.actions
+export const { setRandomList, setCategoryFilter, plusContentCnt } =
+  guideSlice.actions
 export default guideSlice.reducer
 
 export const selectGuideList = (state: RootState) => state.guide.guideList
 export const selectRandomList = (state: RootState) => state.guide.randomList
 export const selectCategories = (state: RootState) => state.guide.categories
+export const selectContentCnt = (state: RootState) => state.guide.contentCnt
 
 export const getTextDate = (date: Date | string | undefined) => {
   console.log(date)
@@ -91,7 +102,7 @@ export const getCategoryList = (value: string) => {
         'react',
         'vue.js',
         'angular',
-        ' node.js',
+        'node.js',
         'python',
         'PHP',
         'infra',
