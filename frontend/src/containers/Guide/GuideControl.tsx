@@ -149,7 +149,7 @@ const GuideControl = () => {
             }
           }}
           type='text'
-          placeholder='배우고 싶은 툴을 입력해주세요.  🔍'
+          placeholder=' 🔍 배우고 싶은 툴을 입력해주세요.'
         />
       </div>
     </div>
