@@ -1,11 +1,19 @@
-import { useAppDispatch } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { InputChangeEvent } from 'components/Input'
 import { useEffect, useState } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
-import { getCategoryList, setCategoryFilter } from 'reducers/guideReducer'
+import {
+  getCategoryList,
+  selectSearchKey,
+  setCategoryFilter,
+  setSearchKey,
+} from 'reducers/guideReducer'
 
 import styles from './GuideContent.module.css'
 
 const GuideControl = () => {
+  const searchKey = useAppSelector(selectSearchKey)
+
   const [isDrop, setIsDrop] = useState<'none' | 'category' | 'function'>('none')
   const funcList = ['디자인', '개발', '기획', '마케팅', '']
   const [func, setFunc] = useState('') // 기능 분류
@@ -17,11 +25,20 @@ const GuideControl = () => {
   useEffect(() => {
     setCategoryList(getCategoryList(func))
     setCategories([])
+    dispatch(setSearchKey(''))
   }, [func])
 
   useEffect(() => {
     dispatch(setCategoryFilter(categories))
   }, [categories])
+
+  useEffect(() => {
+    if (searchKey.length > 0) {
+      setCategories([])
+      setFunc('')
+    }
+  }, [searchKey])
+
   return (
     <div className={styles.controlBox}>
       <div className={styles.buttonGroup}>
@@ -57,7 +74,7 @@ const GuideControl = () => {
                     if (item) setIsDrop('function')
                   }}
                 >
-                  {item || '초기화'}
+                  {item || '선택안함'}
                 </div>
               )
             })}
@@ -112,12 +129,27 @@ const GuideControl = () => {
             })}
           </div>
         </div>
+        <div className={styles.dropBox}>
+          {categories.length > 0 && (
+            <div className={styles.selectButton} onClick={() => setFunc('')}>
+              선택 초기화
+            </div>
+          )}
+        </div>
       </div>
       <div className={styles.searchBox}>
         <input
           className={styles.searchInput}
+          value={searchKey || ''}
+          onChange={e => dispatch(setSearchKey(e.target.value))}
+          onKeyUp={e => {
+            if (e.key === 'Enter') {
+              setFunc('')
+              setCategories([])
+            }
+          }}
           type='text'
-          placeholder='배우고 싶은 툴을 입력해주세요. 🔍'
+          placeholder=' 🔍 배우고 싶은 툴을 입력해주세요.'
         />
       </div>
     </div>

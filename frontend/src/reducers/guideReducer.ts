@@ -9,6 +9,7 @@ export interface GuideState {
   guideList: GuideType[]
   categories: string[]
   contentCnt: number
+  searchKey: string
   status: 'idle' | 'loading' | 'success' | 'failed'
 }
 
@@ -17,6 +18,7 @@ const initialState: GuideState = {
   guideList: [],
   categories: [],
   contentCnt: 10,
+  searchKey: '',
   status: 'idle',
 }
 
@@ -57,6 +59,9 @@ const guideSlice = createSlice({
           state.guideList.length - state.contentCnt,
         )
     },
+    setSearchKey: (state, { payload }) => {
+      state.searchKey = payload
+    },
   },
   extraReducers: builder => {
     builder
@@ -72,14 +77,19 @@ const guideSlice = createSlice({
       })
   },
 })
-export const { setRandomList, setCategoryFilter, plusContentCnt } =
-  guideSlice.actions
+export const {
+  setRandomList,
+  setCategoryFilter,
+  plusContentCnt,
+  setSearchKey,
+} = guideSlice.actions
 export default guideSlice.reducer
 
 export const selectGuideList = (state: RootState) => state.guide.guideList
 export const selectRandomList = (state: RootState) => state.guide.randomList
 export const selectCategories = (state: RootState) => state.guide.categories
 export const selectContentCnt = (state: RootState) => state.guide.contentCnt
+export const selectSearchKey = (state: RootState) => state.guide.searchKey
 
 export const getTextDate = (date: Date | string | undefined) => {
   console.log(date)

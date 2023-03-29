@@ -196,7 +196,7 @@
   padding: 0.4rem;
   border-radius: 0.4rem;
   display: flex;
-  text-align: center;
+  text-align: start;
 }
 
 .guideGrid {
