@@ -89,45 +89,84 @@
   font-weight: 500;
 }
 
-.link_layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.unselected {
+  display: inline-block;
+  position: relative;
+  color: var(--gray-scale-color-g30);
+  cursor: pointer;
+}
+.unselected:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-color-main);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.unselected:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.unselected_home {
+  display: inline-block;
+  position: relative;
+  color: white;
+  cursor: pointer;
+}
+.unselected_home:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-color-main);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.unselected_home:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.selected {
+  display: inline-block;
+  position: relative;
+  color: var(--primary-color-main);
+  cursor: pointer;
+}
+
+.selected:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-color-main);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.selected:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 .active_bar {
-  width: 50px;
+  width: 0;
   height: 3px;
   border: 0;
   margin: 2px;
   background-color: var(--primary-color-main);
   display: hidden;
   transition: left 0.5s linear, width 0.5s linear;
-}
-.active_bar:hover {
-  display: visible;
-}
-
-.unselected {
-  color: var(--gray-scale-color-g30);
-  cursor: pointer;
-}
-.unselected > a:hover {
-  text-decoration: underline;
-  text-underline-position: under;
-}
-.unselected_home {
-  color: white;
-  cursor: pointer;
-}
-.unselected_home > a:hover {
-  text-decoration: underline;
-  text-underline-position: under;
-}
-
-.selected {
-  color: var(--primary-color-main);
-  cursor: pointer;
 }
 
 .line {

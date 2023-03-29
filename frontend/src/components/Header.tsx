@@ -37,10 +37,7 @@ const MenuLink = ({
       }
       to={path}
     >
-      {/* <div className={styles.link_layout}> */}
       <div>{title}</div>
-      {/* <hr className={styles.active_bar} />
-      </div> */}
     </Link>
   )
 }
