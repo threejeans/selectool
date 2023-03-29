@@ -1,9 +1,9 @@
-import { useAppSelector } from 'app/hooks'
-import { useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { useEffect, useRef } from 'react'
 import {
-  getTextDate,
   selectGuideList,
   selectRandomList,
+  setRandomList,
 } from 'reducers/guideReducer'
 
 import styles from './GuideContent.module.css'
@@ -11,8 +11,24 @@ import styles from './GuideContent.module.css'
 const GuideNotice = () => {
   const guideList = useAppSelector(selectGuideList)
   const randomList = useAppSelector(selectRandomList)
+  const dispatch = useAppDispatch()
 
-  const navigate = useNavigate()
+  const tick = useRef<() => void>()
+
+  const callback = () => {
+    dispatch(setRandomList())
+  }
+
+  useEffect(() => {
+    tick.current = callback
+  })
+  useEffect(() => {
+    const t = () => {
+      tick.current?.()
+    }
+    const tmp = setInterval(t, 8000)
+    return () => clearInterval(tmp)
+  }, [])
 
   return (
     <div className={styles.notiBox}>
