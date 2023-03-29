@@ -67,7 +67,7 @@
   transition: 0.3s;
   position: absolute;
   top: 392px;
-  left: calc(200px + 24vw);
+  left: calc(160px + 26vw);
   padding-inline: 20px;
   padding-block: 10px;
   min-width: 100px;
