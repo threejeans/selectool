@@ -17,6 +17,12 @@
   box-shadow: 2px 2px 20px 1px rgba(96, 169, 246, 0.3);
 }
 
+.clickContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .topBar {
   position: absolute;
   top: 0;

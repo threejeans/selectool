@@ -1,20 +1,35 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 import styles from './SelfCard.module.css'
 import { Link } from 'react-router-dom'
 import { SelfMainInfo } from 'types/types'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
+import { selfScrapToolAPI, selfUnscrapToolAPI } from 'api/authSelf'
 
 type CardProps = {
   data: SelfMainInfo
 }
 
 const SelfCard = ({ data }: CardProps) => {
-  const [isScraped, setScraped] = useState(false)
+  const scrapRef = useRef({ isScraped: data.isBookmarked })
   const [isHover, setHover] = useState(false)
 
-  const handleScrap = () => {
-    setScraped(!isScraped)
-    // clickEvent
+  const isLogon = useAppSelector(selectAccessToken)
+  const dispatch = useAppDispatch()
+
+  const handleScrap = async () => {
+    console.log(scrapRef)
+    if (isLogon) {
+      if (scrapRef.current.isScraped) {
+        await dispatch(selfUnscrapToolAPI(data.id))
+      } else {
+        await dispatch(selfScrapToolAPI(data.id))
+      }
+      scrapRef.current.isScraped = !scrapRef.current.isScraped
+    } else {
+      dispatch(loginModalOpen())
+    }
   }
 
   const topicObject: {
@@ -58,7 +73,7 @@ const SelfCard = ({ data }: CardProps) => {
       ) : null}
       <BsFillBookmarkFill
         className={`${styles.bookmark} ${
-          isScraped ? styles.bookmarkScraped : null
+          scrapRef.current.isScraped ? styles.bookmarkScraped : null
         }`}
         onClick={handleScrap}
       ></BsFillBookmarkFill>

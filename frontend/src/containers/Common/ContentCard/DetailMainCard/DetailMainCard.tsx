@@ -1,4 +1,6 @@
+import { useAppSelector } from 'app/hooks'
 import Button from 'components/Button'
+import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
 import React, { useState } from 'react'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 import styles from './DetailMainCard.module.css'
@@ -23,10 +25,14 @@ const DetailMainCard = ({
   button3ClickEvent,
 }: ÇardProps) => {
   const [isScraped, setScraped] = useState(false)
+  const isLogon = useAppSelector(selectAccessToken) !== undefined
 
   const handleScrap = () => {
-    setScraped(!isScraped)
-    // clickEvent
+    if (isLogon) {
+      setScraped(!isScraped)
+    } else {
+      dispatcth(loginModalOpen())
+    }
   }
 
   return (
@@ -79,3 +85,6 @@ const DetailMainCard = ({
 }
 
 export default DetailMainCard
+function dispatcth(arg0: { payload: undefined; type: 'auth/loginModalOpen' }) {
+  throw new Error('Function not implemented.')
+}

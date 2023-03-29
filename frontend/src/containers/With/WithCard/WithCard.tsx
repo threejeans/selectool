@@ -1,9 +1,11 @@
-import { stubArray } from 'lodash'
 import React, { useState } from 'react'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import styles from './withCard.module.css'
 import { WithCorpType } from 'types/types'
+import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { withScrapToolAPI, withUnscrapToolAPI } from 'api/authWith'
 
 type CardProps = {
   data: WithCorpType
@@ -12,27 +14,36 @@ type CardProps = {
 const WithCard = ({ data }: CardProps) => {
   const [isScraped, setScraped] = useState(false)
   const [isHover, setHover] = useState(false)
+  const isLogon = useAppSelector(selectAccessToken) !== undefined
+  const dispatch = useAppDispatch()
 
-  const handleScrap = () => {
-    setScraped(!isScraped)
-    // clickEvent
+  const handleScrap = async (corpId?: number) => {
+    if (isLogon) {
+      if (isScraped) {
+        await dispatch(withUnscrapToolAPI(corpId))
+      } else {
+        await dispatch(withScrapToolAPI(corpId))
+      }
+      setScraped(!isScraped)
+    } else {
+      dispatch(loginModalOpen())
+    }
   }
 
   return (
-    <Link to={`/with/${data.id}`}>
-      <div
-        className={styles.cardContainer}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        <div className={styles.topBar}></div>
-        <BsFillBookmarkFill
-          className={`${styles.bookmark} ${
-            isScraped ? styles.bookmarkScraped : null
-          }`}
-          onClick={handleScrap}
-        ></BsFillBookmarkFill>
-
+    <div
+      className={styles.cardContainer}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <div className={styles.topBar}></div>
+      <BsFillBookmarkFill
+        className={`${styles.bookmark} ${
+          isScraped ? styles.bookmarkScraped : null
+        }`}
+        onClick={() => handleScrap(data.id)}
+      ></BsFillBookmarkFill>
+      <Link to={`/with/${data.id}`} className={styles.clickContainer}>
         {isHover ? (
           <div className={styles.hoverContainer}>
             <div className={styles.hoverCompanyContainer}>
@@ -74,8 +85,8 @@ const WithCard = ({ data }: CardProps) => {
             </div>
           </div>
         )}
-      </div>
-    </Link>
+      </Link>
+    </div>
   )
 }
 
