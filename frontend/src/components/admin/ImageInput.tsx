@@ -16,7 +16,7 @@ type ImageInputProps = {
 const ImageInput = ({
   image,
   setImage,
-  idx,
+  idx = -1,
   images,
   setImages,
 }: ImageInputProps) => {
@@ -39,7 +39,7 @@ const ImageInput = ({
       .then(data => {
         console.log(data.location)
         if (setImage) setImage(data.location)
-        if (setImages && images && idx) {
+        if (setImages && images && idx !== -1) {
           images[idx] = data.location
           setImages([...images])
         }
