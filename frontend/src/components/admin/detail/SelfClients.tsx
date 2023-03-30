@@ -34,7 +34,7 @@ const SelfClients = () => {
           return
         }
         const c: ClientType = {
-          id: tmpClients[i]?.id || 0,
+          id: clients[i]?.id ?? '',
           name: tmpClients[i]?.name,
           image: images[i],
           url: tmpClients[i]?.url,
@@ -42,13 +42,13 @@ const SelfClients = () => {
         t.push(c)
       }
       tmp.clients = t
-
       dispatch(updateTool(tmp))
         .then(e => {
           console.log(e)
           const tf = e.payload.clients as ClientType[]
           setCnt(tf.length)
           setTmpClients(tf)
+          setImages(tf.map(i => i.image))
           setIsMofifed(false)
         })
         .catch(err => console.error(err))
