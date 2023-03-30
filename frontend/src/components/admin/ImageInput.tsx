@@ -16,7 +16,7 @@ type ImageInputProps = {
 const ImageInput = ({
   image,
   setImage,
-  idx,
+  idx = -1,
   images,
   setImages,
 }: ImageInputProps) => {
@@ -34,12 +34,11 @@ const ImageInput = ({
 
   const uploadFile = async (file: any) => {
     const ReactS3Client = new S3(s3Config)
-    console.log(s3Config)
     ReactS3Client.uploadFile(file, 'thumbnails/' + file.name)
       .then(data => {
         console.log(data.location)
         if (setImage) setImage(data.location)
-        if (setImages && images && idx) {
+        if (setImages && images && idx !== -1) {
           images[idx] = data.location
           setImages([...images])
         }
