@@ -34,7 +34,7 @@ const SelfClients = () => {
           return
         }
         const c: ClientType = {
-          id: clients[i]?.id ?? '',
+          id: clients[i]?.id ?? 0,
           name: tmpClients[i]?.name,
           image: images[i],
           url: tmpClients[i]?.url,
