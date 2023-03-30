@@ -1,4 +1,6 @@
+import { getAuthSelfSpecificInfoAPI } from 'api/authSelf'
 import { getAuthWithSpecificInfoAPI } from 'api/authWith'
+import { getSelfSpecificInfoAPI } from 'api/self'
 import { getWithSpecificInfoAPI } from 'api/with'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import {
@@ -9,6 +11,7 @@ import {
 import { selectAccessToken } from 'features/auth/authSlice'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { setSelfSpecificInfo } from 'reducers/selfReducer'
 import {
   changeToolSpecificModalStatus,
   setWithSpecificInfo,
@@ -27,8 +30,6 @@ const WithDetailMain = () => {
   const isLogon = useAppSelector(selectAccessToken)
 
   const branchDescription = '* 상위 ' + specificInfo.branches.length + '개 기준'
-
-  const [toolId, setToolId] = useState(0)
   const [toastStatus, setToastStatus] = useState(false)
 
   const handleToast = () => {
@@ -44,6 +45,17 @@ const WithDetailMain = () => {
       navigate('/error')
     } else {
       dispatch(setWithSpecificInfo(response.data))
+    }
+  }
+
+  const getToolSpecificInfo = async (toolId: number) => {
+    const response = isLogon
+      ? await dispatch(getAuthSelfSpecificInfoAPI(toolId.toString())).unwrap()
+      : await getSelfSpecificInfoAPI(toolId.toString())
+    if (response.isNotFound404) {
+      navigate('/error')
+    } else {
+      dispatch(setSelfSpecificInfo(response.data))
     }
   }
 
@@ -63,7 +75,7 @@ const WithDetailMain = () => {
 
   return (
     <>
-      <WithToolModal toolId={toolId} />
+      <WithToolModal />
       {toastStatus && <div className={styles.toast}>링크가 복사되었어요</div>}
 
       <DetailMainCard
@@ -120,7 +132,7 @@ const WithDetailMain = () => {
                 key={index}
                 className={styles.toolContainer}
                 onClick={() => {
-                  setToolId(tool.id)
+                  getToolSpecificInfo(tool.id)
                   dispatch(changeToolSpecificModalStatus())
                 }}
               >

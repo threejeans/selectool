@@ -1,9 +1,11 @@
+import { getAuthSelfSpecificInfoAPI } from 'api/authSelf'
 import { getSelfSpecificInfoAPI } from 'api/self'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import Modal from 'components/Modal'
 import { CommonCardSection, DetailContentCard } from 'containers/Common'
 import PlanComponent from 'containers/Self/SelfDetailComponent/PlanComponent'
-import React from 'react'
+import { selectAccessToken } from 'features/auth/authSlice'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { selfSpecificInfo, setSelfSpecificInfo } from 'reducers/selfReducer'
 import {
@@ -13,29 +15,11 @@ import {
 import detailStyles from '../../Self/SelfDetailMain/SelfDetailMain.module.css'
 import styles from './WithToolModal.module.css'
 
-type modalProps = {
-  toolId: number
-}
-
-const WithToolModal = ({ toolId }: modalProps) => {
+const WithToolModal = () => {
   const modalStatus = useAppSelector(toolSpecificModalState)
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
   const closemodal = () => dispatch(changeToolSpecificModalStatus())
   const specificInfo = useAppSelector(selfSpecificInfo)
-
-  const getToolSpecificInfo = async () => {
-    const response = await getSelfSpecificInfoAPI(toolId.toString())
-    if (response.isNotFound404) {
-      navigate('/error')
-    } else {
-      dispatch(setSelfSpecificInfo(response.data))
-    }
-  }
-
-  if (modalStatus) {
-    getToolSpecificInfo()
-  }
 
   const clientsDescription =
     '* 상위 ' + specificInfo.clients.length + '개 고객사 기준'
