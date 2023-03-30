@@ -34,6 +34,7 @@ const ImageInput = ({
 
   const uploadFile = async (file: any) => {
     const ReactS3Client = new S3(s3Config)
+    console.log(s3Config)
     ReactS3Client.uploadFile(file, 'thumbnails/' + file.name)
       .then(data => {
         console.log(data.location)
