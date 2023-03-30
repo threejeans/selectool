@@ -2,7 +2,8 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { Link, useLocation } from 'react-router-dom'
 
 import { AiOutlineMenu } from 'react-icons/ai'
-import Logo from 'assets/selectool_logo.svg'
+import Logo from 'assets/favicon.png'
+import Title from 'assets/selectool_logo_dark.svg'
 import styles from 'styles/admin/components/AdminHeader.module.css'
 import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
 import { useState } from 'react'
@@ -41,6 +42,7 @@ const AdminHeader = ({ title }: AdminHeaderProps) => {
       <div className={styles.container}>
         <Link className={styles.logoBox} to={'/admin'}>
           <img className={styles.logo} src={Logo} alt={'셀렉툴 로고'} />
+          <img className={styles.logo} src={Title} alt={'셀렉툴'} />
           {'admin'}
         </Link>
         <div className={styles.menu}>

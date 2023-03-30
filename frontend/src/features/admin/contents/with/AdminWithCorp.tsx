@@ -76,7 +76,7 @@ const AdminWithCorp = () => {
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
-              max={8}
+              max={16}
               value={corpCulture}
               setValue={setCorpCulture}
             />

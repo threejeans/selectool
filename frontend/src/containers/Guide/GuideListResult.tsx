@@ -5,6 +5,7 @@ import {
   selectCategories,
   selectContentCnt,
   selectGuideList,
+  selectSearchKey,
 } from 'reducers/guideReducer'
 import { GuideType } from 'types/types'
 import styles from './GuideContent.module.css'
@@ -13,13 +14,23 @@ const GuideListResult = () => {
   const guideList = useAppSelector(selectGuideList)
   const categories = useAppSelector(selectCategories)
   const contentCnt = useAppSelector(selectContentCnt)
+  const searchKey = useAppSelector(selectSearchKey)
 
   const dispatch = useAppDispatch()
 
   const getResult = () => {
     const tmp = new Set<GuideType>([])
     const max = Math.min(contentCnt, guideList.length)
-    if (!categories.length) {
+    if (searchKey.length > 0) {
+      let i = 0
+      while (tmp.size < max && i < guideList.length) {
+        const cur = guideList[i]
+        const { title, content }: GuideType = cur
+        if (title.includes(searchKey) || content.includes(searchKey))
+          tmp.add(cur)
+        i++
+      }
+    } else if (!categories.length) {
       for (let i = 0; i < max; i++) {
         tmp.add(guideList[i])
       }
