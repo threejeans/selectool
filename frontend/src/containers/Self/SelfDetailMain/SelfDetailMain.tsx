@@ -1,14 +1,18 @@
-import { useAppSelector } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import {
   CommonCardSection,
   DetailContentCard,
   DetailMainCard,
 } from 'containers/Common'
-import React from 'react'
-import { selfSpecificInfo } from 'reducers/selfReducer'
+import React, { useEffect } from 'react'
+import { selfSpecificInfo, setSelfSpecificInfo } from 'reducers/selfReducer'
 import styles from './SelfDetailMain.module.css'
 import RatingComponent from '../SelfDetailComponent/RatingComponent'
 import PlanComponent from '../SelfDetailComponent/PlanComponent'
+import { useNavigate, useParams } from 'react-router-dom'
+import { selectAccessToken } from 'features/auth/authSlice'
+import { getAuthSelfSpecificInfoAPI } from 'api/authSelf'
+import { getSelfSpecificInfoAPI } from 'api/self'
 
 const SelfDetailMain = () => {
   const specificInfo = useAppSelector(selfSpecificInfo)
@@ -16,10 +20,32 @@ const SelfDetailMain = () => {
     '* 상위 ' + specificInfo.clients.length + '개 고객사 기준'
   const planDescription = '* 총 ' + specificInfo.plans.length + '가지 요금 플랜'
 
+  const { toolId } = useParams()
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const isLogon = useAppSelector(selectAccessToken)
+
+  const getSelfSpecificInfo = async () => {
+    const response = isLogon
+      ? await dispatch(getAuthSelfSpecificInfoAPI(toolId)).unwrap()
+      : await getSelfSpecificInfoAPI(toolId)
+    if (response.isNotFound404) {
+      navigate('/error')
+    } else {
+      dispatch(setSelfSpecificInfo(response.data))
+    }
+  }
+
+  useEffect(() => {
+    getSelfSpecificInfo()
+  }, [])
+
   return (
     <>
       <DetailMainCard
         isSelf
+        id={specificInfo.id}
+        isBookmarked={specificInfo.isBookmarked}
         image={specificInfo.image}
         nameKr={specificInfo.nameKr}
         info={specificInfo.info}

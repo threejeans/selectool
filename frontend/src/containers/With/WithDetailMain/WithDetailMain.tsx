@@ -41,6 +41,8 @@ const WithDetailMain = () => {
       {toastStatus && <div className={styles.toast}>링크가 복사되었어요</div>}
 
       <DetailMainCard
+        id={specificInfo.id}
+        isBookmarked={specificInfo.isBookmarked}
         image={specificInfo.image}
         nameKr={specificInfo.nameKr}
         info={specificInfo.info}

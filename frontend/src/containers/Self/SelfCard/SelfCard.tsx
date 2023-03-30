@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 import styles from './SelfCard.module.css'
 import { Link } from 'react-router-dom'
@@ -6,31 +6,52 @@ import { SelfMainInfo } from 'types/types'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
 import { selfScrapToolAPI, selfUnscrapToolAPI } from 'api/authSelf'
+import { selfMainInfoList, setSelfMainInfoList } from 'reducers/selfReducer'
 
 type CardProps = {
   data: SelfMainInfo
 }
 
 const SelfCard = ({ data }: CardProps) => {
-  const scrapRef = useRef({ isScraped: data.isBookmarked })
   const [isHover, setHover] = useState(false)
+  const [toastStatus, setToastStatus] = useState(false)
 
-  const isLogon = useAppSelector(selectAccessToken)
   const dispatch = useAppDispatch()
 
+  const isLogon = useAppSelector(selectAccessToken)
+  const selfMainList = useAppSelector(selfMainInfoList)
+
+  const handleToast = () => {
+    setToastStatus(true)
+  }
+
   const handleScrap = async () => {
-    console.log(scrapRef)
     if (isLogon) {
-      if (scrapRef.current.isScraped) {
-        await dispatch(selfUnscrapToolAPI(data.id))
+      const response = data.isBookmarked
+        ? await dispatch(selfUnscrapToolAPI(data.id)).unwrap()
+        : await dispatch(selfScrapToolAPI(data.id)).unwrap()
+
+      if (response.statusCode === 200 || response.statusCode === 201) {
+        const newList = selfMainList.map(item =>
+          item.id === data.id
+            ? { ...item, isBookmarked: !item.isBookmarked }
+            : item,
+        )
+        dispatch(setSelfMainInfoList(newList))
+        handleToast()
       } else {
-        await dispatch(selfScrapToolAPI(data.id))
+        console.log('error', response.statusCode)
       }
-      scrapRef.current.isScraped = !scrapRef.current.isScraped
     } else {
       dispatch(loginModalOpen())
     }
   }
+
+  useEffect(() => {
+    if (toastStatus) {
+      setTimeout(() => setToastStatus(false), 1000)
+    }
+  })
 
   const topicObject: {
     [index: string]: {
@@ -71,9 +92,20 @@ const SelfCard = ({ data }: CardProps) => {
           </div>
         </div>
       ) : null}
+      {toastStatus && (
+        <div
+          className={`${styles.toast} ${
+            data.isBookmarked ? '' : styles.toast_cancel
+          }`}
+        >
+          {data.isBookmarked
+            ? '북마크에 추가되었어요'
+            : '북마크가 취소되었어요'}
+        </div>
+      )}
       <BsFillBookmarkFill
         className={`${styles.bookmark} ${
-          scrapRef.current.isScraped ? styles.bookmarkScraped : null
+          data.isBookmarked ? styles.bookmarkScraped : null
         }`}
         onClick={handleScrap}
       ></BsFillBookmarkFill>
