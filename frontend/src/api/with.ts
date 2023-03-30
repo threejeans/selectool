@@ -6,6 +6,7 @@ const basicAxios: AxiosInstance = axios.create({
   baseURL: baseURL,
 })
 
+// 전체 목록 조회
 export const getWithMainInfoAPI = async () => {
   const withMainInfoList: WithCorpType[] = []
 
@@ -29,6 +30,7 @@ export const getWithMainInfoAPI = async () => {
   return response
 }
 
+// 검색창 조회
 export const getWithSearchListAPI = async (value: string) => {
   const withMainInfoList: WithCorpType[] = []
   const response = {

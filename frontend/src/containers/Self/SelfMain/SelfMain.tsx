@@ -1,6 +1,8 @@
+import { getAuthSelfMainInfoAPI } from 'api/authSelf'
 import { getSelfMainInfoAPI } from 'api/self'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { SelfCardGrid, FilterSection, RegisterModal } from 'containers/Common'
+import { selectAccessToken } from 'features/auth/authSlice'
 import React, { Suspense, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -25,10 +27,13 @@ import { filterList } from '../SelfFilterModal/SelfFilterModal'
 const SelfMain = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+
   const isNoSearchData = useAppSelector(searchDataState)
   const searchContent = useAppSelector(searchValue)
   const modalFilterList = useAppSelector(selfModalFilterList)
   const categoryList = useAppSelector(selfCategoryFilterList)
+  const isLogon = useAppSelector(selectAccessToken)
+
   const newList: filterList = {
     cost: [...modalFilterList['cost']],
     sort: [...modalFilterList['sort']],
@@ -62,7 +67,9 @@ const SelfMain = () => {
     resetItems()
     dispatch(changeFilterModalCheckedStatus(false))
 
-    const response = await getSelfMainInfoAPI()
+    const response = isLogon
+      ? await dispatch(getAuthSelfMainInfoAPI()).unwrap()
+      : await getSelfMainInfoAPI()
     if (response.isNotFound404) {
       navigate('/error')
     } else {

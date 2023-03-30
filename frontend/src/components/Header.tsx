@@ -98,7 +98,12 @@ const Header = ({ title }: LayoutProps) => {
             />
             <span className={styles.line}>{' | '}</span>
             {isLogon ? (
-              <MenuLink path={'/mypage'} title={'마이페이지'} />
+              <MenuLink
+                path={'/mypage'}
+                title={'마이페이지'}
+                scrollPosition={scrollPosition}
+                isHome={title === '홈'}
+              />
             ) : (
               <a
                 className={

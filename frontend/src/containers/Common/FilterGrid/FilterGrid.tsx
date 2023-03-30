@@ -1,7 +1,16 @@
+import {
+  getAuthSelfCategoryListAPI,
+  getAuthSelfMainInfoAPI,
+} from 'api/authSelf'
+import {
+  getAuthWithCategoryListAPI,
+  getAuthWithMainInfoAPI,
+} from 'api/authWith'
 import { getSelfCategoryListAPI, getSelfMainInfoAPI } from 'api/self'
 import { getWithCategoryListAPI, getWithMainInfoAPI } from 'api/with'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import Chip from 'components/Chip'
+import { selectAccessToken } from 'features/auth/authSlice'
 import React, { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -25,14 +34,17 @@ export type filterDataProps = {
 
 const FilterGrid = ({ isSelf = false }: filterDataProps) => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   const categoryList = isSelf
     ? useAppSelector(selfCategoryFilterList)
     : useAppSelector(withCategoryFilterList)
   const filterModalCheckedStatus = useAppSelector(filterModalCheckedState)
   const modalFilterParams = useAppSelector(selfModalFilterParams)
+  const isLogon = useAppSelector(selectAccessToken)
+
   const allSelectedRef = useRef({ isAllSelected: false })
   const categoryListRef = useRef({ categoryList: categoryList })
-  const navigate = useNavigate()
 
   const clickEvent = async (content: string) => {
     if (isSelf && content === 'ALL') {
@@ -92,7 +104,11 @@ const FilterGrid = ({ isSelf = false }: filterDataProps) => {
     }
 
     const response = isSelf
-      ? await getSelfCategoryListAPI(params)
+      ? isLogon
+        ? await dispatch(getAuthSelfCategoryListAPI(params)).unwrap()
+        : await getSelfCategoryListAPI(params)
+      : isLogon
+      ? await dispatch(getAuthWithCategoryListAPI(params)).unwrap()
       : await getWithCategoryListAPI(params)
 
     switch (response.statusCode) {
@@ -124,8 +140,16 @@ const FilterGrid = ({ isSelf = false }: filterDataProps) => {
         // eslint-disable-next-line no-case-declarations
         const responseData = isSelf
           ? filterModalCheckedStatus
-            ? await getSelfCategoryListAPI(modalFilterParams)
+            ? isLogon
+              ? await dispatch(
+                  getAuthSelfCategoryListAPI(modalFilterParams),
+                ).unwrap()
+              : await getSelfCategoryListAPI(modalFilterParams)
+            : isLogon
+            ? await dispatch(getAuthSelfMainInfoAPI()).unwrap()
             : await getSelfMainInfoAPI()
+          : isLogon
+          ? await dispatch(getAuthWithMainInfoAPI()).unwrap()
           : await getWithMainInfoAPI()
         if (isSelf) {
           dispatch(setSelfMainInfoList(responseData.data))

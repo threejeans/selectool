@@ -1,8 +1,13 @@
+import {
+  getAuthSelfCategoryListAPI,
+  getAuthSelfMainInfoAPI,
+} from 'api/authSelf'
 import { getSelfCategoryListAPI, getSelfMainInfoAPI } from 'api/self'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import Button from 'components/Button'
 import Chip from 'components/Chip'
 import Modal from 'components/Modal'
+import { selectAccessToken } from 'features/auth/authSlice'
 import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -29,15 +34,19 @@ export type filterList = {
 }
 
 const SelfFilterModal = () => {
-  const modalStatus = useAppSelector(filterModalState)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+
+  const modalStatus = useAppSelector(filterModalState)
+  const isLogon = useAppSelector(selectAccessToken)
+  const modalFilterList = useAppSelector(selfModalFilterList)
+  const categoryFilterParams = useAppSelector(selfCategoryFilterParams)
+
   const closemodal = () => {
     dispatch(changeFilterModalStatus())
     resetItems()
   }
-  const modalFilterList = useAppSelector(selfModalFilterList)
-  const categoryFilterParams = useAppSelector(selfCategoryFilterParams)
+
   const newList: filterList = {
     cost: [...modalFilterList['cost']],
     sort: [...modalFilterList['sort']],
@@ -60,7 +69,13 @@ const SelfFilterModal = () => {
   const resetEvent = async () => {
     resetItems()
     const responseData = categoryFilterParams
-      ? await getSelfCategoryListAPI(categoryFilterParams)
+      ? isLogon
+        ? await dispatch(
+            getAuthSelfCategoryListAPI(categoryFilterParams),
+          ).unwrap()
+        : await getSelfCategoryListAPI(categoryFilterParams)
+      : isLogon
+      ? await dispatch(getAuthSelfMainInfoAPI()).unwrap()
       : await getSelfMainInfoAPI()
     dispatch(setSelfMainInfoList(responseData.data))
     dispatch(changeFilterModalCheckedStatus(false))
@@ -128,7 +143,9 @@ const SelfFilterModal = () => {
         params = categoryFilterParams + '&' + params
       }
 
-      const response = await getSelfCategoryListAPI(params)
+      const response = isLogon
+        ? await dispatch(getAuthSelfCategoryListAPI(params)).unwrap()
+        : await getSelfCategoryListAPI(params)
       switch (response.statusCode) {
         case 404:
           navigate('/error')
@@ -140,7 +157,13 @@ const SelfFilterModal = () => {
           resetItems()
           // eslint-disable-next-line no-case-declarations
           const responseData = categoryFilterParams
-            ? await getSelfCategoryListAPI(categoryFilterParams)
+            ? isLogon
+              ? await dispatch(
+                  getAuthSelfCategoryListAPI(categoryFilterParams),
+                ).unwrap()
+              : await getSelfCategoryListAPI(categoryFilterParams)
+            : isLogon
+            ? await dispatch(getAuthSelfMainInfoAPI()).unwrap()
             : await getSelfMainInfoAPI()
           dispatch(setSelfMainInfoList(responseData.data))
 

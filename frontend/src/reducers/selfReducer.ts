@@ -1,6 +1,6 @@
 import { RootState } from 'app/store'
 import { createSlice } from '@reduxjs/toolkit'
-import { SelfMainInfo, ToolType } from 'types/types'
+import { SelfMainInfo, SelfSpecificInfo, ToolType } from 'types/types'
 
 export interface SelfState {
   isFilterModal: boolean
@@ -8,7 +8,7 @@ export interface SelfState {
   selfCategoryFilterParams: string
   selfModalFilterParams: string
   selfMainInfoList: SelfMainInfo[]
-  selfSpecificInfo: ToolType
+  selfSpecificInfo: SelfSpecificInfo
   selfCategoryFilterList: filterObjectType[]
   selfModalFilterList: {
     [key: string]: filterObjectType[]
@@ -60,6 +60,7 @@ const initialState: SelfState = {
     plans: [],
     aos: '',
     ios: '',
+    isBookmarked: false,
   },
   selfCategoryFilterList: [...new Array(filterContents.length)].map(
     (data, idx) =>

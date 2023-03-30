@@ -1,4 +1,3 @@
-import { ChipProps } from 'components/Chip'
 import SearchForm from 'components/SearchForm'
 import React from 'react'
 import FilterGrid from '../FilterGrid'
@@ -17,6 +16,9 @@ import { getSelfSearchListAPI } from 'api/self'
 import { useNavigate } from 'react-router-dom'
 import { getWithSearchListAPI } from 'api/with'
 import { setWithMainInfoList } from 'reducers/withReducer'
+import { selectAccessToken } from 'features/auth/authSlice'
+import { getAuthSelfSearchListAPI } from 'api/authSelf'
+import { getAuthWithSearchListAPI } from 'api/authWith'
 
 export type filterProps = {
   isFilterButton?: boolean
@@ -29,8 +31,10 @@ const FilterSection = ({
 }: filterProps) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+
   const searchContent = useAppSelector(searchValue)
   const filterModalCheckedStatus = useAppSelector(filterModalCheckedState)
+  const isLogon = useAppSelector(selectAccessToken)
 
   const openModal = () => {
     dispatch(changeFilterModalStatus())
@@ -38,7 +42,9 @@ const FilterSection = ({
 
   const searchEvent = async () => {
     if (isFilterButton) {
-      const response = await getSelfSearchListAPI(searchContent)
+      const response = isLogon
+        ? await dispatch(getAuthSelfSearchListAPI(searchContent)).unwrap()
+        : await getSelfSearchListAPI(searchContent)
       switch (response.statusCode) {
         case 404:
           navigate('/error')
@@ -51,7 +57,9 @@ const FilterSection = ({
           dispatch(changeSearchDataStatus(false))
       }
     } else {
-      const response = await getWithSearchListAPI(searchContent)
+      const response = isLogon
+        ? await dispatch(getAuthWithSearchListAPI(searchContent)).unwrap()
+        : await getWithSearchListAPI(searchContent)
       switch (response.statusCode) {
         case 404:
           navigate('/error')
