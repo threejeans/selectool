@@ -27,7 +27,12 @@ const ThumbnailInput = ({ thumbnail, setThumbnail }: ThumbnailInputProps) => {
 
   const uploadFile = async (file: any) => {
     const ReactS3Client = new S3(s3Config)
-    ReactS3Client.uploadFile(file, 'thumbnails/' + file.name)
+    ReactS3Client.uploadFile(
+      file,
+      'thumbnails/' +
+        file.name.split('.')[0] +
+        `_${Math.floor(Math.random() * 12345 + 1)}`,
+    )
       .then(data => {
         console.log(data.location)
         setThumbnail(data.location)
