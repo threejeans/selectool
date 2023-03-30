@@ -10,9 +10,7 @@ export interface AuthState {
 
 const initialState: AuthState = {
   isLoginModal: false,
-  accessToken:
-    'eyJyZWdEYXRlIjoxNjgwMTQ3MDkzNTM2LCJ0eXAiOiJBQ0NFU1NfVE9LRU4iLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NywiZXhwIjoxNjgwMTkwMjkzfQ.CMvizDsRvINz6nA33CXrVh-R9gCaW7EMXm6M38UtQ7w',
-  // undefined,
+  accessToken: undefined,
   status: 'idle',
 }
 

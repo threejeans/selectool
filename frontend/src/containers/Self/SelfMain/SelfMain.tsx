@@ -27,6 +27,7 @@ import { filterList } from '../SelfFilterModal/SelfFilterModal'
 const SelfMain = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+
   const isNoSearchData = useAppSelector(searchDataState)
   const searchContent = useAppSelector(searchValue)
   const modalFilterList = useAppSelector(selfModalFilterList)

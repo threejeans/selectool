@@ -2,6 +2,10 @@ import {
   getAuthSelfCategoryListAPI,
   getAuthSelfMainInfoAPI,
 } from 'api/authSelf'
+import {
+  getAuthWithCategoryListAPI,
+  getAuthWithMainInfoAPI,
+} from 'api/authWith'
 import { getSelfCategoryListAPI, getSelfMainInfoAPI } from 'api/self'
 import { getWithCategoryListAPI, getWithMainInfoAPI } from 'api/with'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
@@ -103,6 +107,8 @@ const FilterGrid = ({ isSelf = false }: filterDataProps) => {
       ? isLogon
         ? await dispatch(getAuthSelfCategoryListAPI(params)).unwrap()
         : await getSelfCategoryListAPI(params)
+      : isLogon
+      ? await dispatch(getAuthWithCategoryListAPI(params)).unwrap()
       : await getWithCategoryListAPI(params)
 
     switch (response.statusCode) {
@@ -142,6 +148,8 @@ const FilterGrid = ({ isSelf = false }: filterDataProps) => {
             : isLogon
             ? await dispatch(getAuthSelfMainInfoAPI()).unwrap()
             : await getSelfMainInfoAPI()
+          : isLogon
+          ? await dispatch(getAuthWithMainInfoAPI()).unwrap()
           : await getWithMainInfoAPI()
         if (isSelf) {
           dispatch(setSelfMainInfoList(responseData.data))

@@ -15,15 +15,17 @@ import { getAuthSelfSpecificInfoAPI } from 'api/authSelf'
 import { getSelfSpecificInfoAPI } from 'api/self'
 
 const SelfDetailMain = () => {
+  const { toolId } = useParams()
+
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   const specificInfo = useAppSelector(selfSpecificInfo)
+  const isLogon = useAppSelector(selectAccessToken)
+
   const clientsDescription =
     '* 상위 ' + specificInfo.clients.length + '개 고객사 기준'
   const planDescription = '* 총 ' + specificInfo.plans.length + '가지 요금 플랜'
-
-  const { toolId } = useParams()
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  const isLogon = useAppSelector(selectAccessToken)
 
   const getSelfSpecificInfo = async () => {
     const response = isLogon

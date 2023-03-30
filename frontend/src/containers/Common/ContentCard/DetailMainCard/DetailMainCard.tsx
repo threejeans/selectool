@@ -1,4 +1,5 @@
 import { selfScrapToolAPI, selfUnscrapToolAPI } from 'api/authSelf'
+import { withScrapToolAPI, withUnscrapToolAPI } from 'api/authWith'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import Button from 'components/Button'
 import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
@@ -48,6 +49,17 @@ const DetailMainCard = ({
         const response = isScraped
           ? await dispatch(selfUnscrapToolAPI(id)).unwrap()
           : await dispatch(selfScrapToolAPI(id)).unwrap()
+
+        if (response.statusCode === 200 || response.statusCode === 201) {
+          setScraped(!isScraped)
+          handleToast()
+        } else {
+          console.log('error', response.statusCode)
+        }
+      } else {
+        const response = isScraped
+          ? await dispatch(withUnscrapToolAPI(id)).unwrap()
+          : await dispatch(withScrapToolAPI(id)).unwrap()
 
         if (response.statusCode === 200 || response.statusCode === 201) {
           setScraped(!isScraped)

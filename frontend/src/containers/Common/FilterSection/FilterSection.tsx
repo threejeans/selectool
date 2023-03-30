@@ -18,6 +18,7 @@ import { getWithSearchListAPI } from 'api/with'
 import { setWithMainInfoList } from 'reducers/withReducer'
 import { selectAccessToken } from 'features/auth/authSlice'
 import { getAuthSelfSearchListAPI } from 'api/authSelf'
+import { getAuthWithSearchListAPI } from 'api/authWith'
 
 export type filterProps = {
   isFilterButton?: boolean
@@ -56,8 +57,9 @@ const FilterSection = ({
           dispatch(changeSearchDataStatus(false))
       }
     } else {
-      // TODO : 로그인 분기 필요
-      const response = await getWithSearchListAPI(searchContent)
+      const response = isLogon
+        ? await dispatch(getAuthWithSearchListAPI(searchContent)).unwrap()
+        : await getWithSearchListAPI(searchContent)
       switch (response.statusCode) {
         case 404:
           navigate('/error')

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import styles from './withCard.module.css'
@@ -6,29 +6,52 @@ import { WithCorpType } from 'types/types'
 import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { withScrapToolAPI, withUnscrapToolAPI } from 'api/authWith'
+import { setWithMainInfoList, withMainInfoList } from 'reducers/withReducer'
 
 type CardProps = {
   data: WithCorpType
 }
 
 const WithCard = ({ data }: CardProps) => {
-  const [isScraped, setScraped] = useState(false)
   const [isHover, setHover] = useState(false)
-  const isLogon = useAppSelector(selectAccessToken) !== undefined
+  const [toastStatus, setToastStatus] = useState(false)
+
   const dispatch = useAppDispatch()
+
+  const isLogon = useAppSelector(selectAccessToken) !== undefined
+  const withMainList = useAppSelector(withMainInfoList)
+
+  const handleToast = () => {
+    setToastStatus(true)
+  }
 
   const handleScrap = async (corpId?: number) => {
     if (isLogon) {
-      if (isScraped) {
-        await dispatch(withUnscrapToolAPI(corpId))
+      const response = data.isBookmarked
+        ? await dispatch(withUnscrapToolAPI(data.id)).unwrap()
+        : await dispatch(withScrapToolAPI(data.id)).unwrap()
+
+      if (response.statusCode === 200 || response.statusCode === 201) {
+        const newList = withMainList.map(item =>
+          item.id === data.id
+            ? { ...item, isBookmarked: !item.isBookmarked }
+            : item,
+        )
+        dispatch(setWithMainInfoList(newList))
+        handleToast()
       } else {
-        await dispatch(withScrapToolAPI(corpId))
+        console.log('error', response.statusCode)
       }
-      setScraped(!isScraped)
     } else {
       dispatch(loginModalOpen())
     }
   }
+
+  useEffect(() => {
+    if (toastStatus) {
+      setTimeout(() => setToastStatus(false), 1000)
+    }
+  })
 
   return (
     <div
@@ -37,9 +60,20 @@ const WithCard = ({ data }: CardProps) => {
       onMouseLeave={() => setHover(false)}
     >
       <div className={styles.topBar}></div>
+      {toastStatus && (
+        <div
+          className={`${styles.toast} ${
+            data.isBookmarked ? '' : styles.toast_cancel
+          }`}
+        >
+          {data.isBookmarked
+            ? '북마크에 추가되었어요'
+            : '북마크가 취소되었어요'}
+        </div>
+      )}
       <BsFillBookmarkFill
         className={`${styles.bookmark} ${
-          isScraped ? styles.bookmarkScraped : null
+          data.isBookmarked ? styles.bookmarkScraped : null
         }`}
         onClick={() => handleScrap(data.id)}
       ></BsFillBookmarkFill>

@@ -1,6 +1,8 @@
+import { getAuthWithMainInfoAPI } from 'api/authWith'
 import { getWithMainInfoAPI } from 'api/with'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { WithCardGrid, FilterSection, RegisterModal } from 'containers/Common'
+import { selectAccessToken } from 'features/auth/authSlice'
 import React, { Suspense, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -23,6 +25,7 @@ const WithMain = () => {
   const isNoSearchData = useAppSelector(searchDataState)
   const searchContent = useAppSelector(searchValue)
   const categoryList = useAppSelector(withCategoryFilterList)
+  const isLogon = useAppSelector(selectAccessToken)
 
   const resetItems = () => {
     dispatch(
@@ -36,7 +39,9 @@ const WithMain = () => {
 
   const getWithMainInfoList = async () => {
     resetItems()
-    const response = await getWithMainInfoAPI()
+    const response = isLogon
+      ? await dispatch(getAuthWithMainInfoAPI()).unwrap()
+      : await getWithMainInfoAPI()
     if (response.isNotFound404) {
       navigate('/error')
     } else {

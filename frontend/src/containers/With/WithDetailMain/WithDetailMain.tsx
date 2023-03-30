@@ -1,25 +1,50 @@
+import { getAuthWithSpecificInfoAPI } from 'api/authWith'
+import { getWithSpecificInfoAPI } from 'api/with'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import {
   CommonCardSection,
   DetailContentCard,
   DetailMainCard,
 } from 'containers/Common'
+import { selectAccessToken } from 'features/auth/authSlice'
 import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import {
   changeToolSpecificModalStatus,
+  setWithSpecificInfo,
   withSpecificInfo,
 } from 'reducers/withReducer'
 import WithToolModal from '../WithToolModal'
 import styles from './WithDetailMain.module.css'
 
 const WithDetailMain = () => {
-  const specificInfo = useAppSelector(withSpecificInfo)
-  const branchDescription = '* 상위 ' + specificInfo.branches.length + '개 기준'
+  const { corpId } = useParams()
+
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
+
+  const specificInfo = useAppSelector(withSpecificInfo)
+  const isLogon = useAppSelector(selectAccessToken)
+
+  const branchDescription = '* 상위 ' + specificInfo.branches.length + '개 기준'
+
   const [toolId, setToolId] = useState(0)
   const [toastStatus, setToastStatus] = useState(false)
+
   const handleToast = () => {
     setToastStatus(true)
+  }
+
+  const getWithSpecificInfo = async () => {
+    const response = isLogon
+      ? await dispatch(getAuthWithSpecificInfoAPI(corpId)).unwrap()
+      : await getWithSpecificInfoAPI(corpId)
+
+    if (response.isNotFound404) {
+      navigate('/error')
+    } else {
+      dispatch(setWithSpecificInfo(response.data))
+    }
   }
 
   const copyLink = async () => {
@@ -30,6 +55,7 @@ const WithDetailMain = () => {
   }
 
   useEffect(() => {
+    getWithSpecificInfo()
     if (toastStatus) {
       setTimeout(() => setToastStatus(false), 1000)
     }
