@@ -253,6 +253,11 @@ public class ToolServiceImpl implements ToolService {
                                     } else {
                                         c = clientRepo.findById(client.getId())
                                                 .orElseThrow(() -> new NotFoundException(CLIENT_NOT_FOUND));
+                                        c.update(
+                                                client.getName(),
+                                                client.getImage(),
+                                                client.getUrl()
+                                        );
                                     }
 
                                     return ToolClient.builder()
