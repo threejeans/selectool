@@ -1,13 +1,9 @@
-import { getAuthSelfSpecificInfoAPI } from 'api/authSelf'
-import { getSelfSpecificInfoAPI } from 'api/self'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import Modal from 'components/Modal'
 import { CommonCardSection, DetailContentCard } from 'containers/Common'
 import PlanComponent from 'containers/Self/SelfDetailComponent/PlanComponent'
-import { selectAccessToken } from 'features/auth/authSlice'
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { selfSpecificInfo, setSelfSpecificInfo } from 'reducers/selfReducer'
+import React from 'react'
+import { selfSpecificInfo } from 'reducers/selfReducer'
 import {
   changeToolSpecificModalStatus,
   toolSpecificModalState,

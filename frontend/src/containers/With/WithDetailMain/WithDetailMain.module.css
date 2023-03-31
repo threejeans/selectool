@@ -37,7 +37,7 @@
 
 .toolsLayout {
   display: grid;
-  margin-inline: 60px;
+  margin-inline: 48px;
   /* justify-content: center; */
   grid-template-columns: repeat(auto-fit, minmax(60px, max-content));
   column-gap: 80px;
@@ -77,4 +77,10 @@
   color: #fff;
   font-size: 12px;
   border-radius: 14px 14px 14px 0px;
+}
+
+.spinnerLayout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

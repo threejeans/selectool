@@ -5,8 +5,8 @@ import Button from 'components/Button'
 import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
 import React, { useEffect, useState } from 'react'
 import { BsFillBookmarkFill } from 'react-icons/bs'
-import { selfSpecificInfo } from 'reducers/selfReducer'
-import { withSpecificInfo } from 'reducers/withReducer'
+import { selfSpecificInfo, setSelfSpecificInfo } from 'reducers/selfReducer'
+import { setWithSpecificInfo, withSpecificInfo } from 'reducers/withReducer'
 import styles from './DetailMainCard.module.css'
 
 type ÇardProps = {
@@ -32,12 +32,14 @@ const DetailMainCard = ({
   button2ClickEvent,
   button3ClickEvent,
 }: ÇardProps) => {
-  const [isScraped, setScraped] = useState(isBookmarked)
-  const [toastStatus, setToastStatus] = useState(false)
+  const dispatch = useAppDispatch()
 
   const isLogon = useAppSelector(selectAccessToken) !== undefined
+  const specificInfo = isSelf
+    ? useAppSelector(selfSpecificInfo)
+    : useAppSelector(withSpecificInfo)
 
-  const dispatch = useAppDispatch()
+  const [toastStatus, setToastStatus] = useState(false)
 
   const handleToast = () => {
     setToastStatus(true)
@@ -46,23 +48,27 @@ const DetailMainCard = ({
   const handleScrap = async () => {
     if (isLogon) {
       if (isSelf) {
-        const response = isScraped
+        const response = isBookmarked
           ? await dispatch(selfUnscrapToolAPI(id)).unwrap()
           : await dispatch(selfScrapToolAPI(id)).unwrap()
 
         if (response.statusCode === 200 || response.statusCode === 201) {
-          setScraped(!isScraped)
+          const newSpecificInfo = { ...specificInfo }
+          newSpecificInfo.isBookmarked = !newSpecificInfo.isBookmarked
+          dispatch(setSelfSpecificInfo(newSpecificInfo))
           handleToast()
         } else {
           console.log('error', response.statusCode)
         }
       } else {
-        const response = isScraped
+        const response = isBookmarked
           ? await dispatch(withUnscrapToolAPI(id)).unwrap()
           : await dispatch(withScrapToolAPI(id)).unwrap()
 
         if (response.statusCode === 200 || response.statusCode === 201) {
-          setScraped(!isScraped)
+          const newSpecificInfo = { ...specificInfo }
+          newSpecificInfo.isBookmarked = !newSpecificInfo.isBookmarked
+          dispatch(setWithSpecificInfo(newSpecificInfo))
           handleToast()
         } else {
           console.log('error', response.statusCode)
@@ -87,14 +93,16 @@ const DetailMainCard = ({
     >
       {toastStatus && (
         <div
-          className={`${styles.toast} ${isScraped ? '' : styles.toast_cancel}`}
+          className={`${styles.toast} ${
+            isBookmarked ? '' : styles.toast_cancel
+          }`}
         >
-          {isScraped ? '북마크에 추가되었어요' : '북마크가 취소되었어요'}
+          {isBookmarked ? '북마크에 추가되었어요' : '북마크가 취소되었어요'}
         </div>
       )}
       <BsFillBookmarkFill
         className={`${styles.bookmark} ${
-          isScraped ? styles.bookmarkScraped : null
+          isBookmarked ? styles.bookmarkScraped : null
         }`}
         onClick={handleScrap}
       ></BsFillBookmarkFill>

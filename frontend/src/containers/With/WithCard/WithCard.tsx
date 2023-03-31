@@ -25,7 +25,7 @@ const WithCard = ({ data }: CardProps) => {
     setToastStatus(true)
   }
 
-  const handleScrap = async (corpId?: number) => {
+  const handleScrap = async () => {
     if (isLogon) {
       const response = data.isBookmarked
         ? await dispatch(withUnscrapToolAPI(data.id)).unwrap()
@@ -75,7 +75,7 @@ const WithCard = ({ data }: CardProps) => {
         className={`${styles.bookmark} ${
           data.isBookmarked ? styles.bookmarkScraped : null
         }`}
-        onClick={() => handleScrap(data.id)}
+        onClick={() => handleScrap()}
       ></BsFillBookmarkFill>
       <Link to={`/with/${data.id}`} className={styles.clickContainer}>
         {isHover ? (
