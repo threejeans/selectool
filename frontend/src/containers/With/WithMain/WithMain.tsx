@@ -25,7 +25,7 @@ const WithMain = () => {
   const isNoSearchData = useAppSelector(searchDataState)
   const searchContent = useAppSelector(searchValue)
   const categoryList = useAppSelector(withCategoryFilterList)
-  const isLogon = useAppSelector(selectAccessToken)
+  const isLogon = useAppSelector(selectAccessToken) !== undefined
 
   const resetItems = () => {
     dispatch(

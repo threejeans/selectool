@@ -78,3 +78,9 @@
   font-size: 12px;
   border-radius: 14px 14px 14px 0px;
 }
+
+.spinnerLayout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
