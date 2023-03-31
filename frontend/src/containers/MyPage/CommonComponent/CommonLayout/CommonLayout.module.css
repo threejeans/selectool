@@ -1,0 +1,26 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 12px;
+}
+
+.title {
+  font-size: calc(0.8rem * var(--text-multiplier));
+  line-height: calc(1.4rem * var(--text-multiplier));
+  font-weight: 700;
+  color: black;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 0.7rem;
+  color: #6f6f6f;
+}
+
+.contentContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
