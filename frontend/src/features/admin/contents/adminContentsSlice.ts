@@ -171,6 +171,20 @@ export const updateTool = createAsyncThunk(
   },
 )
 
+export const updateCorp = createAsyncThunk(
+  'adminContents/updateCorp',
+  async (data: CorpType, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.put(`/with/corps/${data.id}`, data)
+      console.log('Async Update Response', response)
+      return response.data
+    } catch (error: any) {
+      console.error(error) //
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
 export const createGuide = createAsyncThunk(
   'adminContents/createGuide',
   async (data: GuideType, { rejectWithValue }) => {
@@ -329,6 +343,17 @@ export const adminContentsSlice = createSlice({
         state.status = 'success'
       })
       .addCase(updateTool.rejected, state => {
+        state.status = 'failed'
+      })
+      .addCase(updateCorp.pending, state => {
+        state.status = 'loading'
+      })
+      .addCase(updateCorp.fulfilled, (state, { payload }) => {
+        state.currentContent = payload
+        state.currentType = 'with'
+        state.status = 'success'
+      })
+      .addCase(updateCorp.rejected, state => {
         state.status = 'failed'
       })
   },
