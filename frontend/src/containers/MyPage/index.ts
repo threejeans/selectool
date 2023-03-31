@@ -1,2 +1,1 @@
-export { default as Sidebar } from './Sidebar'
-export { default as ContentTitle } from './ContentTitle'
+export { default as MyPageMain } from './MyPageMain'
