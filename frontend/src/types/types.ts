@@ -70,6 +70,29 @@ export type ToolType = {
   ios: string
 }
 
+export type SelfSpecificInfo = {
+  id?: number
+  // main
+  nameKr: string
+  nameEn: string
+  info: string
+  msg: string
+  topic: string
+  categories: CategoryType[]
+  country: string
+  image: string
+  // specific
+  url: string
+  toolFunctions: ToolFuncType[]
+  clients: ClientType[]
+  trial: boolean
+  plans: PlanType[]
+  aos: string
+  ios: string
+  // bookmark
+  isBookmarked: boolean
+}
+
 export type SelfMainInfo = {
   id: number
   info: string
@@ -88,7 +111,7 @@ export type SelfMainInfo = {
 export type GuideType = {
   id?: number
   title: string
-  date?: Date
+  date?: Date | string
   content: string
   source: string
   toolName: string
@@ -97,6 +120,7 @@ export type GuideType = {
   url: string
   image: string
   toolImage: string
+  isBookmarked?: boolean
 }
 
 // 함께써요

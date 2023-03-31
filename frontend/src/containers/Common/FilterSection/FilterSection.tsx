@@ -1,61 +1,99 @@
-import { ChipProps } from 'components/Chip'
 import SearchForm from 'components/SearchForm'
 import React from 'react'
 import FilterGrid from '../FilterGrid'
 import styles from './FilterSection.module.css'
 import filterIcon from 'assets/filter_icon.svg'
 import filterIconSelected from 'assets/filter_icon_selected.svg'
-import { useAppDispatch } from 'app/hooks'
-import { changeFilterModalStatus } from 'reducers/selfReducer'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import {
+  changeFilterModalStatus,
+  filterModalCheckedState,
+  setSelfMainInfoList,
+} from 'reducers/selfReducer'
 import SelfFilterModal from 'containers/Self/SelfFilterModal/SelfFilterModal'
+import { changeSearchDataStatus, searchValue } from 'reducers/commonReducer'
+import { getSelfSearchListAPI } from 'api/self'
+import { useNavigate } from 'react-router-dom'
+import { getWithSearchListAPI } from 'api/with'
+import { setWithMainInfoList } from 'reducers/withReducer'
+import { selectAccessToken } from 'features/auth/authSlice'
+import { getAuthSelfSearchListAPI } from 'api/authSelf'
+import { getAuthWithSearchListAPI } from 'api/authWith'
 
 export type filterProps = {
   isFilterButton?: boolean
-  filterTypes: Array<string>
   placeholder?: string
 }
 
-export type filterDataProps = {
-  items: Array<ChipProps>
-}
-
-const isFilterButtonSelected = false
-
 const FilterSection = ({
   isFilterButton = false,
-  filterTypes = [],
   placeholder,
 }: filterProps) => {
-  const dispatcth = useAppDispatch()
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  const searchContent = useAppSelector(searchValue)
+  const filterModalCheckedStatus = useAppSelector(filterModalCheckedState)
+  const isLogon = useAppSelector(selectAccessToken)
+
   const openModal = () => {
-    dispatcth(changeFilterModalStatus())
+    dispatch(changeFilterModalStatus())
   }
 
-  const items = [...new Array(filterTypes.length)].map(
-    (data, idx) =>
-      (data = { type: 'basic', isSelected: false, content: filterTypes[idx] }),
-  )
+  const searchEvent = async () => {
+    if (isFilterButton) {
+      const response = isLogon
+        ? await dispatch(getAuthSelfSearchListAPI(searchContent)).unwrap()
+        : await getSelfSearchListAPI(searchContent)
+      switch (response.statusCode) {
+        case 404:
+          navigate('/error')
+          return
+        case 400:
+          dispatch(changeSearchDataStatus(true))
+          return
+        default:
+          dispatch(setSelfMainInfoList(response.data))
+          dispatch(changeSearchDataStatus(false))
+      }
+    } else {
+      const response = isLogon
+        ? await dispatch(getAuthWithSearchListAPI(searchContent)).unwrap()
+        : await getWithSearchListAPI(searchContent)
+      switch (response.statusCode) {
+        case 404:
+          navigate('/error')
+          return
+        case 400:
+          dispatch(changeSearchDataStatus(true))
+          return
+        default:
+          dispatch(setWithMainInfoList(response.data))
+          dispatch(changeSearchDataStatus(false))
+      }
+    }
+  }
 
   return (
     <div className={styles.layout}>
       <SelfFilterModal />
-      <FilterGrid items={items}></FilterGrid>
+      <FilterGrid isSelf={isFilterButton}></FilterGrid>
       <div className={styles.rightSection}>
         {isFilterButton ? (
           <button
             className={
-              isFilterButtonSelected ? styles.buttonSelected : styles.button
+              filterModalCheckedStatus ? styles.buttonSelected : styles.button
             }
             onClick={openModal}
           >
             <img
-              src={isFilterButtonSelected ? filterIconSelected : filterIcon}
+              src={filterModalCheckedStatus ? filterIconSelected : filterIcon}
               alt=''
               className={styles.iconImage}
             />
           </button>
         ) : null}
-        <SearchForm placeholder={placeholder} />
+        <SearchForm placeholder={placeholder} submitEvent={searchEvent} />
       </div>
     </div>
   )

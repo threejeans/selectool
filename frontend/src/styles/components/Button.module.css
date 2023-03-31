@@ -18,6 +18,15 @@
   background: #5581df;
 }
 
+.neutral {
+  color: black;
+  background: #efefef;
+}
+
+.neutral:active {
+  background: rgba(51, 51, 51, 0.3);
+}
+
 .secondary {
   color: #60a9f6;
   background: white;
@@ -39,9 +48,9 @@
 
 .md {
   font-weight: 400;
-  font-size: 16px;
-  width: 180px;
-  height: 60px;
+  font-size: 14px;
+  width: 140px;
+  height: 46px;
 }
 
 .mdShort {

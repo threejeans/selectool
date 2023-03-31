@@ -1,12 +1,12 @@
-import React, { Children } from 'react';
-import { IoMdClose } from 'react-icons/io';
-import styles from 'styles/components/Modal.module.css';
+import React from 'react'
+import { IoMdClose } from 'react-icons/io'
+import styles from 'styles/components/Modal.module.css'
 
 type ModelProps = {
-  isModal: boolean;
-  setIsModal: () => void;
-  children: React.ReactNode;
-};
+  isModal: boolean
+  setIsModal: () => void
+  children: React.ReactNode
+}
 
 const Modal = ({ isModal, setIsModal, children, ...rest }: ModelProps) => {
   return (
@@ -23,7 +23,7 @@ const Modal = ({ isModal, setIsModal, children, ...rest }: ModelProps) => {
         </div>
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

@@ -98,8 +98,9 @@ input {
   text-align: center;
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: flex-end;
   gap: 0.2rem;
+  margin: 0.2rem 0;
 }
 
 .modify {
@@ -117,6 +118,14 @@ input {
   gap: 1rem;
 }
 
+.corpContent {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 4rem 0;
+}
+
 .mainTitle {
   font-size: 1.6rem;
   font-weight: 600;
@@ -127,6 +136,7 @@ input {
   font-size: 1rem;
   font-weight: 400;
   margin: 0;
+  position: relative;
 }
 
 .info {
@@ -168,22 +178,27 @@ input {
     '. c c c c c c c c c c c c c c c';
   align-items: flex-start;
 }
+
 .a {
   position: relative;
   grid-area: a;
 }
+
 .b {
   font-weight: 600;
   grid-area: b;
 }
+
 .c {
   grid-area: c;
 }
+
 .clientName,
 .clientUrl {
   width: 100%;
   font-size: 0.8rem;
 }
+
 .clientName {
   font-weight: 600;
 }
@@ -205,6 +220,7 @@ input {
   align-items: center;
   position: relative;
 }
+
 .client img {
   width: 120px;
 }
@@ -233,11 +249,77 @@ input {
   text-align: center;
   word-wrap: break-word;
 }
+
 .planVolume {
   font-size: 0.8rem;
   font-weight: 400;
 }
+
 .planCost {
   font-size: 2rem;
   font-weight: 500;
+}
+
+.planFunc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.branchGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+  margin: 2rem 0;
+}
+
+.branch {
+  height: 160px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.branch img {
+  width: 120px;
+}
+
+.searchBox {
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  font-size: 1.2rem;
+  padding: 2px;
+}
+
+.drop {
+  width: 100%;
+  position: absolute;
+  border: 1px solid var(--primary-color-main);
+  border-radius: 0 0 4px 4px;
+  top: calc(100% + 2px); 
+  transition: all 0.3s; 
+}
+.none{
+  visibility: hidden;
+}
+.searchItem{
+  background-color: var(--gray-scale-color-g05);
+  color:var(--primary-color-main);
+  border-radius: 4px;
+  margin: 2px;
+}
+
+.searchItem:hover{
+  background-color: var(--primary-color-main);
+  color:white;
 }

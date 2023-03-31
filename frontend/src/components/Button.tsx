@@ -5,6 +5,7 @@ type buttonProps = {
   color: string
   size: string
   text: string
+  clickEvent: () => void
 }
 
 const colorHandler = (color: string) => {
@@ -13,6 +14,8 @@ const colorHandler = (color: string) => {
       return styles.primary
     case 'secondary':
       return styles.secondary
+    case 'neutral':
+      return styles.neutral
     case 'outlined':
       return styles.outlined
   }
@@ -33,12 +36,13 @@ const sizeHandler = (size: string) => {
   }
 }
 
-const Button = ({ color, size, text }: buttonProps) => {
+const Button = ({ color, size, text, clickEvent }: buttonProps) => {
   return (
     <button
       className={`${styles.commonStyle} ${colorHandler(color)} ${sizeHandler(
         size,
       )}`}
+      onClick={clickEvent}
     >
       {text}
     </button>

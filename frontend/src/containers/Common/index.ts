@@ -10,3 +10,4 @@ export {
   DetailMainCard as DetailMainCard,
   CommonCardSection as CommonCardSection,
 } from './ContentCard'
+export { default as RegisterModal } from './RegisterModal'
