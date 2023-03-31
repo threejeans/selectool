@@ -47,3 +47,9 @@
 .ratingLine {
   border: 1px dashed #cdcdcd;
 }
+
+.spinnerLayout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

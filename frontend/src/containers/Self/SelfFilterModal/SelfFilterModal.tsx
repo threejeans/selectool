@@ -16,6 +16,7 @@ import {
   changeFilterModalStatus,
   filterModalState,
   filterObjectType,
+  resetSelfModalFilter,
   selfCategoryFilterParams,
   selfModalFilterList,
   setSelfMainInfoList,
@@ -47,23 +48,8 @@ const SelfFilterModal = () => {
     resetItems()
   }
 
-  const newList: filterList = {
-    cost: [...modalFilterList['cost']],
-    sort: [...modalFilterList['sort']],
-    country: [...modalFilterList['country']],
-  }
-
   const resetItems = () => {
-    newList['cost'] = newList['cost'].map(item =>
-      item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
-    )
-    newList['sort'] = newList['sort'].map(item =>
-      item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
-    )
-    newList['country'] = newList['country'].map(item =>
-      item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
-    )
-    dispatch(setSelfModalFilterList(newList))
+    dispatch(resetSelfModalFilter())
   }
 
   const resetEvent = async () => {
@@ -221,8 +207,8 @@ const FilterContent = ({ title, type }: ContentProps) => {
   const allSelectedRef = useRef({ isAllSelected: false })
 
   const newList: filterList = {
-    cost: [...modalFilterList['cost']],
-    sort: [...modalFilterList['sort']],
+    cost: [...modalFilterList.cost],
+    sort: [...modalFilterList.sort],
     country: [...modalFilterList['country']],
   }
   const modalFilterListRef = useRef({ filterList: newList })

@@ -15,3 +15,29 @@
   grid-template-columns: repeat(auto-fit, minmax(212px, max-content));
   column-gap: 74px;
 }
+
+.moreGroup {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.moreButton {
+  border-radius: 0.5rem;
+  padding: 1rem 1.6rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  color: #6f6f6f;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.moreButton:hover {
+  background-color: #fcfcfc;
+}
+
+.icon {
+  height: 1rem;
+}

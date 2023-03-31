@@ -13,16 +13,14 @@ import {
 } from 'reducers/commonReducer'
 import {
   changeFilterModalCheckedStatus,
+  resetSelfContentCount,
+  resetSelfModalFilter,
   selfCategoryFilterList,
-  selfModalFilterList,
   setSelfCategoryFilterList,
   setSelfCategoryFilterParams,
   setSelfMainInfoList,
-  setSelfModalFilterList,
-  setSelfModalFilterParams,
 } from 'reducers/selfReducer'
 import styles from 'styles/pages/commons/Content.module.css'
-import { filterList } from '../SelfFilterModal/SelfFilterModal'
 
 const SelfMain = () => {
   const dispatch = useAppDispatch()
@@ -30,28 +28,11 @@ const SelfMain = () => {
 
   const isNoSearchData = useAppSelector(searchDataState)
   const searchContent = useAppSelector(searchValue)
-  const modalFilterList = useAppSelector(selfModalFilterList)
   const categoryList = useAppSelector(selfCategoryFilterList)
   const isLogon = useAppSelector(selectAccessToken)
 
-  const newList: filterList = {
-    cost: [...modalFilterList['cost']],
-    sort: [...modalFilterList['sort']],
-    country: [...modalFilterList['country']],
-  }
-
   const resetItems = () => {
-    newList['cost'] = newList['cost'].map(item =>
-      item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
-    )
-    newList['sort'] = newList['sort'].map(item =>
-      item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
-    )
-    newList['country'] = newList['country'].map(item =>
-      item.isSelected ? { ...item, isSelected: !item.isSelected } : item,
-    )
-    dispatch(setSelfModalFilterList(newList))
-    dispatch(setSelfModalFilterParams(''))
+    dispatch(resetSelfModalFilter())
 
     dispatch(
       setSelfCategoryFilterList(
@@ -61,6 +42,7 @@ const SelfMain = () => {
       ),
     )
     dispatch(setSelfCategoryFilterParams(''))
+    dispatch(resetSelfContentCount())
   }
 
   const getselfMainInfoList = async () => {

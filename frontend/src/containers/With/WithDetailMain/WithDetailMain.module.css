@@ -37,7 +37,7 @@
 
 .toolsLayout {
   display: grid;
-  margin-inline: 60px;
+  margin-inline: 48px;
   /* justify-content: center; */
   grid-template-columns: repeat(auto-fit, minmax(60px, max-content));
   column-gap: 80px;
