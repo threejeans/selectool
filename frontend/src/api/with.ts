@@ -2,10 +2,11 @@ import { baseURL } from 'app/apiAxios'
 import axios, { AxiosInstance } from 'axios'
 import { WithCorpType } from 'types/types'
 
-const authAxios: AxiosInstance = axios.create({
+const basicAxios: AxiosInstance = axios.create({
   baseURL: baseURL,
 })
 
+// 전체 목록 조회
 export const getWithMainInfoAPI = async () => {
   const withMainInfoList: WithCorpType[] = []
 
@@ -14,7 +15,7 @@ export const getWithMainInfoAPI = async () => {
     data: withMainInfoList,
   }
 
-  await authAxios
+  await basicAxios
     .get('/with/nomember/corps')
     .then(res => {
       response.data = res.data
@@ -29,16 +30,40 @@ export const getWithMainInfoAPI = async () => {
   return response
 }
 
+// 검색창 조회
 export const getWithSearchListAPI = async (value: string) => {
   const withMainInfoList: WithCorpType[] = []
   const response = {
     statusCode: 200,
     data: withMainInfoList,
   }
-  await authAxios
+  await basicAxios
     .get('/with/nomember/corps', { params: { name: value } })
     .then(res => {
-      console.log(value, res.data)
+      response.data = res.data
+      if (!res.data.length) {
+        response.statusCode = 400
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      if (err.request.status === 404) {
+        response.statusCode = 404
+      }
+    })
+
+  return response
+}
+
+export const getWithCategoryListAPI = async (params: string) => {
+  const withMainInfoList: WithCorpType[] = []
+  const response = {
+    statusCode: 200,
+    data: withMainInfoList,
+  }
+  await basicAxios
+    .get(`/with/nomember/corps?${params}`)
+    .then(res => {
       response.data = res.data
       if (!res.data.length) {
         response.statusCode = 400
@@ -76,7 +101,7 @@ export const getWithSpecificInfoAPI = async (corpId?: string) => {
     data: withSpecificInfo,
   }
 
-  await authAxios
+  await basicAxios
     .get(`/with/nomember/corps/${corpId}`)
     .then(res => {
       response.data = res.data

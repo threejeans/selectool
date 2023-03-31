@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import AdminButton from 'components/admin/AdminButton'
 import AdminModal from 'components/admin/AdminModal'
 import DuplicatedCategoryGroup from 'components/admin/DuplicatedCategoryGroup'
-import SearchInputBox from 'components/admin/SearchBox'
+import SearchInputBox from 'components/admin/SearchInputBox'
 import SectionPlusBtn from 'components/admin/SectionPlusBtn'
 import TextInputBox from 'components/admin/TextInputBox'
 import ThumbnailInput from 'components/admin/ThumbnailInput'
@@ -51,7 +51,7 @@ const AdminWithCorp = () => {
   const [teamNameEn, setTeamNameEn] = useState<string>('')
   const teamNameEnRef = useRef<HTMLInputElement | null>(null)
 
-  const list = ['금융', '커뮤니티', '모빌리티', '여행/레져', '커머스', 'Other']
+  const list = ['금융', '커뮤니티', '모빌리티', '여행/레저', '커머스', 'Other']
   const [categories, setCategories] = useState(['Other'])
 
   const [image, setImage] = useState('')
@@ -76,7 +76,7 @@ const AdminWithCorp = () => {
           <div key={index} className={styles.section}>
             <SectionPlusBtn
               idx={index}
-              max={8}
+              max={16}
               value={corpCulture}
               setValue={setCorpCulture}
             />

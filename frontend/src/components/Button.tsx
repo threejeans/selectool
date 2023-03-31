@@ -14,6 +14,8 @@ const colorHandler = (color: string) => {
       return styles.primary
     case 'secondary':
       return styles.secondary
+    case 'neutral':
+      return styles.neutral
     case 'outlined':
       return styles.outlined
   }
