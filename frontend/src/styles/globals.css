@@ -24,14 +24,16 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
   height: 30%;
-  background: linear-gradient(180deg, rgba(96, 169, 246, 0.9) -32.17%, rgba(171, 224, 199, 0.9) 116.11%);
+  /* background: linear-gradient(180deg, rgba(96, 169, 246, 0.9) -32.17%, rgba(171, 224, 199, 0.9) 116.11%); */
+  background: #a8a8a8;
   margin: 2px;
 
   border-radius: 10px;
 }
 
 body::-webkit-scrollbar-track {
-  background: #FCFCFC;
+  /* background: #fcfcfc; */
+  background: white;
 }
 
 a {
