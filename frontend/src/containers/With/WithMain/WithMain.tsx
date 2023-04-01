@@ -36,7 +36,7 @@ const WithMain = () => {
         ),
       ),
     )
-    dispatch(resetWithContentCount())
+    // dispatch(resetWithContentCount())
   }
 
   const getWithMainInfoList = async () => {

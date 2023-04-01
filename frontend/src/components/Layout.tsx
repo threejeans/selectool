@@ -4,7 +4,8 @@ import { Helmet } from 'react-helmet'
 
 import Footer from './Footer'
 import Header from './Header'
-import Modal from './Modal'
+import { useMediaQuery } from 'react-responsive'
+import HeaderMobile from './HeaderMobile'
 
 interface LayoutProps {
   title: string
@@ -16,7 +17,19 @@ const Layout = ({ title, description, children }: LayoutProps) => {
   return (
     <>
       <Login />
-      <Header title={title} />
+      <Pc>
+        <Header title={title} />
+      </Pc>
+      <Tablet>
+        <Header title={title} />
+      </Tablet>
+      <MobileWide>
+        <HeaderMobile title={title} />
+      </MobileWide>
+      <Mobile>
+        <HeaderMobile title={title} />
+      </Mobile>
+
       <Helmet>
         <title>SELECTOOL | {title}</title>
         <meta name='description' content={description} />
@@ -28,3 +41,39 @@ const Layout = ({ title, description, children }: LayoutProps) => {
 }
 
 export default Layout
+
+type ResponsiveProps = {
+  children: React.ReactNode
+}
+
+// 모바일 세로
+export const Mobile = ({ children }: ResponsiveProps) => {
+  const isMobile = useMediaQuery({
+    query: '(max-width:480px)',
+  })
+  return <>{isMobile && children}</>
+}
+
+// 모바일 가로 & 태블릿 세로
+export const MobileWide = ({ children }: ResponsiveProps) => {
+  const isMobile = useMediaQuery({
+    query: '(min-width:481px) and (max-width:767px)',
+  })
+  return <>{isMobile && children}</>
+}
+
+// 태블릿 가로
+export const Tablet = ({ children }: ResponsiveProps) => {
+  const isMobile = useMediaQuery({
+    query: '(min-width:768px) and (max-width:1023px)',
+  })
+  return <>{isMobile && children}</>
+}
+
+// PC & 태블릿 가로
+export const Pc = ({ children }: ResponsiveProps) => {
+  const isPc = useMediaQuery({
+    query: '(min-width:1024px)',
+  })
+  return <>{isPc && children}</>
+}

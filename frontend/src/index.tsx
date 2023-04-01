@@ -1,4 +1,3 @@
-import { useAppDispatch } from 'app/hooks'
 import AdminLayout from 'components/admin/AdminLayout'
 import AdminMain from 'features/admin/AdminMain'
 import AdminAlarm from 'features/admin/alarm/AdminAlarm'
@@ -110,7 +109,6 @@ const router = createBrowserRouter([
   },
   {
     path: 'guide',
-    // eslint-disable-next-line react/no-children-prop
     element: (
       <>
         <ScrollToTop />
