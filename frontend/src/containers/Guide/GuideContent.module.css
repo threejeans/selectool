@@ -38,6 +38,7 @@
   height: 100%;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   border-radius: 1rem;
   position: relative;
   display: flex;
@@ -229,6 +230,7 @@
   aspect-ratio: 4/3;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   border-radius: 1rem;
   position: relative;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
@@ -238,13 +240,15 @@
   position: absolute;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   bottom: -0.5rem;
   right: 0.4rem;
   width: 12%;
   aspect-ratio: 1/1;
   border-radius: 100%;
-  background-color: white;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3))
+  overflow: hidden;
+  /* background-color: white; */
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))
 }
 
 .guideInfo {
