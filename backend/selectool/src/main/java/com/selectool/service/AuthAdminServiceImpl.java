@@ -1,6 +1,6 @@
 package com.selectool.service;
 
-import com.selectool.config.JwtUtil;
+import com.selectool.config.JwtAdminUtil;
 import com.selectool.dto.user.response.ServiceTokenResponse;
 import com.selectool.entity.Auth;
 import com.selectool.exception.NotFoundException;
@@ -19,23 +19,23 @@ import static com.selectool.exception.NotMatchException.AUTH_NOT_MATCH;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Slf4j
-public class AuthServiceImpl implements AuthService {
+public class AuthAdminServiceImpl implements AuthAdminService {
     private final AuthRepo authRepo;
-    private final JwtUtil jwtUtil;
+    private final JwtAdminUtil jwtAdminUtil;
 
     @Override
     @Transactional
     public ServiceTokenResponse refresh(String refreshToken) {
-        Claims body = jwtUtil.getClaimsToken(refreshToken);
-        Long userId = Long.valueOf(String.valueOf(body.get("id")));
+        Claims body = jwtAdminUtil.getClaimsToken(refreshToken);
+        Long adminId = Long.valueOf(String.valueOf(body.get("id")));
 
-        Auth auth = authRepo.findById(userId)
+        Auth auth = authRepo.findById(adminId)
                 .orElseThrow(() -> new NotFoundException(AUTH_NOT_FOUND));
         if (!auth.getRefreshToken().equals(refreshToken)) {
             throw new NotMatchException(AUTH_NOT_MATCH);
         }
         return ServiceTokenResponse.builder()
-                .accessToken(jwtUtil.createAccessToken(userId))
+                .accessToken(jwtAdminUtil.createAccessToken(adminId))
                 .refreshToken(refreshToken)
                 .build();
     }

@@ -3,6 +3,7 @@ package com.selectool.controller;
 import com.selectool.config.Constant;
 import com.selectool.config.login.LoginUser;
 import com.selectool.config.login.User;
+import com.selectool.dto.user.request.UserUpdateRequest;
 import com.selectool.dto.user.response.ServiceTokenResponse;
 import com.selectool.service.AuthService;
 import com.selectool.service.OAuthService;
@@ -59,11 +60,10 @@ public class UserController {
     @GetMapping("/refresh")
     @ApiOperation(value = "액세스 토큰 재발급")
     public ResponseEntity<?> refresh(
-            @CookieValue("refresh-token") String refreshToken,
-            @LoginUser User user
+            @CookieValue("refresh-token") String refreshToken
     ) {
         try {
-            return ResponseEntity.ok(authService.refresh(refreshToken, user.getId()));
+            return ResponseEntity.ok(authService.refresh(refreshToken));
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("로그인 만료");
@@ -76,5 +76,15 @@ public class UserController {
             @LoginUser User user
     ) {
         return ResponseEntity.ok(userService.getUserInfo(user.getId()));
+    }
+
+    @PutMapping("/info")
+    @ApiOperation(value = "유저 정보 수정")
+    public ResponseEntity<?> updateUserInfo(
+            @LoginUser User user,
+            @RequestBody UserUpdateRequest request
+    ) {
+        userService.updateUserInfo(request, user.getId());
+        return ResponseEntity.ok().build();
     }
 }
