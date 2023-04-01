@@ -72,15 +72,7 @@ public class UserServiceImpl implements UserService {
     public void updateUserInfo(UserUpdateRequest request, Long userId) {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-        user.updateInfo(request.getName(), request.getSubscribeEmail());
-    }
-
-    @Override
-    @Transactional
-    public void updateUserImage(String image, Long userId) {
-        User user = userRepo.findById(userId)
-                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-        user.updateImage(image);
+        user.updateInfo(request.getName(), request.getSubscribeEmail(), request.getImage());
     }
 
     @Override

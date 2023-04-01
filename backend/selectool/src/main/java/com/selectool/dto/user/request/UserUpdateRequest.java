@@ -12,4 +12,7 @@ public class UserUpdateRequest {
 
     @ApiModelProperty(value = "구독 이메일")
     private String subscribeEmail;
+
+    @ApiModelProperty(value = "이미지 주소")
+    private String image;
 }

@@ -55,13 +55,10 @@ public class User extends BaseEntity {
         this.active = true;
     }
 
-    public void updateInfo(String name, String subscribeEmail) {
+    public void updateInfo(String name, String subscribeEmail, String image) {
         if (hasText(name)) this.name = name;
         if (hasText(subscribeEmail)) this.subscribeEmail = subscribeEmail;
-    }
-
-    public void updateImage(String image) {
-        this.image = image;
+        if (hasText(image)) this.image = image;
     }
 
     public void setActive() {
