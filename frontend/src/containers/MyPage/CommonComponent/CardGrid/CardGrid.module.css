@@ -7,6 +7,12 @@
   row-gap: 2.4rem;
 }
 
+.noContentlayout {
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+}
+
 .moreGroup {
   margin-top: 60px;
   width: 100%;
