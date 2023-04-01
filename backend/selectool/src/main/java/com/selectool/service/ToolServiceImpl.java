@@ -50,25 +50,7 @@ public class ToolServiceImpl implements ToolService {
         }
 
         return response.stream()
-                .map(tool -> ToolListResponse.builder()
-                        .id(tool.getId())
-                        .nameKr(tool.getNameKr())
-                        .nameEn(tool.getNameEn())
-                        .info(tool.getInfo())
-                        .msg(tool.getMsg())
-                        .topic(tool.getTopic())
-                        .country(tool.getCountry())
-                        .image(tool.getImage())
-                        .url(tool.getUrl())
-                        .trial(tool.getTrial())
-                        .isBookmarked(bookmarkMap.get(tool) != null)
-                        .categories(tool.getToolCategories().stream()
-                                .map(category -> ToolCategoryResponse.builder()
-                                        .name(category.getName())
-                                        .build())
-                                .collect(Collectors.toList())
-                        )
-                        .build())
+                .map(tool -> entityToListDTO(tool, bookmarkMap))
                 .collect(Collectors.toList());
     }
 
@@ -377,6 +359,25 @@ public class ToolServiceImpl implements ToolService {
         toolSubscribeRepo.deleteAll(subscribes);
     }
 
+    @Override
+    public List<ToolListResponse> getSubscribeList(Long userId) {
+        List<ToolSubscribe> subscribes = toolSubscribeRepo.findByUserId(userId);
+
+        List<ToolBookmark> toolBookmarks = toolBookmarkRepo.findByUserId(userId);
+        Map<Tool, Boolean> bookmarkMap = new HashMap<>();
+
+        for (ToolBookmark bookmark : toolBookmarks) {
+            bookmarkMap.put(bookmark.getTool(), true);
+        }
+
+        return subscribes.stream()
+                .map(subscribe -> {
+                    Tool tool = subscribe.getTool();
+                    return entityToListDTO(tool, bookmarkMap);
+                })
+                .collect(Collectors.toList());
+    }
+
     private ToolResponse entityToDTO(Long userId, Tool tool) {
         List<ToolBookmark> toolBookmarks;
         List<ToolSubscribe> toolSubscribes;
@@ -454,6 +455,28 @@ public class ToolServiceImpl implements ToolService {
                                         .build()
                                 )
                                 .collect(Collectors.toList())
+                )
+                .build();
+    }
+
+    private ToolListResponse entityToListDTO(Tool tool, Map<Tool, Boolean> bookmarkMap) {
+        return ToolListResponse.builder()
+                .id(tool.getId())
+                .nameKr(tool.getNameKr())
+                .nameEn(tool.getNameEn())
+                .info(tool.getInfo())
+                .msg(tool.getMsg())
+                .topic(tool.getTopic())
+                .country(tool.getCountry())
+                .image(tool.getImage())
+                .url(tool.getUrl())
+                .trial(tool.getTrial())
+                .isBookmarked(bookmarkMap.get(tool) != null)
+                .categories(tool.getToolCategories().stream()
+                        .map(category -> ToolCategoryResponse.builder()
+                                .name(category.getName())
+                                .build())
+                        .collect(Collectors.toList())
                 )
                 .build();
     }

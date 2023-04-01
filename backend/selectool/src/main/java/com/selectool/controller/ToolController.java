@@ -176,8 +176,8 @@ public class ToolController {
     public ResponseEntity<?> getSubscribeToolList(
             @LoginUser User user
     ) {
-//        toolService.addSubscribe(user.getId(), toolId);
-        return ResponseEntity.ok().build();
+        List<ToolListResponse> response = toolService.getSubscribeList(user.getId());
+        return ResponseEntity.ok(response);
     }
 
     /* 비 로그인 유저 조회 */

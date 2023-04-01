@@ -27,5 +27,5 @@ public interface ToolService {
     // 툴 구독 해제
     public void unSubscribe(Long userId, Long toolId);
     // 툴 구독 목록 조회
-//    public void getSubscribeList(Long userId);
+    public List<ToolListResponse> getSubscribeList(Long userId);
 }
