@@ -242,7 +242,7 @@
 .toolLayout {
   display: flex;
   flex-direction: row;
-  column-gap: 18px;
+  column-gap: 8px;
 }
 
 .toolContainer {
@@ -250,7 +250,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 35px;
+  width: 44px;
   row-gap: 6px;
 }
 
@@ -262,7 +262,7 @@
 
 .toolNameHover {
   font-weight: 300;
-  font-size: 4px;
+  font-size: 3px;
 
   color: #a8a8a8;
 }
