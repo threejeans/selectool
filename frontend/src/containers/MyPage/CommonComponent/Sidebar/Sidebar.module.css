@@ -22,7 +22,6 @@
 
 .sectionContainerActive {
   width: 100%;
-  background: #f4f4f4;
   border-radius: 10px;
 }
 
@@ -55,6 +54,9 @@
 
   font-size: 1rem;
   font-weight: 600;
+
+  transition: background-color 2s, transform 2s;
+  transition: all 0.2s ease-in-out;
 }
 
 .mainSectionWithSub {
@@ -69,6 +71,11 @@
 
 .subSectionContainer {
   padding-block: 10px;
+  background: #f4f4f4;
+  border-radius: 0px 0px 10px 10px;
+
+  transition: background-color 2s, transform 2s;
+  transition: all 0.2s ease-in-out;
 }
 
 .subSection {

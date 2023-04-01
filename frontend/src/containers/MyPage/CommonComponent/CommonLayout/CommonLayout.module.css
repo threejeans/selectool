@@ -6,15 +6,15 @@
 }
 
 .title {
-  font-size: calc(0.8rem * var(--text-multiplier));
-  line-height: calc(1.4rem * var(--text-multiplier));
+  font-size: 1.4rem;
+  line-height: 2.3rem;
   font-weight: 700;
   color: black;
 }
 
 .description {
-  font-weight: 400;
-  font-size: 0.7rem;
+  font-weight: 500;
+  font-size: 0.8rem;
   color: #6f6f6f;
 }
 

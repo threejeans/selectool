@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
 import styles from './Sidebar.module.css'
 import { BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { selectContent, setSelectContent } from 'reducers/settingReducer'
 
 const Sidebar = () => {
-  const [setting, setSetting] = useState(false)
+  const settingRef = useRef({ setting: false })
   const selectedContent = useAppSelector(selectContent)
   const dispatch = useAppDispatch()
   const subSection = ['혼자써요', '함께써요', '가이드']
@@ -15,26 +15,33 @@ const Sidebar = () => {
       <div className={styles.title}>내 정보</div>
       <div
         className={
-          !setting ? styles.sectionContainerActive : styles.sectionContainer
+          !settingRef.current.setting
+            ? styles.sectionContainerActive
+            : styles.sectionContainer
         }
       >
         <div
           className={`${
-            !setting ? styles.mainSectionActive : styles.mainSection
+            !settingRef.current.setting
+              ? styles.mainSectionActive
+              : styles.mainSection
           } ${styles.mainSectionWithSub}`}
           onClick={() => {
-            setSetting(!setting)
-            dispatch(setSelectContent('혼자써요'))
+            settingRef.current.setting = !settingRef.current.setting
+
+            settingRef.current.setting
+              ? dispatch(setSelectContent('설정'))
+              : dispatch(setSelectContent('혼자써요'))
           }}
         >
           <div>북마크 컨텐츠</div>
-          {!setting ? (
+          {!settingRef.current.setting ? (
             <BsChevronUp className={styles.chevron} />
           ) : (
             <BsChevronDown className={styles.chevron} />
           )}
         </div>
-        {!setting ? (
+        {!settingRef.current.setting ? (
           <div className={styles.subSectionContainer}>
             {subSection.map((item, index) => (
               <div
@@ -55,10 +62,17 @@ const Sidebar = () => {
         )}
       </div>
       <div
-        className={setting ? styles.mainSectionActive : styles.mainSection}
+        className={
+          settingRef.current.setting
+            ? styles.mainSectionActive
+            : styles.mainSection
+        }
         onClick={() => {
-          setSetting(!setting)
-          dispatch(setSelectContent('설정'))
+          settingRef.current.setting = !settingRef.current.setting
+
+          settingRef.current.setting
+            ? dispatch(setSelectContent('설정'))
+            : dispatch(setSelectContent('혼자써요'))
         }}
       >
         설정
