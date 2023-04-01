@@ -10,6 +10,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.util.StringUtils.hasText;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,12 +28,17 @@ public class User extends BaseEntity {
 
     private String email;
 
+    private String subscribeEmail;
+
     private String image;
 
     private boolean active;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolBookmark> toolBookmarks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ToolSubscribe> toolSubscribes = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CorpBookmark> corpBookmarks = new ArrayList<>();
@@ -48,8 +55,9 @@ public class User extends BaseEntity {
         this.active = true;
     }
 
-    public void updateInfo(String name) {
-        this.name = name;
+    public void updateInfo(String name, String subscribeEmail) {
+        if (hasText(name)) this.name = name;
+        if (hasText(subscribeEmail)) this.subscribeEmail = subscribeEmail;
     }
 
     public void updateImage(String image) {

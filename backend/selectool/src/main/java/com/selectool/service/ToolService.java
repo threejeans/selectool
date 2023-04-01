@@ -22,4 +22,10 @@ public interface ToolService {
     public void addBookmark(Long userId, Long toolId);
     // 툴 북마크 해제
     public void unBookmark(Long userId, Long toolId);
+    // 툴 구독 추가
+    public void addSubscribe(Long userId, Long toolId);
+    // 툴 구독 해제
+    public void unSubscribe(Long userId, Long toolId);
+    // 툴 구독 목록 조회
+//    public void getSubscribeList(Long userId);
 }

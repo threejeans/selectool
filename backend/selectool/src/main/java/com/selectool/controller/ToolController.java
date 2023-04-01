@@ -151,6 +151,35 @@ public class ToolController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/tools/{toolId}/subscribes")
+    @ApiOperation(value = "툴 구독")
+    public ResponseEntity<?> addSubscribeTool(
+            @LoginUser User user,
+            @PathVariable Long toolId
+    ) {
+        toolService.addSubscribe(user.getId(), toolId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/tools/{toolId}/subscribes")
+    @ApiOperation(value = "툴 구독 해제")
+    public ResponseEntity<?> unSubscribeTool(
+            @LoginUser User user,
+            @PathVariable Long toolId
+    ) {
+        toolService.unSubscribe(user.getId(), toolId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/tools/users/subscribes")
+    @ApiOperation(value = "구독중인 툴 목록")
+    public ResponseEntity<?> getSubscribeToolList(
+            @LoginUser User user
+    ) {
+//        toolService.addSubscribe(user.getId(), toolId);
+        return ResponseEntity.ok().build();
+    }
+
     /* 비 로그인 유저 조회 */
     @GetMapping("nomember/tools")
     @ApiOperation(value = "비 로그인 전체 툴 목록 조회 및 검색", tags = "비 로그인 조회")

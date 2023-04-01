@@ -62,6 +62,7 @@ public class UserServiceImpl implements UserService {
                 .name(user.getName())
                 .type(user.getType())
                 .email(user.getEmail())
+                .subscribeEmail(user.getSubscribeEmail())
                 .image(user.getImage())
                 .build();
     }
@@ -71,7 +72,7 @@ public class UserServiceImpl implements UserService {
     public void updateUserInfo(UserUpdateRequest request, Long userId) {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-        user.updateInfo(request.getName());
+        user.updateInfo(request.getName(), request.getSubscribeEmail());
     }
 
     @Override

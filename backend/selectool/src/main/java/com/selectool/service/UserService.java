@@ -13,7 +13,7 @@ public interface UserService {
     //유저정보조회
     public UserResponse getUserInfo(Long userId);
 
-    //유저정보수정(이름)
+    //유저정보수정(이름, 구독 메일)
     public void updateUserInfo(UserUpdateRequest request, Long userId);
 
     // 유저정보수정(사진)

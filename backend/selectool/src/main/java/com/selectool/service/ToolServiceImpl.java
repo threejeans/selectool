@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.selectool.exception.DuplicateException.TOOL_BOOKMARK_DUPLICATED;
+import static com.selectool.exception.DuplicateException.TOOL_SUBSCRIBE_DUPLICATED;
 import static com.selectool.exception.NotFoundException.*;
 
 @Service
@@ -34,6 +35,8 @@ public class ToolServiceImpl implements ToolService {
     private final ClientRepo clientRepo;
 
     private final ToolBookmarkRepo toolBookmarkRepo;
+
+    private final ToolSubscribeRepo toolSubscribeRepo;
 
     @Override
     public List<ToolListResponse> getToolList(Long userId, ToolFilter filter) {
@@ -338,12 +341,51 @@ public class ToolServiceImpl implements ToolService {
         toolBookmarkRepo.deleteAll(bookmarks);
     }
 
+    @Override
+    public void addSubscribe(Long userId, Long toolId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+
+        Tool tool = toolRepo.findById(toolId)
+                .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+        // 이미 등록된 구독 체크
+        if (!toolSubscribeRepo.findByToolAndUserId(tool, userId).isEmpty())
+            throw new DuplicateException(TOOL_SUBSCRIBE_DUPLICATED);
+
+        ToolSubscribe toolSubscribe = ToolSubscribe.builder()
+                .user(user)
+                .tool(tool)
+                .build();
+
+        toolSubscribeRepo.save(toolSubscribe);
+    }
+
+    @Override
+    public void unSubscribe(Long userId, Long toolId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+
+        Tool tool = toolRepo.findById(toolId)
+                .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+        // 등록된 구독인지 체크
+        List<ToolSubscribe> subscribes = toolSubscribeRepo.findByToolAndUserId(tool, userId);
+        if (subscribes.isEmpty())
+            throw new NotFoundException(TOOL_SUBSCRIBE_DUPLICATED);
+
+        toolSubscribeRepo.deleteAll(subscribes);
+    }
+
     private ToolResponse entityToDTO(Long userId, Tool tool) {
         List<ToolBookmark> toolBookmarks;
+        List<ToolSubscribe> toolSubscribes;
         if (userId != null) {
             toolBookmarks = toolBookmarkRepo.findByToolAndUserId(tool, userId);
+            toolSubscribes = toolSubscribeRepo.findByToolAndUserId(tool, userId);
         } else {
             toolBookmarks = new ArrayList<>();
+            toolSubscribes = new ArrayList<>();
         }
 
         return ToolResponse.builder()
@@ -360,6 +402,7 @@ public class ToolServiceImpl implements ToolService {
                 .ios(tool.getIos())
                 .trial(tool.getTrial())
                 .isBookmarked(!toolBookmarks.isEmpty())
+                .isSubscribed(!toolSubscribes.isEmpty())
                 .categories(tool.getToolCategories().stream()
                         .map(category -> ToolCategoryResponse.builder()
                                 .name(category.getName())
