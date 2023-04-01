@@ -112,17 +112,23 @@ const router = createBrowserRouter([
     path: 'guide',
     // eslint-disable-next-line react/no-children-prop
     element: (
-      <Layout title={'가이드'} description={'셀렉툴 | 가이드'}>
-        <Guide />
-      </Layout>
+      <>
+        <ScrollToTop />
+        <Layout title={'가이드'} description={'셀렉툴 | 가이드'}>
+          <Guide />
+        </Layout>
+      </>
     ),
   },
   {
     path: 'mypage',
     element: (
-      <Layout title={'마이페이지'} description={'셀렉툴 | 마이페이지'}>
-        <Mypage />
-      </Layout>
+      <>
+        <ScrollToTop />
+        <Layout title={'마이페이지'} description={'셀렉툴 | 마이페이지'}>
+          <Mypage />
+        </Layout>
+      </>
     ),
   },
   {
