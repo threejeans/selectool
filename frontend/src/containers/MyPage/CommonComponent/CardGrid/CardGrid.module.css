@@ -3,12 +3,9 @@
   display: grid;
   justify-content: center;
 
-  row-gap: 2.4rem;
-}
-
-.selfLayout {
   grid-template-columns: repeat(auto-fit, minmax(150px, max-content));
   column-gap: 32px;
+  row-gap: 2.4rem;
 }
 
 .moreGroup {

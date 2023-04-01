@@ -6,9 +6,9 @@ import { SelfMainInfo, WithCorpType } from 'types/types'
 export interface SettingState {
   selectContent: string
   selfScrapList: SelfMainInfo[]
-  withSCrapList: WithCorpType[]
+  withScrapList: WithCorpType[]
   selfScrapExportList: SelfMainInfo[]
-  withSCrapExportList: WithCorpType[]
+  withScrapExportList: WithCorpType[]
   selfScrapCount: number
   withScrapCount: number
 }
@@ -17,8 +17,8 @@ const initialState: SettingState = {
   selectContent: '혼자써요',
   selfScrapList: [],
   selfScrapExportList: [],
-  withSCrapList: [],
-  withSCrapExportList: [],
+  withScrapList: [],
+  withScrapExportList: [],
   selfScrapCount: 0,
   withScrapCount: 0,
 }
@@ -37,10 +37,10 @@ const settingReducer = createSlice({
       return { ...state, selfScrapExportList: input }
     },
     setWithScrapList: (state, { payload: input }) => {
-      return { ...state, withSCrapList: input }
+      return { ...state, withScrapList: input }
     },
     setWithScrapExportList: (state, { payload: input }) => {
-      return { ...state, withSCrapExportList: input }
+      return { ...state, withScrapExportList: input }
     },
     changeSelfScrapCount: state => {
       state.selfScrapCount += 1
@@ -73,10 +73,10 @@ export const selectContent = (state: RootState) => state.setting.selectContent
 export const selfScrapList = (state: RootState) => state.setting.selfScrapList
 export const selfScrapExportList = (state: RootState) =>
   state.setting.selfScrapExportList
-export const withSCrapList = (state: RootState) => state.setting.withSCrapList
-export const withSCrapExportList = (state: RootState) =>
-  state.setting.withSCrapExportList
+export const withScrapList = (state: RootState) => state.setting.withScrapList
+export const withScrapExportList = (state: RootState) =>
+  state.setting.withScrapExportList
 export const selfScrapCount = (state: RootState) => state.setting.selfScrapCount
-export const withSCrapCount = (state: RootState) => state.setting.withScrapCount
+export const withScrapCount = (state: RootState) => state.setting.withScrapCount
 
 export default settingReducer.reducer

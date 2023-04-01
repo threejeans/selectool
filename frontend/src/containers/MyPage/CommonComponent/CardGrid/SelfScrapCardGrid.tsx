@@ -41,7 +41,7 @@ const SelfScrapCardGrid = () => {
 
   return (
     <>
-      <div className={`${styles.layout} ${styles.selfLayout}`}>
+      <div className={styles.layout}>
         {scrapExportList.length > 0 ? (
           scrapExportList.map((data, idx) => (
             <SelfSmallCard data={data} key={idx} />
