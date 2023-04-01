@@ -47,18 +47,20 @@ const WithScrapCardGrid = () => {
             <WithSmallCard data={data} key={idx} />
           ))
         ) : (
-          <div className={styles.noSearchLayout}>
-            <div className={styles.noSearchMainText}>
-              아직 저장된 기업이 없어요 :&#40;
+          <div className={styles.noContentlayout}>
+            <div className={styles.noSearchLayout}>
+              <div className={styles.noSearchMainText}>
+                아직 저장된 기업이 없어요 :&#40;
+              </div>
+              <div className={styles.noSearchSubText}>
+                관심 있는 기업을 저장하시면 이 곳에서 한눈에 확인할 수 있어요
+              </div>
+              <Link to={'/with'}>
+                <span className={styles.noSearchResetText}>
+                  기업 둘러보러 가기 →
+                </span>
+              </Link>
             </div>
-            <div className={styles.noSearchSubText}>
-              관심 있는 기업을 저장하시면 이 곳에서 한눈에 확인할 수 있어요
-            </div>
-            <Link to={'/with'}>
-              <span className={styles.noSearchResetText}>
-                기업 둘러보러 가기 →
-              </span>
-            </Link>
           </div>
         )}
       </div>
