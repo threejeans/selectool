@@ -15,7 +15,7 @@
 }
 
 .headerBottom {
-  background-color: #0e0e0e;
+  background-color: rgb(14, 14, 14, 0.8);
   display: flex;
   flex-direction: column;
   padding-block: 24px;
@@ -24,13 +24,15 @@
   justify-content: center;
   color: var(--gray-scale-color-g20);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+
+  backdrop-filter: blur(6px);
   font-size: 16px;
   font-weight: 500;
-  transition: background-color 2s, transform 2s;
+  transition: background-color 1s, transform 1s;
 }
 
 .middle_headerBottom {
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255, 0.9);
   display: flex;
   flex-direction: column;
   padding-block: 24px;
@@ -39,23 +41,17 @@
   align-items: center;
   justify-content: center;
   color: var(--gray-scale-color-g20);
-  background: linear-gradient(0deg, #ffffff, #ffffff),
-    radial-gradient(
-      100% 39396.24% at 0% 0%,
-      rgba(255, 255, 255, 0.376) 0%,
-      rgba(255, 255, 255, 0) 100%
-    );
 
   border-bottom: 1px solid #f0f0f0;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 
   font-size: 16px;
   font-weight: 500;
-  transition: background-color 2s, transform 2s;
+  transition: background-color 1s, transform 1s;
 }
 
 .change_headerBottom {
-  background-color: #ffffff;
+  background-color: rgb(255, 255, 255, 0.85);
   display: flex;
   flex-direction: column;
   padding-block: 24px;
@@ -65,24 +61,21 @@
   color: var(--gray-scale-color-g20);
   font-size: 16px;
   font-weight: 500;
-  background: linear-gradient(0deg, #ffffff, #ffffff),
-    radial-gradient(
-      100% 39396.24% at 0% 0%,
-      rgba(255, 255, 255, 0.376) 0%,
-      rgba(255, 255, 255, 0) 100%
-    );
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   border-bottom: 1px solid #f0f0f0;
-  transition: background-color 2s, transform 2s;
+  transition: background-color 1s, transform 1s;
 }
 
 .container {
   width: 100%;
-  background-color: transparent;
+  height: 100%;
   padding: 0 14px;
+
+  background: transparent;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: rgb(14, 14, 14, 0.8);
   filter: drop-shadow(0px 2px 15px rgba(255, 255, 255, 0.1));
   backdrop-filter: blur(6px);
   align-items: center;
