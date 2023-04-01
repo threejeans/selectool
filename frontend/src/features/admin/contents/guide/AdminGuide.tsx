@@ -41,9 +41,10 @@ const AdminGuide = () => {
   const toolNameRef = useRef<HTMLInputElement | null>(null) // 툴 분류
 
   const funcList = ['디자인', '개발', '기획', '마케팅']
+  const [categoryList, setCategoryList] = useState<string[]>([])
+
   const [func, setFunc] = useState('') // 기능 분류
   const [categories, setCategories] = useState<string[]>([]) // 카테고리 중복 분류
-  const [categoryList, setCategoryList] = useState<string[]>([])
 
   useEffect(() => {
     setCategoryList(getCategoryList(func))

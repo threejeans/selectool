@@ -306,20 +306,96 @@ input {
   position: absolute;
   border: 1px solid var(--primary-color-main);
   border-radius: 0 0 4px 4px;
-  top: calc(100% + 2px); 
-  transition: all 0.3s; 
+  top: calc(100% + 2px);
+  transition: all 0.3s;
 }
-.none{
+
+.none {
   visibility: hidden;
 }
-.searchItem{
+
+.searchItem {
   background-color: var(--gray-scale-color-g05);
-  color:var(--primary-color-main);
+  color: var(--primary-color-main);
   border-radius: 4px;
   margin: 2px;
 }
 
-.searchItem:hover{
+.searchItem:hover {
   background-color: var(--primary-color-main);
-  color:white;
+  color: white;
+}
+
+
+/* guide detail */
+.guideImageWrap {
+  height: 50vh;
+  aspect-ratio: 4/3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--gray-scale-color-g40);
+  position: relative;
+}
+
+.guideToolImageWrap {
+  position: absolute;
+  right: 1rem;
+  bottom: -1rem;
+  height: 20%;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  filter: drop-shadow(0 2px 8px var(--gray-scale-color-g40));
+  overflow: hidden;
+}
+
+.infoTable {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.infoTable tr td:nth-child(1) {
+  width: 15%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.infoTable tr td:nth-child(2) {
+  width: 85%;
+}
+
+.infoTable tr td:nth-child(2) *:not(h5) {
+  font-size: 0.9rem;
+  height: fit-content;
+  padding: 0.2rem 0.4rem;
+  margin-bottom: 0;
+}
+
+.infoItemInput {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--gray-scale-color-g30);
+}
+
+.cateItemWrap {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 0;
+  gap: 0.2rem
+}
+
+.cateItem {
+  background-color: var(--primary-color-main);
+  color: white;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
 }
