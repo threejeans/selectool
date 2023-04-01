@@ -6,8 +6,8 @@
 }
 
 .title {
-  font-size: calc(1.2rem * var(--text-multiplier));
-  line-height: calc(1.8rem * var(--text-multiplier));
+  font-size: 1.8rem;
+  line-height: 2.7rem;
   font-weight: 600;
   color: black;
 }

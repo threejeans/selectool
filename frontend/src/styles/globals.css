@@ -81,38 +81,36 @@ button {
   --height-footer: 400px;
 
   --width-lg: 1280px;
-
-  --text-multiplier: 1;
 }
 
 h1 {
-  font-size: calc(2.6rem * var(--text-multiplier));
+  font-size: 3.9rem;
   font-weight: 700;
 }
 
 h2 {
-  font-size: calc(1.6rem * var(--text-multiplier));
-  line-height: calc(2.6rem * var(--text-multiplier));
+  font-size: 2.4rem;
+  line-height: 3.9rem;
   font-weight: 700;
 }
 
 h3 {
-  font-size: calc(1.3rem * var(--text-multiplier));
-  line-height: calc(2rem * var(--text-multiplier));
+  font-size: 1.95rem;
+  line-height: 3rem;
   font-weight: 600;
 }
 
 h4 {
-  font-size: calc(1.2rem * var(--text-multiplier));
-  line-height: calc(1.8rem * var(--text-multiplier));
+  font-size: 1.8rem;
+  line-height: 2.7rem;
   font-weight: 600;
 }
 
-@media (min-width: 48rem) {
+/* @media (min-width: 48rem) {
   :root {
     --text-multiplier: 1.5;
   }
-}
+} */
 
 section {
   min-height: calc(100vh - var(--height-navigation));
