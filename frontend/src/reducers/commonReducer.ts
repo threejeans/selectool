@@ -5,12 +5,14 @@ export interface CommonState {
   searchValue: string
   isNoSearchData: boolean
   isRegisterModal: boolean
+  noSearchValue: string
 }
 
 const initialState: CommonState = {
   searchValue: '',
   isNoSearchData: false,
   isRegisterModal: false,
+  noSearchValue: '',
 }
 
 const commonReducer = createSlice({
@@ -19,6 +21,9 @@ const commonReducer = createSlice({
   reducers: {
     setSearchValue(state, { payload: input }) {
       return { ...state, searchValue: input }
+    },
+    setNoSearchValue(state, { payload: input }) {
+      return { ...state, noSearchValue: input }
     },
     changeSearchDataStatus(state, { payload: input }) {
       return { ...state, isNoSearchData: input }
@@ -31,11 +36,13 @@ const commonReducer = createSlice({
 
 export const {
   setSearchValue,
+  setNoSearchValue,
   changeSearchDataStatus,
   changeRegisterModalStatus,
 } = commonReducer.actions
 
 export const searchValue = (state: RootState) => state.common.searchValue
+export const noSearchValue = (state: RootState) => state.common.noSearchValue
 export const searchDataState = (state: RootState) => state.common.isNoSearchData
 export const registerModalState = (state: RootState) =>
   state.common.isRegisterModal

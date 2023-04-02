@@ -8,7 +8,7 @@
 
 .headerTop {
   width: 100%;
-  height: 50px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   padding-block: 24px;
-  row-gap: 18px;
+  row-gap: 20px;
   align-items: center;
   justify-content: center;
   color: var(--gray-scale-color-g20);
@@ -132,12 +132,12 @@
 }
 
 .favicon {
-  height: 0.8rem;
+  height: 1rem;
 }
 
 .logo {
-  margin-inline: 0.4rem;
-  height: 0.8rem;
+  margin-inline: 0.6rem;
+  height: 1rem;
 }
 
 .menu {
@@ -147,12 +147,10 @@
   align-items: center;
   justify-content: center;
   color: var(--gray-scale-color-g20);
-  font-size: 14px;
-  font-weight: 500;
 }
 
 .button_home {
-  font-size: 12px;
+  font-size: 14px;
   border: 1.5px solid #bdbdbd;
   border-radius: 4px;
   color: white;
@@ -165,7 +163,7 @@
 
 .button {
   border: 1.5px solid #bdbdbd;
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 4px;
   color: var(--gray-scale-color-g20);
   padding: 4px 6px;
@@ -176,12 +174,15 @@
 }
 
 .mypage {
-  font-size: 20px;
+  height: 24px;
+  width: 24px;
+  font-size: 24px;
 }
 
 .toggle {
-  margin-top: 4px;
-  font-size: 20px;
+  height: 24px;
+  width: 24px;
+  font-size: 24px;
   margin-left: 10px;
   padding: 0;
 }

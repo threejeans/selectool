@@ -7,10 +7,9 @@ import Logo from 'assets/selectool_logo.svg'
 import LogoDark from 'assets/selectool_logo_dark.svg'
 import Favicon from 'assets/favicon.png'
 import { BsFillPersonFill, BsList } from 'react-icons/bs'
-import { AiOutlineClose } from 'react-icons/ai'
 import { FiMenu } from 'react-icons/fi'
-import { BiMenu } from 'react-icons/bi'
 import { IoMdClose } from 'react-icons/io'
+import { setSelectContent } from 'reducers/settingReducer'
 
 type MenuLinkProps = {
   path: string
@@ -58,8 +57,8 @@ const HeaderMobile = ({ title }: LayoutProps) => {
 
   // state
   const isLogon = useAppSelector(selectAccessToken) !== undefined
-  const dispatcth = useAppDispatch()
-  const modalOpen = () => dispatcth(loginModalOpen())
+  const dispatch = useAppDispatch()
+  const modalOpen = () => dispatch(loginModalOpen())
   const { pathname } = useLocation()
 
   const [openMenu, setOpenMenu] = useState(false)
@@ -95,6 +94,7 @@ const HeaderMobile = ({ title }: LayoutProps) => {
                     : styles.unselected
                 } ${styles.mypage}`}
                 to='/mypage'
+                onClick={() => dispatch(setSelectContent('혼자써요'))}
               >
                 <BsFillPersonFill />
               </Link>
