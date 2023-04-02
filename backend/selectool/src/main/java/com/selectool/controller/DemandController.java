@@ -68,7 +68,7 @@ public class DemandController {
 
     @GetMapping("/demands")
     @ApiOperation(value = "요청 사항 목록 조회")
-    public ResponseEntity<?> getDemandList(
+    public ResponseEntity<List<DemandResponse>> getDemandList(
             @LoginAdmin Admin admin
     ) {
         List<DemandResponse> response = demandService.getDemandList();
