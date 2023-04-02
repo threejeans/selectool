@@ -27,6 +27,20 @@
   background: rgba(51, 51, 51, 0.3);
 }
 
+.white {
+  color: #333333;
+  background: white;
+  border-radius: 12px;
+}
+
+.white:hover {
+  background: #f5f5f5;
+}
+
+.white:active {
+  background: #f5f5f5;
+}
+
 .secondary {
   color: #60a9f6;
   background: white;
@@ -47,21 +61,21 @@
 }
 
 .md {
-  font-weight: 400;
+  font-weight: 500;
   font-size: 14px;
   width: 140px;
   height: 46px;
 }
 
 .mdShort {
-  font-weight: 400;
+  font-weight: 500;
   font-size: 14px;
   width: 108px;
   height: 40px;
 }
 
 .mdLong {
-  font-weight: 400;
+  font-weight: 500;
   font-size: 14px;
   width: 228px;
   height: 40px;

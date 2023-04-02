@@ -2,6 +2,7 @@
 import { RootState } from 'app/store'
 import { createSlice } from '@reduxjs/toolkit'
 import { SelfMainInfo, WithCorpType } from 'types/types'
+import { UserInfoType } from 'types/userTypes'
 
 export interface SettingState {
   selectContent: string
@@ -11,6 +12,7 @@ export interface SettingState {
   withScrapExportList: WithCorpType[]
   selfScrapCount: number
   withScrapCount: number
+  userInfo: UserInfoType
 }
 
 const initialState: SettingState = {
@@ -21,6 +23,13 @@ const initialState: SettingState = {
   withScrapExportList: [],
   selfScrapCount: 0,
   withScrapCount: 0,
+  userInfo: {
+    email: '',
+    id: 0,
+    image: '',
+    name: '',
+    type: '',
+  },
 }
 
 const settingReducer = createSlice({
@@ -54,6 +63,9 @@ const settingReducer = createSlice({
     resetWithScrapCount: state => {
       state.withScrapCount = 0
     },
+    setUserInfo: (state, { payload: input }) => {
+      return { ...state, userInfo: input }
+    },
   },
 })
 
@@ -67,6 +79,7 @@ export const {
   resetSelfScrapCount,
   changeWithScrapCount,
   resetWithScrapCount,
+  setUserInfo,
 } = settingReducer.actions
 
 export const selectContent = (state: RootState) => state.setting.selectContent
@@ -78,5 +91,6 @@ export const withScrapExportList = (state: RootState) =>
   state.setting.withScrapExportList
 export const selfScrapCount = (state: RootState) => state.setting.selfScrapCount
 export const withScrapCount = (state: RootState) => state.setting.withScrapCount
+export const userInfo = (state: RootState) => state.setting.userInfo
 
 export default settingReducer.reducer

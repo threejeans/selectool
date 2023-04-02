@@ -1,8 +1,8 @@
 import React from 'react'
 import { Sidebar } from '../CommonComponent'
 import styles from './MyPageMain.module.css'
-import { useAppSelector } from 'app/hooks'
-import { selectContent } from 'reducers/settingReducer'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { selectContent, setSelectContent } from 'reducers/settingReducer'
 import {
   GuideScrapContent,
   SelfScrapContent,
