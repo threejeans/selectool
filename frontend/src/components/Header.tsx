@@ -30,10 +30,6 @@ const MenuLink = ({
 
   const dispatch = useAppDispatch()
 
-  if (title === '마이페이지') {
-    dispatch(setSelectContent('혼자써요'))
-  }
-
   return (
     <Link
       className={
@@ -44,6 +40,11 @@ const MenuLink = ({
           : styles.unselected
       }
       to={path}
+      onClick={() => {
+        if (title === '마이페이지') {
+          dispatch(setSelectContent('혼자써요'))
+        }
+      }}
     >
       <div>{title}</div>
     </Link>
