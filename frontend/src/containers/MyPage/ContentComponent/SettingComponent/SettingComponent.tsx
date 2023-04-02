@@ -30,12 +30,12 @@ const SettingComponent = () => {
     }
   }
 
-  const [alarmSelected, setAlarmSelected] = useState(true)
+  const [alarmSelected, setAlarmSelected] = useState(info.subscribeActive)
   const [disabled, setDisabled] = useState(true)
 
   useEffect(() => {
     getUserInfo()
-  }, [info])
+  }, [])
 
   return (
     <CommonLayout type='setting'>

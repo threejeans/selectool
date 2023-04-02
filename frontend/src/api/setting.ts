@@ -13,6 +13,8 @@ export const getUserInfoAPI = createAsyncThunk(
       image: '',
       name: '',
       type: '',
+      subscribeEmail: '',
+      subscribeActive: false,
     }
 
     const response = {
