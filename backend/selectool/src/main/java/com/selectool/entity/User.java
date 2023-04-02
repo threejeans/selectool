@@ -46,6 +46,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GuideBookmark> guideBookmarks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Demand> demands  = new ArrayList<>();
+
     @Builder
     public User(String name, String type, String email, String image) {
         this.name = name;
