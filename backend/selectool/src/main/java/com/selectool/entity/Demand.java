@@ -40,4 +40,8 @@ public class Demand extends BaseEntity {
         this.type = type;
         this.status = status;
     }
+
+    public void update(Boolean status) {
+        this.status = status;
+    }
 }
