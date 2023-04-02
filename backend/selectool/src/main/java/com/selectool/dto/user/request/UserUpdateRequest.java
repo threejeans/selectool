@@ -15,4 +15,7 @@ public class UserUpdateRequest {
 
     @ApiModelProperty(value = "이미지 주소")
     private String image;
+
+    @ApiModelProperty(value = "이메일 수신 여부")
+    private Boolean subscribeActive;
 }

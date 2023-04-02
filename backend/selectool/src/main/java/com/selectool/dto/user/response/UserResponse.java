@@ -19,16 +19,16 @@ public class UserResponse {
 
     private String image;
 
-    private Boolean active;
+    private Boolean subscribeActive;
 
     @Builder
-    public UserResponse(Long id, String name, String type, String email, String subscribeEmail, String image, Boolean active) {
+    public UserResponse(Long id, String name, String type, String email, String subscribeEmail, String image, Boolean subscribeActive) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.email = email;
         this.subscribeEmail = subscribeEmail;
         this.image = image;
-        this.active = active;
+        this.subscribeActive = subscribeActive;
     }
 }

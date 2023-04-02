@@ -5,6 +5,7 @@ import com.selectool.dto.user.request.UserCreateRequest;
 import com.selectool.dto.user.request.UserUpdateRequest;
 import com.selectool.dto.user.response.UserResponse;
 import com.selectool.entity.User;
+import com.selectool.exception.NotAuthorizedException;
 import com.selectool.exception.NotFoundException;
 import com.selectool.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.selectool.exception.NotAuthorizedException.NOT_ACTIVE_USER;
 import static com.selectool.exception.NotFoundException.USER_NOT_FOUND;
 
 
@@ -40,12 +42,13 @@ public class UserServiceImpl implements UserService {
                             userRepo.save(newUser);
                             return newUser;
                         });
-                if (!user.isActive()) user.setActive();
+                if (!user.getActive()) {
+                    throw new NotAuthorizedException(NOT_ACTIVE_USER);
+                }
                 return UserResponse.builder()
                         .id(user.getId())
                         .name(user.getName())
                         .image(user.getImage())
-                        .active(user.isActive())
                         .build();
             }
             default: {
@@ -65,7 +68,7 @@ public class UserServiceImpl implements UserService {
                 .email(user.getEmail())
                 .subscribeEmail(user.getSubscribeEmail())
                 .image(user.getImage())
-                .active(user.isActive())
+                .subscribeActive(user.getSubscribeActive())
                 .build();
     }
 
@@ -74,7 +77,7 @@ public class UserServiceImpl implements UserService {
     public void updateUserInfo(UserUpdateRequest request, Long userId) {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
-        user.updateInfo(request.getName(), request.getSubscribeEmail(), request.getImage());
+        user.updateInfo(request.getName(), request.getSubscribeEmail(), request.getImage(), request.getSubscribeActive());
         userRepo.save(user);
     }
 

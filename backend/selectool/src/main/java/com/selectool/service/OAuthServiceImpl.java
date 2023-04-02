@@ -6,8 +6,6 @@ import com.selectool.dto.user.request.UserCreateRequest;
 import com.selectool.dto.user.response.ServiceTokenResponse;
 import com.selectool.dto.user.response.UserResponse;
 import com.selectool.entity.Auth;
-import com.selectool.entity.User;
-import com.selectool.exception.NotAuthorizedException;
 import com.selectool.repository.AuthRepo;
 import com.selectool.social.google.GoogleOAuth;
 import com.selectool.social.google.GoogleOAuthToken;
@@ -26,8 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-
-import static com.selectool.exception.NotAuthorizedException.NOT_ACTIVE_USER;
 
 @Service
 @RequiredArgsConstructor
@@ -63,7 +59,6 @@ public class OAuthServiceImpl implements OAuthService {
                         .build();
 
                 UserResponse user = userService.getUser(socialLoginType, request);
-                isActive(user);
 
                 String accessToken = jwtUtil.createAccessToken(user.getId());
                 String refreshToken = jwtUtil.createRefreshToken(user.getId());
@@ -90,7 +85,6 @@ public class OAuthServiceImpl implements OAuthService {
                         .build();
 
                 UserResponse user = userService.getUser(socialLoginType, request);
-                isActive(user);
 
                 String accessToken = jwtUtil.createAccessToken(user.getId());
                 String refreshToken = jwtUtil.createRefreshToken(user.getId());
@@ -117,7 +111,6 @@ public class OAuthServiceImpl implements OAuthService {
                         .build();
 
                 UserResponse user = userService.getUser(socialLoginType, request);
-                isActive(user);
 
                 String accessToken = jwtUtil.createAccessToken(user.getId());
                 String refreshToken = jwtUtil.createRefreshToken(user.getId());
@@ -136,10 +129,5 @@ public class OAuthServiceImpl implements OAuthService {
                 throw new IllegalArgumentException("알 수 없는 소셜 로그인 형식입니다.");
             }
         }
-    }
-
-    private void isActive(UserResponse user) {
-        if (user.getActive()) return;
-        else throw new NotAuthorizedException(NOT_ACTIVE_USER);
     }
 }

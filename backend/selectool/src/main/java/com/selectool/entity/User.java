@@ -32,7 +32,9 @@ public class User extends BaseEntity {
 
     private String image;
 
-    private boolean active;
+    private Boolean active;
+
+    private Boolean subscribeActive;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolBookmark> toolBookmarks = new ArrayList<>();
@@ -56,12 +58,14 @@ public class User extends BaseEntity {
         this.email = email;
         this.image = image;
         this.active = true;
+        this.subscribeActive = false;
     }
 
-    public void updateInfo(String name, String subscribeEmail, String image) {
+    public void updateInfo(String name, String subscribeEmail, String image, Boolean subscribeActive) {
         if (hasText(name)) this.name = name;
         if (hasText(subscribeEmail)) this.subscribeEmail = subscribeEmail;
         if (hasText(image)) this.image = image;
+        if (subscribeActive != null) this.subscribeActive = subscribeActive;
     }
 
     public void setActive() {
