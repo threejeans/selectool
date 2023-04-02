@@ -14,7 +14,6 @@ import {
 } from 'reducers/commonReducer'
 import {
   changeFilterModalCheckedStatus,
-  resetSelfContentCount,
   resetSelfModalFilter,
   selfCategoryFilterList,
   setSelfCategoryFilterList,
