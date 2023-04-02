@@ -29,6 +29,8 @@ const initialState: SettingState = {
     image: '',
     name: '',
     type: '',
+    subscribeActive: false,
+    subscribeEmail: '',
   },
 }
 
