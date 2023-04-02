@@ -1,13 +1,14 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import styles from './Sidebar.module.css'
 import { BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { selectContent, setSelectContent } from 'reducers/settingReducer'
 
 const Sidebar = () => {
-  const settingRef = useRef({ setting: false })
   const selectedContent = useAppSelector(selectContent)
+
   const dispatch = useAppDispatch()
+
   const subSection = ['혼자써요', '함께써요', '가이드']
 
   return (
@@ -15,33 +16,31 @@ const Sidebar = () => {
       <div className={styles.title}>내 정보</div>
       <div
         className={
-          !settingRef.current.setting
+          selectedContent !== '설정'
             ? styles.sectionContainerActive
             : styles.sectionContainer
         }
       >
         <div
           className={`${
-            !settingRef.current.setting
+            selectedContent !== '설정'
               ? styles.mainSectionActive
               : styles.mainSection
           } ${styles.mainSectionWithSub}`}
           onClick={() => {
-            settingRef.current.setting = !settingRef.current.setting
-
-            settingRef.current.setting
+            selectedContent !== '설정'
               ? dispatch(setSelectContent('설정'))
               : dispatch(setSelectContent('혼자써요'))
           }}
         >
           <div>북마크 컨텐츠</div>
-          {!settingRef.current.setting ? (
+          {selectedContent !== '설정' ? (
             <BsChevronUp className={styles.chevron} />
           ) : (
             <BsChevronDown className={styles.chevron} />
           )}
         </div>
-        {!settingRef.current.setting ? (
+        {selectedContent !== '설정' ? (
           <div className={styles.subSectionContainer}>
             {subSection.map((item, index) => (
               <div
@@ -63,14 +62,12 @@ const Sidebar = () => {
       </div>
       <div
         className={
-          settingRef.current.setting
+          selectedContent === '설정'
             ? styles.mainSectionActive
             : styles.mainSection
         }
         onClick={() => {
-          settingRef.current.setting = !settingRef.current.setting
-
-          settingRef.current.setting
+          selectedContent !== '설정'
             ? dispatch(setSelectContent('설정'))
             : dispatch(setSelectContent('혼자써요'))
         }}
