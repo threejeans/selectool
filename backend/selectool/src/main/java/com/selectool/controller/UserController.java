@@ -87,4 +87,13 @@ public class UserController {
         userService.updateUserInfo(request, user.getId());
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/withdraw")
+    @ApiOperation(value = "유저 비활성화")
+    public ResponseEntity<?> User(
+            @LoginUser User user
+    ) {
+        userService.withdraw(user.getId());
+        return ResponseEntity.ok().build();
+    }
 }

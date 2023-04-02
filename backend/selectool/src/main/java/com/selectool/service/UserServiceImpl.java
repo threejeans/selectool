@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
                         .id(user.getId())
                         .name(user.getName())
                         .image(user.getImage())
+                        .active(user.isActive())
                         .build();
             }
             default: {
@@ -64,6 +65,7 @@ public class UserServiceImpl implements UserService {
                 .email(user.getEmail())
                 .subscribeEmail(user.getSubscribeEmail())
                 .image(user.getImage())
+                .active(user.isActive())
                 .build();
     }
 
@@ -73,6 +75,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         user.updateInfo(request.getName(), request.getSubscribeEmail(), request.getImage());
+        userRepo.save(user);
     }
 
     @Override
@@ -81,5 +84,6 @@ public class UserServiceImpl implements UserService {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
         user.withdraw();
+        userRepo.save(user);
     }
 }

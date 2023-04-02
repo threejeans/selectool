@@ -6,6 +6,8 @@ import com.selectool.dto.user.request.UserCreateRequest;
 import com.selectool.dto.user.response.ServiceTokenResponse;
 import com.selectool.dto.user.response.UserResponse;
 import com.selectool.entity.Auth;
+import com.selectool.entity.User;
+import com.selectool.exception.NotAuthorizedException;
 import com.selectool.repository.AuthRepo;
 import com.selectool.social.google.GoogleOAuth;
 import com.selectool.social.google.GoogleOAuthToken;
@@ -24,6 +26,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+
+import static com.selectool.exception.NotAuthorizedException.NOT_ACTIVE_USER;
 
 @Service
 @RequiredArgsConstructor
@@ -57,8 +61,10 @@ public class OAuthServiceImpl implements OAuthService {
                         .email(googleUser.getEmail())
                         .image(googleUser.getPicture())
                         .build();
+
                 UserResponse user = userService.getUser(socialLoginType, request);
-                // TODO : HTTP ONLY로 accessToken 및 refreshToken 발급 및 REDIS에 저장
+                isActive(user);
+
                 String accessToken = jwtUtil.createAccessToken(user.getId());
                 String refreshToken = jwtUtil.createRefreshToken(user.getId());
                 Auth auth = Auth.builder()
@@ -82,7 +88,10 @@ public class OAuthServiceImpl implements OAuthService {
                         .email(naverUser.getEmail())
                         .image(naverUser.getProfile_image())
                         .build();
+
                 UserResponse user = userService.getUser(socialLoginType, request);
+                isActive(user);
+
                 String accessToken = jwtUtil.createAccessToken(user.getId());
                 String refreshToken = jwtUtil.createRefreshToken(user.getId());
                 Auth auth = Auth.builder()
@@ -106,7 +115,10 @@ public class OAuthServiceImpl implements OAuthService {
                         .email(kakaoUser.getEmail())
                         .image(kakaoUser.getProfile().getProfile_image_url())
                         .build();
+
                 UserResponse user = userService.getUser(socialLoginType, request);
+                isActive(user);
+
                 String accessToken = jwtUtil.createAccessToken(user.getId());
                 String refreshToken = jwtUtil.createRefreshToken(user.getId());
                 Auth auth = Auth.builder()
@@ -124,5 +136,10 @@ public class OAuthServiceImpl implements OAuthService {
                 throw new IllegalArgumentException("알 수 없는 소셜 로그인 형식입니다.");
             }
         }
+    }
+
+    private void isActive(UserResponse user) {
+        if (user.getActive()) return;
+        else throw new NotAuthorizedException(NOT_ACTIVE_USER);
     }
 }
