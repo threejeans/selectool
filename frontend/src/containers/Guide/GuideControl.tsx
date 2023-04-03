@@ -25,7 +25,6 @@ const GuideControl = () => {
   useEffect(() => {
     setCategoryList(getCategoryList(func))
     setCategories([])
-    dispatch(setSearchKey(''))
   }, [func])
 
   useEffect(() => {
