@@ -10,6 +10,7 @@ import { BsFillPersonFill, BsList } from 'react-icons/bs'
 import { FiMenu } from 'react-icons/fi'
 import { IoMdClose } from 'react-icons/io'
 import { setSelectContent } from 'reducers/settingReducer'
+import { setSearchKey } from 'reducers/guideReducer'
 
 type MenuLinkProps = {
   path: string
@@ -29,6 +30,8 @@ const MenuLink = ({
   isHome = false,
 }: MenuLinkProps) => {
   const { pathname } = useLocation()
+  const dispatch = useAppDispatch()
+
   return (
     <Link
       className={
@@ -39,6 +42,11 @@ const MenuLink = ({
           : styles.unselected
       }
       to={path}
+      onClick={() => {
+        if (title === '가이드') {
+          dispatch(setSearchKey(''))
+        }
+      }}
     >
       <div>{title}</div>
     </Link>

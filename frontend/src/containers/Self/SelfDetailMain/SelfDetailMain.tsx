@@ -14,6 +14,7 @@ import { selectAccessToken } from 'features/auth/authSlice'
 import { getAuthSelfSpecificInfoAPI } from 'api/authSelf'
 import { getSelfSpecificInfoAPI } from 'api/self'
 import ContentSpinner from 'components/ContentSpinner'
+import { setSearchKey } from 'reducers/guideReducer'
 
 const SelfDetailMain = () => {
   const { toolId } = useParams()
@@ -62,7 +63,8 @@ const SelfDetailMain = () => {
               document.location.href = specificInfo.url
             }}
             button2ClickEvent={() => {
-              alert('서비스 준비중입니다.')
+              dispatch(setSearchKey(specificInfo.nameKr))
+              navigate('/guide')
             }}
             button3ClickEvent={() => {
               alert('서비스 준비중입니다.')

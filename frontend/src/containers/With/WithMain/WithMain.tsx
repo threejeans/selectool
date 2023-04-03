@@ -13,7 +13,6 @@ import {
   searchValue,
 } from 'reducers/commonReducer'
 import {
-  resetWithContentCount,
   setWithCategoryFilterList,
   setWithMainInfoList,
   withCategoryFilterList,
@@ -38,7 +37,6 @@ const WithMain = () => {
         ),
       ),
     )
-    // dispatch(resetWithContentCount())
   }
 
   const getWithMainInfoList = async () => {
