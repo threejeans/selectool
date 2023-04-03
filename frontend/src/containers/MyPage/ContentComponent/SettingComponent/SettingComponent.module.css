@@ -32,6 +32,10 @@
   border-radius: 10px;
 }
 
+.emailContainerExpand {
+  height: 50px;
+}
+
 .icon {
   padding-inline: 18px;
   width: 26px;
@@ -57,17 +61,151 @@
   color: #bdbdbd;
 }
 
-.button {
+.input {
+  width: 204px;
+  margin-inline: 18px;
+  color: #6f6f6f;
+  background-color: transparent;
+
+  font-size: 12px;
+  padding: 3px 8px 3px 8px;
+  display: block;
+  border: none;
+  border-bottom: 1px solid #cdcdcd;
+}
+
+.inputNotValid {
+  margin-top: 14px;
+  border-bottom: 1px solid #fc6152;
+}
+
+.inputSendValid {
+  margin-right: 10px;
+}
+
+input:focus {
+  outline: none;
+}
+
+.bar {
+  margin-left: 18px;
+  position: relative;
+  display: block;
+  width: 204px;
+}
+
+.bar:before,
+.bar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 0;
   position: absolute;
+  background: rgba(96, 169, 246, 0.5);
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.barNotValid:before,
+.barNotValid:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 0;
+  position: absolute;
+  background: rgba(252, 97, 82, 0.5);
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+  left: 50%;
+}
+.bar:after {
+  right: 50%;
+}
+
+input:focus ~ .bar:before,
+input:focus ~ .bar:after {
+  width: 50%;
+}
+
+.highlight {
+  position: absolute;
+  margin-left: 18px;
+  padding-inline: 8px;
+  height: 60%;
+  width: 204px;
+  top: 25%;
+  left: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+input:focus ~ .highlight {
+  -webkit-animation: inputHighlighter 0.3s ease;
+  -moz-animation: inputHighlighter 0.3s ease;
+  animation: inputHighlighter 0.3s ease;
+}
+
+@-webkit-keyframes inputHighlighter {
+  from {
+    background: #60a9f6;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+@-moz-keyframes inputHighlighter {
+  from {
+    background: #60a9f6;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+@keyframes inputHighlighter {
+  from {
+    background: #60a9f6;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+.warningText {
+  justify-content: center;
+  margin-left: 8px;
+  font-weight: 500;
+  font-size: 10px;
+  -webkit-transform: scale(0.83);
+  color: #fc6152;
+}
+
+.button {
   z-index: 10px;
-  top: 10px;
-  right: 16px;
-  padding-block: 4px;
-  padding-inline: 6px;
+  padding-block: 6px;
+  padding-inline: 8px;
 
   font-size: 10px;
   color: #ffffff;
-  background: #cdcdcd;
+  background: #60a9f6;
+  border-radius: 5px;
+}
+
+.buttonExpand {
+  z-index: 10px;
+  padding-block: 6px;
+  padding-inline: 4px;
+
+  font-size: 10px;
+  color: #ffffff;
+  background: #60a9f6;
   border-radius: 5px;
 }
 

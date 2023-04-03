@@ -1,6 +1,6 @@
 .layout {
   margin-top: 40px;
-  width: 200px;
+  width: 240px;
   display: flex;
   flex-direction: column;
   row-gap: 4px;
@@ -71,7 +71,7 @@
 
 .subSectionContainer {
   padding-block: 10px;
-  background: #f4f4f4;
+  background-color: #f4f4f4;
   border-radius: 0px 0px 10px 10px;
 
   transition: background-color 2s, transform 2s;
