@@ -10,7 +10,7 @@ import styles from './SelfDetailMain.module.css'
 import RatingComponent from '../SelfDetailComponent/RatingComponent'
 import PlanComponent from '../SelfDetailComponent/PlanComponent'
 import { useNavigate, useParams } from 'react-router-dom'
-import { selectAccessToken } from 'features/auth/authSlice'
+import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
 import { getAuthSelfSpecificInfoAPI } from 'api/authSelf'
 import { getSelfSpecificInfoAPI } from 'api/self'
 import ContentSpinner from 'components/ContentSpinner'
@@ -40,6 +40,15 @@ const SelfDetailMain = () => {
     }
   }
 
+  const subscribeEvent = async () => {
+    if (isLogon) {
+      // 구독하기 모달 연결
+      alert('서비스 준비중입니다.')
+    } else {
+      dispatch(loginModalOpen())
+    }
+  }
+
   useEffect(() => {
     getSelfSpecificInfo()
   }, [])
@@ -66,9 +75,7 @@ const SelfDetailMain = () => {
               dispatch(setSearchKey(specificInfo.nameKr))
               navigate('/guide')
             }}
-            button3ClickEvent={() => {
-              alert('서비스 준비중입니다.')
-            }}
+            button3ClickEvent={subscribeEvent}
           />
           <div className={styles.rightSection}>
             <DetailContentCard

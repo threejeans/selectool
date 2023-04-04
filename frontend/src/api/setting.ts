@@ -40,7 +40,7 @@ export const getUserInfoAPI = createAsyncThunk(
   },
 )
 
-type demandType = {
+type DemandType = {
   content: string
   type: string
 }
@@ -48,7 +48,7 @@ type demandType = {
 // 요청 사항 추가
 export const registerAuthRequestAPI = createAsyncThunk(
   'auth/request/register',
-  async (value: demandType) => {
+  async (value: DemandType) => {
     const response = {
       statusCode: 200,
     }
@@ -58,7 +58,6 @@ export const registerAuthRequestAPI = createAsyncThunk(
       .then(res => {
         console.log(res)
         response.statusCode = res.status
-        console.log()
       })
       .catch(err => {
         console.log(err)
@@ -69,7 +68,7 @@ export const registerAuthRequestAPI = createAsyncThunk(
   },
 )
 
-export const registerRequestAPI = async (value: demandType) => {
+export const registerRequestAPI = async (value: DemandType) => {
   const response = {
     statusCode: 200,
   }
@@ -87,3 +86,33 @@ export const registerRequestAPI = async (value: demandType) => {
 
   return response.statusCode
 }
+
+type EditUserType = {
+  image?: string
+  name?: string
+  subscribeActive?: boolean
+  subscribeEmail?: string
+}
+
+// 유저 정보 변경
+export const editUserInfoAPI = createAsyncThunk(
+  'auth/userInfo/edit',
+  async (value: EditUserType) => {
+    const response = {
+      statusCode: 200,
+    }
+
+    await apiAxios
+      .put('/member/info', { params: value })
+      .then(res => {
+        console.log(res)
+        response.statusCode = res.status
+      })
+      .catch(err => {
+        console.log(err)
+        response.statusCode = err.request.status
+      })
+
+    return response.statusCode
+  },
+)

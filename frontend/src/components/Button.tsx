@@ -20,6 +20,8 @@ const colorHandler = (color: string) => {
       return styles.outlined
     case 'white':
       return styles.white
+    case 'warning':
+      return styles.warning
   }
 }
 
