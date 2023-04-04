@@ -13,6 +13,7 @@ export interface SettingState {
   selfScrapCount: number
   withScrapCount: number
   userInfo: UserInfoType
+  isWithdrawModal: boolean
 }
 
 const initialState: SettingState = {
@@ -32,6 +33,7 @@ const initialState: SettingState = {
     subscribeActive: false,
     subscribeEmail: '',
   },
+  isWithdrawModal: false,
 }
 
 const settingReducer = createSlice({
@@ -68,6 +70,9 @@ const settingReducer = createSlice({
     setUserInfo: (state, { payload: input }) => {
       return { ...state, userInfo: input }
     },
+    changeWithDrawModalStatus: state => {
+      state.isWithdrawModal = !state.isWithdrawModal
+    },
   },
 })
 
@@ -82,6 +87,7 @@ export const {
   changeWithScrapCount,
   resetWithScrapCount,
   setUserInfo,
+  changeWithDrawModalStatus,
 } = settingReducer.actions
 
 export const selectContent = (state: RootState) => state.setting.selectContent
@@ -94,5 +100,7 @@ export const withScrapExportList = (state: RootState) =>
 export const selfScrapCount = (state: RootState) => state.setting.selfScrapCount
 export const withScrapCount = (state: RootState) => state.setting.withScrapCount
 export const userInfo = (state: RootState) => state.setting.userInfo
+export const withdrawModalState = (state: RootState) =>
+  state.setting.isWithdrawModal
 
 export default settingReducer.reducer

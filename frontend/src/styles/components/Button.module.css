@@ -18,8 +18,13 @@
   background: #5581df;
 }
 
+.warning {
+  color: white;
+  background-color: #fc6152;
+}
+
 .neutral {
-  color: black;
+  color: #6f6f6f;
   background: #efefef;
 }
 
