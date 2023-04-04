@@ -3,8 +3,10 @@ package com.selectool.controller;
 import com.selectool.config.Constant;
 import com.selectool.config.login.LoginUser;
 import com.selectool.config.login.User;
+import com.selectool.dto.user.request.CodeRequest;
 import com.selectool.dto.user.request.UserUpdateRequest;
 import com.selectool.dto.user.response.ServiceTokenResponse;
+import com.selectool.dto.user.response.UserResponse;
 import com.selectool.service.AuthService;
 import com.selectool.service.OAuthService;
 import com.selectool.service.UserService;
@@ -72,7 +74,7 @@ public class UserController {
 
     @GetMapping("/info")
     @ApiOperation(value = "유저 정보 조회")
-    public ResponseEntity<?> getUserInfo(
+    public ResponseEntity<UserResponse> getUserInfo(
             @LoginUser User user
     ) {
         return ResponseEntity.ok(userService.getUserInfo(user.getId()));
@@ -94,6 +96,27 @@ public class UserController {
             @LoginUser User user
     ) {
         userService.withdraw(user.getId());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/info/email")
+    @ApiOperation(value = "이메일 인증 메일 전송")
+    public ResponseEntity<?> sendVerificationEmail(
+            @LoginUser User user,
+            @RequestBody CodeRequest request
+    ) throws Exception {
+        userService.sendVerificationEmail(user.getId(), request);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/info/email")
+    @ApiOperation(value = "이메일 인증 확인")
+    public ResponseEntity<?> VerifyEmail(
+            @RequestParam Long userId,
+            @RequestParam String email,
+            @RequestParam String code
+    ) {
+        userService.VerifyEmail(userId, new CodeRequest(email, code));
         return ResponseEntity.ok().build();
     }
 }

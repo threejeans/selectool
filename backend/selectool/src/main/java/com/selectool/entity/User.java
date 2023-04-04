@@ -36,6 +36,8 @@ public class User extends BaseEntity {
 
     private Boolean subscribeActive;
 
+    private Boolean emailVerified;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolBookmark> toolBookmarks = new ArrayList<>();
 
@@ -61,17 +63,24 @@ public class User extends BaseEntity {
         this.subscribeActive = false;
     }
 
-    public void updateInfo(String name, String subscribeEmail, String image, Boolean subscribeActive) {
+    public void updateInfo(String name, String image, Boolean subscribeActive) {
         if (hasText(name)) this.name = name;
-        if (hasText(subscribeEmail)) this.subscribeEmail = subscribeEmail;
         if (hasText(image)) this.image = image;
         if (subscribeActive != null) this.subscribeActive = subscribeActive;
     }
 
+    // 메일 인증
+    public void verifyEmail(String subscribeEmail, Boolean emailVerified) {
+        this.subscribeEmail = subscribeEmail;
+        this.emailVerified = emailVerified;
+    }
+
+    // 활성화
     public void setActive() {
         this.active = true;
     }
 
+    // 비활성화
     public void withdraw() {
         this.active = false;
     }

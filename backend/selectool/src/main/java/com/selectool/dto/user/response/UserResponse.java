@@ -21,8 +21,10 @@ public class UserResponse {
 
     private Boolean subscribeActive;
 
+    private Boolean emailVerified;
+
     @Builder
-    public UserResponse(Long id, String name, String type, String email, String subscribeEmail, String image, Boolean subscribeActive) {
+    public UserResponse(Long id, String name, String type, String email, String subscribeEmail, String image, Boolean subscribeActive, Boolean emailVerified) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -30,5 +32,6 @@ public class UserResponse {
         this.subscribeEmail = subscribeEmail;
         this.image = image;
         this.subscribeActive = subscribeActive;
+        this.emailVerified = emailVerified;
     }
 }
