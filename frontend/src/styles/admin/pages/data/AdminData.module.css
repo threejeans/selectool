@@ -1,0 +1,40 @@
+.container {
+  height: calc(100vh - var(--height-navigation));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.section {
+  width: 98vw;
+  max-width: 1280px;
+  box-sizing: border-box;
+}
+
+.dataButtonGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: var(--height-navigation);
+}
+
+.dataButton {
+  width: 15vw;
+  aspect-ratio: 4/3;
+  min-width: 120px;
+  background-color: white;
+  border-radius: 1rem;
+  color: var(--gray-scale-color-g20);
+  font-size: 2rem;
+  filter: drop-shadow(0 0 10px var(--gray-scale-color-g20));
+  transition: all 0.5s;
+}
+
+.dataButton:hover {
+  color: var(--primary-color-main);
+  filter: drop-shadow(0 8px 20px var(--gray-scale-color-g20));
+  z-index: 2;
+  transform: scale(1.04) translateY(-10px);
+}

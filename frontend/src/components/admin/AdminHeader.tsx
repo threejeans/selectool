@@ -1,35 +1,51 @@
-import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { useAppSelector } from 'app/hooks'
 import { Link, useLocation } from 'react-router-dom'
 
-import { AiOutlineMenu } from 'react-icons/ai'
 import Logo from 'assets/favicon.png'
 import Title from 'assets/selectool_logo_dark.svg'
-import styles from 'styles/admin/components/AdminHeader.module.css'
 import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
+import { dropDataRoutes } from 'features/admin/data/AdminData'
 import { useState } from 'react'
+import { AiOutlineMenu } from 'react-icons/ai'
+import styles from 'styles/admin/components/AdminHeader.module.css'
+import { DropItemType } from 'types/types'
 
 type AdminMenuLinkProps = {
   path: string
   title: string
+  dropItem?: DropItemType[]
 }
 
 type AdminHeaderProps = {
   title: string
 }
 
-const AdminMenuLink = ({ path, title }: AdminMenuLinkProps) => {
+const AdminMenuLink = ({ path, title, dropItem = [] }: AdminMenuLinkProps) => {
   const { pathname } = useLocation()
   return (
-    <Link
-      className={
-        pathname.startsWith('/admin/' + path)
-          ? styles.selected
-          : styles.unselected
-      }
-      to={path}
-    >
-      {title}
-    </Link>
+    <div className={styles.dropWrap}>
+      <Link
+        className={
+          pathname.startsWith('/admin/' + path)
+            ? styles.selected
+            : styles.unselected
+        }
+        to={path}
+      >
+        {title}
+      </Link>
+      {dropItem.length > 0 && (
+        <div className={styles.dropBox}>
+          {dropItem.map((item, index) => {
+            return (
+              <Link key={index} className={styles.dropItem} to={item.to}>
+                {item.name}
+              </Link>
+            )
+          })}
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -37,6 +53,7 @@ const AdminHeader = ({ title }: AdminHeaderProps) => {
   const accessToken = useAppSelector(selectAccessToken)
   // state
   const [isAside, setIsAside] = useState(false)
+
   return (
     <div className={styles.header}>
       <div className={styles.container}>
@@ -49,7 +66,11 @@ const AdminHeader = ({ title }: AdminHeaderProps) => {
           {accessToken && (
             <>
               <AdminMenuLink path={'contents'} title={'콘텐츠 관리'} />
-              <AdminMenuLink path={'data'} title={'데이터 관리'} />
+              <AdminMenuLink
+                path={'data'}
+                title={'데이터 관리'}
+                dropItem={dropDataRoutes}
+              />
               <AdminMenuLink path={'alarm'} title={'알림 관리'} />
             </>
           )}

@@ -8,3 +8,13 @@ export type UserInfoType = {
   subscribeActive?: boolean
   type: string
 }
+
+export type DemandType = {
+  id: number
+  type: string
+  content: string
+  userType: string
+  userEmail: string
+  createdAt: Date
+  status: boolean
+}

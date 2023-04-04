@@ -9,6 +9,8 @@ import AdminGuide from 'features/admin/contents/guide/AdminGuide'
 import AdminSelfTool from 'features/admin/contents/self/AdminSelfTool'
 import AdminWithCorp from 'features/admin/contents/with/AdminWithCorp'
 import AdminData from 'features/admin/data/AdminData'
+import AdminRequestList from 'features/admin/data/request/AdminRequestList'
+import AdminUserList from 'features/admin/data/user/AdminUserList'
 import Auth from 'features/auth/Auth'
 import Mypage from 'features/auth/Mypage'
 import Guide from 'features/guide/Guide'
@@ -130,17 +132,6 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: 'error',
-    element: (
-      <>
-        <ScrollToTop />
-        <Layout title={'404'} description={'셀렉툴 | 404NotFound'}>
-          <NotFound404 />
-        </Layout>
-      </>
-    ),
-  },
-  {
     path: 'auth/:type',
     element: <Auth />,
   },
@@ -194,7 +185,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'data',
-        element: <AdminData />,
+        children: [
+          { path: '', element: <AdminData /> },
+          { path: 'user', element: <AdminUserList /> },
+          { path: 'request', element: <AdminRequestList /> },
+        ],
       },
       {
         path: 'alarm',
@@ -211,6 +206,17 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: '*',
+    element: (
+      <>
+        <ScrollToTop />
+        <Layout title={'404'} description={'셀렉툴 | 404NotFound'}>
+          <NotFound404 />
+        </Layout>
+      </>
+    ),
   },
 ])
 
