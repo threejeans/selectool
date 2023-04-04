@@ -19,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -111,12 +112,12 @@ public class UserController {
 
     @GetMapping("/info/email")
     @ApiOperation(value = "이메일 인증 확인")
-    public ResponseEntity<?> VerifyEmail(
+    public RedirectView VerifyEmail(
             @RequestParam Long userId,
             @RequestParam String email,
             @RequestParam String code
     ) {
         userService.VerifyEmail(userId, new CodeRequest(email, code));
-        return ResponseEntity.ok().build();
+        return new RedirectView("https://selectool.info/mypage/setting");
     }
 }
