@@ -9,6 +9,7 @@ import settingReducer from './settingReducer'
 // admin
 import adminAuthReducer from 'features/admin/auth/adminAuthSlice'
 import adminContentsReducer from 'features/admin/contents/adminContentsSlice'
+import adminDataReducer from 'features/admin/data/adminDataSlice'
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   common: commonReducer,
   adminAuth: adminAuthReducer,
   adminContents: adminContentsReducer,
+  adminData: adminDataReducer,
 })
 
 export default rootReducer

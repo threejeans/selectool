@@ -245,3 +245,8 @@ export type AdminGuideComponent = {
   image: string
   toolImage: string
 }
+
+export type DropItemType = {
+  to: string
+  name: string
+}
