@@ -30,7 +30,7 @@ const Auth = () => {
       if (refreshToken !== undefined) {
         setCookie('refresh-token', refreshToken, { sameSite: 'strict' })
         // accessToken 만료하기 1분 전에 로그인 연장
-        // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000)
+        setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000)
       }
     }
     SimpleLogin()
@@ -56,6 +56,7 @@ export async function onSilentRefresh() {
       params: { refreshToken: token },
     },
   )
+  console.log(response)
 
   const accessToken = response.headers['access-token']
   const refreshToken = response.headers['refresh-token']
