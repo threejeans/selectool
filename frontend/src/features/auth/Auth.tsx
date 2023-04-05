@@ -18,39 +18,9 @@ const Auth = () => {
 
   const JWT_EXPIRY_TIME = 24 * 3600 * 1000 // 만료 시간 (24시간 밀리 초로 표현)
 
-  useEffect(() => {
-    async function SimpleLogin() {
-      const query = `/api/member/login/${type}?code=${code}`
-      const response = await apiAxios.get<AxiosResponse>(
-        process.env.REACT_APP_API + query,
-      )
-      const accessToken = response.headers['access-token']
-      const refreshToken = response.headers['refresh-token']
-      dispatch(setAccessToken(accessToken))
-      if (refreshToken !== undefined) {
-        setCookie('refresh-token', refreshToken, { sameSite: 'strict' })
-        // accessToken 만료하기 1분 전에 로그인 연장
-        setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000)
-      }
-    }
-    SimpleLogin()
-    navigate('/', { replace: true })
-  }, [])
-
-  return (
-    <div className={styles.container}>
-      <p className={styles.loader} />
-    </div>
-  )
-}
-
-export default Auth
-
-const onSilentRefresh = () => {
-  const dispatch = useAppDispatch()
-  const token = getCookie('refresh-token')
-
   async function RefreshLogin() {
+    const token = getCookie('refresh-token')
+
     const response = await apiAxios.get<AxiosResponse>(
       process.env.REACT_APP_API + '/api/member/refresh',
       {
@@ -70,6 +40,29 @@ const onSilentRefresh = () => {
   }
 
   useEffect(() => {
-    RefreshLogin()
+    async function SimpleLogin() {
+      const query = `/api/member/login/${type}?code=${code}`
+      const response = await apiAxios.get<AxiosResponse>(
+        process.env.REACT_APP_API + query,
+      )
+      const accessToken = response.headers['access-token']
+      const refreshToken = response.headers['refresh-token']
+      dispatch(setAccessToken(accessToken))
+      if (refreshToken !== undefined) {
+        setCookie('refresh-token', refreshToken, { sameSite: 'strict' })
+        // accessToken 만료하기 1분 전에 로그인 연장
+        setTimeout(RefreshLogin, JWT_EXPIRY_TIME - 60000)
+      }
+    }
+    SimpleLogin()
+    navigate('/', { replace: true })
   }, [])
+
+  return (
+    <div className={styles.container}>
+      <p className={styles.loader} />
+    </div>
+  )
 }
+
+export default Auth
