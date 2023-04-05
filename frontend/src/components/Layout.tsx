@@ -9,7 +9,6 @@ import HeaderMobile from './HeaderMobile'
 import { useAppDispatch } from 'app/hooks'
 import { getCookie, setCookie } from 'util/cookie'
 import apiAxios from 'app/apiAxios'
-import { AxiosResponse } from 'axios'
 import { setAccessToken } from 'features/auth/authSlice'
 
 interface LayoutProps {
@@ -20,11 +19,12 @@ interface LayoutProps {
 
 const Layout = ({ title, description, children }: LayoutProps) => {
   const dispatch = useAppDispatch()
+
   useEffect(() => {
     const token = getCookie('refresh-token')
 
     async function RefreshLogin() {
-      const response = await apiAxios
+      await apiAxios
         .get(process.env.REACT_APP_API + '/api/member/refresh', {
           params: { refreshToken: token },
         })
@@ -40,7 +40,10 @@ const Layout = ({ title, description, children }: LayoutProps) => {
         .catch(err => console.log(err))
     }
 
-    RefreshLogin()
+    if (token !== undefined) {
+      console.log(token)
+      RefreshLogin()
+    }
   }, [])
 
   return (
