@@ -31,6 +31,7 @@ const initialState: SettingState = {
     name: '',
     type: '',
     subscribeActive: false,
+    emailVerified: false,
     subscribeEmail: '',
   },
   isWithdrawModal: false,

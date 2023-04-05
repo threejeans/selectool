@@ -132,6 +132,18 @@ const router = createBrowserRouter([
     ),
   },
   {
+    // redirect
+    path: 'mypage/:status',
+    element: (
+      <>
+        <ScrollToTop />
+        <Layout title={'마이페이지'} description={'셀렉툴 | 마이페이지'}>
+          <Mypage />
+        </Layout>
+      </>
+    ),
+  },
+  {
     path: 'auth/:type',
     element: <Auth />,
   },

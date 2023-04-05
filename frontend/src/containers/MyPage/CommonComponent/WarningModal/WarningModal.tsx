@@ -9,6 +9,7 @@ import styles from './WarningModal.module.css'
 import Button from 'components/Button'
 import { BsExclamationLg } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
+import { userWithdrawAPI } from 'api/setting'
 
 const WarningModal = () => {
   const dispatch = useAppDispatch()
@@ -26,6 +27,16 @@ const WarningModal = () => {
     setStep(0)
 
     dispatch(changeWithDrawModalStatus())
+  }
+
+  const withdrawEvent = async () => {
+    const response = await dispatch(userWithdrawAPI()).unwrap()
+
+    if (response === 200 || response === 201) {
+      setStep(2)
+    } else {
+      console.log('response')
+    }
   }
 
   return (
@@ -82,11 +93,7 @@ const WarningModal = () => {
               color={'neutral'}
               size={'md'}
               text={'확인'}
-              clickEvent={() => {
-                // TODO: 탈퇴 로직 연결
-                alert('서비스 준비중입니다.')
-                // setStep(2)
-              }}
+              clickEvent={withdrawEvent}
             ></Button>
           </div>
         </div>
@@ -110,6 +117,7 @@ const WarningModal = () => {
               text={'홈으로'}
               clickEvent={() => {
                 setStep(0)
+                dispatch(changeWithDrawModalStatus())
                 navigate('/')
               }}
             ></Button>

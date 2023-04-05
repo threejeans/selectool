@@ -19,6 +19,7 @@ export const getUserInfoAPI = createAsyncThunk(
       name: '',
       type: '',
       subscribeEmail: '',
+      emailVerified: false,
       subscribeActive: false,
     }
 
@@ -103,7 +104,51 @@ export const editUserInfoAPI = createAsyncThunk(
     }
 
     await apiAxios
-      .put('/member/info', { params: value })
+      .put('/member/info', value)
+      .then(res => {
+        response.statusCode = res.status
+      })
+      .catch(err => {
+        console.log(err)
+        response.statusCode = err.request.status
+      })
+
+    return response.statusCode
+  },
+)
+
+// 회원 탈퇴
+export const userWithdrawAPI = createAsyncThunk(
+  'auth/user/withdraw',
+  async () => {
+    const response = {
+      statusCode: 200,
+    }
+
+    await apiAxios
+      .put('/member/withdraw')
+      .then(res => {
+        response.statusCode = res.status
+      })
+      .catch(err => {
+        console.log(err)
+        response.statusCode = err.request.status
+      })
+
+    return response.statusCode
+  },
+)
+
+// 유저 이메일 인증 메일 발송
+export const userEmailAuthorizeAPI = createAsyncThunk(
+  'auth/userEmail/Authorize',
+  async (subscribeEmail: string) => {
+    const response = {
+      statusCode: 200,
+    }
+
+    await apiAxios
+      .post('/member/info/email', { email: subscribeEmail })
       .then(res => {
         console.log(res)
         response.statusCode = res.status
