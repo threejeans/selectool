@@ -37,13 +37,9 @@ const Layout = ({ title, description, children }: LayoutProps) => {
             setCookie('refresh-token', refreshToken)
           }
         })
-        .catch(err => console.log(err))
     }
 
-    if (token !== undefined) {
-      console.log(token)
-      RefreshLogin()
-    }
+    RefreshLogin()
   }, [])
 
   return (
