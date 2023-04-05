@@ -25,16 +25,15 @@ const Layout = ({ title, description, children }: LayoutProps) => {
     const token = getCookie('refresh-token')
 
     async function RefreshLogin() {
-      const response = await apiAxios.get<AxiosResponse>(
+      const response = await apiAxios.get(
         process.env.REACT_APP_API + '/api/member/refresh',
         {
           params: { refreshToken: token },
         },
       )
-      console.log(response)
 
-      const accessToken = response.headers['access-token']
-      const refreshToken = response.headers['refresh-token']
+      const accessToken = response.data.accessToken
+      const refreshToken = response.data.refreshToken
 
       dispatch(setAccessToken(accessToken))
 
@@ -43,8 +42,10 @@ const Layout = ({ title, description, children }: LayoutProps) => {
       }
     }
 
-    console.log('가랏 리프레시!')
-    RefreshLogin()
+    if (token) {
+      console.log('가랏 리프레시!')
+      RefreshLogin()
+    }
   }, [])
 
   return (
