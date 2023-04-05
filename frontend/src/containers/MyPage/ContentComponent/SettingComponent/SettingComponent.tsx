@@ -1,11 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   CommonLayout,
   SettingLayout,
   WarningModal,
 } from '../../CommonComponent'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
-import { editUserInfoAPI, getUserInfoAPI } from 'api/setting'
+import {
+  editUserInfoAPI,
+  getUserInfoAPI,
+  userEmailAuthorizeAPI,
+} from 'api/setting'
 import styles from './SettingComponent.module.css'
 import {
   changeWithDrawModalStatus,
@@ -23,12 +27,20 @@ import EmailIcon from 'assets/email_icon.svg'
 
 import { RiPencilFill } from 'react-icons/ri'
 import { AiFillSound, AiOutlineWarning } from 'react-icons/ai'
-import { UserInfoType } from 'types/userTypes'
 
 const SettingComponent = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const info = useAppSelector(userInfo)
+
+  const [editable, setEditable] = useState(false)
+  const [subscribeEmail, setSubscribeEmail] = useState(
+    info.subscribeEmail ? info.subscribeEmail : '',
+  )
+  const [validatingEmail, setValidatingEmail] = useState('')
+  const [isEmailValid, setIsEmailValid] = useState(true)
+  const [isSendValidTest, setIsSendValidTest] = useState(false)
+  const [alarmWarning, setAlarmWarning] = useState(false)
 
   const getUserInfo = async () => {
     const response = await dispatch(getUserInfoAPI()).unwrap()
@@ -38,14 +50,16 @@ const SettingComponent = () => {
     } else {
       console.log(response.data)
       dispatch(setUserInfo(response.data))
+
+      if (info.subscribeEmail && !info.emailVerified) {
+        setEditable(true)
+        setIsSendValidTest(true)
+        setValidatingEmail(info.subscribeEmail)
+      } else {
+        false
+      }
     }
   }
-
-  const [editable, setEditable] = useState(false)
-  const [subscribeEmail, setSubscribeEmail] = useState('')
-  const [isEmailValid, setIsEmailValid] = useState(true)
-  const [isSendValidTest, setIsSendValidTest] = useState(false)
-  const [validatingEmail, setValidatingEmail] = useState('')
 
   // email 유효성 검사
   const validateEmail = (email: string) => {
@@ -60,15 +74,24 @@ const SettingComponent = () => {
     return regex.test(updateEmail)
   }
 
-  const certificationEvent = () => {
+  const certificationEvent = async () => {
     const isValidateEmail = validateEmail(subscribeEmail)
     if (!isValidateEmail) {
       setIsEmailValid(false)
     } else {
       setIsEmailValid(true)
       setValidatingEmail(subscribeEmail)
+
       // TODO : 이메일 인증 보내기
-      setIsSendValidTest(true)
+      const response = await dispatch(
+        userEmailAuthorizeAPI(subscribeEmail),
+      ).unwrap()
+
+      if (response === 200 || response === 201) {
+        setIsSendValidTest(true)
+      } else {
+        console.log(response)
+      }
     }
   }
 
@@ -77,26 +100,27 @@ const SettingComponent = () => {
     setIsSendValidTest(false)
   }
 
-  const certificationCompleteEvent = () => {
-    // TODO : 인증 완료 되었는지 확인
-    alert('서비스 준비중입니다.')
-  }
-
+  // 뉴스레터 알림 여부 - 수신허용
   const alarmEvent = async () => {
-    const response = await dispatch(
-      editUserInfoAPI({ subscribeActive: true }),
-    ).unwrap()
-
-    if (response === 200 || response === 201) {
-      console.log(response)
-      const newUserInfo = { ...info }
-      newUserInfo.subscribeActive = true
-      dispatch(setUserInfo(newUserInfo))
+    if (!info.subscribeEmail || !info.emailVerified) {
+      setAlarmWarning(true)
     } else {
-      console.log(response)
+      const response = await dispatch(
+        editUserInfoAPI({ subscribeActive: true }),
+      ).unwrap()
+
+      if (response === 200 || response === 201) {
+        console.log(response)
+        const newUserInfo = { ...info }
+        newUserInfo.subscribeActive = true
+        dispatch(setUserInfo(newUserInfo))
+      } else {
+        console.log(response)
+      }
     }
   }
 
+  // 뉴스레터 알림 여부 - 수신거부
   const noAlarmEvent = async () => {
     const response = await dispatch(
       editUserInfoAPI({ subscribeActive: false }),
@@ -184,7 +208,8 @@ const SettingComponent = () => {
                         {!isEmailValid ? (
                           <div className={styles.warningText}>
                             <AiOutlineWarning></AiOutlineWarning>
-                            이메일 형식이 올바르지 않습니다. 다시 확인해주세요.
+                            &nbsp;이메일 형식이 올바르지 않습니다. 다시
+                            확인해주세요.
                           </div>
                         ) : (
                           ''
@@ -192,50 +217,60 @@ const SettingComponent = () => {
                         {isSendValidTest ? (
                           <div className={styles.warningText}>
                             <AiFillSound></AiFillSound>
-                            이메일 인증 완료 후 인증 완료 버튼을 눌러주세요!
+                            &nbsp;이메일로 인증을 요청드렸으니, 인증을
+                            완료해주세요!
                           </div>
                         ) : (
                           ''
                         )}
                       </div>
-
-                      <button
-                        className={
-                          isSendValidTest ? styles.buttonExpand : styles.button
-                        }
-                        onClick={
-                          isSendValidTest
-                            ? certificationCompleteEvent
-                            : certificationEvent
-                        }
-                      >
-                        {isSendValidTest ? '인증 완료' : '인증'}
-                      </button>
+                      {isSendValidTest ? (
+                        <span className={styles.buttonExpand}>인증 필요</span>
+                      ) : (
+                        <button
+                          className={styles.button}
+                          onClick={certificationEvent}
+                        >
+                          인증
+                        </button>
+                      )}
                     </>
                   )}
                 </div>
               </div>
               <div className={styles.contentContainer}>
                 <div className={styles.key}>뉴스레터 알림</div>
-                <div className={styles.alarmContainer}>
-                  <div
-                    className={
-                      !info.subscribeActive
-                        ? styles.alarmSelected
-                        : styles.alarm
-                    }
-                    onClick={info.subscribeActive ? noAlarmEvent : alarmEvent}
-                  >
-                    수신거부
+                <div className={styles.alarmRightContainer}>
+                  <div className={styles.alarmContainer}>
+                    <div
+                      className={
+                        !info.subscribeActive
+                          ? styles.alarmSelected
+                          : styles.alarm
+                      }
+                      onClick={info.subscribeActive ? noAlarmEvent : alarmEvent}
+                    >
+                      수신거부
+                    </div>
+                    <div
+                      className={
+                        info.subscribeActive
+                          ? styles.alarmSelected
+                          : styles.alarm
+                      }
+                      onClick={info.subscribeActive ? noAlarmEvent : alarmEvent}
+                    >
+                      이메일
+                    </div>
                   </div>
-                  <div
-                    className={
-                      info.subscribeActive ? styles.alarmSelected : styles.alarm
-                    }
-                    onClick={info.subscribeActive ? noAlarmEvent : alarmEvent}
-                  >
-                    이메일
-                  </div>
+                  {alarmWarning ? (
+                    <span className={styles.alarmWarningText}>
+                      <AiOutlineWarning></AiOutlineWarning>
+                      &nbsp;뉴스레터 수신 이메일 설정 및 인증 후 가능합니다.
+                    </span>
+                  ) : (
+                    ''
+                  )}
                 </div>
               </div>
             </div>

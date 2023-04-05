@@ -1,11 +1,12 @@
 import Login from 'features/auth/Login'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 
 import Footer from './Footer'
 import Header from './Header'
 import { useMediaQuery } from 'react-responsive'
 import HeaderMobile from './HeaderMobile'
+import { onSilentRefresh } from 'features/auth/Auth'
 
 interface LayoutProps {
   title: string
@@ -14,6 +15,11 @@ interface LayoutProps {
 }
 
 const Layout = ({ title, description, children }: LayoutProps) => {
+  useEffect(() => {
+    onSilentRefresh()
+    console.log('실행')
+  }, [])
+
   return (
     <>
       <Login />
