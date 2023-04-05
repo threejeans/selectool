@@ -28,7 +28,7 @@ const Auth = () => {
       const refreshToken = response.headers['refresh-token']
       dispatch(setAccessToken(accessToken))
       if (refreshToken !== undefined) {
-        setCookie('refresh-token', refreshToken)
+        setCookie('refresh-token', refreshToken, { sameSite: 'strict' })
         // accessToken 만료하기 1분 전에 로그인 연장
         // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000)
       }
@@ -48,16 +48,20 @@ export default Auth
 
 export async function onSilentRefresh() {
   const dispatch = useAppDispatch()
+  const token = getCookie('refresh-token')
 
   const response = await apiAxios.get<AxiosResponse>(
     process.env.REACT_APP_API + '/api/member/refresh',
     {
-      params: { refreshToken: getCookie('refresh-token') },
+      params: { refreshToken: token },
     },
   )
+
   const accessToken = response.headers['access-token']
   const refreshToken = response.headers['refresh-token']
+
   dispatch(setAccessToken(accessToken))
+
   if (refreshToken !== undefined) {
     setCookie('refresh-token', refreshToken)
   }
