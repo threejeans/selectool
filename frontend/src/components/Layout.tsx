@@ -19,12 +19,12 @@ interface LayoutProps {
 }
 
 const Layout = ({ title, description, children }: LayoutProps) => {
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
-    const dispatch = useAppDispatch()
     const token = getCookie('refresh-token')
 
     async function RefreshLogin() {
-      console.log('가랏 리프레시!')
       const response = await apiAxios.get<AxiosResponse>(
         process.env.REACT_APP_API + '/api/member/refresh',
         {
@@ -43,6 +43,7 @@ const Layout = ({ title, description, children }: LayoutProps) => {
       }
     }
 
+    console.log('가랏 리프레시!')
     RefreshLogin()
   }, [])
 
