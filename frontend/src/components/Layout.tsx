@@ -15,10 +15,10 @@ interface LayoutProps {
 }
 
 const Layout = ({ title, description, children }: LayoutProps) => {
-  useEffect(() => {
-    onSilentRefresh()
-    console.log('실행')
-  }, [])
+  // useEffect(() => {
+  //   onSilentRefresh()
+  //   console.log('실행')
+  // }, [])
 
   return (
     <>
