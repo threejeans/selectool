@@ -20,32 +20,27 @@ interface LayoutProps {
 
 const Layout = ({ title, description, children }: LayoutProps) => {
   const dispatch = useAppDispatch()
-
   useEffect(() => {
     const token = getCookie('refresh-token')
 
     async function RefreshLogin() {
-      const response = await apiAxios.get(
-        process.env.REACT_APP_API + '/api/member/refresh',
-        {
+      const response = await apiAxios
+        .get(process.env.REACT_APP_API + '/api/member/refresh', {
           params: { refreshToken: token },
-        },
-      )
+        })
+        .then(res => {
+          const accessToken = res.data.accessToken
+          const refreshToken = res.data.refreshToken
+          dispatch(setAccessToken(accessToken))
 
-      const accessToken = response.data.accessToken
-      const refreshToken = response.data.refreshToken
-
-      dispatch(setAccessToken(accessToken))
-
-      if (refreshToken !== undefined) {
-        setCookie('refresh-token', refreshToken)
-      }
+          if (refreshToken !== undefined) {
+            setCookie('refresh-token', refreshToken)
+          }
+        })
+        .catch(err => console.log(err))
     }
 
-    if (token) {
-      console.log('가랏 리프레시!')
-      RefreshLogin()
-    }
+    RefreshLogin()
   }, [])
 
   return (
