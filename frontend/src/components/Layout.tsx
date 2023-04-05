@@ -6,7 +6,11 @@ import Footer from './Footer'
 import Header from './Header'
 import { useMediaQuery } from 'react-responsive'
 import HeaderMobile from './HeaderMobile'
-import { onSilentRefresh } from 'features/auth/Auth'
+import { useAppDispatch } from 'app/hooks'
+import { getCookie, setCookie } from 'util/cookie'
+import apiAxios from 'app/apiAxios'
+import { AxiosResponse } from 'axios'
+import { setAccessToken } from 'features/auth/authSlice'
 
 interface LayoutProps {
   title: string
@@ -16,8 +20,30 @@ interface LayoutProps {
 
 const Layout = ({ title, description, children }: LayoutProps) => {
   useEffect(() => {
-    onSilentRefresh()
-    console.log('가랏 리프레시!')
+    const dispatch = useAppDispatch()
+    const token = getCookie('refresh-token')
+
+    async function RefreshLogin() {
+      console.log('가랏 리프레시!')
+      const response = await apiAxios.get<AxiosResponse>(
+        process.env.REACT_APP_API + '/api/member/refresh',
+        {
+          params: { refreshToken: token },
+        },
+      )
+      console.log(response)
+
+      const accessToken = response.headers['access-token']
+      const refreshToken = response.headers['refresh-token']
+
+      dispatch(setAccessToken(accessToken))
+
+      if (refreshToken !== undefined) {
+        setCookie('refresh-token', refreshToken)
+      }
+    }
+
+    RefreshLogin()
   }, [])
 
   return (

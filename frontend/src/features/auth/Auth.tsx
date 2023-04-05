@@ -46,24 +46,30 @@ const Auth = () => {
 
 export default Auth
 
-export async function onSilentRefresh() {
+const onSilentRefresh = () => {
   const dispatch = useAppDispatch()
   const token = getCookie('refresh-token')
 
-  const response = await apiAxios.get<AxiosResponse>(
-    process.env.REACT_APP_API + '/api/member/refresh',
-    {
-      params: { refreshToken: token },
-    },
-  )
-  console.log(response)
+  async function RefreshLogin() {
+    const response = await apiAxios.get<AxiosResponse>(
+      process.env.REACT_APP_API + '/api/member/refresh',
+      {
+        params: { refreshToken: token },
+      },
+    )
+    console.log(response)
 
-  const accessToken = response.headers['access-token']
-  const refreshToken = response.headers['refresh-token']
+    const accessToken = response.headers['access-token']
+    const refreshToken = response.headers['refresh-token']
 
-  dispatch(setAccessToken(accessToken))
+    dispatch(setAccessToken(accessToken))
 
-  if (refreshToken !== undefined) {
-    setCookie('refresh-token', refreshToken)
+    if (refreshToken !== undefined) {
+      setCookie('refresh-token', refreshToken)
+    }
   }
+
+  useEffect(() => {
+    RefreshLogin()
+  }, [])
 }
