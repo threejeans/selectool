@@ -324,6 +324,7 @@ public class ToolServiceImpl implements ToolService {
     }
 
     @Override
+    @Transactional
     public void addSubscribe(Long userId, Long toolId) {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
@@ -344,6 +345,7 @@ public class ToolServiceImpl implements ToolService {
     }
 
     @Override
+    @Transactional
     public void unSubscribe(Long userId, Long toolId) {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
