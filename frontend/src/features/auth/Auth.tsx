@@ -29,25 +29,25 @@ const Auth = () => {
   )
 
   async function RefreshLogin() {
-    const token = getCookie('refresh-token')
+    const refreshToken = getCookie('refresh-token')
 
     await apiAxios
       .get(process.env.REACT_APP_API + '/api/member/refresh', {
-        params: { refreshToken: token },
+        params: { refreshToken: refreshToken },
       })
       .then(res => {
         const accessToken = res.data.accessToken
         const refreshToken = res.data.refreshToken
         dispatch(setAccessToken(accessToken))
 
-        if (refreshToken !== undefined) {
-          cookies.set('refresh-token', refreshToken, {
-            path: '/',
-            expires: after7days,
-            secure: true,
-            httpOnly: true,
-          })
-        }
+        // if (refreshToken !== undefined) {
+        //   cookies.set('refresh-token', refreshToken, {
+        //     path: '/',
+        //     expires: after7days,
+        //     secure: true,
+        //     httpOnly: true,
+        //   })
+        // }
       })
       .catch(err => console.log(err))
   }
@@ -60,21 +60,22 @@ const Auth = () => {
       )
       const accessToken = response.headers['access-token']
       const refreshToken = getCookie('refresh-token')
-      console.log(response, refreshToken)
-      console.log(refreshToken)
-      console.log(response.headers['set-cookie'])
-      console.log(response.headers)
+
       dispatch(setAccessToken(accessToken))
-      if (refreshToken !== undefined) {
-        cookies.set('refresh-token', refreshToken, {
-          path: '/',
-          expires: after7days,
-          secure: true,
-          httpOnly: true,
-        })
-        // accessToken 만료하기 1분 전에 로그인 연장
-        setTimeout(RefreshLogin, JWT_EXPIRY_TIME - 60000)
-      }
+      // accessToken 만료하기 1분 전에 로그인 연장
+      setTimeout(RefreshLogin, JWT_EXPIRY_TIME - 60000)
+
+      // if (refreshToken !== undefined) {
+      //   console.log('refresh token 저장')
+      //   cookies.set('refresh', refreshToken, {
+      //     path: '/',
+      //     expires: after7days,
+      //     secure: true,
+      //     httpOnly: true,
+      //   })
+
+      //   setTimeout(RefreshLogin, JWT_EXPIRY_TIME - 60000)
+      // }
     }
     SimpleLogin()
     navigate('/', { replace: true })

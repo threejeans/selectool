@@ -20,8 +20,9 @@ interface LayoutProps {
 const Layout = ({ title, description, children }: LayoutProps) => {
   const dispatch = useAppDispatch()
   const isLogon = useAppSelector(selectAccessToken)
-  const token = getCookie('refresh-token')
-  console.log(token)
+
+  const refreshToken = getCookie('refresh-token')
+  console.log(refreshToken)
 
   useEffect(() => {
     // refresh token 만료 시간
@@ -35,21 +36,21 @@ const Layout = ({ title, description, children }: LayoutProps) => {
     if (!isLogon) {
       apiAxios
         .get(process.env.REACT_APP_API + '/api/member/refresh', {
-          data: { refreshToken: token },
+          data: { refreshToken: refreshToken },
         })
         .then(res => {
           const accessToken = res.data.accessToken
           const refreshToken = res.data.refreshToken
           dispatch(setAccessToken(accessToken))
 
-          if (refreshToken !== undefined) {
-            setCookie('refresh-token', refreshToken, {
-              path: '/',
-              expires: after7days,
-              secure: true,
-              httpOnly: true,
-            })
-          }
+          // if (refreshToken !== undefined) {
+          //   setCookie('refresh', refreshToken, {
+          //     path: '/',
+          //     expires: after7days,
+          //     secure: true,
+          //     httpOnly: true,
+          //   })
+          // }
         })
     }
   }, [])
