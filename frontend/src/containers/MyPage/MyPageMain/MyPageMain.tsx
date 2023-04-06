@@ -9,23 +9,16 @@ import {
   SettingComponent,
   WithScrapContent,
 } from '../ContentComponent'
-import { useNavigate, useParams } from 'react-router-dom'
-import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
+import { useParams } from 'react-router-dom'
 
 const MyPageMain = () => {
   const content = useAppSelector(selectContent)
-  const isLogon = useAppSelector(selectAccessToken)
-  const navigate = useNavigate()
 
   const { status } = useParams()
   const dispatch = useAppDispatch()
 
   if (status === 'setting') {
     dispatch(setSelectContent('설정'))
-    if (!isLogon) {
-      dispatch(loginModalOpen())
-      navigate('/')
-    }
   }
 
   return (
