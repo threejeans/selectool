@@ -7,11 +7,14 @@ import { getCookie, setCookie } from 'util/cookie'
 import { setAccessToken } from './authSlice'
 
 import styles from 'styles/pages/auth/Auth.module.css'
+import { Cookies } from 'react-cookie'
 
 const Auth = () => {
   const code = new URL(window.location.href).searchParams.get('code')
   const { type } = useParams()
   // const [cookies, setCookie] = useCookies() // 커스텀 쿠키 셋
+  const cookies = new Cookies()
+
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -39,7 +42,12 @@ const Auth = () => {
         dispatch(setAccessToken(accessToken))
 
         if (refreshToken !== undefined) {
-          setCookie('refresh-token', refreshToken)
+          cookies.set('refresh-token', refreshToken, {
+            path: '/',
+            expires: after7days,
+            secure: true,
+            httpOnly: true,
+          })
         }
       })
       .catch(err => console.log(err))
@@ -55,7 +63,7 @@ const Auth = () => {
       const refreshToken = response.headers['refresh-token']
       dispatch(setAccessToken(accessToken))
       if (refreshToken !== undefined) {
-        setCookie('refresh-token', refreshToken, {
+        cookies.set('refresh-token', refreshToken, {
           path: '/',
           expires: after7days,
           secure: true,

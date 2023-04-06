@@ -79,36 +79,32 @@ const SelfDetailMain = () => {
 
   const subscribeEvent = async () => {
     if (isLogon) {
-      // 구독하기 모달 연결
-      dispatch(changeSubscribeModalStatus())
-      // if (
-      //   !userInfoForSubscribe.subscribeEmail ||
-      //   (userInfoForSubscribe.subscribeEmail &&
-      //     !userInfoForSubscribe.emailVerified)
-      // ) {
-      //   // pass
-      //   // 툴 처음 등록 로직
-      //   console.log('이곳')
-      // } else {
-      //   const id = toolId ? parseInt(toolId) : 0
-      //   const subscribeResponse = specificInfo.isSubscribed
-      //     ? await dispatch(selfUnsubscribeToolAPI(id)).unwrap()
-      //     : await dispatch(selfSubscribeToolAPI(id)).unwrap()
+      if (
+        !userInfoForSubscribe.subscribeEmail ||
+        (userInfoForSubscribe.subscribeEmail &&
+          !userInfoForSubscribe.emailVerified)
+      ) {
+        dispatch(changeSubscribeModalStatus())
+      } else {
+        const id = toolId ? parseInt(toolId) : 0
+        const subscribeResponse = specificInfo.isSubscribed
+          ? await dispatch(selfUnsubscribeToolAPI(id)).unwrap()
+          : await dispatch(selfSubscribeToolAPI(id)).unwrap()
 
-      //   if (
-      //     subscribeResponse.statusCode === 200 ||
-      //     subscribeResponse.statusCode === 201
-      //   ) {
-      //     const newInfo = { ...specificInfo }
-      //     newInfo.isSubscribed = !newInfo.isSubscribed
-      //     if (!userInfoForSubscribe.subscribeActive) {
-      //       alarmEvent()
-      //     }
-      //     dispatch(setSelfSpecificInfo(newInfo))
-      //   } else {
-      //     console.log('error', subscribeResponse.statusCode)
-      //   }
-      // }
+        if (
+          subscribeResponse.statusCode === 200 ||
+          subscribeResponse.statusCode === 201
+        ) {
+          const newInfo = { ...specificInfo }
+          newInfo.isSubscribed = !newInfo.isSubscribed
+          if (!userInfoForSubscribe.subscribeActive) {
+            alarmEvent()
+          }
+          dispatch(setSelfSpecificInfo(newInfo))
+        } else {
+          console.log('error', subscribeResponse.statusCode)
+        }
+      }
     } else {
       dispatch(loginModalOpen())
     }
