@@ -60,7 +60,7 @@ const Auth = () => {
         process.env.REACT_APP_API + query,
       )
       const accessToken = response.headers['access-token']
-      const refreshToken = response.headers['refresh-token']
+      const refreshToken = response.headers['Set-Cookie']
       console.log(response)
       dispatch(setAccessToken(accessToken))
       if (refreshToken !== undefined) {
