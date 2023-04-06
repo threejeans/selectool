@@ -17,7 +17,7 @@ export type DemandType = {
   userType: string
   userEmail: string
   createdAt: Date
-  status: boolean
+  status: boolean | null
 }
 
 export type IsBookmarkedType = {
