@@ -23,7 +23,8 @@ export const axiosMiddleware =
     // console.log('action: ', action)
     if (
       action.type.startsWith('auth') ||
-      action.type.startsWith('adminContents')
+      action.type.startsWith('adminContents') ||
+      action.type.startsWith('adminData')
     )
       setInterceptors(store)
     return next(action)
