@@ -6,10 +6,10 @@ import Footer from './Footer'
 import Header from './Header'
 import { useMediaQuery } from 'react-responsive'
 import HeaderMobile from './HeaderMobile'
-import { useAppDispatch } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { getCookie, setCookie } from 'util/cookie'
 import apiAxios from 'app/apiAxios'
-import { setAccessToken } from 'features/auth/authSlice'
+import { selectAccessToken, setAccessToken } from 'features/auth/authSlice'
 
 interface LayoutProps {
   title: string
@@ -19,9 +19,11 @@ interface LayoutProps {
 
 const Layout = ({ title, description, children }: LayoutProps) => {
   const dispatch = useAppDispatch()
+  const isLogon = useAppSelector(selectAccessToken)
+  const token = getCookie('refresh-token')
+  console.log(token)
 
   useEffect(() => {
-    const token = getCookie('refresh-token')
     // refresh token 만료 시간
     const now = new Date()
     const after7days = new Date(
@@ -30,10 +32,10 @@ const Layout = ({ title, description, children }: LayoutProps) => {
       now.getDate() + 7,
     )
 
-    if (getCookie('refresh-token')) {
+    if (!isLogon) {
       apiAxios
         .get(process.env.REACT_APP_API + '/api/member/refresh', {
-          params: { refreshToken: token },
+          data: { refreshToken: token },
         })
         .then(res => {
           const accessToken = res.data.accessToken
