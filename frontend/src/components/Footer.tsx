@@ -30,9 +30,9 @@ const Footer = () => {
             </button>
           </div>
           <div className={styles.privacy}>
-            <Link to='/privacy'>개인정보처리방침</Link>
+            <Link to='/service-use'>개인정보처리방침</Link>
             {'|'}
-            <Link to='/service-use'>운영정책</Link>
+            <Link to='/privacy'>운영정책</Link>
             {'|'}
             <a href=''>문의사항</a>
           </div>

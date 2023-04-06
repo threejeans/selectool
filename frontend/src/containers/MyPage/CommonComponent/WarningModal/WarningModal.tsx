@@ -10,6 +10,8 @@ import Button from 'components/Button'
 import { BsExclamationLg } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import { userWithdrawAPI } from 'api/setting'
+import { removeCookie } from 'util/cookie'
+import { setAccessToken } from 'features/auth/authSlice'
 
 const WarningModal = () => {
   const dispatch = useAppDispatch()
@@ -21,11 +23,10 @@ const WarningModal = () => {
 
   const closeModal = () => {
     if (step === 2) {
-      navigate('/')
+      setAccessToken(undefined)
+      navigate('/', { replace: true })
     }
-
     setStep(0)
-
     dispatch(changeWithDrawModalStatus())
   }
 
@@ -33,6 +34,7 @@ const WarningModal = () => {
     const response = await dispatch(userWithdrawAPI()).unwrap()
 
     if (response === 200 || response === 201) {
+      removeCookie('refresh-token')
       setStep(2)
     } else {
       console.log('response')
@@ -117,8 +119,9 @@ const WarningModal = () => {
               text={'홈으로'}
               clickEvent={() => {
                 setStep(0)
+                setAccessToken(undefined)
                 dispatch(changeWithDrawModalStatus())
-                navigate('/')
+                navigate('/', { replace: true })
               }}
             ></Button>
           </div>

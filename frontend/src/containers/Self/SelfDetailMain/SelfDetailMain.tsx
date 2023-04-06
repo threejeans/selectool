@@ -119,7 +119,7 @@ const SelfDetailMain = () => {
 
   return (
     <>
-      <SubscribeModal />
+      <SubscribeModal toolId={toolId} />
       {specificInfo.nameKr === '' ? (
         <div className={styles.spinnerLayout}>
           <ContentSpinner />

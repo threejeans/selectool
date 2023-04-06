@@ -150,7 +150,6 @@ export const userEmailAuthorizeAPI = createAsyncThunk(
     await apiAxios
       .post('/member/info/email', { email: subscribeEmail })
       .then(res => {
-        console.log(res)
         response.statusCode = res.status
       })
       .catch(err => {
