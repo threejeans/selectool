@@ -3,7 +3,7 @@ import { useAppDispatch } from 'app/hooks'
 import { AxiosResponse } from 'axios'
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getCookie, setCookie } from 'util/cookie'
+import { getCookie } from 'util/cookie'
 import { setAccessToken } from './authSlice'
 
 import styles from 'styles/pages/auth/Auth.module.css'
@@ -59,8 +59,11 @@ const Auth = () => {
         process.env.REACT_APP_API + query,
       )
       const accessToken = response.headers['access-token']
-      const refreshToken = response.headers['set-cookie']
+      const refreshToken = getCookie('refresh-token')
       console.log(response, refreshToken)
+      console.log(refreshToken)
+      console.log(response.headers['set-cookie'])
+      console.log(response.headers)
       dispatch(setAccessToken(accessToken))
       if (refreshToken !== undefined) {
         cookies.set('refresh-token', refreshToken, {
