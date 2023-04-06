@@ -34,6 +34,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, store } from './app/store'
 import Layout from './components/Layout'
 import './styles/globals.css'
+import { CookiesProvider } from 'react-cookie'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById('root')!
@@ -234,9 +235,11 @@ const router = createBrowserRouter([
 
 root.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <RouterProvider router={router} />
-      <ToastContainer autoClose={2000} />
-    </PersistGate>
+    <CookiesProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+        <ToastContainer autoClose={2000} />
+      </PersistGate>
+    </CookiesProvider>
   </Provider>,
 )

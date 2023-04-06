@@ -18,7 +18,11 @@ import {
 } from 'reducers/settingReducer'
 import { useNavigate } from 'react-router-dom'
 import Button from 'components/Button'
-import { setAccessToken } from 'features/auth/authSlice'
+import {
+  loginModalOpen,
+  selectAccessToken,
+  setAccessToken,
+} from 'features/auth/authSlice'
 
 import GoogleLogo from 'assets/google_logo.svg'
 import NaverLogo from 'assets/naver_logo.svg'
@@ -27,11 +31,14 @@ import EmailIcon from 'assets/email_icon.svg'
 
 import { RiPencilFill } from 'react-icons/ri'
 import { AiFillSound, AiOutlineWarning } from 'react-icons/ai'
+import { getCookie, setCookie } from 'util/cookie'
+import apiAxios from 'app/apiAxios'
 
 const SettingComponent = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const info = useAppSelector(userInfo)
+  const isLogon = useAppSelector(selectAccessToken)
 
   const [editable, setEditable] = useState(false)
   const [subscribeEmail, setSubscribeEmail] = useState(
@@ -43,20 +50,61 @@ const SettingComponent = () => {
   const [alarmWarning, setAlarmWarning] = useState(false)
 
   const getUserInfo = async () => {
-    const response = await dispatch(getUserInfoAPI()).unwrap()
+    const token = getCookie('refresh-token')
 
-    if (response.statusCode === 404) {
-      navigate('/error')
+    async function RefreshLogin() {
+      await apiAxios
+        .get(process.env.REACT_APP_API + '/api/member/refresh', {
+          params: { refreshToken: token },
+        })
+        .then(async res => {
+          const accessToken = res.data.accessToken
+          const refreshToken = res.data.refreshToken
+          dispatch(setAccessToken(accessToken))
+
+          if (refreshToken !== undefined) {
+            setCookie('refresh-token', refreshToken)
+          }
+
+          const response = await dispatch(getUserInfoAPI()).unwrap()
+
+          if (response.statusCode === 404) {
+            navigate('/error')
+          } else {
+            dispatch(setUserInfo(response.data))
+
+            if (info.subscribeEmail && !info.emailVerified) {
+              setEditable(true)
+              setIsSendValidTest(true)
+              setValidatingEmail(info.subscribeEmail)
+            } else {
+              false
+            }
+          }
+        })
+        .catch(err => {
+          dispatch(loginModalOpen())
+          navigate('/')
+        })
+    }
+
+    if (!isLogon) {
+      RefreshLogin()
     } else {
-      console.log(response.data)
-      dispatch(setUserInfo(response.data))
+      const response = await dispatch(getUserInfoAPI()).unwrap()
 
-      if (info.subscribeEmail && !info.emailVerified) {
-        setEditable(true)
-        setIsSendValidTest(true)
-        setValidatingEmail(info.subscribeEmail)
+      if (response.statusCode === 404) {
+        navigate('/error')
       } else {
-        false
+        dispatch(setUserInfo(response.data))
+
+        if (info.subscribeEmail && !info.emailVerified) {
+          setEditable(true)
+          setIsSendValidTest(true)
+          setValidatingEmail(info.subscribeEmail)
+        } else {
+          false
+        }
       }
     }
   }
