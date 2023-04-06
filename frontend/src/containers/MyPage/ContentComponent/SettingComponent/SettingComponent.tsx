@@ -51,6 +51,13 @@ const SettingComponent = () => {
 
   const getUserInfo = async () => {
     const token = getCookie('refresh-token')
+    // refresh token 만료 시간
+    const now = new Date()
+    const after7days = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 7,
+    )
 
     async function RefreshLogin() {
       await apiAxios
@@ -63,24 +70,15 @@ const SettingComponent = () => {
           dispatch(setAccessToken(accessToken))
 
           if (refreshToken !== undefined) {
-            setCookie('refresh-token', refreshToken)
+            setCookie('refresh-token', refreshToken, {
+              path: '/',
+              expires: after7days,
+              secure: true,
+              httpOnly: true,
+            })
           }
 
-          const response = await dispatch(getUserInfoAPI()).unwrap()
-
-          if (response.statusCode === 404) {
-            navigate('/error')
-          } else {
-            dispatch(setUserInfo(response.data))
-
-            if (info.subscribeEmail && !info.emailVerified) {
-              setEditable(true)
-              setIsSendValidTest(true)
-              setValidatingEmail(info.subscribeEmail)
-            } else {
-              false
-            }
-          }
+          navigate('/mypage')
         })
         .catch(err => {
           dispatch(loginModalOpen())

@@ -15,7 +15,15 @@ const Auth = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const JWT_EXPIRY_TIME = 12 * 3600 * 1000 // 만료 시간 (24시간 밀리 초로 표현)
+  // access token 만료 시간 (24시간 밀리 초로 표현)
+  const JWT_EXPIRY_TIME = 12 * 3600 * 1000
+  // refresh token 만료 시간
+  const now = new Date()
+  const after7days = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 7,
+  )
 
   async function RefreshLogin() {
     const token = getCookie('refresh-token')
@@ -46,7 +54,12 @@ const Auth = () => {
       const refreshToken = response.headers['refresh-token']
       dispatch(setAccessToken(accessToken))
       if (refreshToken !== undefined) {
-        setCookie('refresh-token', refreshToken)
+        setCookie('refresh-token', refreshToken, {
+          path: '/',
+          expires: after7days,
+          secure: true,
+          httpOnly: true,
+        })
         // accessToken 만료하기 1분 전에 로그인 연장
         setTimeout(RefreshLogin, JWT_EXPIRY_TIME - 60000)
       }
