@@ -27,7 +27,6 @@ const Auth = () => {
     now.getMonth(),
     now.getDate() + 7,
   )
-  console.log(after7days)
 
   async function RefreshLogin() {
     const token = getCookie('refresh-token')
@@ -60,8 +59,8 @@ const Auth = () => {
         process.env.REACT_APP_API + query,
       )
       const accessToken = response.headers['access-token']
-      const refreshToken = response.headers['Set-Cookie']
-      console.log(response)
+      const refreshToken = response.headers['set-cookie']
+      console.log(response, refreshToken)
       dispatch(setAccessToken(accessToken))
       if (refreshToken !== undefined) {
         cookies.set('refresh-token', refreshToken, {
