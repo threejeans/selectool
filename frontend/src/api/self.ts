@@ -101,6 +101,7 @@ export const getSelfSpecificInfoAPI = async (id?: string) => {
     aos: '',
     ios: '',
     isBookmarked: false,
+    isSubscribed: false,
   }
 
   const response = {

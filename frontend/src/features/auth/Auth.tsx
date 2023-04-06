@@ -24,6 +24,7 @@ const Auth = () => {
     now.getMonth(),
     now.getDate() + 7,
   )
+  console.log(after7days)
 
   async function RefreshLogin() {
     const token = getCookie('refresh-token')

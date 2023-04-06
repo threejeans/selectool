@@ -5,16 +5,27 @@ import {
   DetailMainCard,
 } from 'containers/Common'
 import React, { useEffect } from 'react'
-import { selfSpecificInfo, setSelfSpecificInfo } from 'reducers/selfReducer'
+import {
+  changeSubscribeModalStatus,
+  selfSpecificInfo,
+  setSelfSpecificInfo,
+} from 'reducers/selfReducer'
 import styles from './SelfDetailMain.module.css'
 import RatingComponent from '../SelfDetailComponent/RatingComponent'
 import PlanComponent from '../SelfDetailComponent/PlanComponent'
 import { useNavigate, useParams } from 'react-router-dom'
 import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
-import { getAuthSelfSpecificInfoAPI } from 'api/authSelf'
+import {
+  getAuthSelfSpecificInfoAPI,
+  selfSubscribeToolAPI,
+  selfUnsubscribeToolAPI,
+} from 'api/authSelf'
 import { getSelfSpecificInfoAPI } from 'api/self'
 import ContentSpinner from 'components/ContentSpinner'
 import { setSearchKey } from 'reducers/guideReducer'
+import { setUserInfo, userInfo } from 'reducers/settingReducer'
+import { editUserInfoAPI, getUserInfoAPI } from 'api/setting'
+import SubscribeModal from '../SubscribeModal/SubscribeModal'
 
 const SelfDetailMain = () => {
   const { toolId } = useParams()
@@ -24,6 +35,7 @@ const SelfDetailMain = () => {
 
   const specificInfo = useAppSelector(selfSpecificInfo)
   const isLogon = useAppSelector(selectAccessToken)
+  const userInfoForSubscribe = useAppSelector(userInfo)
 
   const clientsDescription =
     '* 상위 ' + specificInfo.clients.length + '개 고객사 기준'
@@ -40,10 +52,63 @@ const SelfDetailMain = () => {
     }
   }
 
+  const getUserInfo = async () => {
+    const response = await dispatch(getUserInfoAPI()).unwrap()
+
+    if (response.statusCode === 404) {
+      navigate('/error')
+    } else {
+      dispatch(setUserInfo(response.data))
+    }
+  }
+
+  const alarmEvent = async () => {
+    const response = await dispatch(
+      editUserInfoAPI({ subscribeActive: true }),
+    ).unwrap()
+
+    if (response === 200 || response === 201) {
+      console.log(response)
+      const newUserInfo = { ...userInfoForSubscribe }
+      newUserInfo.subscribeActive = true
+      dispatch(setUserInfo(newUserInfo))
+    } else {
+      console.log(response)
+    }
+  }
+
   const subscribeEvent = async () => {
     if (isLogon) {
       // 구독하기 모달 연결
-      alert('서비스 준비중입니다.')
+      dispatch(changeSubscribeModalStatus())
+      // if (
+      //   !userInfoForSubscribe.subscribeEmail ||
+      //   (userInfoForSubscribe.subscribeEmail &&
+      //     !userInfoForSubscribe.emailVerified)
+      // ) {
+      //   // pass
+      //   // 툴 처음 등록 로직
+      //   console.log('이곳')
+      // } else {
+      //   const id = toolId ? parseInt(toolId) : 0
+      //   const subscribeResponse = specificInfo.isSubscribed
+      //     ? await dispatch(selfUnsubscribeToolAPI(id)).unwrap()
+      //     : await dispatch(selfSubscribeToolAPI(id)).unwrap()
+
+      //   if (
+      //     subscribeResponse.statusCode === 200 ||
+      //     subscribeResponse.statusCode === 201
+      //   ) {
+      //     const newInfo = { ...specificInfo }
+      //     newInfo.isSubscribed = !newInfo.isSubscribed
+      //     if (!userInfoForSubscribe.subscribeActive) {
+      //       alarmEvent()
+      //     }
+      //     dispatch(setSelfSpecificInfo(newInfo))
+      //   } else {
+      //     console.log('error', subscribeResponse.statusCode)
+      //   }
+      // }
     } else {
       dispatch(loginModalOpen())
     }
@@ -51,10 +116,14 @@ const SelfDetailMain = () => {
 
   useEffect(() => {
     getSelfSpecificInfo()
+    if (!userInfoForSubscribe.email) {
+      getUserInfo()
+    }
   }, [])
 
   return (
     <>
+      <SubscribeModal />
       {specificInfo.nameKr === '' ? (
         <div className={styles.spinnerLayout}>
           <ContentSpinner />
@@ -65,6 +134,7 @@ const SelfDetailMain = () => {
             isSelf
             id={specificInfo.id}
             isBookmarked={specificInfo.isBookmarked}
+            isSubscribed={specificInfo.isSubscribed}
             image={specificInfo.image}
             nameKr={specificInfo.nameKr}
             info={specificInfo.info}

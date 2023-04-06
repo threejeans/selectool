@@ -31,7 +31,7 @@ import EmailIcon from 'assets/email_icon.svg'
 
 import { RiPencilFill } from 'react-icons/ri'
 import { AiFillSound, AiOutlineWarning } from 'react-icons/ai'
-import { getCookie, setCookie } from 'util/cookie'
+import { getCookie, removeCookie, setCookie } from 'util/cookie'
 import apiAxios from 'app/apiAxios'
 
 const SettingComponent = () => {
@@ -76,9 +76,26 @@ const SettingComponent = () => {
               secure: true,
               httpOnly: true,
             })
-          }
 
-          navigate('/mypage')
+            const response = await dispatch(getUserInfoAPI()).unwrap()
+
+            if (response.statusCode === 404) {
+              navigate('/error')
+            } else {
+              dispatch(setUserInfo(response.data))
+
+              if (info.subscribeEmail && !info.emailVerified) {
+                setEditable(true)
+                setIsSendValidTest(true)
+                setValidatingEmail(info.subscribeEmail)
+              }
+            }
+
+            navigate('/mypage')
+          } else {
+            dispatch(loginModalOpen())
+            navigate('/')
+          }
         })
         .catch(err => {
           dispatch(loginModalOpen())
@@ -100,8 +117,6 @@ const SettingComponent = () => {
           setEditable(true)
           setIsSendValidTest(true)
           setValidatingEmail(info.subscribeEmail)
-        } else {
-          false
         }
       }
     }
@@ -128,7 +143,6 @@ const SettingComponent = () => {
       setIsEmailValid(true)
       setValidatingEmail(subscribeEmail)
 
-      // TODO : 이메일 인증 보내기
       const response = await dispatch(
         userEmailAuthorizeAPI(subscribeEmail),
       ).unwrap()
@@ -173,7 +187,6 @@ const SettingComponent = () => {
     ).unwrap()
 
     if (response === 200 || response === 201) {
-      console.log(response)
       const newUserInfo = { ...info }
       newUserInfo.subscribeActive = false
       dispatch(setUserInfo(newUserInfo))
@@ -209,116 +222,128 @@ const SettingComponent = () => {
                   <div className={styles.email}>{info.email}</div>
                 </div>
               </div>
-              <div className={styles.contentContainer}>
-                <div className={styles.key}>뉴스레터 수신 이메일 </div>
-                <div
-                  className={`${styles.emailContainer} ${
-                    !isEmailValid || isSendValidTest
-                      ? styles.emailContainerExpand
-                      : ''
-                  }`}
-                >
-                  {!editable ? (
-                    <>
-                      <img src={EmailIcon} className={styles.icon}></img>
-                      <div className={styles.email}>
-                        {info.subscribeEmail
-                          ? info.subscribeEmail
-                          : '등록된 이메일이 없습니다'}
-                      </div>
-                      <RiPencilFill
-                        className={styles.editIcon}
-                        onClick={() => {
-                          setEditable(true)
-                        }}
-                      ></RiPencilFill>
-                    </>
-                  ) : (
-                    <>
-                      <div className={styles.inputContainer}>
-                        <input
-                          className={`${styles.input} ${
-                            !isEmailValid || isSendValidTest
-                              ? styles.inputNotValid
-                              : ''
-                          } ${isSendValidTest ? styles.inputSendValid : ''}`}
-                          value={subscribeEmail}
-                          onChange={ev => setSubscribeEmail(ev.target.value)}
-                        ></input>
-                        <span className={styles.highlight}></span>
-                        <span
-                          className={`${styles.bar} ${
-                            isEmailValid ? '' : styles.barNotValid
-                          }`}
-                        ></span>
-                        {!isEmailValid ? (
-                          <div className={styles.warningText}>
-                            <AiOutlineWarning></AiOutlineWarning>
-                            &nbsp;이메일 형식이 올바르지 않습니다. 다시
-                            확인해주세요.
-                          </div>
-                        ) : (
-                          ''
-                        )}
+              {info.subscribeEmail ? (
+                <div className={styles.contentContainer}>
+                  <div className={styles.key}>뉴스레터 수신 이메일 </div>
+                  <div
+                    className={`${styles.emailContainer} ${
+                      !isEmailValid || isSendValidTest
+                        ? styles.emailContainerExpand
+                        : ''
+                    }`}
+                  >
+                    {!editable ? (
+                      <>
+                        <img src={EmailIcon} className={styles.icon}></img>
+                        <div className={styles.email}>
+                          {info.subscribeEmail
+                            ? info.subscribeEmail
+                            : '등록된 이메일이 없습니다'}
+                        </div>
+                        <RiPencilFill
+                          className={styles.editIcon}
+                          onClick={() => {
+                            setEditable(true)
+                          }}
+                        ></RiPencilFill>
+                      </>
+                    ) : (
+                      <>
+                        <div className={styles.inputContainer}>
+                          <input
+                            className={`${styles.input} ${
+                              !isEmailValid || isSendValidTest
+                                ? styles.inputNotValid
+                                : ''
+                            } ${isSendValidTest ? styles.inputSendValid : ''}`}
+                            value={subscribeEmail}
+                            onChange={ev => setSubscribeEmail(ev.target.value)}
+                          ></input>
+                          <span className={styles.highlight}></span>
+                          <span
+                            className={`${styles.bar} ${
+                              isEmailValid ? '' : styles.barNotValid
+                            }`}
+                          ></span>
+                          {!isEmailValid ? (
+                            <div className={styles.warningText}>
+                              <AiOutlineWarning></AiOutlineWarning>
+                              &nbsp;이메일 형식이 올바르지 않습니다. 다시
+                              확인해주세요.
+                            </div>
+                          ) : (
+                            ''
+                          )}
+                          {isSendValidTest ? (
+                            <div className={styles.warningText}>
+                              <AiFillSound></AiFillSound>
+                              &nbsp;이메일로 인증을 요청드렸으니, 인증을
+                              완료해주세요!
+                            </div>
+                          ) : (
+                            ''
+                          )}
+                        </div>
                         {isSendValidTest ? (
-                          <div className={styles.warningText}>
-                            <AiFillSound></AiFillSound>
-                            &nbsp;이메일로 인증을 요청드렸으니, 인증을
-                            완료해주세요!
-                          </div>
+                          <span className={styles.buttonExpand}>인증 필요</span>
                         ) : (
-                          ''
+                          <button
+                            className={styles.button}
+                            onClick={certificationEvent}
+                          >
+                            인증
+                          </button>
                         )}
-                      </div>
-                      {isSendValidTest ? (
-                        <span className={styles.buttonExpand}>인증 필요</span>
-                      ) : (
-                        <button
-                          className={styles.button}
-                          onClick={certificationEvent}
-                        >
-                          인증
-                        </button>
-                      )}
-                    </>
-                  )}
-                </div>
-              </div>
-              <div className={styles.contentContainer}>
-                <div className={styles.key}>뉴스레터 알림</div>
-                <div className={styles.alarmRightContainer}>
-                  <div className={styles.alarmContainer}>
-                    <div
-                      className={
-                        !info.subscribeActive
-                          ? styles.alarmSelected
-                          : styles.alarm
-                      }
-                      onClick={info.subscribeActive ? noAlarmEvent : alarmEvent}
-                    >
-                      수신거부
-                    </div>
-                    <div
-                      className={
-                        info.subscribeActive
-                          ? styles.alarmSelected
-                          : styles.alarm
-                      }
-                      onClick={info.subscribeActive ? noAlarmEvent : alarmEvent}
-                    >
-                      이메일
-                    </div>
+                      </>
+                    )}
                   </div>
-                  {alarmWarning ? (
-                    <span className={styles.alarmWarningText}>
-                      <AiOutlineWarning></AiOutlineWarning>
-                      &nbsp;뉴스레터 수신 이메일 설정 및 인증 후 가능합니다.
-                    </span>
-                  ) : (
-                    ''
-                  )}
                 </div>
-              </div>
+              ) : (
+                ''
+              )}
+              {info.subscribeEmail && info.emailVerified ? (
+                <div className={styles.contentContainer}>
+                  <div className={styles.key}>뉴스레터 알림</div>
+                  <div className={styles.alarmRightContainer}>
+                    <div className={styles.alarmContainer}>
+                      <div
+                        className={
+                          !info.subscribeActive
+                            ? styles.alarmSelected
+                            : styles.alarm
+                        }
+                        onClick={
+                          info.subscribeActive ? noAlarmEvent : alarmEvent
+                        }
+                      >
+                        수신거부
+                      </div>
+                      <div
+                        className={
+                          info.subscribeActive
+                            ? styles.alarmSelected
+                            : styles.alarm
+                        }
+                        onClick={
+                          info.subscribeActive ? noAlarmEvent : alarmEvent
+                        }
+                      >
+                        이메일
+                      </div>
+                    </div>
+                    {alarmWarning ? (
+                      <span className={styles.alarmWarningText}>
+                        <AiOutlineWarning></AiOutlineWarning>
+                        &nbsp;뉴스레터 수신 이메일 설정 및 인증 후 가능합니다.
+                      </span>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                </div>
+              ) : (
+                ''
+              )}
             </div>
           </SettingLayout>
           {/* <SettingLayout title={'화면 설정'}>
@@ -337,6 +362,7 @@ const SettingComponent = () => {
               text={'로그아웃'}
               clickEvent={() => {
                 dispatch(setAccessToken(undefined))
+                removeCookie('refresh-token')
                 navigate('/')
               }}
             ></Button>

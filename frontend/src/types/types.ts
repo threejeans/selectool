@@ -91,6 +91,7 @@ export type SelfSpecificInfo = {
   ios: string
   // bookmark
   isBookmarked: boolean
+  isSubscribed: boolean
 }
 
 export type SelfMainInfo = {
