@@ -1,9 +1,11 @@
 import Modal from 'components/Modal'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './SubscribeModal.module.css'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import {
   changeSubscribeModalStatus,
+  selfSpecificInfo,
+  setSelfSpecificInfo,
   subscribeModalState,
 } from 'reducers/selfReducer'
 import {
@@ -13,42 +15,87 @@ import {
 } from 'react-icons/ai'
 import Button from 'components/Button'
 import { setUserInfo, userInfo } from 'reducers/settingReducer'
-import { getUserInfoAPI, userEmailAuthorizeAPI } from 'api/setting'
+import {
+  editUserInfoAPI,
+  getUserInfoAPI,
+  userEmailAuthorizeAPI,
+} from 'api/setting'
+import { selfSubscribeToolAPI } from 'api/authSelf'
 
-const SubscribeModal = () => {
+type modalProps = {
+  toolId?: string
+}
+
+const SubscribeModal = ({ toolId }: modalProps) => {
   const dispatch = useAppDispatch()
   const modalState = useAppSelector(subscribeModalState)
   const info = useAppSelector(userInfo)
+  const specificInfo = useAppSelector(selfSpecificInfo)
 
   const [isBasic, setIsBasic] = useState(true)
   const [step, setStep] = useState(0)
   const [isEmailValid, setIsEmailValid] = useState(true)
   const [subscribeEmail, setSubscribeEmail] = useState('')
+  const [isTimeOut, setIsTimeOut] = useState(false)
+  const [isNoAuthorize, setIsNoAuthorize] = useState(false)
+
+  const validTimeTest = () => {
+    const now = new Date()
+    const verifyingTime = localStorage.getItem('verifyingTime')
+      ? localStorage.getItem('verifyingTime')
+      : ''
+
+    if (
+      info.subscribeEmail === localStorage.getItem('verifyingEmail') &&
+      verifyingTime &&
+      new Date(verifyingTime) <= now
+    ) {
+      setIsTimeOut(true)
+      return false
+    } else {
+      return true
+    }
+  }
 
   const closeModal = () => {
     dispatch(changeSubscribeModalStatus())
     setIsBasic(true)
-    if (step !== 2) {
+    const timeOut = validTimeTest()
+    if (step !== 2 || (step == 2 && !timeOut)) {
       setStep(0)
     }
   }
 
   // email 유효성 검사
   const validateEmail = (email: string) => {
-    // 공백 제거
     const removeRegex = /\s/g
     const updateEmail = email.replace(removeRegex, '')
-
-    // 유효성 검사
     const regex =
       // eslint-disable-next-line no-useless-escape
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
     return regex.test(updateEmail)
   }
 
-  const stepZeroEvent = () => {
+  const stepZeroEvent = async () => {
     if (isBasic) {
-      setStep(2)
+      const response = await dispatch(
+        userEmailAuthorizeAPI(info.email),
+      ).unwrap()
+
+      if (response === 200 || response === 201) {
+        const newInfo = { ...info }
+        newInfo.subscribeEmail = subscribeEmail
+        dispatch(setUserInfo(newInfo))
+        const now = new Date()
+        const outTime = new Date(
+          now.setMinutes(now.getMinutes() + 10),
+        ).toString()
+        localStorage.setItem('verifyingEmail', subscribeEmail)
+        localStorage.setItem('verifyingTime', outTime)
+        setStep(2)
+      } else {
+        console.log(response)
+      }
     } else {
       setStep(1)
     }
@@ -62,29 +109,67 @@ const SubscribeModal = () => {
     if (response === 200 || response === 201) {
       const newInfo = { ...info }
       newInfo.subscribeEmail = subscribeEmail
+      dispatch(setUserInfo(newInfo))
+      const now = new Date()
+      const outTime = new Date(now.setMinutes(now.getMinutes() + 10)).toString()
+      localStorage.setItem('verifyingEmail', subscribeEmail)
+      localStorage.setItem('verifyingTime', outTime)
       setStep(2)
     } else {
       console.log(response)
     }
   }
 
-  const getUserInfo = async () => {
+  const stepTwoEvent = async () => {
     const response = await dispatch(getUserInfoAPI()).unwrap()
 
     if (response.statusCode === 404) {
       console.log(response.statusCode)
     } else {
       dispatch(setUserInfo(response.data))
+      if (response.data.emailVerified) {
+        const id = toolId ? parseInt(toolId) : 0
+        const subscribeResponse = await dispatch(
+          selfSubscribeToolAPI(id),
+        ).unwrap()
+
+        if (
+          subscribeResponse.statusCode === 200 ||
+          subscribeResponse.statusCode === 201
+        ) {
+          const newInfo = { ...specificInfo }
+          newInfo.isSubscribed = !newInfo.isSubscribed
+          if (!info.subscribeActive) {
+            alarmEvent()
+          }
+          dispatch(setSelfSpecificInfo(newInfo))
+          setStep(3)
+        } else {
+          console.log('error', subscribeResponse.statusCode)
+        }
+      } else {
+        const timeOut = validTimeTest()
+        if (!timeOut) {
+          setIsTimeOut(true)
+        } else {
+          setIsNoAuthorize(false)
+        }
+      }
     }
   }
 
-  const stepTwoEvent = () => {
-    getUserInfo()
-    if (info.emailVerified) {
-      // TODO: 툴 구독
-      setStep(3)
+  const alarmEvent = async () => {
+    const response = await dispatch(
+      editUserInfoAPI({ subscribeActive: true }),
+    ).unwrap()
+
+    if (response === 200 || response === 201) {
+      console.log(response)
+      const newUserInfo = { ...info }
+      newUserInfo.subscribeActive = true
+      dispatch(setUserInfo(newUserInfo))
     } else {
-      console.log('이메일 인증 완료 x')
+      console.log(response)
     }
   }
 
@@ -99,8 +184,8 @@ const SubscribeModal = () => {
                 처음이신가요?
               </div>
               <div className={styles.subText}>
-                구독하기 한번으로 관심있는 툴의 유용한 가이드를 매주 000요일마다
-                받아보실 수 있어요.<br></br>
+                구독하기 한번으로 관심있는 툴의 유용한 가이드를 받아보실 수
+                있어요.<br></br>
                 저희 셀렉툴이 꼼꼼히 선별하여 똑똑하게 추천해드릴게요!
               </div>
             </div>
@@ -166,8 +251,8 @@ const SubscribeModal = () => {
                 새로운 이메일 주소를 입력해주세요.
               </div>
               <div className={styles.subText}>
-                구독하기 한번으로 관심있는 툴의 유용한 가이드를 매주 000요일마다
-                받아보실 수 있어요.
+                구독하기 한번으로 관심있는 툴의 유용한 가이드를 받아보실 수
+                있어요.
                 <br></br>
                 저희 셀렉툴이 꼼꼼히 선별하여 똑똑하게 추천해드릴게요!
               </div>
@@ -220,12 +305,18 @@ const SubscribeModal = () => {
         ) : step === 2 ? (
           <>
             <div>
-              <div className={styles.mainText}>인증 메일을 발송해드렸어요.</div>
+              <div className={styles.mainText}>
+                {isTimeOut
+                  ? '인증 시간이 만료되었어요.'
+                  : isNoAuthorize
+                  ? '인증이 완료되지 않았어요'
+                  : '인증 메일을 발송해드렸어요.'}
+              </div>
               <div className={styles.subText}>
                 툴 뉴스레터 구독 서비스 이용을 위해 가입하신 이메일로 인증을
                 요청드렸어요.
                 <br></br>
-                1시간 이내로 메일 확인 후 이메일 인증을 완료하시면, 서비스를
+                10분 이내로 메일 확인 후 이메일 인증을 완료하시면, 서비스를
                 이용하실 수 있어요.
               </div>
             </div>
@@ -234,11 +325,26 @@ const SubscribeModal = () => {
             </div>
             <div className={styles.buttonContainer}>
               <Button
-                color={'primary'}
+                color={'neutral'}
                 size={'md'}
-                text={'인증 완료'}
-                clickEvent={stepTwoEvent}
+                text={'취소'}
+                clickEvent={closeModal}
               ></Button>
+              {isTimeOut ? (
+                <Button
+                  color={'primary'}
+                  size={'md'}
+                  text={'재인증'}
+                  clickEvent={stepTwoEvent}
+                ></Button>
+              ) : (
+                <Button
+                  color={'primary'}
+                  size={'md'}
+                  text={'인증 완료'}
+                  clickEvent={stepTwoEvent}
+                ></Button>
+              )}
             </div>
           </>
         ) : (

@@ -5,24 +5,16 @@ import {
   WarningModal,
 } from '../../CommonComponent'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
-import {
-  editUserInfoAPI,
-  getUserInfoAPI,
-  userEmailAuthorizeAPI,
-} from 'api/setting'
+import { editUserInfoAPI, userEmailAuthorizeAPI } from 'api/setting'
 import styles from './SettingComponent.module.css'
 import {
   changeWithDrawModalStatus,
   setUserInfo,
   userInfo,
 } from 'reducers/settingReducer'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Button from 'components/Button'
-import {
-  loginModalOpen,
-  selectAccessToken,
-  setAccessToken,
-} from 'features/auth/authSlice'
+import { setAccessToken } from 'features/auth/authSlice'
 
 import GoogleLogo from 'assets/google_logo.svg'
 import NaverLogo from 'assets/naver_logo.svg'
@@ -31,15 +23,12 @@ import EmailIcon from 'assets/email_icon.svg'
 
 import { RiPencilFill } from 'react-icons/ri'
 import { AiFillSound, AiOutlineWarning } from 'react-icons/ai'
-import { getCookie, removeCookie } from 'util/cookie'
-import apiAxios from 'app/apiAxios'
+import { removeCookie } from 'util/cookie'
 
 const SettingComponent = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const info = useAppSelector(userInfo)
-  const isLogon = useAppSelector(selectAccessToken)
-  const { status } = useParams()
 
   const [editable, setEditable] = useState(false)
   const [subscribeEmail, setSubscribeEmail] = useState(
@@ -49,50 +38,11 @@ const SettingComponent = () => {
   const [isEmailValid, setIsEmailValid] = useState(true)
   const [isSendValidTest, setIsSendValidTest] = useState(false)
   const [alarmWarning, setAlarmWarning] = useState(false)
+  const [isValidTime, setIsValidTime] = useState(true)
 
-  const getUserInfo = async () => {
-    const refreshToken = getCookie('refresh-token')
-
-    async function RefreshLogin() {
-      await apiAxios
-        .get(process.env.REACT_APP_API + '/api/member/refresh', {
-          params: { refreshToken: refreshToken },
-        })
-        .then(async res => {
-          const accessToken = res.data.accessToken
-          dispatch(setAccessToken(accessToken))
-
-          const response = await dispatch(getUserInfoAPI()).unwrap()
-
-          if (response.statusCode === 404) {
-            navigate('/error')
-          } else {
-            dispatch(setUserInfo(response.data))
-          }
-        })
-        .catch(err => {
-          dispatch(loginModalOpen())
-          navigate('/')
-        })
-    }
-
-    if (status === 'setting' && !isLogon) {
-      RefreshLogin()
-    } else {
-      const response = await dispatch(getUserInfoAPI()).unwrap()
-
-      if (response.statusCode === 404) {
-        navigate('/error')
-      } else {
-        dispatch(setUserInfo(response.data))
-
-        if (info.subscribeEmail && !info.emailVerified) {
-          setEditable(true)
-          setIsSendValidTest(true)
-          setValidatingEmail(info.subscribeEmail)
-        }
-      }
-    }
+  if (subscribeEmail !== validatingEmail && isSendValidTest) {
+    setValidatingEmail('')
+    setIsSendValidTest(false)
   }
 
   // email 유효성 검사
@@ -122,15 +72,19 @@ const SettingComponent = () => {
 
       if (response === 200 || response === 201) {
         setIsSendValidTest(true)
+        const newInfo = { ...info }
+        newInfo.emailVerified = false
+        dispatch(setUserInfo(newInfo))
+        const now = new Date()
+        const outTime = new Date(
+          now.setMinutes(now.getMinutes() + 10),
+        ).toString()
+        localStorage.setItem('verifyingEmail', subscribeEmail)
+        localStorage.setItem('verifyingTime', outTime)
       } else {
         console.log(response)
       }
     }
-  }
-
-  if (isSendValidTest && subscribeEmail !== validatingEmail) {
-    setValidatingEmail('')
-    setIsSendValidTest(false)
   }
 
   // 뉴스레터 알림 여부 - 수신허용
@@ -169,7 +123,24 @@ const SettingComponent = () => {
   }
 
   useEffect(() => {
-    getUserInfo()
+    if (info.subscribeEmail && !info.emailVerified) {
+      setEditable(true)
+      setIsSendValidTest(true)
+      setValidatingEmail(info.subscribeEmail)
+
+      const now = new Date()
+      const verifyingTime = localStorage.getItem('verifyingTime')
+        ? localStorage.getItem('verifyingTime')
+        : ''
+
+      if (
+        info.subscribeEmail === localStorage.getItem('verifyingEmail') &&
+        verifyingTime &&
+        new Date(verifyingTime) <= now
+      ) {
+        setIsValidTime(false)
+      }
+    }
   }, [])
 
   return (
@@ -249,15 +220,16 @@ const SettingComponent = () => {
                           )}
                           {isSendValidTest ? (
                             <div className={styles.warningText}>
-                              <AiFillSound></AiFillSound>
-                              &nbsp;이메일로 인증을 요청드렸으니, 인증을
-                              완료해주세요!
+                              <AiFillSound></AiFillSound>&nbsp;
+                              {isValidTime
+                                ? '10분 내로 메일 인증을 완료해주세요!'
+                                : '인증 시간이 만료되었으니, 재인증을 진행해주세요!'}
                             </div>
                           ) : (
                             ''
                           )}
                         </div>
-                        {isSendValidTest ? (
+                        {isSendValidTest && isValidTime ? (
                           <span className={styles.buttonExpand}>인증 필요</span>
                         ) : (
                           <button
@@ -327,15 +299,17 @@ const SettingComponent = () => {
               color={'white'}
               size={'mdShort'}
               text={'회원 탈퇴'}
-              clickEvent={() => dispatch(changeWithDrawModalStatus())}
+              clickEvent={() => {
+                dispatch(changeWithDrawModalStatus())
+              }}
             ></Button>
             <Button
               color={'white'}
               size={'mdShort'}
               text={'로그아웃'}
               clickEvent={() => {
-                dispatch(setAccessToken(undefined))
                 removeCookie('refresh-token')
+                dispatch(setAccessToken(undefined))
                 navigate('/')
               }}
             ></Button>
