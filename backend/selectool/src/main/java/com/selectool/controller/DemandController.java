@@ -4,6 +4,7 @@ import com.selectool.config.JwtUtil;
 import com.selectool.config.login.Admin;
 import com.selectool.config.login.LoginAdmin;
 import com.selectool.dto.demand.request.DemandCreateRequest;
+import com.selectool.dto.demand.request.DemandUpdateRequest;
 import com.selectool.dto.demand.response.DemandResponse;
 import com.selectool.service.DemandService;
 import io.jsonwebtoken.Claims;
@@ -47,12 +48,13 @@ public class DemandController {
     }
 
     @PutMapping("/demands/{demandId}")
-    @ApiOperation(value = "요청 사항 완료 처리")
+    @ApiOperation(value = "요청 사항 상태 수정")
     public ResponseEntity<?> completeDemand(
             @LoginAdmin Admin admin,
-            @PathVariable Long demandId
-    ) {
-        demandService.completeDemand(demandId);
+            @PathVariable Long demandId,
+            @RequestBody DemandUpdateRequest request
+            ) {
+        demandService.updateDemand(demandId, request);
         return ResponseEntity.ok().build();
     }
 

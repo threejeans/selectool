@@ -4,6 +4,7 @@ import com.selectool.dto.corp.filter.CorpFilter;
 import com.selectool.dto.corp.request.CorpCreateRequest;
 import com.selectool.dto.corp.response.*;
 import com.selectool.dto.demand.request.DemandCreateRequest;
+import com.selectool.dto.demand.request.DemandUpdateRequest;
 import com.selectool.dto.demand.response.DemandResponse;
 import com.selectool.dto.tool.request.ToolCreateRequest;
 import com.selectool.entity.*;
@@ -53,11 +54,11 @@ public class DemandServiceImpl implements DemandService {
 
     @Override
     @Transactional
-    public void completeDemand(Long demandId) {
+    public void updateDemand(Long demandId, DemandUpdateRequest request) {
         Demand demand = demandRepo.findById(demandId)
                 .orElseThrow(() -> new NotFoundException(DEMAND_NOT_FOUND));
 
-        demand.update(true);
+        demand.update(request.getStatus());
         demandRepo.save(demand);
     }
 
