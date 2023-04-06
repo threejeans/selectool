@@ -22,9 +22,16 @@ const Layout = ({ title, description, children }: LayoutProps) => {
 
   useEffect(() => {
     const token = getCookie('refresh-token')
+    // refresh token 만료 시간
+    const now = new Date()
+    const after7days = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 7,
+    )
 
-    async function RefreshLogin() {
-      await apiAxios
+    if (getCookie('refresh-token')) {
+      apiAxios
         .get(process.env.REACT_APP_API + '/api/member/refresh', {
           params: { refreshToken: token },
         })
@@ -34,12 +41,15 @@ const Layout = ({ title, description, children }: LayoutProps) => {
           dispatch(setAccessToken(accessToken))
 
           if (refreshToken !== undefined) {
-            setCookie('refresh-token', refreshToken)
+            setCookie('refresh-token', refreshToken, {
+              path: '/',
+              expires: after7days,
+              secure: true,
+              httpOnly: true,
+            })
           }
         })
     }
-
-    RefreshLogin()
   }, [])
 
   return (
