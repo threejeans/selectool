@@ -15,6 +15,7 @@ const apiAxios: AxiosInstance = baseAxios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 })
 
 export const axiosMiddleware =

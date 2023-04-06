@@ -5,6 +5,7 @@ export type UserInfoType = {
   image: string
   name: string
   subscribeEmail?: string
+  emailVerified: boolean
   subscribeActive?: boolean
   type: string
 }

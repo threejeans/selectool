@@ -1,11 +1,15 @@
 import Login from 'features/auth/Login'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 
 import Footer from './Footer'
 import Header from './Header'
 import { useMediaQuery } from 'react-responsive'
 import HeaderMobile from './HeaderMobile'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { getCookie } from 'util/cookie'
+import apiAxios from 'app/apiAxios'
+import { selectAccessToken, setAccessToken } from 'features/auth/authSlice'
 
 interface LayoutProps {
   title: string
@@ -14,6 +18,24 @@ interface LayoutProps {
 }
 
 const Layout = ({ title, description, children }: LayoutProps) => {
+  const dispatch = useAppDispatch()
+
+  const isLogon = useAppSelector(selectAccessToken)
+  const refreshToken = getCookie('refresh-token')
+
+  useEffect(() => {
+    if (!isLogon) {
+      apiAxios
+        .get(process.env.REACT_APP_API + '/api/member/refresh', {
+          data: { refreshToken: refreshToken },
+        })
+        .then(res => {
+          const accessToken = res.data.accessToken
+          dispatch(setAccessToken(accessToken))
+        })
+    }
+  }, [])
+
   return (
     <>
       <Login />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Sidebar } from '../CommonComponent'
 import styles from './MyPageMain.module.css'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
@@ -9,9 +9,17 @@ import {
   SettingComponent,
   WithScrapContent,
 } from '../ContentComponent'
+import { useParams } from 'react-router-dom'
 
 const MyPageMain = () => {
   const content = useAppSelector(selectContent)
+
+  const { status } = useParams()
+  const dispatch = useAppDispatch()
+
+  if (status === 'setting') {
+    dispatch(setSelectContent('설정'))
+  }
 
   return (
     <div className={styles.layout}>
