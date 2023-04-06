@@ -35,6 +35,8 @@ import { persistor, store } from './app/store'
 import Layout from './components/Layout'
 import './styles/globals.css'
 import { CookiesProvider } from 'react-cookie'
+import SelectoolPrivacy from 'containers/Common/Document/SelectoolPrivacy'
+import SelectoolServiceUse from 'containers/Common/Document/SelectoolServiceUse'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById('root')!
@@ -141,6 +143,24 @@ const router = createBrowserRouter([
         <Layout title={'마이페이지'} description={'셀렉툴 | 마이페이지'}>
           <Mypage />
         </Layout>
+      </>
+    ),
+  },
+  {
+    path: 'privacy',
+    element: (
+      <>
+        <ScrollToTop />
+        <SelectoolPrivacy />
+      </>
+    ),
+  },
+  {
+    path: 'service-use',
+    element: (
+      <>
+        <ScrollToTop />
+        <SelectoolServiceUse />
       </>
     ),
   },

@@ -16,7 +16,7 @@ import {
   setUserInfo,
   userInfo,
 } from 'reducers/settingReducer'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Button from 'components/Button'
 import {
   loginModalOpen,
@@ -31,7 +31,7 @@ import EmailIcon from 'assets/email_icon.svg'
 
 import { RiPencilFill } from 'react-icons/ri'
 import { AiFillSound, AiOutlineWarning } from 'react-icons/ai'
-import { getCookie, removeCookie, setCookie } from 'util/cookie'
+import { getCookie, removeCookie } from 'util/cookie'
 import apiAxios from 'app/apiAxios'
 
 const SettingComponent = () => {
@@ -39,6 +39,7 @@ const SettingComponent = () => {
   const navigate = useNavigate()
   const info = useAppSelector(userInfo)
   const isLogon = useAppSelector(selectAccessToken)
+  const { status } = useParams()
 
   const [editable, setEditable] = useState(false)
   const [subscribeEmail, setSubscribeEmail] = useState(
@@ -50,51 +51,23 @@ const SettingComponent = () => {
   const [alarmWarning, setAlarmWarning] = useState(false)
 
   const getUserInfo = async () => {
-    const token = getCookie('refresh-token')
-    // refresh token 만료 시간
-    const now = new Date()
-    const after7days = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate() + 7,
-    )
+    const refreshToken = getCookie('refresh-token')
 
     async function RefreshLogin() {
       await apiAxios
         .get(process.env.REACT_APP_API + '/api/member/refresh', {
-          params: { refreshToken: token },
+          params: { refreshToken: refreshToken },
         })
         .then(async res => {
           const accessToken = res.data.accessToken
-          const refreshToken = res.data.refreshToken
           dispatch(setAccessToken(accessToken))
 
-          if (refreshToken !== undefined) {
-            setCookie('refresh-token', refreshToken, {
-              path: '/',
-              expires: after7days,
-              secure: true,
-              httpOnly: true,
-            })
+          const response = await dispatch(getUserInfoAPI()).unwrap()
 
-            const response = await dispatch(getUserInfoAPI()).unwrap()
-
-            if (response.statusCode === 404) {
-              navigate('/error')
-            } else {
-              dispatch(setUserInfo(response.data))
-
-              if (info.subscribeEmail && !info.emailVerified) {
-                setEditable(true)
-                setIsSendValidTest(true)
-                setValidatingEmail(info.subscribeEmail)
-              }
-            }
-
-            navigate('/mypage')
+          if (response.statusCode === 404) {
+            navigate('/error')
           } else {
-            dispatch(loginModalOpen())
-            navigate('/')
+            dispatch(setUserInfo(response.data))
           }
         })
         .catch(err => {
@@ -103,7 +76,7 @@ const SettingComponent = () => {
         })
     }
 
-    if (!isLogon) {
+    if (status === 'setting' && !isLogon) {
       RefreshLogin()
     } else {
       const response = await dispatch(getUserInfoAPI()).unwrap()

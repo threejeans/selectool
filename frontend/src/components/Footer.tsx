@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { BsChevronCompactUp, BsInstagram } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
 import styles from 'styles/components/Footer.module.css'
 
 const Footer = () => {
@@ -29,13 +30,9 @@ const Footer = () => {
             </button>
           </div>
           <div className={styles.privacy}>
-            <a href='https://www.notion.so/4ba132c6639b469cb99ea45c4b8d2c5f#a8ba9855017245bcb4f92f929d0a2163'>
-              개인정보처리방침
-            </a>
+            <Link to='/privacy'>개인정보처리방침</Link>
             {'|'}
-            <a href='https://www.notion.so/6267c9d0c8a841d7aa8f060772cbd858'>
-              운영정책
-            </a>
+            <Link to='/service-use'>운영정책</Link>
             {'|'}
             <a href=''>문의사항</a>
           </div>
