@@ -138,9 +138,15 @@
   flex-direction: column;
   gap: 0.2rem;
   grid-gap: 0.2rem;
-  padding: 0.2rem 0.4rem;
+  padding: 0.2rem 0.4rem 1rem 0.4rem;  
 }
-
+.duple{
+  position: absolute;
+  bottom: 0.2rem;
+  right: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--gray-scale-color-g20);
+}
 .dropItem {
   width: 100%;
   background-color: var(--gray-scale-color-g05);
