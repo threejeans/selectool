@@ -19,3 +19,8 @@ export type DemandType = {
   createdAt: Date
   status: boolean
 }
+
+export type IsBookmarkedType = {
+  id: number
+  isBookmarked: boolean
+}

@@ -1,22 +1,38 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks'
+import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
 import { BiChevronDown } from 'react-icons/bi'
+import { BsBookmarkFill } from 'react-icons/bs'
 import {
+  getGuideList,
   plusContentCnt,
   selectCategories,
   selectContentCnt,
   selectGuideList,
   selectSearchKey,
+  switchGuideBookmark,
 } from 'reducers/guideReducer'
 import { GuideType } from 'types/types'
+import { IsBookmarkedType } from 'types/userTypes'
 import styles from './GuideContent.module.css'
 
 const GuideListResult = () => {
+  const accessToken = useAppSelector(selectAccessToken)
   const guideList = useAppSelector(selectGuideList)
   const categories = useAppSelector(selectCategories)
   const contentCnt = useAppSelector(selectContentCnt)
   const searchKey = useAppSelector(selectSearchKey)
 
   const dispatch = useAppDispatch()
+
+  const handleScrap = (params: IsBookmarkedType) => {
+    if (!accessToken) {
+      dispatch(loginModalOpen())
+      return
+    }
+    dispatch(switchGuideBookmark(params)).then(() => {
+      dispatch(getGuideList())
+    })
+  }
 
   const getResult = () => {
     const tmp = new Set<GuideType>([])
@@ -68,6 +84,22 @@ const GuideListResult = () => {
               backgroundImage: `url(${item.image})`,
             }}
           >
+            <BsBookmarkFill
+              className={styles.bookmark}
+              style={{
+                color: `var(${
+                  item.isBookmarked
+                    ? '--primary-color-main'
+                    : '--gray-scale-color-g10'
+                })`,
+              }}
+              onClick={e => {
+                e.preventDefault()
+                e.stopPropagation()
+                if (item.id && item.isBookmarked !== undefined)
+                  handleScrap({ id: item.id, isBookmarked: item.isBookmarked })
+              }}
+            />
             <span
               className={styles.toolImage}
               style={{
