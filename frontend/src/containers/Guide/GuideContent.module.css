@@ -279,6 +279,7 @@
 .guideSubContent {
   width: 100%;
   display: flex;
+  margin-top: 0.4rem;
   font-size: 0.8rem;
   flex-direction: row;
   justify-content: space-between;
@@ -307,4 +308,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.bookmark{
+  position: absolute;
+  top: -4px;
+  right: 20px;
+  font-size: 1.4rem;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.2));
+  cursor: pointer;
 }
