@@ -184,8 +184,8 @@ const SubscribeModal = ({ toolId }: modalProps) => {
                 처음이신가요?
               </div>
               <div className={styles.subText}>
-                구독하기 한번으로 관심있는 툴의 유용한 가이드를 받아보실 수
-                있어요.<br></br>
+                구독하기 한번으로 관심있는 툴의 유용한 가이드를 매주 월요일마다
+                받아보실 수 있어요.<br></br>
                 저희 셀렉툴이 꼼꼼히 선별하여 똑똑하게 추천해드릴게요!
               </div>
             </div>
@@ -251,8 +251,8 @@ const SubscribeModal = ({ toolId }: modalProps) => {
                 새로운 이메일 주소를 입력해주세요.
               </div>
               <div className={styles.subText}>
-                구독하기 한번으로 관심있는 툴의 유용한 가이드를 받아보실 수
-                있어요.
+                구독하기 한번으로 관심있는 툴의 유용한 가이드를 매주 월요일마다
+                받아보실 수 있어요.
                 <br></br>
                 저희 셀렉툴이 꼼꼼히 선별하여 똑똑하게 추천해드릴게요!
               </div>

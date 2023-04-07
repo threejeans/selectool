@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { getCookie } from 'util/cookie'
 import apiAxios from 'app/apiAxios'
 import { selectAccessToken, setAccessToken } from 'features/auth/authSlice'
+import FooterMobile from './FooterMobile'
 
 interface LayoutProps {
   title: string
@@ -57,7 +58,18 @@ const Layout = ({ title, description, children }: LayoutProps) => {
         <meta name='description' content={description} />
       </Helmet>
       <section>{children}</section>
-      <Footer />
+      <Pc>
+        <Footer />
+      </Pc>
+      <Tablet>
+        <Footer />
+      </Tablet>
+      <MobileWide>
+        <FooterMobile />
+      </MobileWide>
+      <Mobile>
+        <FooterMobile />
+      </Mobile>
     </>
   )
 }
@@ -87,7 +99,7 @@ export const MobileWide = ({ children }: ResponsiveProps) => {
 // 태블릿 가로
 export const Tablet = ({ children }: ResponsiveProps) => {
   const isMobile = useMediaQuery({
-    query: '(min-width:768px) and (max-width:1023px)',
+    query: '(min-width:768px) and (max-width:1079px)',
   })
   return <>{isMobile && children}</>
 }
@@ -95,7 +107,7 @@ export const Tablet = ({ children }: ResponsiveProps) => {
 // PC & 태블릿 가로
 export const Pc = ({ children }: ResponsiveProps) => {
   const isPc = useMediaQuery({
-    query: '(min-width:1024px)',
+    query: '(min-width:1080px)',
   })
   return <>{isPc && children}</>
 }

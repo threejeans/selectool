@@ -12,7 +12,13 @@
 }
 
 .image {
-  width: 900px;
+  max-width: 900px;
+  width: 88vw;
+  position: relative;
+}
+
+.imageMobile {
+  width: 88vw;
   position: relative;
 }
 
@@ -22,6 +28,39 @@
   color: white;
   -webkit-font-smoothing: inherit;
   text-rendering: optimizeLegibility;
+}
+
+.titleMobile {
+  position: absolute;
+  display: flex;
+  color: white;
+  -webkit-font-smoothing: inherit;
+  text-rendering: optimizeLegibility;
+  font-size: 34px;
+}
+
+.titleTablet {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  -webkit-font-smoothing: inherit;
+  text-rendering: optimizeLegibility;
+  font-size: 60px;
+}
+
+.titleTop {
+  position: absolute;
+  bottom: 90px;
+  display: flex;
+  flex-direction: row;
+}
+
+.titleBottom {
+  margin-top: 130px;
+  display: flex;
+  flex-direction: row;
 }
 
 .scroller {

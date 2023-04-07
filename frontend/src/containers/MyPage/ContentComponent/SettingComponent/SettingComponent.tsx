@@ -140,6 +140,10 @@ const SettingComponent = () => {
       ) {
         setIsValidTime(false)
       }
+
+      if (!verifyingTime) {
+        setIsValidTime(false)
+      }
     }
   }, [])
 
