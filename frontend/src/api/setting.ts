@@ -55,7 +55,7 @@ export const registerAuthRequestAPI = createAsyncThunk(
     }
 
     await apiAxios
-      .post('/request/demands', { params: value })
+      .post('/request/demands', value)
       .then(res => {
         console.log(res)
         response.statusCode = res.status
@@ -75,7 +75,7 @@ export const registerRequestAPI = async (value: DemandType) => {
   }
 
   await basicAxios
-    .post('/request/demands', { params: value })
+    .post('/request/demands', value)
     .then(res => {
       console.log(res.data)
       response.statusCode = res.status

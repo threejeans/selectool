@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react'
 import {
-  LandingContactSection,
-  LandingCTASection,
-  LandingDetailSection,
   LandingHero,
-  LandingHeroMobile,
   LandingHeroTablet,
+  LandingHeroMobile,
+  LandingHeroMobileWide,
   LandingIntroduceSection,
+  LandingIntroduceSectionTablet,
+  LandingCTASection,
+  LandingCTASectionMobile,
+  LandingContactSection,
+  LandingDetailSection,
+  LandingIntroduceSectionMobile,
 } from '../../containers/LandingPage'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -28,23 +32,23 @@ const LandingPage = () => {
       </Pc>
       <Tablet>
         <LandingHeroTablet />
-        <LandingIntroduceSection />
+        <LandingIntroduceSectionTablet />
         <LandingDetailSection />
         <LandingCTASection />
         <LandingContactSection />
       </Tablet>
       <MobileWide>
-        <LandingHeroMobile />
-        <LandingIntroduceSection />
+        <LandingHeroMobileWide />
+        <LandingIntroduceSectionMobile />
         <LandingDetailSection />
-        <LandingCTASection />
+        <LandingCTASectionMobile />
         <LandingContactSection />
       </MobileWide>
       <Mobile>
         <LandingHeroMobile />
-        <LandingIntroduceSection />
+        <LandingIntroduceSectionMobile />
         <LandingDetailSection />
-        <LandingCTASection />
+        <LandingCTASectionMobile />
         <LandingContactSection />
       </Mobile>
     </>

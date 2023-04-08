@@ -7,6 +7,16 @@
   background-color: #fcfcfc;
 }
 
+.containerTablet {
+  width: 100vw;
+  height: 720px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: end;
+  background-color: #fcfcfc;
+}
+
 .contents {
   width: 100%;
   max-width: 960px;
@@ -17,8 +27,32 @@
   align-items: center;
 }
 
+.contentsTablet {
+  width: 88%;
+  height: 680px;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
 .margin_right {
   margin-right: 14px;
+}
+
+.bubbleSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  /* height: 600px; */
 }
 
 .bubble_container {
@@ -28,6 +62,18 @@
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bubble_containerTablet {
+  width: 300px;
+  height: 80px;
+  background: #ffffff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,4 +114,18 @@
 
 .bubble_03 {
   margin-top: 100px;
+}
+
+.bubble_01Tablet {
+  margin-bottom: 40px;
+}
+
+.bubble_02Tablet {
+  margin-bottom: 40px;
+  margin-left: 240px;
+}
+
+.bubble_03Tablet {
+  margin-bottom: 40px;
+  margin-left: 120px;
 }
