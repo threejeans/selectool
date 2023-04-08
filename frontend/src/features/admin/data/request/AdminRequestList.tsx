@@ -21,7 +21,7 @@ const AdminRequestList = () => {
   const requestList = useAppSelector(selectRequestList)
   const tabArr = [
     { tab: 'demand', name: '요청사항' },
-    { tab: 'done', name: '등록완료' },
+    { tab: 'done', name: '등록접수' },
     { tab: 'hold', name: '일시보류' },
   ]
   const [tab, setTab] = useState<TabType>('demand')
@@ -33,7 +33,6 @@ const AdminRequestList = () => {
   useEffect(() => {
     if (accessToken) dispatch(getRequestList())
     else navigate('/admin/data')
-    console.log(requestList)
   }, [tab])
 
   const handleTabChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +85,7 @@ const AdminRequestList = () => {
           dispatch(changeRequestStatus({ id, status: true })).then(() => {
             dispatch(getRequestList())
             navigate(`/admin/contents/${type === '툴' ? 'self' : 'with'}`)
+            toast(`${type} 등록이 접수되었습니다. 등록창으로 이동합니다.`)
           })
         else toast(`해당 요청에 적절한 타입이 기입되어있지 않습니다.:${type}`)
         break
@@ -118,7 +118,7 @@ const AdminRequestList = () => {
               className={styles.doneButton}
               onClick={() => handleStatusChange({ func: 'done', id, type })}
             >
-              등록완료
+              접수하기
             </button>
           </>
         )
