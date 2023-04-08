@@ -1,0 +1,82 @@
+.layout {
+  width: 100%;
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(150px, max-content));
+  column-gap: 32px;
+  row-gap: 2.4rem;
+}
+
+.noContentlayout {
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+}
+
+.moreGroup {
+  margin-top: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.moreButton {
+  border-radius: 0.5rem;
+  padding: 0.8rem 1.2rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  color: #6f6f6f;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.moreButton:hover {
+  background-color: #fcfcfc;
+}
+
+.icon {
+  height: 0.8rem;
+}
+
+.noSearchLayout {
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  row-gap: 18px;
+  align-items: center;
+  justify-content: center;
+}
+
+.noSearchLayout span {
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.noSearchMainText {
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+
+  color: #333333;
+}
+
+.noSearchSubText {
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+
+  color: #595959;
+}
+
+.noSearchResetText {
+  margin-top: 18px;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+
+  color: #60a9f6;
+}

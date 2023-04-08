@@ -12,6 +12,20 @@
   border-radius: 10px;
 }
 
+.smallCardContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 192px;
+  height: 310px;
+
+  background: #ffffff;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
 .cardContainer:hover {
   transition: 0.3s;
   box-shadow: 2px 2px 20px 1px rgba(96, 169, 246, 0.3);
@@ -24,6 +38,16 @@
 }
 
 .topBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #f5f5f5;
+  border-radius: 10px 10px 0px 0px;
+  width: 100%;
+  height: 42px;
+}
+
+.smallTopBar {
   position: absolute;
   top: 0;
   left: 0;
@@ -63,6 +87,15 @@
   top: -6px;
 }
 
+.smallBookmark {
+  font-size: 18px;
+  position: absolute;
+  color: #cdcdcd;
+  filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
+  right: 14px;
+  top: -8px;
+}
+
 .bookmarkScraped {
   color: #60a9f6;
 }
@@ -76,9 +109,25 @@
   padding-top: 52px;
 }
 
+.contentsSmallContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-inline: 20px;
+  row-gap: 20px;
+  padding-top: 42px;
+}
+
 .companyLogo {
   width: 124px;
   height: 80px;
+  object-fit: contain;
+  object-position: 0% 50%;
+}
+
+.companyLogoSmall {
+  width: 112px;
+  height: 72px;
   object-fit: contain;
   object-position: 0% 50%;
 }
@@ -107,7 +156,7 @@
 }
 
 .description {
-  font-weight: 300;
+  font-weight: 400;
   font-size: 10px;
   color: #595959;
 }
@@ -148,8 +197,8 @@
 }
 
 .descriptionHover {
-  font-weight: 300;
-  font-size: 5px;
+  font-weight: 400;
+  font-size: 10px;
   color: #595959;
 }
 
@@ -193,7 +242,7 @@
 .toolLayout {
   display: flex;
   flex-direction: row;
-  column-gap: 18px;
+  column-gap: 8px;
 }
 
 .toolContainer {
@@ -201,7 +250,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 35px;
+  width: 44px;
   row-gap: 6px;
 }
 
@@ -213,7 +262,7 @@
 
 .toolNameHover {
   font-weight: 300;
-  font-size: 4px;
+  font-size: 3px;
 
   color: #a8a8a8;
 }

@@ -26,6 +26,7 @@
   font-weight: bolder;
   color: var(--gray-scale-color-g20);
 }
+
 .logo {
   height: 1.2rem;
 }
@@ -41,32 +42,71 @@
   font-weight: 500;
 }
 
+.dropWrap {
+  position: relative;
+  padding: 0 1rem;
+}
+
+.dropBox {
+  width: 100%;
+  left:0;
+  top:calc(100% + 2px);
+  box-sizing: border-box;
+  position: absolute;
+  transform: scale(0);
+  opacity: 0;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 0 0.5rem 0.5rem;
+  padding:8px;
+  gap:8px;
+  background-color:white;
+  filter:drop-shadow(0 4px 4px var(--gray-scale-color-g10))
+}
+.dropWrap:hover .dropBox{
+  transform: scale(1);
+  opacity: 1;
+}
+.dropItem:hover{
+  color: var(--primary-color-main);
+}
+
 .unselected {
   color: var(--gray-scale-color-g30);
 }
+
 .selected {
   color: var(--primary-color-main);
 }
+
 .collaped {
   display: none;
 }
+
 .manuBtn {
   font-size: 1.6rem;
 }
+
 @media (max-width: 1120px) {
   .menu {
     display: none;
   }
+
   .collaped {
     display: flex;
     position: relative;
   }
+
   .guideLine {
     width: 8rem;
     height: 2px;
     border-radius: 1px;
     background-color: var(--gray-scale-color-g10);
   }
+
   .collapedBtnGroup {
     position: absolute;
     display: flex;

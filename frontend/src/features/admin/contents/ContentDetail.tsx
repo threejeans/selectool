@@ -11,15 +11,19 @@ import {
 
 import styles from 'styles/admin/pages/contents/ContentDetail.module.css'
 
-import SelfInfo from 'components/admin/detail/SelfInfo'
-import SelfCore from 'components/admin/detail/SelfCore'
 import SelfClients from 'components/admin/detail/SelfClients'
+import SelfCore from 'components/admin/detail/SelfCore'
+import SelfInfo from 'components/admin/detail/SelfInfo'
 import SelfPlans from 'components/admin/detail/SelfPlans'
 
-import WithInfo from 'components/admin/detail/WithInfo'
 import WithBranches from 'components/admin/detail/WithBranches'
 import WithCultures from 'components/admin/detail/WithCultures'
+import WithInfo from 'components/admin/detail/WithInfo'
 import WithTools from 'components/admin/detail/WithTools'
+
+import GuideThumb from 'components/admin/detail/GuideThumb'
+import GuideInfo from 'components/admin/detail/GuideInfo'
+import GuideCategory from 'components/admin/detail/GuideCategory'
 
 type ContentDetailProps = {
   type: TYPE_SELF | TYPE_WITH | TYPE_GUIDE
@@ -66,7 +70,13 @@ const ContentDetail = ({ type, id }: ContentDetailProps) => {
           </>
         )
       case 'guide':
-        return <></>
+        return (
+          <>
+            <GuideThumb />
+            <GuideInfo />
+            <GuideCategory />
+          </>
+        )
       default:
         return null
     }

@@ -8,6 +8,17 @@
   color: #6f6f6f;
 }
 
+.subtitleMobile {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #6f6f6f;
+}
+
+.h2Mobile {
+  font-size: 1.2rem;
+  line-height: 2rem;
+}
+
 .description {
   font-size: 1.2rem;
   font-weight: 300;

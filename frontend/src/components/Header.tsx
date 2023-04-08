@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { loginModalOpen, selectAccessToken } from 'features/auth/authSlice'
 import { Link, useLocation } from 'react-router-dom'
 import styles from 'styles/components/Header.module.css'
+import { setSelectContent } from 'reducers/settingReducer'
+import { setSearchKey } from 'reducers/guideReducer'
 
 type MenuLinkProps = {
   path: string
@@ -26,6 +28,9 @@ const MenuLink = ({
   isHome = false,
 }: MenuLinkProps) => {
   const { pathname } = useLocation()
+
+  const dispatch = useAppDispatch()
+
   return (
     <Link
       className={
@@ -36,6 +41,14 @@ const MenuLink = ({
           : styles.unselected
       }
       to={path}
+      onClick={() => {
+        if (title === '마이페이지') {
+          dispatch(setSelectContent('혼자써요'))
+        }
+        if (title === '가이드') {
+          dispatch(setSearchKey(''))
+        }
+      }}
     >
       <div>{title}</div>
     </Link>

@@ -8,12 +8,12 @@ import { useNavigate } from 'react-router-dom'
 import {
   changeRegisterModalStatus,
   changeSearchDataStatus,
+  noSearchValue,
   searchDataState,
   searchValue,
 } from 'reducers/commonReducer'
 import {
   changeFilterModalCheckedStatus,
-  resetSelfContentCount,
   resetSelfModalFilter,
   selfCategoryFilterList,
   setSelfCategoryFilterList,
@@ -28,6 +28,7 @@ const SelfMain = () => {
 
   const isNoSearchData = useAppSelector(searchDataState)
   const searchContent = useAppSelector(searchValue)
+  const noSearchContent = useAppSelector(noSearchValue)
   const categoryList = useAppSelector(selfCategoryFilterList)
   const isLogon = useAppSelector(selectAccessToken)
 
@@ -42,7 +43,7 @@ const SelfMain = () => {
       ),
     )
     dispatch(setSelfCategoryFilterParams(''))
-    dispatch(resetSelfContentCount())
+    // dispatch(resetSelfContentCount())
   }
 
   const getselfMainInfoList = async () => {
@@ -74,7 +75,7 @@ const SelfMain = () => {
       {isNoSearchData ? (
         <div className={styles.noSearchLayout}>
           <div className={styles.noSearchMainText}>
-            아쉽게도 &#39;{searchContent}&#39;와 일치하는 툴이 없어요 :&#40;
+            아쉽게도 &#39;{noSearchContent}&#39;에 일치하는 툴이 없어요 :&#40;
           </div>
           <div className={styles.noSearchSubText}>
             <a onClick={() => dispatch(changeRegisterModalStatus())}>

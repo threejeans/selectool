@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
 import { RootState } from 'app/store'
-import { rmSync } from 'fs'
 import { GuideType } from 'types/types'
+import { IsBookmarkedType } from 'types/userTypes'
 
 export interface GuideState {
   randomList: number[]
@@ -28,6 +28,19 @@ export const getGuideList = createAsyncThunk(
     try {
       const response = await apiAxios.get('board/nomember/guides')
       return response.data
+    } catch (error: any) {
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
+export const switchGuideBookmark = createAsyncThunk(
+  'authGuide/switchGuideBookmark',
+  async ({ id, isBookmarked }: IsBookmarkedType, { rejectWithValue }) => {
+    try {
+      const apiUrl = `board/guides/${id}/bookmarks`
+      if (isBookmarked) return (await apiAxios.delete(apiUrl)).data
+      else return (await apiAxios.post(apiUrl)).data
     } catch (error: any) {
       return rejectWithValue(error.message)
     }

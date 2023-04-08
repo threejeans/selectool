@@ -1,5 +1,4 @@
 // 공통 type 지정
-
 export type TYPE_SELF = 'self'
 export type TYPE_WITH = 'with'
 export type TYPE_GUIDE = 'guide'
@@ -91,6 +90,7 @@ export type SelfSpecificInfo = {
   ios: string
   // bookmark
   isBookmarked: boolean
+  isSubscribed: boolean
 }
 
 export type SelfMainInfo = {
@@ -244,4 +244,14 @@ export type AdminGuideComponent = {
   url: string
   image: string
   toolImage: string
+}
+
+export type DropItemType = {
+  to: string
+  name: string
+}
+
+export type IdStatus = {
+  id: number
+  status: boolean | null
 }

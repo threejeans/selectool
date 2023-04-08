@@ -16,6 +16,7 @@ type ÇardProps = {
   info?: string
   id?: number
   isBookmarked: boolean
+  isSubscribed?: boolean
   button1ClickEvent: () => void
   button2ClickEvent: () => void
   button3ClickEvent: () => void
@@ -28,6 +29,7 @@ const DetailMainCard = ({
   info,
   id,
   isBookmarked,
+  isSubscribed = false,
   button1ClickEvent,
   button2ClickEvent,
   button3ClickEvent,
@@ -132,7 +134,7 @@ const DetailMainCard = ({
           <Button
             color={'primary'}
             size={'mdLong'}
-            text={'구독하기'}
+            text={isSubscribed ? '구독 해제' : '구독하기'}
             clickEvent={button3ClickEvent}
           />
         ) : (

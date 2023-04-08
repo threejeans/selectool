@@ -110,6 +110,7 @@ export const getAuthSelfSpecificInfoAPI = createAsyncThunk(
       aos: '',
       ios: '',
       isBookmarked: false,
+      isSubscribed: false,
     }
 
     const response = {
@@ -164,6 +165,48 @@ export const selfUnscrapToolAPI = createAsyncThunk(
 
     await apiAxios
       .delete(`/self/tools/${toolId}/bookmarks`)
+      .then(res => {
+        response.statusCode = res.status
+      })
+      .catch(err => {
+        console.log(err)
+        response.statusCode = err.request.status
+      })
+    return response
+  },
+)
+
+// 툴 구독
+export const selfSubscribeToolAPI = createAsyncThunk(
+  'auth/self/subscribe',
+  async (toolId?: number) => {
+    const response = {
+      statusCode: 200,
+    }
+
+    await apiAxios
+      .post(`/self/tools/${toolId}/subscribes`)
+      .then(res => {
+        response.statusCode = res.status
+      })
+      .catch(err => {
+        console.log(err)
+        response.statusCode = err.request.status
+      })
+    return response
+  },
+)
+
+// 툴 구독 해제
+export const selfUnsubscribeToolAPI = createAsyncThunk(
+  'auth/self/unsubscribe',
+  async (toolId?: number) => {
+    const response = {
+      statusCode: 200,
+    }
+
+    await apiAxios
+      .delete(`/self/tools/${toolId}/subscribes`)
       .then(res => {
         response.statusCode = res.status
       })
