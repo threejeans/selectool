@@ -73,7 +73,7 @@ public class DemandServiceImpl implements DemandService {
 
     @Override
     public List<DemandResponse> getDemandList() {
-        List<Demand> demands = demandRepo.findAllJPQL();
+        List<Demand> demands = demandRepo.findAll();
 
         return demands.stream()
                 .map(this::entityToDTO)
