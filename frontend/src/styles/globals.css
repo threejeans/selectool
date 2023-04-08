@@ -79,6 +79,7 @@ button {
 
   --height-navigation: 70px;
   --height-footer: 400px;
+  --height-footer-mobile: 320px;
 
   --width-lg: 1280px;
 }
@@ -95,7 +96,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.95rem;
+  font-size: 1.9rem;
   line-height: 3rem;
   font-weight: 600;
 }

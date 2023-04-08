@@ -8,9 +8,10 @@
 }
 
 .contents {
-  width: 100%;
+  width: 80%;
   max-width: 960px;
-  padding-inline: 60px;
+  min-width: 920px;
+  padding-inline: 5vw;
   height: 300px;
   display: flex;
   justify-content: space-between;

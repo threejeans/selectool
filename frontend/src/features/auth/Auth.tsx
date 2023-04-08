@@ -7,7 +7,6 @@ import { getCookie } from 'util/cookie'
 import { setAccessToken } from './authSlice'
 
 import styles from 'styles/pages/auth/Auth.module.css'
-import { Cookies } from 'react-cookie'
 
 const Auth = () => {
   const code = new URL(window.location.href).searchParams.get('code')
