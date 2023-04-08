@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/data/AdminData.module.css'
 import { DemandType } from 'types/userTypes'
+import { BiSearch } from 'react-icons/bi'
 
 type TabType = 'demand' | 'done' | 'hold'
 
@@ -26,6 +27,8 @@ const AdminRequestList = () => {
   ]
   const [tab, setTab] = useState<TabType>('demand')
   const [orderBy, setOrderBy] = useState<boolean>(true)
+  const [searchInput, setSearchInput] = useState<string>('')
+  const [keyword, setKeyword] = useState<string>('')
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -33,6 +36,8 @@ const AdminRequestList = () => {
   useEffect(() => {
     if (accessToken) dispatch(getRequestList())
     else navigate('/admin/data')
+    setSearchInput('')
+    setKeyword('')
   }, [tab])
 
   const handleTabChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,15 +62,22 @@ const AdminRequestList = () => {
         .slice(0)
         .reverse()
         .map(item => tmp.push(item))
+    const key = tmp.filter(
+      item =>
+        item.userEmail?.includes(keyword) ||
+        item.content?.includes(keyword) ||
+        item.type?.includes(keyword),
+    )
+
     switch (tab) {
       case 'demand':
-        return tmp.filter(item => item.status === false) as DemandType[]
+        return key.filter(item => item.status === false) as DemandType[]
       case 'done':
-        return tmp.filter(item => item.status === true) as DemandType[]
+        return key.filter(item => item.status === true) as DemandType[]
       case 'hold':
-        return tmp.filter(item => item.status === null) as DemandType[]
+        return key.filter(item => item.status === null) as DemandType[]
       default:
-        return tmp
+        return key
     }
   }
   type change = {
@@ -110,12 +122,14 @@ const AdminRequestList = () => {
           <>
             <button
               className={styles.holdButton}
+              tabIndex={-1}
               onClick={() => handleStatusChange({ func: 'hold', id, type })}
             >
               보류하기
             </button>
             <button
               className={styles.doneButton}
+              tabIndex={-1}
               onClick={() => handleStatusChange({ func: 'done', id, type })}
             >
               접수하기
@@ -127,12 +141,14 @@ const AdminRequestList = () => {
           <>
             <button
               className={styles.undoButton}
+              tabIndex={-1}
               onClick={() => handleStatusChange({ func: 'undo', id, type })}
             >
               되돌리기
             </button>
             <button
               className={styles.holdButton}
+              tabIndex={-1}
               onClick={() => handleStatusChange({ func: 'hold', id, type })}
             >
               보류하기
@@ -144,12 +160,14 @@ const AdminRequestList = () => {
           <>
             <button
               className={styles.undoButton}
+              tabIndex={-1}
               onClick={() => handleStatusChange({ func: 'undo', id, type })}
             >
               되돌리기
             </button>
             <button
               className={styles.deleteButton}
+              tabIndex={-1}
               onClick={() => handleStatusChange({ func: 'delete', id, type })}
             >
               삭제하기
@@ -161,7 +179,7 @@ const AdminRequestList = () => {
   return (
     <div className={styles.container}>
       <div className={styles.section}>
-        <div className={styles.dataTabs}>
+        <div className={styles.dataTabs} tabIndex={0}>
           <span className={`${styles.glider} ${getPos(tab)}`}></span>
           {tabArr.map((item, index) => {
             return (
@@ -188,13 +206,31 @@ const AdminRequestList = () => {
               </span>
             )
           })}
+          <div className={styles.searchInput}>
+            <input
+              type='text'
+              value={searchInput}
+              placeholder={'타입, 이메일, 요청사항'}
+              onChange={e => setSearchInput(e.target.value)}
+              onKeyUp={e => {
+                if (e.key === 'Enter') {
+                  setKeyword(searchInput)
+                }
+              }}
+            />
+            <BiSearch
+              onClick={() => {
+                setKeyword(searchInput)
+              }}
+            />
+          </div>
         </div>
         <div className={styles.requestListWrap}>
           <div className={styles.requestList}>
             {getFilterList().map(item => {
               const { id, type, content, userEmail, createdAt, status } = item
               return (
-                <div key={id} className={styles.requestItem}>
+                <div key={id} className={styles.requestItem} tabIndex={0}>
                   <span className={styles.itemId}>{id}</span>
                   <div>{type || '타입 미기입'}</div>
                   <div>{content || '요청사항 미기입'}</div>
@@ -202,7 +238,7 @@ const AdminRequestList = () => {
                     {getButton({ id, type, status })}
                   </div>
                   <div className={styles.requesterInfo}>
-                    <p>{userEmail || '미기입'}</p>
+                    <p>{userEmail || '비회원'}</p>
                     <p>{`${createdAt}` || ''}</p>
                   </div>
                 </div>

@@ -6,6 +6,10 @@
   align-items: center;
 }
 
+.container * {
+  outline: none;
+}
+
 .section {
   height: 90%;
   width: 98vw;
@@ -54,11 +58,16 @@
   background-color: white;
   border-radius: 3rem;
   padding: 0.5rem;
-  filter: drop-shadow(0 0 10px var(--primary-color-main));
+  filter: drop-shadow(0 0 6px var(--gray-scale-color-g20));
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   z-index: 1;
+}
+
+.dataTabs:focus,
+.dataTabs:hover {
+  filter: drop-shadow(0 0 10px var(--primary-color-main));
 }
 
 .dataTabs input[type='radio'] {
@@ -125,6 +134,42 @@
   transform: rotate(180deg);
 }
 
+.searchInput {
+  position: absolute;
+  left: 102%;
+  width: 200px;
+  bottom: 0;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchInput input {
+  width: 190px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--gray-scale-color-g10);
+  font-size: 1rem;
+}
+
+.searchInput input:focus {
+  filter: drop-shadow(0 0 4px white);
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--primary-color-main);
+}
+
+.searchInput svg {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-60%);
+}
+
+/* list */
 .requestListWrap {
   height: 100%;
   width: 80%;
@@ -139,7 +184,6 @@
 }
 
 .requestListWrap::-webkit-scrollbar-thumb {
-  /* height: 50px; */
   background: var(--primary-color-main);
   border-radius: 10px;
 }
@@ -172,9 +216,11 @@
   animation: roll-in-blurred-top 0.5s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
 }
 
-.requestItem:hover {
+.requestItem:hover,
+.requestItem:focus {
   transition: 0.2s ease-out;
   filter: drop-shadow(0 0 10px var(--primary-color-main));
+  outline: none;
 }
 
 .itemId {
@@ -228,21 +274,25 @@
   filter: drop-shadow(0 0 4px var(--primary-color-main));
 }
 
+.requestItem:focus .holdButton,
 .requestItem:hover .holdButton {
   background-color: var(--primary-color-warn);
   color: white;
 }
 
+.requestItem:focus .doneButton,
 .requestItem:hover .doneButton {
   background-color: var(--primary-color-main);
   color: white;
 }
 
+.requestItem:focus .undoButton,
 .requestItem:hover .undoButton {
   background-color: var(--primary-color-dark);
   color: white;
 }
 
+.requestItem:focus .deleteButton,
 .requestItem:hover .deleteButton {
   background-color: var(--primary-color-error);
   color: white;
@@ -281,8 +331,15 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
 @media (max-width: 960px) {
   .requestList {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .searchInput {
+    left: auto;
+    right: 1rem;
+    bottom: -2rem;
   }
 }
