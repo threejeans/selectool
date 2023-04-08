@@ -11,7 +11,11 @@ import {
   setSelfMainInfoList,
 } from 'reducers/selfReducer'
 import SelfFilterModal from 'containers/Self/SelfFilterModal/SelfFilterModal'
-import { changeSearchDataStatus, searchValue } from 'reducers/commonReducer'
+import {
+  changeSearchDataStatus,
+  searchValue,
+  setNoSearchValue,
+} from 'reducers/commonReducer'
 import { getSelfSearchListAPI } from 'api/self'
 import { useNavigate } from 'react-router-dom'
 import { getWithSearchListAPI } from 'api/with'
@@ -50,6 +54,7 @@ const FilterSection = ({
           navigate('/error')
           return
         case 400:
+          dispatch(setNoSearchValue(searchContent))
           dispatch(changeSearchDataStatus(true))
           return
         default:
@@ -65,6 +70,7 @@ const FilterSection = ({
           navigate('/error')
           return
         case 400:
+          dispatch(setNoSearchValue(searchContent))
           dispatch(changeSearchDataStatus(true))
           return
         default:

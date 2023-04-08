@@ -1,4 +1,3 @@
-import { useAppDispatch } from 'app/hooks'
 import AdminLayout from 'components/admin/AdminLayout'
 import AdminMain from 'features/admin/AdminMain'
 import AdminAlarm from 'features/admin/alarm/AdminAlarm'
@@ -10,6 +9,8 @@ import AdminGuide from 'features/admin/contents/guide/AdminGuide'
 import AdminSelfTool from 'features/admin/contents/self/AdminSelfTool'
 import AdminWithCorp from 'features/admin/contents/with/AdminWithCorp'
 import AdminData from 'features/admin/data/AdminData'
+import AdminRequestList from 'features/admin/data/request/AdminRequestList'
+import AdminUserList from 'features/admin/data/user/AdminUserList'
 import Auth from 'features/auth/Auth'
 import Mypage from 'features/auth/Mypage'
 import Guide from 'features/guide/Guide'
@@ -33,6 +34,9 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, store } from './app/store'
 import Layout from './components/Layout'
 import './styles/globals.css'
+import { CookiesProvider } from 'react-cookie'
+import SelectoolPrivacy from 'containers/Common/Document/SelectoolPrivacy'
+import SelectoolServiceUse from 'containers/Common/Document/SelectoolServiceUse'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById('root')!
@@ -110,7 +114,6 @@ const router = createBrowserRouter([
   },
   {
     path: 'guide',
-    // eslint-disable-next-line react/no-children-prop
     element: (
       <>
         <ScrollToTop />
@@ -132,13 +135,32 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: 'error',
+    // redirect
+    path: 'mypage/:status',
     element: (
       <>
         <ScrollToTop />
-        <Layout title={'404'} description={'셀렉툴 | 404NotFound'}>
-          <NotFound404 />
+        <Layout title={'마이페이지'} description={'셀렉툴 | 마이페이지'}>
+          <Mypage />
         </Layout>
+      </>
+    ),
+  },
+  {
+    path: 'privacy',
+    element: (
+      <>
+        <ScrollToTop />
+        <SelectoolPrivacy />
+      </>
+    ),
+  },
+  {
+    path: 'service-use',
+    element: (
+      <>
+        <ScrollToTop />
+        <SelectoolServiceUse />
       </>
     ),
   },
@@ -196,7 +218,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'data',
-        element: <AdminData />,
+        children: [
+          { path: '', element: <AdminData /> },
+          { path: 'user', element: <AdminUserList /> },
+          { path: 'request', element: <AdminRequestList /> },
+        ],
       },
       {
         path: 'alarm',
@@ -214,13 +240,26 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '*',
+    element: (
+      <>
+        <ScrollToTop />
+        <Layout title={'404'} description={'셀렉툴 | 404NotFound'}>
+          <NotFound404 />
+        </Layout>
+      </>
+    ),
+  },
 ])
 
 root.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <RouterProvider router={router} />
-      <ToastContainer autoClose={2000} />
-    </PersistGate>
+    <CookiesProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+        <ToastContainer autoClose={2000} />
+      </PersistGate>
+    </CookiesProvider>
   </Provider>,
 )

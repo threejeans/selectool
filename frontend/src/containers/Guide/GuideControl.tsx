@@ -25,7 +25,6 @@ const GuideControl = () => {
   useEffect(() => {
     setCategoryList(getCategoryList(func))
     setCategories([])
-    dispatch(setSearchKey(''))
   }, [func])
 
   useEffect(() => {
@@ -127,6 +126,9 @@ const GuideControl = () => {
                 </div>
               )
             })}
+            {categoryList.length > 0 && (
+              <span className={styles.duple}>* 복수 선택이 가능해요.</span>
+            )}
           </div>
         </div>
         <div className={styles.dropBox}>

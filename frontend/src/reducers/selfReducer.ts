@@ -5,6 +5,7 @@ import { SelfMainInfo, SelfSpecificInfo } from 'types/types'
 export interface SelfState {
   isFilterModal: boolean
   isFilterModalChecked: boolean
+  isSubscribeModal: boolean
   selfCategoryFilterParams: string
   selfModalFilterParams: string
   selfMainInfoList: SelfMainInfo[]
@@ -41,6 +42,7 @@ const countryContents = ['전체', '국내', '해외']
 const initialState: SelfState = {
   isFilterModal: false,
   isFilterModalChecked: false,
+  isSubscribeModal: false,
   selfCategoryFilterParams: '',
   selfModalFilterParams: '',
   selfMainInfoList: [],
@@ -64,6 +66,7 @@ const initialState: SelfState = {
     aos: '',
     ios: '',
     isBookmarked: false,
+    isSubscribed: false,
   },
   selfCategoryFilterList: [...new Array(filterContents.length)].map(
     (data, idx) =>
@@ -111,6 +114,9 @@ const selfReducer = createSlice({
     },
     changeFilterModalCheckedStatus(state, { payload: input }) {
       return { ...state, isFilterModalChecked: input }
+    },
+    changeSubscribeModalStatus: state => {
+      state.isSubscribeModal = !state.isSubscribeModal
     },
     setSelfCategoryFilterParams(state, { payload: input }) {
       return { ...state, selfCategoryFilterParams: input }
@@ -174,6 +180,7 @@ const selfReducer = createSlice({
 export const {
   changeFilterModalStatus,
   changeFilterModalCheckedStatus,
+  changeSubscribeModalStatus,
   setSelfCategoryFilterParams,
   setSelfModalFilterParams,
   resetSelfModalFilter,
@@ -189,6 +196,8 @@ export const {
 export const filterModalState = (state: RootState) => state.self.isFilterModal
 export const filterModalCheckedState = (state: RootState) =>
   state.self.isFilterModalChecked
+export const subscribeModalState = (state: RootState) =>
+  state.self.isSubscribeModal
 export const selfCategoryFilterParams = (state: RootState) =>
   state.self.selfCategoryFilterParams
 export const selfModalFilterParams = (state: RootState) =>

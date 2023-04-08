@@ -80,15 +80,15 @@ const SelfCard = ({ data }: CardProps) => {
       {isHover ? (
         <div className={styles.hoverContainer}>
           <div className={styles.hoverContentLayout}>
-            <div className={styles.hoverTextSection}>
-              <div className={styles.typeEng}>{topicEn.toUpperCase()}</div>
-              <div className={styles.hookText}>{data.msg}</div>
-            </div>
-            <div className={styles.aTag}>
-              <Link to={`/self/${data.id}`}>
+            <Link to={`/self/${data.id}`} className={styles.hoverClickLayout}>
+              <div className={styles.hoverTextSection}>
+                <div className={styles.typeEng}>{topicEn.toUpperCase()}</div>
+                <div className={styles.hookText}>{data.msg}</div>
+              </div>
+              <div className={styles.aTag}>
                 {data.nameKr}에 대해 더 알아보기 →
-              </Link>
-            </div>
+              </div>
+            </Link>
           </div>
         </div>
       ) : null}

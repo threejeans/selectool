@@ -8,11 +8,11 @@ import { useNavigate } from 'react-router-dom'
 import {
   changeRegisterModalStatus,
   changeSearchDataStatus,
+  noSearchValue,
   searchDataState,
   searchValue,
 } from 'reducers/commonReducer'
 import {
-  resetWithContentCount,
   setWithCategoryFilterList,
   setWithMainInfoList,
   withCategoryFilterList,
@@ -25,6 +25,7 @@ const WithMain = () => {
 
   const isNoSearchData = useAppSelector(searchDataState)
   const searchContent = useAppSelector(searchValue)
+  const noSearchContent = useAppSelector(noSearchValue)
   const categoryList = useAppSelector(withCategoryFilterList)
   const isLogon = useAppSelector(selectAccessToken) !== undefined
 
@@ -36,7 +37,6 @@ const WithMain = () => {
         ),
       ),
     )
-    dispatch(resetWithContentCount())
   }
 
   const getWithMainInfoList = async () => {
@@ -66,7 +66,7 @@ const WithMain = () => {
       {isNoSearchData ? (
         <div className={styles.noSearchLayout}>
           <div className={styles.noSearchMainText}>
-            아쉽게도 &#39;{searchContent}&#39;와 일치하는 기업이 없어요 :&#40;
+            아쉽게도 &#39;{noSearchContent}&#39;에 일치하는 기업이 없어요 :&#40;
           </div>
           <div className={styles.noSearchSubText}>
             <a onClick={() => dispatch(changeRegisterModalStatus())}>

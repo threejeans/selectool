@@ -44,12 +44,18 @@
 .hoverContentLayout {
   width: 180px;
   height: 168px;
+
+  padding: 32px;
+}
+
+.hoverClickLayout {
+  width: 100%;
+  height: 100%;
   /* 단어 기준으로 줄바꿈 할 시 */
   word-break: keep-all;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 32px;
 }
 
 .hoverTextSection {
@@ -198,7 +204,7 @@
 
 .typeSmall {
   font-weight: 600;
-  font-size: 10px;
+  font-size: 11px;
   color: #6f6f6f;
 }
 
@@ -210,7 +216,7 @@
 
 .descriptionSmall {
   font-weight: 400;
-  font-size: 8px;
+  font-size: 10px;
   line-height: 14px;
   color: #6f6f6f;
 }

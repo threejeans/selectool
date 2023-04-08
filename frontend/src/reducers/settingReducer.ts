@@ -2,6 +2,7 @@
 import { RootState } from 'app/store'
 import { createSlice } from '@reduxjs/toolkit'
 import { SelfMainInfo, WithCorpType } from 'types/types'
+import { UserInfoType } from 'types/userTypes'
 
 export interface SettingState {
   selectContent: string
@@ -11,6 +12,8 @@ export interface SettingState {
   withScrapExportList: WithCorpType[]
   selfScrapCount: number
   withScrapCount: number
+  userInfo: UserInfoType
+  isWithdrawModal: boolean
 }
 
 const initialState: SettingState = {
@@ -21,6 +24,17 @@ const initialState: SettingState = {
   withScrapExportList: [],
   selfScrapCount: 0,
   withScrapCount: 0,
+  userInfo: {
+    email: '',
+    id: 0,
+    image: '',
+    name: '',
+    type: '',
+    subscribeActive: false,
+    emailVerified: false,
+    subscribeEmail: '',
+  },
+  isWithdrawModal: false,
 }
 
 const settingReducer = createSlice({
@@ -54,6 +68,12 @@ const settingReducer = createSlice({
     resetWithScrapCount: state => {
       state.withScrapCount = 0
     },
+    setUserInfo: (state, { payload: input }) => {
+      return { ...state, userInfo: input }
+    },
+    changeWithDrawModalStatus: state => {
+      state.isWithdrawModal = !state.isWithdrawModal
+    },
   },
 })
 
@@ -67,6 +87,8 @@ export const {
   resetSelfScrapCount,
   changeWithScrapCount,
   resetWithScrapCount,
+  setUserInfo,
+  changeWithDrawModalStatus,
 } = settingReducer.actions
 
 export const selectContent = (state: RootState) => state.setting.selectContent
@@ -78,5 +100,8 @@ export const withScrapExportList = (state: RootState) =>
   state.setting.withScrapExportList
 export const selfScrapCount = (state: RootState) => state.setting.selfScrapCount
 export const withScrapCount = (state: RootState) => state.setting.withScrapCount
+export const userInfo = (state: RootState) => state.setting.userInfo
+export const withdrawModalState = (state: RootState) =>
+  state.setting.isWithdrawModal
 
 export default settingReducer.reducer
