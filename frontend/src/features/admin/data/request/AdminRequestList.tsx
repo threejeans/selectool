@@ -1,42 +1,185 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import React, { useEffect, useState } from 'react'
-import { getRequestList, selectRequestList } from '../adminDataSlice'
+import { BsArrowDownUp } from 'react-icons/bs'
+import {
+  changeRequestStatus,
+  deleteRequest,
+  getRequestList,
+  selectRequestList,
+} from '../adminDataSlice'
 
+import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/data/AdminData.module.css'
+import { DemandType } from 'types/userTypes'
+import { BiSearch } from 'react-icons/bi'
 
-type TabType = 'request' | 'complete' | 'delete'
+type TabType = 'demand' | 'done' | 'hold'
 
 const AdminRequestList = () => {
+  const accessToken = useAppSelector(selectAccessToken)
   const requestList = useAppSelector(selectRequestList)
   const tabArr = [
-    { tab: 'request', name: 'Request' },
-    { tab: 'complete', name: 'Completed' },
-    { tab: 'delete', name: 'Deleted' },
+    { tab: 'demand', name: '요청사항' },
+    { tab: 'done', name: '등록접수' },
+    { tab: 'hold', name: '일시보류' },
   ]
-  const [tab, setTab] = useState<TabType>('request')
+  const [tab, setTab] = useState<TabType>('demand')
+  const [orderBy, setOrderBy] = useState<boolean>(true)
+  const [searchInput, setSearchInput] = useState<string>('')
+  const [keyword, setKeyword] = useState<string>('')
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   useEffect(() => {
-    dispatch(getRequestList())
-  }, [])
+    if (accessToken) dispatch(getRequestList())
+    else navigate('/admin/data')
+    setSearchInput('')
+    setKeyword('')
+  }, [tab])
+
   const handleTabChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTab(e.target.value as TabType)
+    if (tab !== e.target.value) setTab(e.target.value as TabType)
+    else console.log(e.target.value)
   }
   const getPos = (tab: TabType) => {
-    console.log(tab)
     switch (tab) {
-      case 'request':
+      case 'demand':
         return `${styles.pos1}`
-      case 'complete':
+      case 'done':
         return `${styles.pos2}`
-      case 'delete':
+      case 'hold':
         return `${styles.pos3}`
+    }
+  }
+  const getFilterList: () => DemandType[] = () => {
+    const tmp: DemandType[] = []
+    if (orderBy) requestList.map(item => tmp.push(item))
+    else
+      requestList
+        .slice(0)
+        .reverse()
+        .map(item => tmp.push(item))
+    const key = tmp.filter(
+      item =>
+        item.userEmail?.includes(keyword) ||
+        item.content?.includes(keyword) ||
+        item.type?.includes(keyword),
+    )
+
+    switch (tab) {
+      case 'demand':
+        return key.filter(item => item.status === false) as DemandType[]
+      case 'done':
+        return key.filter(item => item.status === true) as DemandType[]
+      case 'hold':
+        return key.filter(item => item.status === null) as DemandType[]
+      default:
+        return key
+    }
+  }
+  type change = {
+    func: 'hold' | 'done' | 'undo' | 'delete'
+    id: number
+    type: string
+  }
+  const handleStatusChange = ({ func, id, type }: change) => {
+    switch (func) {
+      case 'hold':
+        dispatch(changeRequestStatus({ id, status: null })).then(() =>
+          dispatch(getRequestList()),
+        )
+        break
+      case 'done':
+        if (type === '툴' || type === '기업')
+          dispatch(changeRequestStatus({ id, status: true })).then(() => {
+            dispatch(getRequestList())
+            navigate(`/admin/contents/${type === '툴' ? 'self' : 'with'}`)
+            toast(`${type} 등록이 접수되었습니다. 등록창으로 이동합니다.`)
+          })
+        else toast(`해당 요청에 적절한 타입이 기입되어있지 않습니다.:${type}`)
+        break
+      case 'undo':
+        dispatch(changeRequestStatus({ id, status: false })).then(() =>
+          dispatch(getRequestList()),
+        )
+        break
+      case 'delete':
+        dispatch(deleteRequest({ id, status: null })).then(() =>
+          dispatch(getRequestList()),
+        )
+        break
+    }
+  }
+
+  type btn = { id: number; type: string; status: boolean | null }
+  const getButton = ({ id, type, status }: btn) => {
+    switch (status) {
+      case false:
+        return (
+          <>
+            <button
+              className={styles.holdButton}
+              tabIndex={-1}
+              onClick={() => handleStatusChange({ func: 'hold', id, type })}
+            >
+              보류하기
+            </button>
+            <button
+              className={styles.doneButton}
+              tabIndex={-1}
+              onClick={() => handleStatusChange({ func: 'done', id, type })}
+            >
+              접수하기
+            </button>
+          </>
+        )
+      case true:
+        return (
+          <>
+            <button
+              className={styles.undoButton}
+              tabIndex={-1}
+              onClick={() => handleStatusChange({ func: 'undo', id, type })}
+            >
+              되돌리기
+            </button>
+            <button
+              className={styles.holdButton}
+              tabIndex={-1}
+              onClick={() => handleStatusChange({ func: 'hold', id, type })}
+            >
+              보류하기
+            </button>
+          </>
+        )
+      case null:
+        return (
+          <>
+            <button
+              className={styles.undoButton}
+              tabIndex={-1}
+              onClick={() => handleStatusChange({ func: 'undo', id, type })}
+            >
+              되돌리기
+            </button>
+            <button
+              className={styles.deleteButton}
+              tabIndex={-1}
+              onClick={() => handleStatusChange({ func: 'delete', id, type })}
+            >
+              삭제하기
+            </button>
+          </>
+        )
     }
   }
   return (
     <div className={styles.container}>
       <div className={styles.section}>
-        <div className={styles.dataTabs}>
+        <div className={styles.dataTabs} tabIndex={0}>
           <span className={`${styles.glider} ${getPos(tab)}`}></span>
           {tabArr.map((item, index) => {
             return (
@@ -51,14 +194,58 @@ const AdminRequestList = () => {
                 />
                 <label className={styles.dataTab} htmlFor={item.tab}>
                   {item.name}
+                  {tab === item.tab && (
+                    <BsArrowDownUp
+                      className={`${styles.downUp} ${
+                        orderBy ? styles.asc : styles.desc
+                      }`}
+                      onClick={() => setOrderBy(!orderBy)}
+                    />
+                  )}
                 </label>
               </span>
             )
           })}
+          <div className={styles.searchInput}>
+            <input
+              type='text'
+              value={searchInput}
+              placeholder={'타입, 이메일, 요청사항'}
+              onChange={e => setSearchInput(e.target.value)}
+              onKeyUp={e => {
+                if (e.key === 'Enter') {
+                  setKeyword(searchInput)
+                }
+              }}
+            />
+            <BiSearch
+              onClick={() => {
+                setKeyword(searchInput)
+              }}
+            />
+          </div>
         </div>
-        {requestList.map((item, index) => {
-          return <div key={index}>{JSON.stringify(item)}</div>
-        })}
+        <div className={styles.requestListWrap}>
+          <div className={styles.requestList}>
+            {getFilterList().map(item => {
+              const { id, type, content, userEmail, createdAt, status } = item
+              return (
+                <div key={id} className={styles.requestItem} tabIndex={0}>
+                  <span className={styles.itemId}>{id}</span>
+                  <div>{type || '타입 미기입'}</div>
+                  <div>{content || '요청사항 미기입'}</div>
+                  <div className={styles.buttonGroup}>
+                    {getButton({ id, type, status })}
+                  </div>
+                  <div className={styles.requesterInfo}>
+                    <p>{userEmail || '비회원'}</p>
+                    <p>{`${createdAt}` || ''}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
     </div>
   )
