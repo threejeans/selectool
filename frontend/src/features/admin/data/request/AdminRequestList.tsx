@@ -1,14 +1,23 @@
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import React, { useEffect, useState } from 'react'
-import { getRequestList, selectRequestList } from '../adminDataSlice'
 import { BsArrowDownUp } from 'react-icons/bs'
+import {
+  changeRequestStatus,
+  deleteRequest,
+  getRequestList,
+  selectRequestList,
+} from '../adminDataSlice'
 
+import { selectAccessToken } from 'features/admin/auth/adminAuthSlice'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import styles from 'styles/admin/pages/data/AdminData.module.css'
 import { DemandType } from 'types/userTypes'
 
 type TabType = 'demand' | 'done' | 'hold'
 
 const AdminRequestList = () => {
+  const accessToken = useAppSelector(selectAccessToken)
   const requestList = useAppSelector(selectRequestList)
   const tabArr = [
     { tab: 'demand', name: '요청사항' },
@@ -19,9 +28,14 @@ const AdminRequestList = () => {
   const [orderBy, setOrderBy] = useState<boolean>(true)
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   useEffect(() => {
-    dispatch(getRequestList())
-  }, [])
+    if (accessToken) dispatch(getRequestList())
+    else navigate('/admin/data')
+    console.log(requestList)
+  }, [tab])
+
   const handleTabChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (tab !== e.target.value) setTab(e.target.value as TabType)
     else console.log(e.target.value)
@@ -55,28 +69,91 @@ const AdminRequestList = () => {
         return tmp
     }
   }
+  type change = {
+    func: 'hold' | 'done' | 'undo' | 'delete'
+    id: number
+    type: string
+  }
+  const handleStatusChange = ({ func, id, type }: change) => {
+    switch (func) {
+      case 'hold':
+        dispatch(changeRequestStatus({ id, status: null })).then(() =>
+          dispatch(getRequestList()),
+        )
+        break
+      case 'done':
+        if (type === '툴' || type === '기업')
+          dispatch(changeRequestStatus({ id, status: true })).then(() => {
+            dispatch(getRequestList())
+            navigate(`/admin/contents/${type === '툴' ? 'self' : 'with'}`)
+          })
+        else toast(`해당 요청에 적절한 타입이 기입되어있지 않습니다.:${type}`)
+        break
+      case 'undo':
+        dispatch(changeRequestStatus({ id, status: false })).then(() =>
+          dispatch(getRequestList()),
+        )
+        break
+      case 'delete':
+        dispatch(deleteRequest({ id, status: null })).then(() =>
+          dispatch(getRequestList()),
+        )
+        break
+    }
+  }
+
   type btn = { id: number; type: string; status: boolean | null }
   const getButton = ({ id, type, status }: btn) => {
     switch (status) {
       case false:
         return (
           <>
-            <button>보류하기</button>
-            <button>등록하기</button>
+            <button
+              className={styles.holdButton}
+              onClick={() => handleStatusChange({ func: 'hold', id, type })}
+            >
+              보류하기
+            </button>
+            <button
+              className={styles.doneButton}
+              onClick={() => handleStatusChange({ func: 'done', id, type })}
+            >
+              등록완료
+            </button>
           </>
         )
       case true:
         return (
           <>
-            <button>되돌리기</button>
-            <button>보류하기</button>
+            <button
+              className={styles.undoButton}
+              onClick={() => handleStatusChange({ func: 'undo', id, type })}
+            >
+              되돌리기
+            </button>
+            <button
+              className={styles.holdButton}
+              onClick={() => handleStatusChange({ func: 'hold', id, type })}
+            >
+              보류하기
+            </button>
           </>
         )
       case null:
         return (
           <>
-            <button>되돌리기</button>
-            <button>삭제하기</button>
+            <button
+              className={styles.undoButton}
+              onClick={() => handleStatusChange({ func: 'undo', id, type })}
+            >
+              되돌리기
+            </button>
+            <button
+              className={styles.deleteButton}
+              onClick={() => handleStatusChange({ func: 'delete', id, type })}
+            >
+              삭제하기
+            </button>
           </>
         )
     }
@@ -112,29 +189,26 @@ const AdminRequestList = () => {
             )
           })}
         </div>
-        <div className={styles.requestList}>
-          {getFilterList().map((item, index) => {
-            const {
-              id,
-              type,
-              content,
-              userType,
-              userEmail,
-              createdAt,
-              status,
-            } = item
-            return (
-              <div key={index} className={styles.requestItem}>
-                <span>{id}</span>
-                <div>요청자: {userEmail || '미기입'}</div>
-                <div>사용자: {userType || '미기입'}</div>
-                <div>유형: {type || '미기입'}</div>
-                <div>이름: {content || '미기입'}</div>
-                <div>{getButton({ id, type, status })}</div>
-                <div>요청일자: {`${createdAt}` || ''}</div>
-              </div>
-            )
-          })}
+        <div className={styles.requestListWrap}>
+          <div className={styles.requestList}>
+            {getFilterList().map(item => {
+              const { id, type, content, userEmail, createdAt, status } = item
+              return (
+                <div key={id} className={styles.requestItem}>
+                  <span className={styles.itemId}>{id}</span>
+                  <div>{type || '타입 미기입'}</div>
+                  <div>{content || '요청사항 미기입'}</div>
+                  <div className={styles.buttonGroup}>
+                    {getButton({ id, type, status })}
+                  </div>
+                  <div className={styles.requesterInfo}>
+                    <p>{userEmail || '미기입'}</p>
+                    <p>{`${createdAt}` || ''}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </div>

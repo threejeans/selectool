@@ -1,5 +1,4 @@
 // 공통 type 지정
-
 export type TYPE_SELF = 'self'
 export type TYPE_WITH = 'with'
 export type TYPE_GUIDE = 'guide'
@@ -250,4 +249,9 @@ export type AdminGuideComponent = {
 export type DropItemType = {
   to: string
   name: string
+}
+
+export type IdStatus = {
+  id: number
+  status: boolean | null
 }

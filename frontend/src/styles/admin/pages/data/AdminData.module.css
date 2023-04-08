@@ -13,7 +13,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 1rem;
 }
@@ -58,6 +58,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  z-index: 1;
 }
 
 .dataTabs input[type='radio'] {
@@ -93,17 +94,20 @@
   transition: 0.2s ease-out;
   z-index: 1;
 }
-.glider.pos1{
+
+.glider.pos1 {
   transform: translateX(-105%);
 }
-.glider.pos2{
+
+.glider.pos2 {
   transform: translateX(0);
 }
-.glider.pos3{
+
+.glider.pos3 {
   transform: translateX(100%);
 }
 
-.downUp{  
+.downUp {
   stroke-width: 0.04rem;
   font-size: 1rem;
   margin-left: 0.4rem;
@@ -112,20 +116,47 @@
   border-radius: 1rem;
   transition: 0.1s ease-out;
 }
+
 .downUp.asc {
   transform: rotate(0);
 }
+
 .downUp.desc {
   transform: rotate(180deg);
 }
-.requestList{
-  margin-top: 2rem;
+
+.requestListWrap {
   height: 100%;
+  width: 80%;
+  padding: 0 2rem;
+  overflow-y: auto;
+  overflow-x: none;
+}
+
+.requestListWrap::-webkit-scrollbar {
+  height: 90%;
+  width: 12px;
+}
+
+.requestListWrap::-webkit-scrollbar-thumb {
+  /* height: 50px; */
+  background: var(--primary-color-main);
+  border-radius: 10px;
+}
+
+.requestListWrap::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.requestList {
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap:1rem;
+  grid-gap: 1rem;
 }
-.requestItem{
+
+.requestItem {
+  min-width: 240px;
   aspect-ratio: 5/3;
   box-sizing: border-box;
   position: relative;
@@ -137,7 +168,118 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  -webkit-animation: scale-in-center 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: scale-in-center 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
-.requestItem:hover{
+
+.requestItem:hover {
+  transition: 0.2s ease-out;
   filter: drop-shadow(0 0 10px var(--primary-color-main));
+}
+
+.itemId {
+  width: 1.2rem;
+  aspect-ratio: 1/1;
+  text-align: center;
+  padding: 0.4rem;
+  position: absolute;
+  top: -0.6rem;
+  left: -0.6rem;
+  border-radius: 3rem;
+  color: white;
+  filter: drop-shadow(0 0 2px var(--gray-scale-color-g20));
+  background-color: var(--primary-color-main);
+}
+
+.requesterInfo {
+  width: 90%;
+  color: var(--gray-scale-color-g20);
+  position: absolute;
+  bottom: -4px;
+  font-size: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.holdButton,
+.doneButton,
+.undoButton,
+.deleteButton {
+  color: var(--gray-scale-color-g30);
+  cursor: pointer;
+  transition: 0.2s ease-out;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--gray-scale-color-g10);
+  filter: drop-shadow(2px 2px 2px var(--gray-scale-color-g10));
+}
+
+.holdButton:hover,
+.doneButton:hover,
+.undoButton:hover,
+.deleteButton:hover {
+  filter: drop-shadow(0 0 4px var(--primary-color-main));
+}
+
+.requestItem:hover .holdButton {
+  background-color: var(--primary-color-warn);
+  color: white;
+}
+
+.requestItem:hover .doneButton {
+  background-color: var(--primary-color-main);
+  color: white;
+}
+
+.requestItem:hover .undoButton {
+  background-color: var(--primary-color-dark);
+  color: white;
+}
+
+.requestItem:hover .deleteButton {
+  background-color: var(--primary-color-error);
+  color: white;
+}
+
+@-webkit-keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
 }
