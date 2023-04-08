@@ -10,6 +10,7 @@ import com.selectool.dto.tool.request.ToolCreateRequest;
 import com.selectool.dto.tool.response.ClientResponse;
 import com.selectool.dto.tool.response.ToolListResponse;
 import com.selectool.dto.tool.response.ToolResponse;
+import com.selectool.dto.tool.response.ToolSubscribeUserResponse;
 import com.selectool.service.ClientService;
 import com.selectool.service.ToolService;
 import io.swagger.annotations.Api;
@@ -172,11 +173,20 @@ public class ToolController {
     }
 
     @GetMapping("/tools/users/subscribes")
-    @ApiOperation(value = "구독중인 툴 목록")
+    @ApiOperation(value = "유저 본인이 구독중인 툴 목록")
     public ResponseEntity<?> getSubscribeToolList(
             @LoginUser User user
     ) {
-        List<ToolListResponse> response = toolService.getSubscribeList(user.getId());
+        List<ToolListResponse> response = toolService.getSubscribeToolList(user.getId());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/subscribes/users")
+    @ApiOperation(value = "툴 구독자 목록")
+    public ResponseEntity<List<ToolSubscribeUserResponse>> getSubscribeUserList(
+            @LoginAdmin Admin admin
+    ) {
+        List<ToolSubscribeUserResponse> response = toolService.getSubscribeUserList();
         return ResponseEntity.ok(response);
     }
 

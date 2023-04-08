@@ -13,10 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.selectool.exception.DuplicateException.TOOL_BOOKMARK_DUPLICATED;
@@ -362,7 +359,7 @@ public class ToolServiceImpl implements ToolService {
     }
 
     @Override
-    public List<ToolListResponse> getSubscribeList(Long userId) {
+    public List<ToolListResponse> getSubscribeToolList(Long userId) {
         List<ToolSubscribe> subscribes = toolSubscribeRepo.findByUserId(userId);
 
         List<ToolBookmark> toolBookmarks = toolBookmarkRepo.findByUserId(userId);
@@ -459,6 +456,45 @@ public class ToolServiceImpl implements ToolService {
                                 .collect(Collectors.toList())
                 )
                 .build();
+    }
+
+    @Override
+    public List<ToolSubscribeUserResponse> getSubscribeUserList() {
+        List<ToolSubscribe> toolSubscribes = toolSubscribeRepo.findAll();
+
+        Map<User, ToolSubscribeUserResponse> userMap = new HashMap<>();
+
+        List<ToolSubscribeUserResponse> responses = new ArrayList<>();
+
+        for (ToolSubscribe toolSubscribe: toolSubscribes) {
+            User user = toolSubscribe.getUser();
+            Tool tool = toolSubscribe.getTool();
+            if (userMap.get(user) == null) {
+                List<ToolSimpleResponse> tools = new ArrayList<>();
+                tools.add(new ToolSimpleResponse(tool.getId(), tool.getNameKr(), tool.getNameEn()));
+
+                ToolSubscribeUserResponse response = ToolSubscribeUserResponse.builder()
+                        .id(user.getId())
+                        .type(user.getType())
+                        .email(user.getEmail())
+                        .subscribeEmail(user.getSubscribeEmail())
+                        .subscribeActive(user.getSubscribeActive())
+                        .emailVerified(user.getEmailVerified())
+                        .createdAt(toolSubscribe.getCreatedAt())
+                        .tools(tools)
+                        .build();
+
+                userMap.put(user, response);
+                responses.add(response);
+            }
+            else {
+                ToolSubscribeUserResponse response = userMap.get(user);
+                response.getTools().add(new ToolSimpleResponse(tool.getId(), tool.getNameKr(), tool.getNameEn()));
+                response.updateMinCreatedAt(toolSubscribe.getCreatedAt());
+            }
+        }
+
+        return responses;
     }
 
     private ToolListResponse entityToListDTO(Tool tool, Map<Tool, Boolean> bookmarkMap) {

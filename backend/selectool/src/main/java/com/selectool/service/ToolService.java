@@ -4,6 +4,7 @@ import com.selectool.dto.tool.filter.ToolFilter;
 import com.selectool.dto.tool.request.ToolCreateRequest;
 import com.selectool.dto.tool.response.ToolListResponse;
 import com.selectool.dto.tool.response.ToolResponse;
+import com.selectool.dto.tool.response.ToolSubscribeUserResponse;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public interface ToolService {
     public void addSubscribe(Long userId, Long toolId);
     // 툴 구독 해제
     public void unSubscribe(Long userId, Long toolId);
-    // 툴 구독 목록 조회
-    public List<ToolListResponse> getSubscribeList(Long userId);
+    // 구독 툴 목록 조회
+    public List<ToolListResponse> getSubscribeToolList(Long userId);
+    // 툴 구독자 목록 조회
+    public List<ToolSubscribeUserResponse> getSubscribeUserList();
 }
