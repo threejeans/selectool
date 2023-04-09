@@ -8,7 +8,7 @@
   grid-template-rows: 50% 50%;
   grid-template-columns: 60% 40%;
   margin-bottom: 8rem;
-  filter:drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
   background-size: cover;
 }
 
@@ -58,7 +58,12 @@
   width: 100%;
   height: 100%;
   border-radius: 1rem;
-  background: linear-gradient(to bottom, transparent, transparent, rgba(0, 0, 0, 0.2));
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    transparent,
+    rgba(0, 0, 0, 0.4)
+  );
 }
 
 .contentCover:hover {
@@ -75,6 +80,9 @@
 
 .contentTitle {
   font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.6rem;
+  word-break: keep-all;
   color: var(--gray-scale-color-g05);
 }
 
@@ -166,7 +174,6 @@
   width: max-content;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-
 }
 
 .functionItem {
@@ -189,7 +196,6 @@
 .none {
   visibility: hidden;
 }
-
 
 .searchBox {
   min-width: 16rem;
@@ -253,7 +259,7 @@
   border-radius: 100%;
   overflow: hidden;
   /* background-color: white; */
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .guideInfo {
@@ -263,7 +269,7 @@
 .guideTitle {
   margin-top: 1rem;
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .guideContent {
@@ -309,7 +315,7 @@
   justify-content: center;
   align-items: center;
 }
-.bookmark{
+.bookmark {
   position: absolute;
   top: -4px;
   right: 20px;
