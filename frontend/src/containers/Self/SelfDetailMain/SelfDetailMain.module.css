@@ -1,0 +1,55 @@
+.rightSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 36px;
+}
+
+.toolFunctionsLayout {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(310px, max-content));
+  column-gap: 48px;
+  row-gap: 20px;
+}
+
+.clientsLayout {
+  display: grid;
+  margin-inline: 40px;
+  /* justify-content: center; */
+  grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
+  column-gap: 52px;
+  row-gap: 48px;
+}
+
+.client {
+  width: 120px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.plansLayout {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+  column-gap: 52px;
+  row-gap: 48px;
+}
+
+.ratingsLayout {
+  display: flex;
+  flex-direction: row;
+  row-gap: 20px;
+
+  justify-content: center;
+}
+
+.ratingLine {
+  border: 1px dashed #cdcdcd;
+}
+
+.spinnerLayout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

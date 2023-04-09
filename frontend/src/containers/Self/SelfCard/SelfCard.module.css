@@ -1,0 +1,222 @@
+.cardContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 232px;
+  height: 232px;
+
+  background: #ffffff;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.smallCardContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 200px;
+  height: 200px;
+
+  background: #ffffff;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.cardContainer:hover {
+  transition: 0.2s;
+  transform: rotate(-4deg);
+}
+
+.hoverContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  border-radius: 10px;
+  z-index: 10px;
+  background: rgba(51, 51, 51, 0.8);
+}
+
+.hoverContentLayout {
+  width: 180px;
+  height: 168px;
+
+  padding: 32px;
+}
+
+.hoverClickLayout {
+  width: 100%;
+  height: 100%;
+  /* 단어 기준으로 줄바꿈 할 시 */
+  word-break: keep-all;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hoverTextSection {
+  color: white;
+}
+
+.typeEng {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.hookText {
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.aTag {
+  font-weight: 300;
+  font-size: 14px;
+  color: white;
+}
+
+.toast {
+  transition: 0.3s;
+  position: absolute;
+  right: -180px;
+  top: -28px;
+
+  padding-inline: 20px;
+  padding-block: 10px;
+  min-width: 100px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background: #60a9f6;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 14px 14px 14px 0px;
+}
+
+.toast_cancel {
+  background-color: #8d8d8d;
+}
+
+.bookmark {
+  font-size: 20px;
+  position: absolute;
+  color: #cdcdcd;
+  filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
+  right: 20px;
+  top: -6px;
+}
+
+.smallBookmark {
+  font-size: 18px;
+  position: absolute;
+  color: #cdcdcd;
+  filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
+  right: 14px;
+  top: -8px;
+}
+
+.bookmarkScraped {
+  color: #60a9f6;
+}
+
+.contentsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-inline: 34px;
+  row-gap: 20px;
+}
+
+.contentsSmallContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-inline: 28px;
+  row-gap: 16px;
+}
+
+.appIconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 72px;
+
+  background: #f5f5f5;
+  border-radius: 100%;
+}
+
+.appIconSmallContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+
+  background: #f5f5f5;
+  border-radius: 100%;
+}
+
+.appIcon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.appIconSmall {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+}
+
+.textSmallContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.type {
+  font-weight: 600;
+  font-size: 12px;
+  color: #6f6f6f;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 16px;
+  color: black;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  color: #6f6f6f;
+}
+
+.typeSmall {
+  font-weight: 600;
+  font-size: 11px;
+  color: #6f6f6f;
+}
+
+.nameSmall {
+  font-weight: 700;
+  font-size: 14px;
+  color: black;
+}
+
+.descriptionSmall {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  color: #6f6f6f;
+}

@@ -1,0 +1,147 @@
+.modalLayout {
+  width: 300px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 32px;
+}
+
+.modalLayoutForCheck {
+  width: 300px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 0;
+}
+
+.textSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.mainText {
+  font-weight: 700;
+  font-size: 18px;
+  word-break: keep-all;
+  text-align: center;
+}
+
+.registerText {
+  color: #60a9f6;
+  background-color: rgba(96, 169, 246, 0.1);
+}
+
+.subText {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  color: #8d8d8d;
+}
+
+.buttonSection {
+  display: flex;
+  column-gap: 12px;
+}
+
+/* check animation */
+
+.checkMark {
+  position: relative;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  box-shadow: inset 0 0 0 2px #60a9f6;
+}
+
+.checkMark.animation {
+  animation: filling 0.2s ease-in 1.2s forwards;
+}
+
+@keyframes filling {
+  0% {
+    box-shadow: inset 0 0 0 9px #60a9f6;
+  }
+  100% {
+    box-shadow: inset 0 0 0 50px #60a9f6;
+  }
+}
+
+.cover1,
+.cover2 {
+  position: absolute;
+  overflow: hidden;
+  width: 50%;
+  height: 100%;
+}
+.cover1 {
+  left: 50%;
+}
+.cover1:before,
+.cover2:before {
+  position: absolute;
+  content: '';
+}
+.cover1:before {
+  width: 100%;
+  height: 200%;
+  background: white;
+  transform-origin: 0 25%;
+}
+.checkMark.animation .cover1:before {
+  animation: draw 0.3s linear 0.4s forwards;
+}
+.cover2:before {
+  left: -10%;
+  width: 110%;
+  height: 120%;
+  background: white;
+  transform-origin: 100% 40%;
+}
+.checkMark.animation .cover2:before {
+  animation: draw 0.3s ease-out 0.7s forwards;
+}
+.check {
+  position: absolute;
+  color: white;
+  width: 100%;
+  font-size: 3rem;
+  line-height: 2rem;
+  text-align: center;
+  top: 15px;
+  opacity: 0;
+  user-select: none;
+}
+.checkMark.animation .check {
+  animation: check 0.2s ease-in-out 1.3s forwards;
+}
+
+@keyframes draw {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes check {
+  0% {
+    transform: scale(0.5) rotate(30deg);
+    opacity: 0;
+  }
+  90% {
+    transform: scale(1.3) rotate(-15deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}

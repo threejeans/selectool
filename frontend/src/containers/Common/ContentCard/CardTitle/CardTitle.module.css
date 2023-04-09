@@ -1,0 +1,18 @@
+.titleLayout {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 18px;
+  color: #000000;
+}
+
+.description {
+  font-weight: 300;
+  font-size: 12px;
+
+  color: #6f6f6f;
+}

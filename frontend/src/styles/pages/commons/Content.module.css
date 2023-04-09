@@ -1,0 +1,75 @@
+.layout {
+  width: 100vw;
+  height: fit-content;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.detailLayout {
+  background-color: #fbfbfb;
+}
+
+.container {
+  width: 100%;
+  max-width: 1080px;
+  padding-block: 12rem;
+  min-height: 80vh;
+}
+
+.mainLayout {
+  display: flex;
+  flex-direction: column;
+
+  row-gap: 4rem;
+}
+
+.contentLayout {
+  display: flex;
+  flex-direction: row;
+
+  column-gap: 2rem;
+}
+
+.noSearchLayout {
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.noSearchLayout a {
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.noSearchMainText {
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+
+  color: #333333;
+}
+
+.noSearchSubText {
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+
+  color: #595959;
+}
+
+.noSearchResetText {
+  margin-top: 18px;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+
+  color: #60a9f6;
+}

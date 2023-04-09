@@ -59,6 +59,7 @@ public class Tool extends BaseEntity {
     private List<ToolBookmark> toolBookmarks = new ArrayList<>();
 
     @OneToMany(mappedBy = "tool", cascade = CascadeType.ALL, orphanRemoval = true)
+
     private List<CorpTool> corpTools = new ArrayList<>();
 
     @Builder

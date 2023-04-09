@@ -1,0 +1,70 @@
+.modalLayout {
+  width: calc(600px + 16vw);
+  min-width: 400px;
+  height: 72vh;
+  overflow-y: scroll;
+  margin-block: 44px;
+  padding-inline: 2vh;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+}
+
+.modalLayout::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modalLayout::-webkit-scrollbar-thumb {
+  height: 20%;
+  background: #a8a8a8;
+  margin: 2px;
+
+  border-radius: 10px;
+}
+
+.modalLayout::-webkit-scrollbar-track {
+  background: white;
+}
+
+.basicInfoSection {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  align-items: center;
+}
+
+.image {
+  margin-top: 8px;
+  width: 80px;
+  height: 72px;
+  object-fit: contain;
+}
+
+.textSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 6px;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 18px;
+  color: #000000;
+}
+
+.info {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  color: #6f6f6f;
+}
+
+.url {
+  font-weight: 400;
+  font-size: 14px;
+
+  color: #60a9f6;
+}

@@ -1,0 +1,38 @@
+.bold {
+  font-weight: 900;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #6f6f6f;
+}
+
+.subtitleMobile {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #6f6f6f;
+}
+
+.h2Mobile {
+  font-size: 1.2rem;
+  line-height: 2rem;
+}
+
+.description {
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 2rem;
+  color: #333333;
+}
+
+.title_container {
+  display: flex;
+  align-items: center;
+}
+
+.title_bar {
+  width: 7.2px;
+  height: 6.8rem;
+  background-color: black;
+}

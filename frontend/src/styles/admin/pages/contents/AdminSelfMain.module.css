@@ -1,0 +1,205 @@
+.container {
+  height: calc(100vh - var(--height-navigation));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  margin: 1rem;
+}
+.section {
+  width: 96%;
+  max-width: var(--width-lg);
+  flex-grow: 1;
+  border: 2px solid var(--primary-color-main);
+  background-color: var(--gray-scale-color-g05);
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 2% 2%;
+  overflow-y: auto;
+}
+.section::-webkit-scrollbar {
+  width: 12px;
+}
+.section::-webkit-scrollbar-thumb {
+  /* height: 50px; */
+  background: var(--primary-color-main);
+  border-radius: 10px;
+}
+
+.section::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.halfSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  gap: 1rem;
+}
+.halfSection > * {
+  width: 50%;
+}
+
+.label {
+  font-size: x-large;
+  margin: 0.2rem;
+}
+.required {
+  font-size: large;
+  color: var(--primary-color-error);
+  margin: 0.4rem;
+  box-sizing: border-box;
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid var(--gray-scale-color-g30);
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: 900;
+}
+.selectBox {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  z-index: 1;
+}
+.select:hover {
+  cursor: pointer;
+}
+.option {
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid var(--gray-scale-color-g30);
+}
+/* 보이기만 하는 화살표.. 참.. */
+.arrowDown {
+  position: absolute;
+  font-size: 1rem;
+  color: black;
+  rotate: 180deg;
+  right: 0.4rem;
+  margin-bottom: 1rem;
+  z-index: 0;
+}
+.categoryGroup,
+.countryGroup {
+  box-sizing: border-box;
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--gray-scale-color-g30);
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.thumbnail {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.6rem;
+}
+
+.thumbnail > img,
+.thumbnail > span {
+  width: 150px;
+  height: 150px;
+  font-size: 2rem;
+  background-color: var(--gray-scale-color-g10);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.thumbnail h5,
+.thumbnail a {
+  margin: 0.2rem;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+.thumbnail a {
+  color: var(--primary-color-main);
+  font-size: 1.4rem;
+  text-decoration: underline;
+}
+
+.btnGroup {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchBox {
+  position: relative;
+}
+
+.drop,
+.none {
+  position: absolute;
+  top: 90%;
+  width: 100%;
+  max-height: 12rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: white;
+  border: 2px solid var(--primary-color-main);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+.none {
+  visibility: hidden;
+}
+.drop::-webkit-scrollbar {
+  width: 12px;
+}
+.drop::-webkit-scrollbar-thumb {
+  /* height: 50px; */
+  background: var(--primary-color-main);
+  border-radius: 10px;
+}
+.drop::-webkit-scrollbar-track {
+  background: transparent;
+}
+.drop > svg {
+  margin: 12px;
+}
+.item {
+  width: 100%;
+  font-size: 1rem;
+}
+.item:hover {
+  cursor: pointer;
+  background-color: var(--primary-color-main);
+}
+.resetBtn {
+  position: absolute;
+  right: 12px;
+  top: 14px;
+  font-size: 1rem;
+}

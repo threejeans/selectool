@@ -1,0 +1,162 @@
+.header {
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  height: var(--height-navigation);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 90%;
+  background-color: transparent;
+  padding: 0 2vw;
+  max-width: 1080px;
+  height: 72%;
+  display: flex;
+  border-radius: 5px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 2s, transform 2s;
+}
+
+.middle_container {
+  width: 90%;
+  padding: 0 2vw;
+  max-width: 1080px;
+  height: 72%;
+  display: flex;
+  border-radius: 5px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 2s, transform 2s;
+  background: linear-gradient(0deg, #ffffff, #ffffff),
+    radial-gradient(
+      100% 39396.24% at 0% 0%,
+      rgba(255, 255, 255, 0.376) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  filter: drop-shadow(0px 2px 15px rgba(0, 0, 0, 0.2));
+  backdrop-filter: blur(6px);
+}
+
+.change_container {
+  width: 90%;
+  padding: 0 2vw;
+  max-width: 1080px;
+  height: 72%;
+  display: flex;
+  border-radius: 5px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.7)
+    ),
+    radial-gradient(
+      100% 39396.24% at 0% 0%,
+      rgba(255, 255, 255, 0.376) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  filter: drop-shadow(0px 2px 15px rgba(0, 0, 0, 0.2));
+  backdrop-filter: blur(6px);
+  transition: background-color 2s, transform 2s;
+}
+/* 이거 하드코딩 하는게 맞는가.. */
+
+.favicon {
+  height: 1rem;
+}
+
+.logo {
+  margin-inline: 0.6rem;
+  height: 1rem;
+}
+
+.menu {
+  width: 32%;
+  min-width: 320px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--gray-scale-color-g20);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.unselected {
+  display: inline-block;
+  position: relative;
+  color: var(--gray-scale-color-g20);
+  cursor: pointer;
+}
+.unselected:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  background-color: var(--primary-color-main);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.unselected:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.unselected_home {
+  display: inline-block;
+  position: relative;
+  color: white;
+  cursor: pointer;
+}
+.unselected_home:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  background-color: var(--primary-color-main);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+.unselected_home:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.selected {
+  display: inline-block;
+  position: relative;
+  color: var(--gray-scale-color-g30);
+  cursor: pointer;
+}
+.selected:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(1);
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  background-color: var(--primary-color-main);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.line {
+  font-size: 20px;
+  font-weight: 200;
+  color: #eaecef;
+}

@@ -1,0 +1,94 @@
+.container {
+  width: 100vw;
+  height: 700px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.contents {
+  width: 80%;
+  max-width: 960px;
+  min-width: 920px;
+  padding-inline: 5vw;
+  height: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    rgba(96, 169, 246, 0.9) -32.17%,
+    rgba(171, 224, 199, 0.9) 116.11%
+  );
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.text {
+  text-align: start;
+  line-height: 58px;
+  color: #ffffff;
+}
+
+.inputTop {
+  display: flex;
+  margin-bottom: 18px;
+  gap: 30px;
+}
+
+.inputBottom {
+  position: relative;
+}
+
+.button {
+  position: absolute;
+  z-index: 10px;
+  margin: 10px;
+  right: 0;
+  bottom: 0;
+
+  width: 3rem;
+  height: 1.6rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #fffefe;
+  border-radius: 5px;
+}
+
+.buttonText {
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+
+  background: linear-gradient(106.02deg, #60a9f6 -21%, #19db43 153.33%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.button:hover {
+  background: var(--gray-scale-color-g05);
+}
+
+.button:active {
+  box-shadow: rgba(255, 255, 255, 0.4) 0 0 0 3px;
+}
+
+.buttonTextDisabled {
+  font-weight: 300;
+  font-size: 10px;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  color: rgba(245, 245, 245, 0.6);
+}
+
+.button:disabled {
+  background: transparent;
+  border: 1px solid #ffffff;
+  border-color: rgba(245, 245, 245, 0.6);
+}

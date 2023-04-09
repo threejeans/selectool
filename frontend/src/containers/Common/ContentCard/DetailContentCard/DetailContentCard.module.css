@@ -1,0 +1,26 @@
+.cardLayout {
+  width: 100%;
+  height: fit-content;
+
+  background: #ffffff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.cardWithLayout {
+  width: 94%;
+  height: fit-content;
+}
+
+.cardContent {
+  padding-block: 38px;
+  padding-inline: 36px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.line {
+  width: 100%;
+  color: #bdbdbd;
+}

@@ -1,0 +1,87 @@
+.commonStyle {
+  box-sizing: border-box;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+}
+
+.commonStyle:active {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  transform: translateY(2px);
+}
+
+.primary {
+  color: white;
+  background: #60a9f6;
+}
+
+.primary:active {
+  background: #5581df;
+}
+
+.warning {
+  color: white;
+  background-color: #fc6152;
+}
+
+.neutral {
+  color: #6f6f6f;
+  background: #efefef;
+}
+
+.neutral:active {
+  background: rgba(51, 51, 51, 0.3);
+}
+
+.white {
+  color: #333333;
+  background: white;
+  border-radius: 12px;
+}
+
+.white:hover {
+  background: #f5f5f5;
+}
+
+.white:active {
+  background: #f5f5f5;
+}
+
+.secondary {
+  color: #60a9f6;
+  background: white;
+}
+
+.secondary:active {
+  background: rgba(96, 169, 246, 0.12);
+}
+
+.outlined {
+  color: #60a9f6;
+  border: 1px solid #60a9f6;
+  background: white;
+}
+
+.outlined:active {
+  background: rgba(96, 169, 246, 0.12);
+}
+
+.md {
+  font-weight: 500;
+  font-size: 14px;
+  width: 140px;
+  height: 46px;
+}
+
+.mdShort {
+  font-weight: 500;
+  font-size: 14px;
+  width: 108px;
+  height: 40px;
+}
+
+.mdLong {
+  font-weight: 500;
+  font-size: 14px;
+  width: 228px;
+  height: 40px;
+}
