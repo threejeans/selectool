@@ -1,5 +1,6 @@
 package com.selectool.service;
 
+import com.selectool.dto.tool.filter.ToolFilter;
 import com.selectool.dto.tool.request.ToolCreateRequest;
 import com.selectool.dto.tool.request.ToolPlanCreateRequest;
 import com.selectool.dto.tool.response.*;
@@ -12,13 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.selectool.exception.DuplicateException.TOOL_BOOKMARK_DUPLICATED;
+import static com.selectool.exception.DuplicateException.TOOL_SUBSCRIBE_DUPLICATED;
 import static com.selectool.exception.NotFoundException.*;
 
 @Service
@@ -34,11 +33,11 @@ public class ToolServiceImpl implements ToolService {
 
     private final ToolBookmarkRepo toolBookmarkRepo;
 
+    private final ToolSubscribeRepo toolSubscribeRepo;
+
     @Override
-    public List<ToolListResponse> getToolList(Long userId, String name) {
-        List<Tool> response;
-        if (name.isEmpty()) response = toolRepo.findAll();
-        else response = toolRepo.findByNameKrContainingOrNameEnContainingIgnoreCase(name, name);
+    public List<ToolListResponse> getToolList(Long userId, ToolFilter filter) {
+        List<Tool> response = toolRepo.searchByFilter(filter);
 
         List<ToolBookmark> toolBookmarks = toolBookmarkRepo.findByUserId(userId);
         Map<Tool, Boolean> bookmarkMap = new HashMap<>();
@@ -48,25 +47,7 @@ public class ToolServiceImpl implements ToolService {
         }
 
         return response.stream()
-                .map(tool -> ToolListResponse.builder()
-                        .id(tool.getId())
-                        .nameKr(tool.getNameKr())
-                        .nameEn(tool.getNameEn())
-                        .info(tool.getInfo())
-                        .msg(tool.getMsg())
-                        .topic(tool.getTopic())
-                        .country(tool.getCountry())
-                        .image(tool.getImage())
-                        .url(tool.getUrl())
-                        .trial(tool.getTrial())
-                        .isBookmarked(bookmarkMap.get(tool) != null)
-                        .categories(tool.getToolCategories().stream()
-                                .map(category -> ToolCategoryResponse.builder()
-                                        .name(category.getName())
-                                        .build())
-                                .collect(Collectors.toList())
-                        )
-                        .build())
+                .map(tool -> entityToListDTO(tool, bookmarkMap))
                 .collect(Collectors.toList());
     }
 
@@ -254,6 +235,11 @@ public class ToolServiceImpl implements ToolService {
                                     } else {
                                         c = clientRepo.findById(client.getId())
                                                 .orElseThrow(() -> new NotFoundException(CLIENT_NOT_FOUND));
+                                        c.update(
+                                                client.getName(),
+                                                client.getImage(),
+                                                client.getUrl()
+                                        );
                                     }
 
                                     return ToolClient.builder()
@@ -334,12 +320,72 @@ public class ToolServiceImpl implements ToolService {
         toolBookmarkRepo.deleteAll(bookmarks);
     }
 
+    @Override
+    @Transactional
+    public void addSubscribe(Long userId, Long toolId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+
+        Tool tool = toolRepo.findById(toolId)
+                .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+        // 이미 등록된 구독 체크
+        if (!toolSubscribeRepo.findByToolAndUserId(tool, userId).isEmpty())
+            throw new DuplicateException(TOOL_SUBSCRIBE_DUPLICATED);
+
+        ToolSubscribe toolSubscribe = ToolSubscribe.builder()
+                .user(user)
+                .tool(tool)
+                .build();
+
+        toolSubscribeRepo.save(toolSubscribe);
+    }
+
+    @Override
+    @Transactional
+    public void unSubscribe(Long userId, Long toolId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new NotFoundException(USER_NOT_FOUND));
+
+        Tool tool = toolRepo.findById(toolId)
+                .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+        // 등록된 구독인지 체크
+        List<ToolSubscribe> subscribes = toolSubscribeRepo.findByToolAndUserId(tool, userId);
+        if (subscribes.isEmpty())
+            throw new NotFoundException(TOOL_SUBSCRIBE_DUPLICATED);
+
+        toolSubscribeRepo.deleteAll(subscribes);
+    }
+
+    @Override
+    public List<ToolListResponse> getSubscribeToolList(Long userId) {
+        List<ToolSubscribe> subscribes = toolSubscribeRepo.findByUserId(userId);
+
+        List<ToolBookmark> toolBookmarks = toolBookmarkRepo.findByUserId(userId);
+        Map<Tool, Boolean> bookmarkMap = new HashMap<>();
+
+        for (ToolBookmark bookmark : toolBookmarks) {
+            bookmarkMap.put(bookmark.getTool(), true);
+        }
+
+        return subscribes.stream()
+                .map(subscribe -> {
+                    Tool tool = subscribe.getTool();
+                    return entityToListDTO(tool, bookmarkMap);
+                })
+                .collect(Collectors.toList());
+    }
+
     private ToolResponse entityToDTO(Long userId, Tool tool) {
         List<ToolBookmark> toolBookmarks;
+        List<ToolSubscribe> toolSubscribes;
         if (userId != null) {
             toolBookmarks = toolBookmarkRepo.findByToolAndUserId(tool, userId);
+            toolSubscribes = toolSubscribeRepo.findByToolAndUserId(tool, userId);
         } else {
             toolBookmarks = new ArrayList<>();
+            toolSubscribes = new ArrayList<>();
         }
 
         return ToolResponse.builder()
@@ -356,6 +402,7 @@ public class ToolServiceImpl implements ToolService {
                 .ios(tool.getIos())
                 .trial(tool.getTrial())
                 .isBookmarked(!toolBookmarks.isEmpty())
+                .isSubscribed(!toolSubscribes.isEmpty())
                 .categories(tool.getToolCategories().stream()
                         .map(category -> ToolCategoryResponse.builder()
                                 .name(category.getName())
@@ -407,6 +454,67 @@ public class ToolServiceImpl implements ToolService {
                                         .build()
                                 )
                                 .collect(Collectors.toList())
+                )
+                .build();
+    }
+
+    @Override
+    public List<ToolSubscribeUserResponse> getSubscribeUserList() {
+        List<ToolSubscribe> toolSubscribes = toolSubscribeRepo.findAll();
+
+        Map<User, ToolSubscribeUserResponse> userMap = new HashMap<>();
+
+        List<ToolSubscribeUserResponse> responses = new ArrayList<>();
+
+        for (ToolSubscribe toolSubscribe: toolSubscribes) {
+            User user = toolSubscribe.getUser();
+            Tool tool = toolSubscribe.getTool();
+            if (userMap.get(user) == null) {
+                List<ToolSimpleResponse> tools = new ArrayList<>();
+                tools.add(new ToolSimpleResponse(tool.getId(), tool.getNameKr(), tool.getNameEn()));
+
+                ToolSubscribeUserResponse response = ToolSubscribeUserResponse.builder()
+                        .id(user.getId())
+                        .type(user.getType())
+                        .email(user.getEmail())
+                        .subscribeEmail(user.getSubscribeEmail())
+                        .subscribeActive(user.getSubscribeActive())
+                        .emailVerified(user.getEmailVerified())
+                        .createdAt(toolSubscribe.getCreatedAt())
+                        .tools(tools)
+                        .build();
+
+                userMap.put(user, response);
+                responses.add(response);
+            }
+            else {
+                ToolSubscribeUserResponse response = userMap.get(user);
+                response.getTools().add(new ToolSimpleResponse(tool.getId(), tool.getNameKr(), tool.getNameEn()));
+                response.updateMinCreatedAt(toolSubscribe.getCreatedAt());
+            }
+        }
+
+        return responses;
+    }
+
+    private ToolListResponse entityToListDTO(Tool tool, Map<Tool, Boolean> bookmarkMap) {
+        return ToolListResponse.builder()
+                .id(tool.getId())
+                .nameKr(tool.getNameKr())
+                .nameEn(tool.getNameEn())
+                .info(tool.getInfo())
+                .msg(tool.getMsg())
+                .topic(tool.getTopic())
+                .country(tool.getCountry())
+                .image(tool.getImage())
+                .url(tool.getUrl())
+                .trial(tool.getTrial())
+                .isBookmarked(bookmarkMap.get(tool) != null)
+                .categories(tool.getToolCategories().stream()
+                        .map(category -> ToolCategoryResponse.builder()
+                                .name(category.getName())
+                                .build())
+                        .collect(Collectors.toList())
                 )
                 .build();
     }

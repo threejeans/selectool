@@ -1,16 +1,22 @@
-import { useAppDispatch } from 'app/hooks'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import GuideControl from 'containers/Guide/GuideControl'
 import GuideListResult from 'containers/Guide/GuideListResult'
 import GuideNotice from 'containers/Guide/GuideNotice'
+import { selectAccessToken } from 'features/auth/authSlice'
 import { useEffect } from 'react'
-import { getGuideList, setRandomList } from 'reducers/guideReducer'
+import {
+  getGuideList,
+  getMemberGuideList,
+  setRandomList,
+} from 'reducers/guideReducer'
 import styles from 'styles/pages/commons/Content.module.css'
 
 const Guide = () => {
+  const accessToken = useAppSelector(selectAccessToken)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(getGuideList()).then(() => {
+    dispatch(accessToken ? getMemberGuideList() : getGuideList()).then(() => {
       dispatch(setRandomList())
     })
   }, [])

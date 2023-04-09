@@ -10,6 +10,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.util.StringUtils.hasText;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,18 +28,30 @@ public class User extends BaseEntity {
 
     private String email;
 
+    private String subscribeEmail;
+
     private String image;
 
-    private boolean active;
+    private Boolean active;
+
+    private Boolean subscribeActive;
+
+    private Boolean emailVerified;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ToolBookmark> toolBookmarks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ToolSubscribe> toolSubscribes = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CorpBookmark> corpBookmarks = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GuideBookmark> guideBookmarks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Demand> demands  = new ArrayList<>();
 
     @Builder
     public User(String name, String type, String email, String image) {
@@ -46,20 +60,27 @@ public class User extends BaseEntity {
         this.email = email;
         this.image = image;
         this.active = true;
+        this.subscribeActive = false;
     }
 
-    public void updateInfo(String name) {
-        this.name = name;
+    public void updateInfo(String name, String image, Boolean subscribeActive) {
+        if (hasText(name)) this.name = name;
+        if (hasText(image)) this.image = image;
+        if (subscribeActive != null) this.subscribeActive = subscribeActive;
     }
 
-    public void updateImage(String image) {
-        this.image = image;
+    // 메일 인증
+    public void verifyEmail(String subscribeEmail, Boolean emailVerified) {
+        this.subscribeEmail = subscribeEmail;
+        this.emailVerified = emailVerified;
     }
 
+    // 활성화
     public void setActive() {
         this.active = true;
     }
 
+    // 비활성화
     public void withdraw() {
         this.active = false;
     }

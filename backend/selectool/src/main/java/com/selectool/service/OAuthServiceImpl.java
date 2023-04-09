@@ -57,8 +57,9 @@ public class OAuthServiceImpl implements OAuthService {
                         .email(googleUser.getEmail())
                         .image(googleUser.getPicture())
                         .build();
+
                 UserResponse user = userService.getUser(socialLoginType, request);
-                // TODO : HTTP ONLY로 accessToken 및 refreshToken 발급 및 REDIS에 저장
+
                 String accessToken = jwtUtil.createAccessToken(user.getId());
                 String refreshToken = jwtUtil.createRefreshToken(user.getId());
                 Auth auth = Auth.builder()
@@ -82,7 +83,9 @@ public class OAuthServiceImpl implements OAuthService {
                         .email(naverUser.getEmail())
                         .image(naverUser.getProfile_image())
                         .build();
+
                 UserResponse user = userService.getUser(socialLoginType, request);
+
                 String accessToken = jwtUtil.createAccessToken(user.getId());
                 String refreshToken = jwtUtil.createRefreshToken(user.getId());
                 Auth auth = Auth.builder()
@@ -106,7 +109,9 @@ public class OAuthServiceImpl implements OAuthService {
                         .email(kakaoUser.getEmail())
                         .image(kakaoUser.getProfile().getProfile_image_url())
                         .build();
+
                 UserResponse user = userService.getUser(socialLoginType, request);
+
                 String accessToken = jwtUtil.createAccessToken(user.getId());
                 String refreshToken = jwtUtil.createRefreshToken(user.getId());
                 Auth auth = Auth.builder()

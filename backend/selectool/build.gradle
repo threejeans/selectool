@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
     id 'org.springframework.boot' version '2.7.4'
     id 'io.spring.dependency-management' version '1.1.0'
 }
@@ -7,6 +8,10 @@ plugins {
 group = 'com.selectool'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+
+ext {
+    queryDslVersion = "5.0.0"
+}
 
 configurations {
     compileOnly {
@@ -42,6 +47,13 @@ dependencies {
     // JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+    // QueryDSL
+    // TODO : 사용시 TODO에 있는 QueryDSL 관련 주석 풀기
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+    annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+
     // Swagger
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
@@ -63,3 +75,18 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+// QueryDSL
+// TODO : QueryDSL 사용시 주석 해제
+//querydsl 추가 시작
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets { main.java.srcDir querydslDir }
+compileQuerydsl { options.annotationProcessorPath = configurations.querydsl }
+configurations {
+    compileOnly { extendsFrom annotationProcessor }
+    querydsl.extendsFrom compileClasspath
+}//querydsl 추가 끝

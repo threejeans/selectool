@@ -4,6 +4,7 @@ import com.selectool.config.login.Admin;
 import com.selectool.config.login.LoginAdmin;
 import com.selectool.config.login.LoginUser;
 import com.selectool.config.login.User;
+import com.selectool.dto.guide.filter.GuideFilter;
 import com.selectool.dto.guide.request.GuideCreateRequest;
 import com.selectool.dto.guide.response.GuideResponse;
 import com.selectool.service.GuideService;
@@ -26,9 +27,17 @@ public class GuideController {
     @GetMapping("/guides")
     @ApiOperation(value = "가이드 목록 조회")
     public ResponseEntity<List<GuideResponse>> getGuideList(
-            @LoginUser User user
+            @LoginUser User user,
+            @RequestParam(defaultValue = "") String toolName,
+            @RequestParam(defaultValue = "") String func,
+            @RequestParam(value = "category", required = false, defaultValue = "") List<String> categories
     ) {
-        List<GuideResponse> response = guideService.getGuideList(user.getId());
+        GuideFilter filter = GuideFilter.builder()
+                .toolName(toolName)
+                .func(func)
+                .categories(categories)
+                .build();
+        List<GuideResponse> response = guideService.getGuideList(user.getId(), filter);
         return ResponseEntity.ok(response);
     }
 
@@ -98,8 +107,16 @@ public class GuideController {
     @GetMapping("nomember/guides")
     @ApiOperation(value = "비 로그인 가이드 목록 조회", tags = "비 로그인 조회")
     public ResponseEntity<List<GuideResponse>> getNoMemberGuideList(
+            @RequestParam(defaultValue = "") String toolName,
+            @RequestParam(defaultValue = "") String func,
+            @RequestParam(value = "category", required = false, defaultValue = "") List<String> categories
     ) {
-        List<GuideResponse> response = guideService.getGuideList(0L);
+        GuideFilter filter = GuideFilter.builder()
+                .toolName(toolName)
+                .func(func)
+                .categories(categories)
+                .build();
+        List<GuideResponse> response = guideService.getGuideList(0L, filter);
         return ResponseEntity.ok(response);
     }
 

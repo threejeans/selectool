@@ -6,6 +6,7 @@ import com.selectool.entity.Auth;
 import com.selectool.exception.NotFoundException;
 import com.selectool.exception.NotMatchException;
 import com.selectool.repository.AuthRepo;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,16 +25,18 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public ServiceTokenResponse refresh(String refreshToken, Long userId) {
+    public ServiceTokenResponse refresh(String refreshToken) {
+        Claims body = jwtUtil.getClaimsToken(refreshToken);
+        Long userId = Long.valueOf(String.valueOf(body.get("id")));
+
         Auth auth = authRepo.findById(userId)
                 .orElseThrow(() -> new NotFoundException(AUTH_NOT_FOUND));
         if (!auth.getRefreshToken().equals(refreshToken)) {
             throw new NotMatchException(AUTH_NOT_MATCH);
         }
-        ServiceTokenResponse response = ServiceTokenResponse.builder()
+        return ServiceTokenResponse.builder()
                 .accessToken(jwtUtil.createAccessToken(userId))
                 .refreshToken(refreshToken)
                 .build();
-        return response;
     }
 }

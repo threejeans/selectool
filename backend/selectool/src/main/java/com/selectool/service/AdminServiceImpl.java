@@ -39,13 +39,6 @@ public class AdminServiceImpl implements AdminService {
 
     private final JwtAdminUtil jwtAdminUtil;
 
-    private final String codeContent = "<h1 style=\"font-size: 30px; padding-right: 30px; padding-left: 30px;\">관리자 본인 확인</h1>"
-            + "<p style=\"font-size: 17px; padding-right: 30px; padding-left: 30px;\">아래 확인 코드를 관리자 로그인 화면에 입력해주세요.</p>"
-            + "<div style=\"padding-right: 30px; padding-left: 30px; margin: 32px 0 40px;\"><table style=\"border-collapse: collapse; border: 0; background-color: #F4F4F4; height: 70px; table-layout: fixed; word-wrap: break-word; border-radius: 6px;\"><tbody><tr><td style=\"text-align: center; vertical-align: middle; font-size: 30px;\">";
-
-    // 코드 만료 시간 10분
-    private Long CODE_EXPIRATION = 10L;
-
     // refreshToken 만료 시간
     @Value("${token.refresh_token.expiration_time}")
     private Long REFRESH_EXPIRATION;
@@ -63,15 +56,18 @@ public class AdminServiceImpl implements AdminService {
         // 메일 내용 생성
         String code = createCode();
 
-        String content = codeContent;
+        String content = "<h1 style=\"font-size: 30px; padding-right: 30px; padding-left: 30px;\">관리자 본인 확인</h1>"
+                    + "<p style=\"font-size: 17px; padding-right: 30px; padding-left: 30px;\">아래 확인 코드를 관리자 로그인 화면에 입력해주세요.</p>"
+                    + "<div style=\"padding-right: 30px; padding-left: 30px; margin: 32px 0 40px;\"><table style=\"border-collapse: collapse; border: 0; background-color: #F4F4F4; height: 70px; table-layout: fixed; word-wrap: break-word; border-radius: 6px;\"><tbody><tr><td style=\"text-align: center; vertical-align: middle; font-size: 30px;\">";
         content += code + "</td></tr></tbody></table></div>";
         log.info("코드: " + code);
         // 코드 저장
+        // 코드 만료 시간 10분
         codeRepo.save(
                 Code.builder()
                         .email(request.getEmail())
                         .code(code)
-                        .expiration(CODE_EXPIRATION)
+                        .expiration(10L)
                         .build()
         );
 
