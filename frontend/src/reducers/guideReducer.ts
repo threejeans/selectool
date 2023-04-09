@@ -34,6 +34,18 @@ export const getGuideList = createAsyncThunk(
   },
 )
 
+export const getMemberGuideList = createAsyncThunk(
+  'authguide/getMemberGuideList',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.get('board/guides')
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
 export const switchGuideBookmark = createAsyncThunk(
   'authGuide/switchGuideBookmark',
   async ({ id, isBookmarked }: IsBookmarkedType, { rejectWithValue }) => {
@@ -59,7 +71,6 @@ const guideSlice = createSlice({
           result.add(Math.floor(Math.random() * size))
         }
       }
-      console.log(result)
       state.randomList = Array.from(result)
     },
     setCategoryFilter: (state, { payload }) => {
@@ -86,6 +97,16 @@ const guideSlice = createSlice({
         state.status = 'success'
       })
       .addCase(getGuideList.rejected, state => {
+        state.status = 'failed'
+      })
+      .addCase(getMemberGuideList.pending, state => {
+        state.status = 'loading'
+      })
+      .addCase(getMemberGuideList.fulfilled, (state, { payload }) => {
+        state.guideList = payload
+        state.status = 'success'
+      })
+      .addCase(getMemberGuideList.rejected, state => {
         state.status = 'failed'
       })
   },
