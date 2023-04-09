@@ -24,3 +24,33 @@ export type IsBookmarkedType = {
   id: number
   isBookmarked: boolean
 }
+
+export type SubscribeType = {
+  id: number
+  subscribeEmail: string
+  createdAt: Date
+  email: string
+  emailVerified: boolean
+  subscribeActive: boolean
+  tools: [
+    {
+      categories: [
+        {
+          name: string
+        },
+      ]
+      country: string
+      id: number
+      image: string
+      info: string
+      isBookmarked: boolean
+      msg: string
+      nameEn: string
+      nameKr: string
+      topic: string
+      trial: boolean
+      url: string
+    },
+  ]
+  type: string
+}

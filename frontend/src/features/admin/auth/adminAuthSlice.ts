@@ -16,7 +16,7 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  accessToken: '',
+  accessToken: undefined,
   tmpEmail: '',
   status: 'idle',
 }
@@ -26,10 +26,8 @@ export const loginAdmin = createAsyncThunk(
   async ({ email }: authAdmin, { rejectWithValue }) => {
     try {
       const response = await apiAxios.post('/admin/login', { email: email })
-      console.log(response) //
       return response.data
     } catch (error: any) {
-      console.log(error) //
       return rejectWithValue(error.message)
     }
   },
@@ -40,12 +38,11 @@ export const authAdmin = createAsyncThunk(
   async ({ email, auth }: authAdmin, { rejectWithValue }) => {
     try {
       const response = await apiAxios.post('/admin/auth', { email, auth })
-      console.log(response)
+      // console.log(response)
       const accessToken = response.headers['access-token']
-      console.log('accessToken', accessToken)
+      // console.log('accessToken', accessToken)
       return { data: response.data, accessToken: accessToken }
     } catch (error: any) {
-      console.log(error) //
       return rejectWithValue(error.message)
     }
   },
@@ -109,7 +106,7 @@ export const adminAuthSlice = createSlice({
       })
       .addCase(checkValiableToken.fulfilled, state => {
         state.status = 'success'
-        state.accessToken = getStorageToken() || ''
+        state.accessToken = getStorageToken() || undefined
       })
       .addCase(checkValiableToken.rejected, state => {
         state.status = 'failed'
