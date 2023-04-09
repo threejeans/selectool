@@ -5,8 +5,9 @@
   grid-template-areas:
     'a b'
     'a c';
-  grid-template-rows: 50% 50%;
-  grid-template-columns: 60% 40%;
+  grid-template-rows: 256px 256px;
+  grid-template-columns: calc(790 / 1269 * 100%) calc(465 / 1269 * 100%);
+  grid-gap: 12px;
   margin-bottom: 8rem;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
   background-size: cover;
@@ -29,8 +30,6 @@
 }
 
 .notiCard {
-  width: 100%;
-  padding: 1rem;
   transition: all 2s;
 }
 
@@ -68,33 +67,37 @@
 
 .contentCover:hover {
   z-index: 0;
-  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.3));
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.6));
 }
 
 .content {
   z-index: 0;
   width: 100%;
   padding: 3%;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+  font-weight: 700;
+  /* text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); */
 }
 
 .contentTitle {
-  font-size: 1.2rem;
-  font-weight: 700;
-  line-height: 1.6rem;
-  word-break: keep-all;
+  font-size: 1.6rem;
   color: var(--gray-scale-color-g05);
 }
-
+.notiBox .notiCard:nth-child(2) .contentTitle,
+.notiBox .notiCard:nth-child(3) .contentTitle {
+  font-size: 1rem;
+}
 .subContent {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   color: var(--gray-scale-color-g05);
 }
-
+.notiBox .notiCard:nth-child(2) .subContent,
+.notiBox .notiCard:nth-child(3) .subContent {
+  font-size: 0.8rem;
+}
 .controlBox {
   width: 100%;
   display: flex;
@@ -146,9 +149,15 @@
   flex-direction: column;
   gap: 0.2rem;
   grid-gap: 0.2rem;
-  padding: 0.2rem 0.4rem;
+  padding: 0.2rem 0.4rem 1rem 0.4rem;
 }
-
+.duple {
+  position: absolute;
+  bottom: 0.2rem;
+  right: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--gray-scale-color-g20);
+}
 .dropItem {
   width: 100%;
   background-color: var(--gray-scale-color-g05);
@@ -224,6 +233,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  margin: 1rem 0;
 }
 
 .guideItem * {

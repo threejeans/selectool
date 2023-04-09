@@ -4,6 +4,7 @@ import { BiChevronDown } from 'react-icons/bi'
 import { BsBookmarkFill } from 'react-icons/bs'
 import {
   getGuideList,
+  getMemberGuideList,
   plusContentCnt,
   selectCategories,
   selectContentCnt,
@@ -30,7 +31,7 @@ const GuideListResult = () => {
       return
     }
     dispatch(switchGuideBookmark(params)).then(() => {
-      dispatch(getGuideList())
+      dispatch(getMemberGuideList())
     })
   }
 
@@ -69,7 +70,6 @@ const GuideListResult = () => {
       }
     }
     return [...Array.from(tmp)].map((item, index) => {
-      console.log(item.categories)
       return (
         <a
           className={styles.guideItem}

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
 import { RootState } from 'app/store'
+import { IdStatus } from 'types/types'
 import { DemandType } from 'types/userTypes'
 
 type DataState = {
@@ -18,6 +19,29 @@ export const getRequestList = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiAxios.get('/request/demands')
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(error.message)
+    }
+  },
+)
+
+export const changeRequestStatus = createAsyncThunk(
+  'adminData/changeRequestStatus',
+  async ({ id, status }: IdStatus, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.put(`/request/demands/${id}`, { status })
+      return response.data
+    } catch (error: any) {
+      return rejectWithValue(error.message)
+    }
+  },
+)
+export const deleteRequest = createAsyncThunk(
+  'adminData/changeRequestStatus',
+  async ({ id }: IdStatus, { rejectWithValue }) => {
+    try {
+      const response = await apiAxios.delete(`/request/demands/${id}`)
       return response.data
     } catch (error: any) {
       return rejectWithValue(error.message)
