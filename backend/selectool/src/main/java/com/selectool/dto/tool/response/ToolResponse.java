@@ -50,6 +50,9 @@ public class ToolResponse {
     @ApiModelProperty(value = "툴 북마크 여부")
     private Boolean isBookmarked;
 
+    @ApiModelProperty(value = "툴 구독 여부")
+    private Boolean isSubscribed;
+
     @ApiModelProperty(value = "툴 분류 목록")
     private List<ToolCategoryResponse> categories;
 
@@ -63,7 +66,7 @@ public class ToolResponse {
     private List<ToolPlanResponse> plans;
 
     @Builder
-    public ToolResponse(Long id, String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, Boolean trial, Boolean isBookmarked, List<ToolCategoryResponse> categories, List<ToolFunctionResponse> toolFunctions, List<ClientResponse> clients, List<ToolPlanResponse> plans) {
+    public ToolResponse(Long id, String nameKr, String nameEn, String info, String msg, String topic, String country, String image, String url, String aos, String ios, Boolean trial, Boolean isBookmarked, Boolean isSubscribed, List<ToolCategoryResponse> categories, List<ToolFunctionResponse> toolFunctions, List<ClientResponse> clients, List<ToolPlanResponse> plans) {
         this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
@@ -77,6 +80,7 @@ public class ToolResponse {
         this.ios = ios;
         this.trial = trial;
         this.isBookmarked = isBookmarked;
+        this.isSubscribed = isSubscribed;
         this.categories = categories;
         this.toolFunctions = toolFunctions;
         this.clients = clients;

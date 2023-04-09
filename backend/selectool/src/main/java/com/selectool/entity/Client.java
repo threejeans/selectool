@@ -27,12 +27,17 @@ public class Client extends BaseEntity {
     private List<ToolClient> toolClients = new ArrayList<>();
 
     @Builder
-
     public Client(Long id, String name, String image, String url, List<ToolClient> toolClients) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.url = url;
         this.toolClients = toolClients;
+    }
+
+    public void update(String name, String image, String url) {
+        this.name = name;
+        this.image = image;
+        this.url = url;
     }
 }

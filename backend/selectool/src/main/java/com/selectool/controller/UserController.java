@@ -3,9 +3,10 @@ package com.selectool.controller;
 import com.selectool.config.Constant;
 import com.selectool.config.login.LoginUser;
 import com.selectool.config.login.User;
-
+import com.selectool.dto.user.request.CodeRequest;
+import com.selectool.dto.user.request.UserUpdateRequest;
 import com.selectool.dto.user.response.ServiceTokenResponse;
-
+import com.selectool.dto.user.response.UserResponse;
 import com.selectool.service.AuthService;
 import com.selectool.service.OAuthService;
 import com.selectool.service.UserService;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -61,11 +63,10 @@ public class UserController {
     @GetMapping("/refresh")
     @ApiOperation(value = "액세스 토큰 재발급")
     public ResponseEntity<?> refresh(
-            @CookieValue("refresh-token") String refreshToken,
-            @LoginUser User user
+            @CookieValue("refresh-token") String refreshToken
     ) {
         try {
-            return ResponseEntity.ok(authService.refresh(refreshToken, user.getId()));
+            return ResponseEntity.ok(authService.refresh(refreshToken));
         } catch (RuntimeException e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("로그인 만료");
@@ -74,9 +75,49 @@ public class UserController {
 
     @GetMapping("/info")
     @ApiOperation(value = "유저 정보 조회")
-    public ResponseEntity<?> getUserInfo(
+    public ResponseEntity<UserResponse> getUserInfo(
             @LoginUser User user
     ) {
         return ResponseEntity.ok(userService.getUserInfo(user.getId()));
+    }
+
+    @PutMapping("/info")
+    @ApiOperation(value = "유저 정보 수정")
+    public ResponseEntity<?> updateUserInfo(
+            @LoginUser User user,
+            @RequestBody UserUpdateRequest request
+    ) {
+        userService.updateUserInfo(request, user.getId());
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/withdraw")
+    @ApiOperation(value = "유저 비활성화")
+    public ResponseEntity<?> User(
+            @LoginUser User user
+    ) {
+        userService.withdraw(user.getId());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/info/email")
+    @ApiOperation(value = "이메일 인증 메일 전송")
+    public ResponseEntity<?> sendVerificationEmail(
+            @LoginUser User user,
+            @RequestBody CodeRequest request
+    ) throws Exception {
+        userService.sendVerificationEmail(user.getId(), request);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/info/email")
+    @ApiOperation(value = "이메일 인증 확인")
+    public RedirectView VerifyEmail(
+            @RequestParam Long userId,
+            @RequestParam String email,
+            @RequestParam String code
+    ) {
+        userService.VerifyEmail(userId, new CodeRequest(email, code));
+        return new RedirectView("https://selectool.info/mypage/setting");
     }
 }
