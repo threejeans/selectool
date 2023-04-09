@@ -239,7 +239,7 @@ const AdminRequestList = () => {
                   </div>
                   <div className={styles.requesterInfo}>
                     <p>{userEmail || '비회원'}</p>
-                    <p>{`${createdAt}` || ''}</p>
+                    <p>{new Date(createdAt).toLocaleString('ko-KR') || ''}</p>
                   </div>
                 </div>
               )
