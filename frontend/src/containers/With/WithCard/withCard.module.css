@@ -85,6 +85,7 @@
   filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
   right: 20px;
   top: -6px;
+  cursor: pointer;
 }
 
 .smallBookmark {
@@ -94,10 +95,12 @@
   filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
   right: 14px;
   top: -8px;
+  cursor: pointer;
 }
 
 .bookmarkScraped {
   color: #60a9f6;
+  cursor: pointer;
 }
 
 .contentsContainer {

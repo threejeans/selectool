@@ -112,7 +112,7 @@ const SelfDetailMain = () => {
 
   useEffect(() => {
     getSelfSpecificInfo()
-    if (!userInfoForSubscribe.email) {
+    if (!userInfoForSubscribe.email && isLogon) {
       getUserInfo()
     }
   }, [])

@@ -73,7 +73,7 @@ const WithDetailMain = () => {
       setTimeout(() => setToastStatus(false), 1000)
     }
     getWithSpecificInfo()
-  })
+  }, [])
 
   return (
     <>

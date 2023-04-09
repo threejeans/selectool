@@ -6,11 +6,11 @@
     'a b'
     'a c';
   grid-template-rows: 256px 256px;
-  grid-template-columns: calc(790/1269*100%) calc(465/1269*100%);
+  grid-template-columns: calc(790 / 1269 * 100%) calc(465 / 1269 * 100%);
   grid-gap: 12px;
   margin-bottom: 8rem;
-  filter:drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-  background-size: cover;  
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  background-size: cover;
 }
 
 .notiBox * {
@@ -57,7 +57,12 @@
   width: 100%;
   height: 100%;
   border-radius: 1rem;
-  background: linear-gradient(to bottom, transparent, transparent, rgba(0, 0, 0, 0.4));
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    transparent,
+    rgba(0, 0, 0, 0.4)
+  );
 }
 
 .contentCover:hover {
@@ -78,7 +83,7 @@
   color: var(--gray-scale-color-g05);
 }
 .notiBox .notiCard:nth-child(2) .contentTitle,
-.notiBox .notiCard:nth-child(3) .contentTitle{
+.notiBox .notiCard:nth-child(3) .contentTitle {
   font-size: 1rem;
 }
 .subContent {
@@ -144,9 +149,9 @@
   flex-direction: column;
   gap: 0.2rem;
   grid-gap: 0.2rem;
-  padding: 0.2rem 0.4rem 1rem 0.4rem;  
+  padding: 0.2rem 0.4rem 1rem 0.4rem;
 }
-.duple{
+.duple {
   position: absolute;
   bottom: 0.2rem;
   right: 0.4rem;
@@ -178,7 +183,6 @@
   width: max-content;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-
 }
 
 .functionItem {
@@ -201,7 +205,6 @@
 .none {
   visibility: hidden;
 }
-
 
 .searchBox {
   min-width: 16rem;
@@ -230,7 +233,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin:1rem 0;
+  margin: 1rem 0;
 }
 
 .guideItem * {
@@ -266,7 +269,7 @@
   border-radius: 100%;
   overflow: hidden;
   /* background-color: white; */
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .guideInfo {
@@ -276,7 +279,7 @@
 .guideTitle {
   margin-top: 1rem;
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .guideContent {
@@ -322,7 +325,7 @@
   justify-content: center;
   align-items: center;
 }
-.bookmark{
+.bookmark {
   position: absolute;
   top: -4px;
   right: 20px;

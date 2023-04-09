@@ -203,7 +203,11 @@ const SettingComponent = () => {
                               !isEmailValid || isSendValidTest
                                 ? styles.inputNotValid
                                 : ''
-                            } ${isSendValidTest ? styles.inputSendValid : ''}`}
+                            } ${
+                              isSendValidTest && isValidTime
+                                ? styles.inputSendValid
+                                : ''
+                            }`}
                             value={subscribeEmail}
                             onChange={ev => setSubscribeEmail(ev.target.value)}
                           ></input>
