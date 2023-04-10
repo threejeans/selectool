@@ -29,7 +29,9 @@ const ImageInput = ({
   const handlePhoto = (e: any) => {
     const photo = e.target.files
     if (!photo[0]) return
-    uploadFile(photo[0])
+    uploadFile(photo[0]).then(()=>{
+      e.target.value=''
+    })
   }
 
   const uploadFile = async (file: any) => {
