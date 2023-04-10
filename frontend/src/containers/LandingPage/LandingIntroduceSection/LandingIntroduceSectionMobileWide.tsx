@@ -4,7 +4,7 @@ import commonStyles from '../../../styles/pages/landingPage/Landing.module.css'
 import emLeft from 'assets/landing_introduce_em_left.svg'
 import emRight from 'assets/landing_introduce_em_right.svg'
 
-const LandingIntroduceSectionMobile = () => {
+const LandingIntroduceSectionMobileWide = () => {
   return (
     <div id='section02' className={styles.containerMobile}>
       <div className={styles.contentsMobile}>
@@ -25,7 +25,7 @@ const LandingIntroduceSectionMobile = () => {
         </div>
         <div className={styles.bubbbleSectionMobile}>
           <div
-            className={`${styles.bubble_container_mobile} ${styles.bubble_01_mobile}`}
+            className={`${styles.bubble_container_mobilewide} ${styles.bubble_01_mobilewide}`}
             data-aos='fade-up'
           >
             <img
@@ -38,7 +38,7 @@ const LandingIntroduceSectionMobile = () => {
             </div>
           </div>
           <div
-            className={`${styles.bubble_container_mobile} ${styles.bubble_02_mobile}`}
+            className={`${styles.bubble_container_mobilewide} ${styles.bubble_02_mobilewide}`}
             data-aos='fade-up'
           >
             <img
@@ -52,7 +52,7 @@ const LandingIntroduceSectionMobile = () => {
             </div>
           </div>
           <div
-            className={`${styles.bubble_container_mobile} ${styles.bubble_03_mobile}`}
+            className={`${styles.bubble_container_mobilewide} ${styles.bubble_03_mobilewide}`}
             data-aos='fade-up'
           >
             <img
@@ -68,4 +68,4 @@ const LandingIntroduceSectionMobile = () => {
   )
 }
 
-export default LandingIntroduceSectionMobile
+export default LandingIntroduceSectionMobileWide
