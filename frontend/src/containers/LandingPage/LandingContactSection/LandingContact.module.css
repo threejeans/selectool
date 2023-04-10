@@ -7,6 +7,15 @@
   background-color: white;
 }
 
+.container_tablet {
+  width: 100vw;
+  height: 900px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
 .contents {
   width: 80%;
   max-width: 960px;
@@ -25,10 +34,40 @@
   border-radius: 20px;
 }
 
+.contents_tablet {
+  width: 80%;
+  padding-inline: 6%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(96, 169, 246, 0.9) -32.17%,
+    rgba(171, 224, 199, 0.9) 116.11%
+  );
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
 .text {
   text-align: start;
   line-height: 58px;
   color: #ffffff;
+}
+
+.h3Mobile {
+  font-size: 1rem;
+  line-height: 1.6rem;
+}
+
+.mobileForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 18px;
+  align-items: center;
 }
 
 .inputTop {

@@ -11,6 +11,7 @@ interface Props {
   label?: string
   type?: string
   value?: InputValue
+  isMobile?: boolean
   placeholder?: string
   onChange?: (ev: InputChangeEvent) => void
   onChangeForTextArea?: (ev: TextAreaChangeEvent) => void
@@ -24,6 +25,7 @@ const Input: React.FC<Props> = ({
   type = 'text',
   value = '',
   placeholder = 'placeholder',
+  isMobile = false,
   onChange,
   onChangeForTextArea,
 }) => {
@@ -42,14 +44,16 @@ const Input: React.FC<Props> = ({
   return (
     <div className={styles.InputCover}>
       {label ? (
-        <div className={styles.label}>
+        <div className={isMobile ? styles.labelMobile : styles.label}>
           <label htmlFor={label}>{label}</label>
           {isOption ? null : <span className={styles.labelOption}>*</span>}
         </div>
       ) : null}
       {type === 'textarea' ? (
         <textarea
-          className={`${styles.input} ${styles.textarea}`}
+          className={`${isMobile ? styles.inputMobile : styles.input} ${
+            isMobile ? styles.textareaMobile : styles.textarea
+          }`}
           name={name}
           id={label}
           placeholder={placeholder}
@@ -58,7 +62,13 @@ const Input: React.FC<Props> = ({
         />
       ) : (
         <input
-          className={type === 'search' ? styles.search : styles.input}
+          className={
+            type === 'search'
+              ? styles.search
+              : isMobile
+              ? styles.inputMobile
+              : styles.input
+          }
           name={name}
           id={label}
           placeholder={placeholder}
