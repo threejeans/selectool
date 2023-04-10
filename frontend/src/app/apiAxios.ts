@@ -21,11 +21,7 @@ const apiAxios: AxiosInstance = baseAxios.create({
 export const axiosMiddleware =
   (store: any) => (next: (arg0: any) => any) => (action: { type: string }) => {
     // console.log('action: ', action)
-    if (
-      action.type.startsWith('auth') ||
-      action.type.startsWith('adminContents') ||
-      action.type.startsWith('adminData')
-    )
+    if (action.type.startsWith('auth') || action.type.startsWith('admin'))
       setInterceptors(store)
     return next(action)
   }

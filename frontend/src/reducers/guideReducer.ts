@@ -17,7 +17,7 @@ const initialState: GuideState = {
   randomList: [],
   guideList: [],
   categories: [],
-  contentCnt: 10,
+  contentCnt: 12,
   searchKey: '',
   status: 'idle',
 }
@@ -79,7 +79,7 @@ const guideSlice = createSlice({
     plusContentCnt: state => {
       if (state.contentCnt < state.guideList.length)
         state.contentCnt += Math.min(
-          5,
+          6,
           state.guideList.length - state.contentCnt,
         )
     },
