@@ -1,4 +1,4 @@
-import { WithSmallCard } from 'containers/With'
+import { WithCard, WithSmallCard } from 'containers/With'
 import styles from './CardGrid.module.css'
 import React, { useEffect, useRef } from 'react'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
@@ -116,7 +116,7 @@ const WithScrapCardGrid = () => {
         <div className={styles.layoutWithMobile}>
           {scrapExportList.length > 0 ? (
             scrapExportList.map((data, idx) => (
-              <WithSmallCard data={data} key={idx} />
+              <WithCard data={data} key={idx} />
             ))
           ) : (
             <div className={styles.noContentlayoutMobile}>
@@ -151,7 +151,7 @@ const WithScrapCardGrid = () => {
         <div className={styles.layoutWithMobile}>
           {scrapExportList.length > 0 ? (
             scrapExportList.map((data, idx) => (
-              <WithSmallCard data={data} key={idx} />
+              <WithCard data={data} key={idx} />
             ))
           ) : (
             <div className={styles.noContentlayoutMobile}>

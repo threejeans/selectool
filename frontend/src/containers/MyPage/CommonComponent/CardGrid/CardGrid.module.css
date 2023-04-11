@@ -31,7 +31,7 @@
   display: grid;
   justify-content: center;
 
-  grid-template-columns: repeat(auto-fit, minmax(152px, max-content));
+  grid-template-columns: repeat(auto-fit, minmax(156px, max-content));
   column-gap: 20px;
   row-gap: 2.4rem;
 }
