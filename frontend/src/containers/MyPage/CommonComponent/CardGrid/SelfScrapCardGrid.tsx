@@ -119,16 +119,16 @@ const SelfScrapCardGrid = () => {
               <SelfSmallCard data={data} key={idx} />
             ))
           ) : (
-            <div className={styles.noContentlayout}>
-              <div className={styles.noSearchLayout}>
-                <div className={styles.noSearchMainText}>
+            <div className={styles.noContentlayoutMobile}>
+              <div className={styles.noSearchLayoutMobile}>
+                <div className={styles.noSearchMainTextMobile}>
                   아직 저장된 툴이 없어요 :&#40;
                 </div>
-                <div className={styles.noSearchSubText}>
+                <div className={styles.noSearchSubTextMobile}>
                   마음에 드는 툴을 저장하시면 이 곳에서 한눈에 확인할 수 있어요
                 </div>
                 <Link to={'/self'}>
-                  <span className={styles.noSearchResetText}>
+                  <span className={styles.noSearchResetTextMobile}>
                     툴 둘러보러 가기 →
                   </span>
                 </Link>
@@ -154,16 +154,16 @@ const SelfScrapCardGrid = () => {
               <SelfSmallCard data={data} key={idx} />
             ))
           ) : (
-            <div className={styles.noContentlayout}>
-              <div className={styles.noSearchLayout}>
-                <div className={styles.noSearchMainText}>
+            <div className={styles.noContentlayoutMobile}>
+              <div className={styles.noSearchLayoutMobile}>
+                <div className={styles.noSearchMainTextMobile}>
                   아직 저장된 툴이 없어요 :&#40;
                 </div>
-                <div className={styles.noSearchSubText}>
+                <div className={styles.noSearchSubTextMobile}>
                   마음에 드는 툴을 저장하시면 이 곳에서 한눈에 확인할 수 있어요
                 </div>
                 <Link to={'/self'}>
-                  <span className={styles.noSearchResetText}>
+                  <span className={styles.noSearchResetTextMobile}>
                     툴 둘러보러 가기 →
                   </span>
                 </Link>

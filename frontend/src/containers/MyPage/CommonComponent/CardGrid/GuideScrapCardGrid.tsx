@@ -127,17 +127,17 @@ const GuideScrapCardGrid = () => {
               <GuideSmallCard data={data} key={idx} />
             ))
           ) : (
-            <div className={styles.noContentlayout}>
-              <div className={styles.noSearchLayout}>
-                <div className={styles.noSearchMainText}>
+            <div className={styles.noContentlayoutMobile}>
+              <div className={styles.noSearchLayoutMobile}>
+                <div className={styles.noSearchMainTextMobile}>
                   아직 저장된 가이드가 없어요 :&#40;
                 </div>
-                <div className={styles.noSearchSubText}>
+                <div className={styles.noSearchSubTextMobile}>
                   도움 되는 가이드를 저장하시면 이 곳에서 한눈에 확인할 수
                   있어요
                 </div>
                 <Link to={'/guide'}>
-                  <span className={styles.noSearchResetText}>
+                  <span className={styles.noSearchResetTextMobile}>
                     가이드 둘러보러 가기 →
                   </span>
                 </Link>
@@ -163,17 +163,17 @@ const GuideScrapCardGrid = () => {
               <GuideSmallCard data={data} key={idx} />
             ))
           ) : (
-            <div className={styles.noContentlayout}>
-              <div className={styles.noSearchLayout}>
-                <div className={styles.noSearchMainText}>
+            <div className={styles.noContentlayoutMobile}>
+              <div className={styles.noSearchLayoutMobile}>
+                <div className={styles.noSearchMainTextMobile}>
                   아직 저장된 가이드가 없어요 :&#40;
                 </div>
-                <div className={styles.noSearchSubText}>
+                <div className={styles.noSearchSubTextMobile}>
                   도움 되는 가이드를 저장하시면 이 곳에서 한눈에 확인할 수
                   있어요
                 </div>
                 <Link to={'/guide'}>
-                  <span className={styles.noSearchResetText}>
+                  <span className={styles.noSearchResetTextMobile}>
                     가이드 둘러보러 가기 →
                   </span>
                 </Link>
