@@ -1,5 +1,11 @@
 .layout {
   display: flex;
   flex-direction: row;
-  column-gap: 60px;
+  column-gap: 36px;
+}
+
+.layoutMobile {
+  display: flex;
+  flex-direction: column;
+  row-gap: 36px;
 }

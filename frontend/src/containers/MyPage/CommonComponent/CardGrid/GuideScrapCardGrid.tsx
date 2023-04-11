@@ -17,6 +17,7 @@ import {
   selectGuideList,
   switchGuideBookmark,
 } from 'reducers/guideReducer'
+import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
 
 const GuideScrapCardGrid = () => {
   const scrapList = useAppSelector(guideScrapList)
@@ -47,39 +48,150 @@ const GuideScrapCardGrid = () => {
 
   return (
     <>
-      <div className={styles.guideLayout}>
-        {scrapExportList.length > 0 ? (
-          scrapExportList.map((data, idx) => (
-            <GuideSmallCard data={data} key={idx} />
-          ))
-        ) : (
-          <div className={styles.noContentlayout}>
-            <div className={styles.noSearchLayout}>
-              <div className={styles.noSearchMainText}>
-                아직 저장된 가이드가 없어요 :&#40;
+      <Pc>
+        <div className={styles.guideLayout}>
+          {scrapExportList.length > 0 ? (
+            scrapExportList.map((data, idx) => (
+              <GuideSmallCard data={data} key={idx} />
+            ))
+          ) : (
+            <div className={styles.noContentlayout}>
+              <div className={styles.noSearchLayout}>
+                <div className={styles.noSearchMainText}>
+                  아직 저장된 가이드가 없어요 :&#40;
+                </div>
+                <div className={styles.noSearchSubText}>
+                  도움 되는 가이드를 저장하시면 이 곳에서 한눈에 확인할 수
+                  있어요
+                </div>
+                <Link to={'/guide'}>
+                  <span className={styles.noSearchResetText}>
+                    가이드 둘러보러 가기 →
+                  </span>
+                </Link>
               </div>
-              <div className={styles.noSearchSubText}>
-                도움 되는 가이드를 저장하시면 이 곳에서 한눈에 확인할 수 있어요
-              </div>
-              <Link to={'/guide'}>
-                <span className={styles.noSearchResetText}>
-                  가이드 둘러보러 가기 →
-                </span>
-              </Link>
             </div>
-          </div>
-        )}
-      </div>
-      {scrapList.length > 12 && contentCount < maxContentCount ? (
-        <div className={styles.moreGroup}>
-          <button className={styles.moreButton} onClick={moreContentEvent}>
-            더보기&nbsp;&nbsp;
-            <BsChevronCompactDown className={styles.icon} />
-          </button>
+          )}
         </div>
-      ) : (
-        ''
-      )}
+        {scrapList.length > 12 && contentCount < maxContentCount ? (
+          <div className={styles.moreGroup}>
+            <button className={styles.moreButton} onClick={moreContentEvent}>
+              더보기&nbsp;&nbsp;
+              <BsChevronCompactDown className={styles.icon} />
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
+      </Pc>
+      <Tablet>
+        <div className={styles.guideLayout}>
+          {scrapExportList.length > 0 ? (
+            scrapExportList.map((data, idx) => (
+              <GuideSmallCard data={data} key={idx} />
+            ))
+          ) : (
+            <div className={styles.noContentlayout}>
+              <div className={styles.noSearchLayout}>
+                <div className={styles.noSearchMainText}>
+                  아직 저장된 가이드가 없어요 :&#40;
+                </div>
+                <div className={styles.noSearchSubText}>
+                  도움 되는 가이드를 저장하시면 이 곳에서 한눈에 확인할 수
+                  있어요
+                </div>
+                <Link to={'/guide'}>
+                  <span className={styles.noSearchResetText}>
+                    가이드 둘러보러 가기 →
+                  </span>
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+        {scrapList.length > 12 && contentCount < maxContentCount ? (
+          <div className={styles.moreGroup}>
+            <button className={styles.moreButton} onClick={moreContentEvent}>
+              더보기&nbsp;&nbsp;
+              <BsChevronCompactDown className={styles.icon} />
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
+      </Tablet>
+      <MobileWide>
+        <div className={styles.guideLayoutMobile}>
+          {scrapExportList.length > 0 ? (
+            scrapExportList.map((data, idx) => (
+              <GuideSmallCard data={data} key={idx} />
+            ))
+          ) : (
+            <div className={styles.noContentlayout}>
+              <div className={styles.noSearchLayout}>
+                <div className={styles.noSearchMainText}>
+                  아직 저장된 가이드가 없어요 :&#40;
+                </div>
+                <div className={styles.noSearchSubText}>
+                  도움 되는 가이드를 저장하시면 이 곳에서 한눈에 확인할 수
+                  있어요
+                </div>
+                <Link to={'/guide'}>
+                  <span className={styles.noSearchResetText}>
+                    가이드 둘러보러 가기 →
+                  </span>
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+        {scrapList.length > 12 && contentCount < maxContentCount ? (
+          <div className={styles.moreGroup}>
+            <button className={styles.moreButton} onClick={moreContentEvent}>
+              더보기&nbsp;&nbsp;
+              <BsChevronCompactDown className={styles.icon} />
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
+      </MobileWide>
+      <Mobile>
+        <div className={styles.guideLayoutMobile}>
+          {scrapExportList.length > 0 ? (
+            scrapExportList.map((data, idx) => (
+              <GuideSmallCard data={data} key={idx} />
+            ))
+          ) : (
+            <div className={styles.noContentlayout}>
+              <div className={styles.noSearchLayout}>
+                <div className={styles.noSearchMainText}>
+                  아직 저장된 가이드가 없어요 :&#40;
+                </div>
+                <div className={styles.noSearchSubText}>
+                  도움 되는 가이드를 저장하시면 이 곳에서 한눈에 확인할 수
+                  있어요
+                </div>
+                <Link to={'/guide'}>
+                  <span className={styles.noSearchResetText}>
+                    가이드 둘러보러 가기 →
+                  </span>
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
+        {scrapList.length > 12 && contentCount < maxContentCount ? (
+          <div className={styles.moreGroup}>
+            <button className={styles.moreButton} onClick={moreContentEvent}>
+              더보기&nbsp;&nbsp;
+              <BsChevronCompactDown className={styles.icon} />
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
+      </Mobile>
     </>
   )
 }
