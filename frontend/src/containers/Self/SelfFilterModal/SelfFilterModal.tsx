@@ -24,6 +24,8 @@ import {
   setSelfModalFilterParams,
 } from 'reducers/selfReducer'
 import styles from './SelfFilterModal.module.css'
+import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
+import { BiReset } from 'react-icons/bi'
 
 type ContentProps = {
   title: string
@@ -166,36 +168,132 @@ const SelfFilterModal = () => {
 
   return (
     <Modal isModal={modalStatus} setIsModal={closemodal}>
-      <div className={styles.modalLayout}>
-        <div className={styles.titleContainer}>
-          <div className={styles.title}>
-            보고 싶은 협업툴의 카테고리를 세세하게 설정해보세요.
+      <Pc>
+        <div className={styles.modalLayout}>
+          <div className={styles.titleContainer}>
+            <div className={styles.title}>
+              보고 싶은 협업툴의 카테고리를 세세하게 설정해보세요.
+            </div>
+            <div className={styles.description}>
+              2개 이상의 항목을 선택해주시면 더욱 정확하고 만족스러운 필터링
+              결과를 얻을 수 있어요 :&#41;
+            </div>
           </div>
-          <div className={styles.description}>
-            2개 이상의 항목을 선택해주시면 더욱 정확하고 만족스러운 필터링
-            결과를 얻을 수 있어요 :&#41;
+          <div className={styles.contentsContainer}>
+            <FilterContent title='💵 가격 범위' type={'cost'} />
+            <FilterContent title='🗃 정렬' type={'sort'} />
+            <FilterContent title='🌐 국가' type={'country'} />
+          </div>
+          <div className={styles.buttonContainer}>
+            <Button
+              color={'outlined'}
+              size={'md'}
+              text={'초기화'}
+              clickEvent={resetEvent}
+            ></Button>
+            <Button
+              color={'primary'}
+              size={'md'}
+              text={'다 골랐어요!'}
+              clickEvent={allClickedEvent}
+            ></Button>
           </div>
         </div>
-        <div className={styles.contentsContainer}>
-          <FilterContent title='💵 가격 범위' type={'cost'} />
-          <FilterContent title='🗃 정렬' type={'sort'} />
-          <FilterContent title='🌐 국가' type={'country'} />
+      </Pc>
+      <Tablet>
+        <div className={styles.modalLayout}>
+          <div className={styles.titleContainer}>
+            <div className={styles.title}>
+              보고 싶은 협업툴의 카테고리를 세세하게 설정해보세요.
+            </div>
+            <div className={styles.description}>
+              2개 이상의 항목을 선택해주시면 더욱 정확하고 만족스러운 필터링
+              결과를 얻을 수 있어요 :&#41;
+            </div>
+          </div>
+          <div className={styles.contentsContainer}>
+            <FilterContent title='💵 가격 범위' type={'cost'} />
+            <FilterContent title='🗃 정렬' type={'sort'} />
+            <FilterContent title='🌐 국가' type={'country'} />
+          </div>
+          <div className={styles.buttonContainer}>
+            <Button
+              color={'outlined'}
+              size={'md'}
+              text={'초기화'}
+              clickEvent={resetEvent}
+            ></Button>
+            <Button
+              color={'primary'}
+              size={'md'}
+              text={'다 골랐어요!'}
+              clickEvent={allClickedEvent}
+            ></Button>
+          </div>
         </div>
-        <div className={styles.buttonContainer}>
-          <Button
-            color={'outlined'}
-            size={'md'}
-            text={'초기화'}
-            clickEvent={resetEvent}
-          ></Button>
-          <Button
-            color={'primary'}
-            size={'md'}
-            text={'다 골랐어요!'}
-            clickEvent={allClickedEvent}
-          ></Button>
+      </Tablet>
+      <MobileWide>
+        <div className={styles.modalLayoutMobile}>
+          <div className={styles.titleContainerMobile}>
+            <div className={styles.title}>
+              보고 싶은 협업툴의 <br />
+              카테고리를 세세하게 설정해보세요.
+            </div>
+            <div className={styles.description}>
+              2개 이상의 항목을 선택해주시면
+              <br /> 더욱 정확하고 만족스러운 필터링 결과를 얻을 수 있어요
+              :&#41;
+            </div>
+          </div>
+          <div className={styles.contentsContainerMobile}>
+            <FilterContent title='💵 가격 범위' type={'cost'} />
+            <FilterContent title='🗃 정렬' type={'sort'} />
+            <FilterContent title='🌐 국가' type={'country'} />
+          </div>
+          <div className={styles.buttonContainerMobile}>
+            <button onClick={resetEvent} className={styles.resetButoon}>
+              <BiReset></BiReset>&nbsp;초기화
+            </button>
+            <Button
+              color={'primary'}
+              size={'mdLong'}
+              text={'다 골랐어요!'}
+              clickEvent={allClickedEvent}
+            ></Button>
+          </div>
         </div>
-      </div>
+      </MobileWide>
+      <Mobile>
+        <div className={styles.modalLayoutMobile}>
+          <div className={styles.titleContainerMobile}>
+            <div className={styles.title}>
+              보고 싶은 협업툴의 <br />
+              카테고리를 세세하게 설정해보세요.
+            </div>
+            <div className={styles.description}>
+              2개 이상의 항목을 선택해주시면
+              <br /> 더욱 정확하고 만족스러운 필터링 결과를 얻을 수 있어요
+              :&#41;
+            </div>
+          </div>
+          <div className={styles.contentsContainerMobile}>
+            <FilterContent title='💵 가격 범위' type={'cost'} />
+            <FilterContent title='🗃 정렬' type={'sort'} />
+            <FilterContent title='🌐 국가' type={'country'} />
+          </div>
+          <div className={styles.buttonContainerMobile}>
+            <button onClick={resetEvent} className={styles.resetButoon}>
+              <BiReset></BiReset>&nbsp;초기화
+            </button>
+            <Button
+              color={'primary'}
+              size={'mdLong'}
+              text={'다 골랐어요!'}
+              clickEvent={allClickedEvent}
+            ></Button>
+          </div>
+        </div>
+      </Mobile>
     </Modal>
   )
 }
@@ -255,21 +353,76 @@ const FilterContent = ({ title, type }: ContentProps) => {
   }
 
   return (
-    <div className={styles.contentLayout}>
-      <div className={styles.contentTitle}>{title}</div>
-      <hr className={styles.line}></hr>
-      <div className={styles.chipGrid}>
-        {modalFilterList[type].map((item, idx) => (
-          <Chip
-            key={idx}
-            type={item.type}
-            isSelected={item.isSelected}
-            content={item.content}
-            clickEvent={() => chipClickEvent(item.content)}
-          />
-        ))}
-      </div>
-    </div>
+    <>
+      <Pc>
+        <div className={styles.contentLayout}>
+          <div className={styles.contentTitle}>{title}</div>
+          <hr className={styles.line}></hr>
+          <div className={styles.chipGrid}>
+            {modalFilterList[type].map((item, idx) => (
+              <Chip
+                key={idx}
+                type={item.type}
+                isSelected={item.isSelected}
+                content={item.content}
+                clickEvent={() => chipClickEvent(item.content)}
+              />
+            ))}
+          </div>
+        </div>
+      </Pc>
+      <Tablet>
+        <div className={styles.contentLayout}>
+          <div className={styles.contentTitle}>{title}</div>
+          <hr className={styles.line}></hr>
+          <div className={styles.chipGrid}>
+            {modalFilterList[type].map((item, idx) => (
+              <Chip
+                key={idx}
+                type={item.type}
+                isSelected={item.isSelected}
+                content={item.content}
+                clickEvent={() => chipClickEvent(item.content)}
+              />
+            ))}
+          </div>
+        </div>
+      </Tablet>
+      <MobileWide>
+        <div className={styles.contentLayoutMobile}>
+          <div className={styles.contentTitleMobile}>{title}</div>
+          <div className={styles.chipGrid}>
+            {modalFilterList[type].map((item, idx) => (
+              <Chip
+                key={idx}
+                type='basic'
+                isMobile
+                isSelected={item.isSelected}
+                content={item.content}
+                clickEvent={() => chipClickEvent(item.content)}
+              />
+            ))}
+          </div>
+        </div>
+      </MobileWide>
+      <Mobile>
+        <div className={styles.contentLayoutMobile}>
+          <div className={styles.contentTitleMobile}>{title}</div>
+          <div className={styles.chipGrid}>
+            {modalFilterList[type].map((item, idx) => (
+              <Chip
+                key={idx}
+                type='basic'
+                isMobile
+                isSelected={item.isSelected}
+                content={item.content}
+                clickEvent={() => chipClickEvent(item.content)}
+              />
+            ))}
+          </div>
+        </div>
+      </Mobile>
+    </>
   )
 }
 

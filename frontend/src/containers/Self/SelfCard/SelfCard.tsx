@@ -235,8 +235,8 @@ const SelfCard = ({ data }: CardProps) => {
               <div className={styles.typeMobile}>{data.topic}</div>
               <div className={styles.nameMobile}>{data.nameKr}</div>
               <div className={styles.descriptionMobile}>
-                {data.info.length > 54
-                  ? `${data.info.substring(0, 54)}...`
+                {data.info.length > 50
+                  ? `${data.info.substring(0, 50)}...`
                   : data.info}
               </div>
             </div>
@@ -294,8 +294,8 @@ const SelfCard = ({ data }: CardProps) => {
               <div className={styles.typeMobile}>{data.topic}</div>
               <div className={styles.nameMobile}>{data.nameKr}</div>
               <div className={styles.descriptionMobile}>
-                {data.info.length > 54
-                  ? `${data.info.substring(0, 54)}...`
+                {data.info.length > 50
+                  ? `${data.info.substring(0, 50)}...`
                   : data.info}
               </div>
             </div>

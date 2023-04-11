@@ -8,7 +8,7 @@
   padding-inline: 16px;
 
   text-align: center;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
   color: #595959;
 }
@@ -16,13 +16,6 @@
 .basic:hover {
   background: rgba(96, 169, 246, 0.1);
   cursor: pointer;
-}
-
-.chipMobile {
-  font-size: 14px;
-  padding-block: 8px;
-  padding-inline: 12px;
-  border-radius: 6px;
 }
 
 .basicChecked {
@@ -42,6 +35,13 @@
 
 .basicChecked:hover {
   background: rgba(96, 169, 246, 0.2);
+}
+
+.chipMobile {
+  font-size: 14px;
+  padding-block: 8px;
+  padding-inline: 12px;
+  border-radius: 6px;
 }
 
 .modalBasic {
