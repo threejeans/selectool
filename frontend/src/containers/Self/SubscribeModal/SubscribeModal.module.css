@@ -1,8 +1,17 @@
 .modalLayout {
-  width: 24vw;
-  min-width: 300px;
+  width: 420px;
   min-height: 260px;
   padding-inline: 32px;
+  padding-block: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalLayoutMobile {
+  width: 320px;
   padding-block: 20px;
   display: flex;
   flex-direction: column;
@@ -15,6 +24,14 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 44px;
+  word-break: keep-all;
+  text-align: center;
+}
+
+.mainTextMobile {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 36px;
   word-break: keep-all;
   text-align: center;
 }
@@ -53,6 +70,25 @@
   flex-direction: row;
   align-items: center;
   column-gap: 16px;
+  cursor: pointer;
+}
+
+.selectBoxMobile {
+  width: 260px;
+  height: 54px;
+  padding-inline: 16px;
+  background: #ffffff;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  /* Selectool_main */
+
+  border: 2px solid #cdcdcd;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 16px;
+  cursor: pointer;
 }
 
 .selectedBox {
@@ -62,6 +98,11 @@
 .checkicon {
   font-size: 24px;
   color: #cdcdcd;
+}
+
+.goRight {
+  font-size: 12px;
+  color: #414141;
 }
 
 .selectedicon {
@@ -74,6 +115,12 @@
   color: #595959;
 }
 
+.selectTextMobile {
+  width: 180px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #595959;
+}
 .selectedText {
   color: #414141;
 }
