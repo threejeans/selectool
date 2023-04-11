@@ -12,6 +12,20 @@
   border-radius: 10px;
 }
 
+.cardContainerMobile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 170px;
+  height: 280px;
+
+  background: #ffffff;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
 .smallCardContainer {
   position: relative;
   display: flex;
@@ -61,6 +75,23 @@
   transition: 0.3s;
   position: absolute;
   right: -180px;
+  top: -28px;
+
+  padding-inline: 20px;
+  padding-block: 10px;
+  min-width: 100px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background: #60a9f6;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 14px 14px 14px 0px;
+}
+
+.toastMobile {
+  transition: 0.3s;
+  position: absolute;
+  right: -60px;
   top: -28px;
 
   padding-inline: 20px;
@@ -128,6 +159,13 @@
   object-position: 0% 50%;
 }
 
+.companyLogoMobile {
+  width: 94px;
+  height: 60px;
+  object-fit: contain;
+  object-position: 0% 50%;
+}
+
 .companyLogoSmall {
   width: 112px;
   height: 72px;
@@ -153,9 +191,19 @@
   font-size: 16px;
 }
 
+.companyNameMobile {
+  font-weight: 700;
+  font-size: 14px;
+}
+
 .companyCoName {
   font-weight: 300;
   font-size: 12px;
+}
+
+.companyCoNameMobile {
+  font-weight: 300;
+  font-size: 10px;
 }
 
 .description {
@@ -173,6 +221,15 @@
   padding-top: 52px;
 }
 
+.hoverContainerMobile {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-inline: 16px;
+  row-gap: 8px;
+  padding-top: 44px;
+}
+
 .hoverCompanyContainer {
   display: flex;
   flex-direction: row;
@@ -187,6 +244,12 @@
   object-fit: contain;
 }
 
+.companyLogoHoverMobile {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
 .textContainerHover {
   display: flex;
   flex-direction: column;
@@ -197,6 +260,11 @@
 .companyNameHover {
   font-weight: 700;
   font-size: 14px;
+}
+
+.companyNameHoverMobile {
+  font-weight: 700;
+  font-size: 12px;
 }
 
 .descriptionHover {
@@ -215,6 +283,19 @@
 .selectoolContainer {
   width: 100%;
   height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f6f9ff;
+  border-radius: 10px;
+  margin-top: 8px;
+  row-gap: 18px;
+}
+
+.selectoolContainerMobile {
+  width: 100%;
+  height: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -248,6 +329,11 @@
   column-gap: 8px;
 }
 
+.toolLayoutMobile {
+  display: flex;
+  flex-direction: row;
+}
+
 .toolContainer {
   display: flex;
   flex-direction: column;
@@ -257,15 +343,30 @@
   row-gap: 6px;
 }
 
+.toolContainerMobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  row-gap: 4px;
+}
+
 .toolLogo {
   width: 28px;
   height: 28px;
   object-fit: contain;
 }
 
+.toolLogoMobile {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
 .toolNameHover {
   font-weight: 300;
-  font-size: 3px;
+  font-size: 8px;
 
   color: #a8a8a8;
 }

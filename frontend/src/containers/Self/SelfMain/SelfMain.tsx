@@ -43,7 +43,6 @@ const SelfMain = () => {
       ),
     )
     dispatch(setSelfCategoryFilterParams(''))
-    // dispatch(resetSelfContentCount())
   }
 
   const getselfMainInfoList = async () => {

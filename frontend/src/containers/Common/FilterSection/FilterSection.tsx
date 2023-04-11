@@ -23,6 +23,7 @@ import { setWithMainInfoList } from 'reducers/withReducer'
 import { selectAccessToken } from 'features/auth/authSlice'
 import { getAuthSelfSearchListAPI } from 'api/authSelf'
 import { getAuthWithSearchListAPI } from 'api/authWith'
+import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
 
 export type filterProps = {
   isFilterButton?: boolean
@@ -81,27 +82,128 @@ const FilterSection = ({
   }
 
   return (
-    <div className={styles.layout}>
-      <SelfFilterModal />
-      <FilterGrid isSelf={isFilterButton}></FilterGrid>
-      <div className={styles.rightSection}>
-        {isFilterButton ? (
-          <button
-            className={
-              filterModalCheckedStatus ? styles.buttonSelected : styles.button
-            }
-            onClick={openModal}
-          >
-            <img
-              src={filterModalCheckedStatus ? filterIconSelected : filterIcon}
-              alt=''
-              className={styles.iconImage}
+    <>
+      <Pc>
+        <div className={styles.layout}>
+          <SelfFilterModal />
+          <FilterGrid isSelf={isFilterButton}></FilterGrid>
+          <div className={styles.rightSection}>
+            {isFilterButton ? (
+              <button
+                className={
+                  filterModalCheckedStatus
+                    ? styles.buttonSelected
+                    : styles.button
+                }
+                onClick={openModal}
+              >
+                <img
+                  src={
+                    filterModalCheckedStatus ? filterIconSelected : filterIcon
+                  }
+                  alt=''
+                  className={styles.iconImage}
+                />
+              </button>
+            ) : null}
+            <SearchForm placeholder={placeholder} submitEvent={searchEvent} />
+          </div>
+        </div>
+      </Pc>
+      <Tablet>
+        <div className={styles.Tabletlayout}>
+          <SelfFilterModal />
+          <FilterGrid isSelf={isFilterButton}></FilterGrid>
+          <div className={styles.rightSectionTablet}>
+            {isFilterButton ? (
+              <button
+                className={
+                  filterModalCheckedStatus
+                    ? styles.buttonSelected
+                    : styles.button
+                }
+                onClick={openModal}
+              >
+                <img
+                  src={
+                    filterModalCheckedStatus ? filterIconSelected : filterIcon
+                  }
+                  alt=''
+                  className={styles.iconImage}
+                />
+              </button>
+            ) : null}
+            <SearchForm placeholder={placeholder} submitEvent={searchEvent} />
+          </div>
+        </div>
+      </Tablet>
+      <MobileWide>
+        <div className={styles.Mobilelayout}>
+          <SelfFilterModal />
+
+          <div className={styles.rightSectionTablet}>
+            {isFilterButton ? (
+              <button
+                className={
+                  filterModalCheckedStatus
+                    ? styles.buttonSelectedMobile
+                    : styles.buttonMobile
+                }
+                onClick={openModal}
+              >
+                <img
+                  src={
+                    filterModalCheckedStatus ? filterIconSelected : filterIcon
+                  }
+                  alt=''
+                  className={styles.iconImageMobile}
+                />
+              </button>
+            ) : null}
+            <SearchForm
+              isMobile
+              placeholder={placeholder}
+              submitEvent={searchEvent}
             />
-          </button>
-        ) : null}
-        <SearchForm placeholder={placeholder} submitEvent={searchEvent} />
-      </div>
-    </div>
+          </div>
+          <hr className={styles.line}></hr>
+          <FilterGrid isSelf={isFilterButton}></FilterGrid>
+        </div>
+      </MobileWide>
+      <Mobile>
+        <div className={styles.Mobilelayout}>
+          <SelfFilterModal />
+
+          <div className={styles.rightSectionTablet}>
+            {isFilterButton ? (
+              <button
+                className={
+                  filterModalCheckedStatus
+                    ? styles.buttonSelectedMobile
+                    : styles.buttonMobile
+                }
+                onClick={openModal}
+              >
+                <img
+                  src={
+                    filterModalCheckedStatus ? filterIconSelected : filterIcon
+                  }
+                  alt=''
+                  className={styles.iconImageMobile}
+                />
+              </button>
+            ) : null}
+            <SearchForm
+              isMobile
+              placeholder={placeholder}
+              submitEvent={searchEvent}
+            />
+          </div>
+          <hr className={styles.line}></hr>
+          <FilterGrid isSelf={isFilterButton}></FilterGrid>
+        </div>
+      </Mobile>
+    </>
   )
 }
 

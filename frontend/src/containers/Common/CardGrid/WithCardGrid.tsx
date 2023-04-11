@@ -11,6 +11,7 @@ import {
   withMainInfoList,
 } from 'reducers/withReducer'
 import styles from './CardGrid.module.css'
+import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
 
 type GridProps = {
   isSpinner?: boolean
@@ -24,17 +25,17 @@ const CardGrid = ({ isSpinner = false }: GridProps) => {
 
   const dispatch = useAppDispatch()
 
-  const maxContentCount = Math.floor((mainInfoList.length - 1) / 16)
+  const maxContentCount = Math.floor((mainInfoList.length - 1) / 12)
 
   const getMainInfoExportList = () => {
-    const newList = mainInfoList.slice(0, (contentCount + 1) * 16)
+    const newList = mainInfoList.slice(0, (contentCount + 1) * 12)
     dispatch(setWithMainInfoExportList(newList))
   }
 
   const moreContentEvent = () => {
     dispatch(changeWithContentCount())
     countRef.current.count += 1
-    const newList = mainInfoList.slice(0, (countRef.current.count + 1) * 16)
+    const newList = mainInfoList.slice(0, (countRef.current.count + 1) * 12)
     dispatch(setWithMainInfoExportList(newList))
   }
 
@@ -44,27 +45,98 @@ const CardGrid = ({ isSpinner = false }: GridProps) => {
 
   return (
     <>
-      <div className={`${styles.layout} ${styles.withLayout}`}>
-        {isSpinner ? (
-          <ContentSpinner />
-        ) : mainInfoExportList.length > 0 ? (
-          mainInfoExportList.map((data, idx) => (
-            <WithCard data={data} key={idx} />
-          ))
-        ) : (
-          <ContentSpinner />
-        )}
-      </div>
-      {mainInfoList.length > 16 && contentCount < maxContentCount ? (
-        <div className={styles.moreGroup}>
-          <button className={styles.moreButton} onClick={moreContentEvent}>
-            더보기&nbsp;&nbsp;
-            <BsChevronCompactDown className={styles.icon} />
-          </button>
+      <Pc>
+        <div className={`${styles.layout} ${styles.withLayout}`}>
+          {isSpinner ? (
+            <ContentSpinner />
+          ) : mainInfoExportList.length > 0 ? (
+            mainInfoExportList.map((data, idx) => (
+              <WithCard data={data} key={idx} />
+            ))
+          ) : (
+            <ContentSpinner />
+          )}
         </div>
-      ) : (
-        ''
-      )}
+        {mainInfoList.length > 12 && contentCount < maxContentCount ? (
+          <div className={styles.moreGroup}>
+            <button className={styles.moreButton} onClick={moreContentEvent}>
+              더보기&nbsp;&nbsp;
+              <BsChevronCompactDown className={styles.icon} />
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
+      </Pc>
+      <Tablet>
+        <div className={`${styles.layout} ${styles.withLayout}`}>
+          {isSpinner ? (
+            <ContentSpinner />
+          ) : mainInfoExportList.length > 0 ? (
+            mainInfoExportList.map((data, idx) => (
+              <WithCard data={data} key={idx} />
+            ))
+          ) : (
+            <ContentSpinner />
+          )}
+        </div>
+        {mainInfoList.length > 12 && contentCount < maxContentCount ? (
+          <div className={styles.moreGroup}>
+            <button className={styles.moreButton} onClick={moreContentEvent}>
+              더보기&nbsp;&nbsp;
+              <BsChevronCompactDown className={styles.icon} />
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
+      </Tablet>
+      <MobileWide>
+        <div className={`${styles.layout} ${styles.withLayoutMobile}`}>
+          {isSpinner ? (
+            <ContentSpinner />
+          ) : mainInfoExportList.length > 0 ? (
+            mainInfoExportList.map((data, idx) => (
+              <WithCard data={data} key={idx} />
+            ))
+          ) : (
+            <ContentSpinner />
+          )}
+        </div>
+        {mainInfoList.length > 12 && contentCount < maxContentCount ? (
+          <div className={styles.moreGroup}>
+            <button className={styles.moreButton} onClick={moreContentEvent}>
+              더보기&nbsp;&nbsp;
+              <BsChevronCompactDown className={styles.icon} />
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
+      </MobileWide>
+      <Mobile>
+        <div className={`${styles.layout} ${styles.withLayoutMobile}`}>
+          {isSpinner ? (
+            <ContentSpinner />
+          ) : mainInfoExportList.length > 0 ? (
+            mainInfoExportList.map((data, idx) => (
+              <WithCard data={data} key={idx} />
+            ))
+          ) : (
+            <ContentSpinner />
+          )}
+        </div>
+        {mainInfoList.length > 12 && contentCount < maxContentCount ? (
+          <div className={styles.moreGroup}>
+            <button className={styles.moreButton} onClick={moreContentEvent}>
+              더보기&nbsp;&nbsp;
+              <BsChevronCompactDown className={styles.icon} />
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
+      </Mobile>
     </>
   )
 }

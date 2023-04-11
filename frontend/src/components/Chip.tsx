@@ -5,12 +5,19 @@ export type ChipProps = {
   clickEvent: () => void
   isSelected: boolean
   content: string
+  isMobile?: boolean
 }
 
 // type
 // 메인 콘텐츠에 있는 chip => basic
 // modal 안에 있는 chip => modalBasic, modalIcon(체크 표시 있는 것)
-const Chip = ({ type, clickEvent, isSelected = false, content }: ChipProps) => {
+const Chip = ({
+  type,
+  clickEvent,
+  isMobile = false,
+  isSelected = false,
+  content,
+}: ChipProps) => {
   const handleChip = () => {
     clickEvent()
   }
@@ -31,7 +38,12 @@ const Chip = ({ type, clickEvent, isSelected = false, content }: ChipProps) => {
   }
 
   return (
-    <div className={chipStyleHandler(type)} onClick={handleChip}>
+    <div
+      className={`${chipStyleHandler(type)} ${
+        isMobile ? styles.chipMobile : ''
+      }`}
+      onClick={handleChip}
+    >
       {content}
     </div>
   )

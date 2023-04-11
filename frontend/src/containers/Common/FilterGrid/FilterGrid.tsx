@@ -27,6 +27,7 @@ import {
   withCategoryFilterList,
 } from 'reducers/withReducer'
 import styles from './FilterGrid.module.css'
+import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
 
 export type filterDataProps = {
   isSelf?: boolean
@@ -168,17 +169,64 @@ const FilterGrid = ({ isSelf = false }: filterDataProps) => {
   }
 
   return (
-    <div className={styles.layout}>
-      {categoryList.map((item, idx) => (
-        <Chip
-          key={idx}
-          type={item.type}
-          isSelected={item.isSelected}
-          content={item.content}
-          clickEvent={() => clickEvent(item.content)}
-        />
-      ))}
-    </div>
+    <>
+      <div className={styles.layout}>
+        {categoryList.map((item, idx) => (
+          <>
+            <Pc>
+              <Chip
+                key={idx}
+                type={item.type}
+                isSelected={item.isSelected}
+                content={item.content}
+                clickEvent={() => clickEvent(item.content)}
+              />
+            </Pc>
+            <Tablet>
+              <Chip
+                key={idx}
+                type={item.type}
+                isSelected={item.isSelected}
+                content={item.content}
+                clickEvent={() => clickEvent(item.content)}
+              />
+            </Tablet>
+          </>
+        ))}
+      </div>
+      <MobileWide>
+        <div className={styles.layoutMobile}>
+          {categoryList.map((item, idx) => (
+            <>
+              <Chip
+                key={idx}
+                type={item.type}
+                isMobile
+                isSelected={item.isSelected}
+                content={item.content}
+                clickEvent={() => clickEvent(item.content)}
+              />
+            </>
+          ))}
+        </div>
+      </MobileWide>
+      <Mobile>
+        <div className={styles.layoutMobile}>
+          {categoryList.map((item, idx) => (
+            <>
+              <Chip
+                key={idx}
+                type={item.type}
+                isMobile
+                isSelected={item.isSelected}
+                content={item.content}
+                clickEvent={() => clickEvent(item.content)}
+              />
+            </>
+          ))}
+        </div>
+      </Mobile>
+    </>
   )
 }
 
