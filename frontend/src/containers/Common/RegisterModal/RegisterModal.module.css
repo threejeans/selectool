@@ -1,5 +1,6 @@
 .modalLayout {
-  width: 300px;
+  width: 88%;
+  max-width: 300px;
   height: 160px;
   display: flex;
   flex-direction: column;
@@ -9,7 +10,8 @@
 }
 
 .modalLayoutForCheck {
-  width: 300px;
+  width: 88%;
+  max-width: 300px;
   height: 160px;
   display: flex;
   flex-direction: column;
