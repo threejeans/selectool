@@ -82,10 +82,12 @@
   font-size: 1.6rem;
   color: var(--gray-scale-color-g05);
 }
+
 .notiBox .notiCard:nth-child(2) .contentTitle,
 .notiBox .notiCard:nth-child(3) .contentTitle {
   font-size: 1rem;
 }
+
 .subContent {
   width: 100%;
   display: flex;
@@ -94,10 +96,12 @@
   font-size: 1.2rem;
   color: var(--gray-scale-color-g05);
 }
+
 .notiBox .notiCard:nth-child(2) .subContent,
 .notiBox .notiCard:nth-child(3) .subContent {
   font-size: 0.8rem;
 }
+
 .controlBox {
   width: 100%;
   display: flex;
@@ -151,6 +155,7 @@
   grid-gap: 0.2rem;
   padding: 0.2rem 0.4rem 1rem 0.4rem;
 }
+
 .duple {
   position: absolute;
   bottom: 0.2rem;
@@ -158,6 +163,7 @@
   font-size: 0.8rem;
   color: var(--gray-scale-color-g20);
 }
+
 .dropItem {
   width: 100%;
   background-color: var(--gray-scale-color-g05);
@@ -208,7 +214,6 @@
 
 .searchBox {
   width: 15rem;
-  min-width: 14.6rem;
   padding: 1rem 0;
   position: relative;
 }
@@ -309,7 +314,10 @@
   border-radius: 100%;
   overflow: hidden;
   /* background-color: white; */
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  /* filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  border: 2px solid white;
 }
 
 .guideInfo {
@@ -379,7 +387,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 767px) {
   .notiBox {
     display: none;
   }
@@ -391,12 +399,60 @@
   }
 
   .controlBox {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column-reverse;
+  }
+
+  .buttonGroup {
+    justify-content: flex-start;
+  }
+
+  .fuctionBox {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
-@media (min-width: 481px) and (max-width: 767px) {
+@media (min-width: 480px) and (max-width: 767px) {
+  .notiBox {
+    display: none;
+  }
+
+  .guideGrid {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .controlBox {
+    flex-direction: row;
+  }
+
+  .searchBox {
+    width: 11.1rem;
+    position: relative;
+  }
+
+  .searchInput {
+    width: 11.4rem;
+    height: 2.4rem;
+    outline: none;
+    border-radius: 10px;
+    padding-inline: 0.4rem;
+  }
+
+  .search {
+    display: none;
+  }
+
+  .buttonGroup {
+    justify-content: flex-start;
+  }
+
+  .fuctionBox {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1079px) {
   .notiBox {
     display: none;
   }
@@ -408,7 +464,14 @@
   }
 
   .controlBox {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+  }
+
+  .buttonGroup {
+    justify-content: flex-start;
+  }
+
+  .fuctionBox {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
