@@ -4,6 +4,7 @@ import playstoreImage from 'assets/playstore.png'
 import emptyStar from 'assets/empty_star.svg'
 import fullStar from 'assets/full_star.svg'
 import styles from './SelfDetailComponent.module.css'
+import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
 
 type RatingProps = {
   isAppstore?: boolean
@@ -15,33 +16,115 @@ const RatingComponent = ({ isAppstore = false, ratingScore }: RatingProps) => {
     Number(ratingScore) && Number(ratingScore) <= 5
       ? Number(ratingScore) * 15.9
       : 0
+
   if (starView === 0) {
     noRating = true
   }
   return (
-    <div className={styles.ratingLayout}>
-      <img
-        className={noRating ? styles.noRatingImage : styles.ratingImage}
-        src={isAppstore ? appstoreImage : playstoreImage}
-      ></img>
-      <div className={styles.ratingScoreContainer}>
-        {noRating ? (
-          <div className={styles.noRatingScore}>
-            <div>등록된 리뷰가 없어요 :&#40;</div>
-          </div>
-        ) : (
-          <>
-            <div className={styles.ratingScore}>{ratingScore}</div>
-            <div>
-              <img src={emptyStar} className={styles.emptyStar}></img>
-              <div className={styles.starBox} style={{ width: starView }}>
-                <img src={fullStar} className={styles.fullStar}></img>
+    <>
+      <Pc>
+        <div className={styles.ratingLayout}>
+          <img
+            className={noRating ? styles.noRatingImage : styles.ratingImage}
+            src={isAppstore ? appstoreImage : playstoreImage}
+          ></img>
+          <div className={styles.ratingScoreContainer}>
+            {noRating ? (
+              <div className={styles.noRatingScore}>
+                <div>등록된 리뷰가 없어요 :&#40;</div>
               </div>
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+            ) : (
+              <>
+                <div className={styles.ratingScore}>{ratingScore}</div>
+                <div>
+                  <img src={emptyStar} className={styles.emptyStar}></img>
+                  <div className={styles.starBox} style={{ width: starView }}>
+                    <img src={fullStar} className={styles.fullStar}></img>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </Pc>
+      <Tablet>
+        <div className={styles.ratingLayout}>
+          <img
+            className={noRating ? styles.noRatingImage : styles.ratingImage}
+            src={isAppstore ? appstoreImage : playstoreImage}
+          ></img>
+          <div className={styles.ratingScoreContainer}>
+            {noRating ? (
+              <div className={styles.noRatingScore}>
+                <div>등록된 리뷰가 없어요 :&#40;</div>
+              </div>
+            ) : (
+              <>
+                <div className={styles.ratingScore}>{ratingScore}</div>
+                <div>
+                  <img src={emptyStar} className={styles.emptyStar}></img>
+                  <div className={styles.starBox} style={{ width: starView }}>
+                    <img src={fullStar} className={styles.fullStar}></img>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </Tablet>
+      <MobileWide>
+        <div className={styles.ratingLayoutMobile}>
+          <img
+            className={noRating ? styles.noRatingImage : styles.ratingImage}
+            src={isAppstore ? appstoreImage : playstoreImage}
+          ></img>
+          <div className={styles.ratingScoreContainerMobile}>
+            {noRating ? (
+              <div className={styles.noRatingScore}>
+                <div>등록된 리뷰가 없어요 :&#40;</div>
+              </div>
+            ) : (
+              <>
+                <div className={styles.ratingScore}>{ratingScore}</div>
+                <div>
+                  <img src={emptyStar} className={styles.emptyStar}></img>
+                  <div className={styles.starBox} style={{ width: starView }}>
+                    <img src={fullStar} className={styles.fullStar}></img>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </MobileWide>
+      <Mobile>
+        <div className={styles.ratingLayoutMobile}>
+          <img
+            className={
+              noRating ? styles.noRatingImageMobile : styles.ratingImageMobile
+            }
+            src={isAppstore ? appstoreImage : playstoreImage}
+          ></img>
+          <div className={styles.ratingScoreContainerMobile}>
+            {noRating ? (
+              <div className={styles.noRatingScoreMobile}>
+                <div>등록된 리뷰가 없어요 :&#40;</div>
+              </div>
+            ) : (
+              <>
+                <div className={styles.ratingScoreMobile}>{ratingScore}</div>
+                <div>
+                  <img src={emptyStar} className={styles.emptyStar}></img>
+                  <div className={styles.starBox} style={{ width: starView }}>
+                    <img src={fullStar} className={styles.fullStar}></img>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </Mobile>
+    </>
   )
 }
 

@@ -6,9 +6,7 @@ const WithDetail = () => {
   return (
     <div className={`${styles.layout} ${styles.detailLayout}`}>
       <div className={styles.container}>
-        <div className={styles.contentLayout}>
-          <WithDetailMain />
-        </div>
+        <WithDetailMain />
       </div>
     </div>
   )

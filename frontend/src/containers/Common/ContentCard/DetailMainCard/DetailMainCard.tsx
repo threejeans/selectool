@@ -8,6 +8,7 @@ import { BsFillBookmarkFill } from 'react-icons/bs'
 import { selfSpecificInfo, setSelfSpecificInfo } from 'reducers/selfReducer'
 import { setWithSpecificInfo, withSpecificInfo } from 'reducers/withReducer'
 import styles from './DetailMainCard.module.css'
+import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
 
 type ÇardProps = {
   isSelf?: boolean
@@ -88,60 +89,224 @@ const DetailMainCard = ({
   })
 
   return (
-    <div
-      className={`${styles.cardLayout} ${
-        isSelf ? null : styles.withCardLayout
-      }`}
-    >
-      {toastStatus && (
+    <>
+      <Pc>
         <div
-          className={`${styles.toast} ${
-            isBookmarked ? '' : styles.toast_cancel
+          className={`${styles.cardLayout} ${
+            isSelf ? null : styles.withCardLayout
           }`}
         >
-          {isBookmarked ? '북마크에 추가되었어요' : '북마크가 취소되었어요'}
+          {toastStatus && (
+            <div
+              className={`${styles.toast} ${
+                isBookmarked ? '' : styles.toast_cancel
+              }`}
+            >
+              {isBookmarked ? '북마크에 추가되었어요' : '북마크가 취소되었어요'}
+            </div>
+          )}
+          <BsFillBookmarkFill
+            className={`${styles.bookmark} ${
+              isBookmarked ? styles.bookmarkScraped : null
+            }`}
+            onClick={handleScrap}
+          ></BsFillBookmarkFill>
+          <div className={styles.topSection}>
+            <img src={image} className={styles.image}></img>
+            <div className={styles.infoSection}>
+              <div className={styles.name}>{nameKr}</div>
+              <div className={styles.info}>{info}</div>
+            </div>
+          </div>
+          <div className={styles.buttonSection}>
+            <div className={styles.smallButtons}>
+              <Button
+                color={isSelf ? 'secondary' : 'primary'}
+                size={'mdShort'}
+                text={'웹페이지 ↗'}
+                clickEvent={button1ClickEvent}
+              ></Button>
+              <Button
+                color={'secondary'}
+                size={'mdShort'}
+                text={isSelf ? '가이드 ↗' : '공유하기'}
+                clickEvent={button2ClickEvent}
+              ></Button>
+            </div>
+            {isSelf ? (
+              <Button
+                color={'primary'}
+                size={'mdLong'}
+                text={isSubscribed ? '구독 해제' : '구독하기'}
+                clickEvent={button3ClickEvent}
+              />
+            ) : (
+              ''
+            )}
+          </div>
         </div>
-      )}
-      <BsFillBookmarkFill
-        className={`${styles.bookmark} ${
-          isBookmarked ? styles.bookmarkScraped : null
-        }`}
-        onClick={handleScrap}
-      ></BsFillBookmarkFill>
-      <div className={styles.topSection}>
-        <img src={image} className={styles.image}></img>
-        <div className={styles.infoSection}>
-          <div className={styles.name}>{nameKr}</div>
-          <div className={styles.info}>{info}</div>
+      </Pc>
+      <Tablet>
+        <div
+          className={`${styles.cardLayoutWide} ${
+            isSelf ? null : styles.withCardLayout
+          }`}
+        >
+          {toastStatus && (
+            <div
+              className={`${styles.toast} ${
+                isBookmarked ? '' : styles.toast_cancel
+              }`}
+            >
+              {isBookmarked ? '북마크에 추가되었어요' : '북마크가 취소되었어요'}
+            </div>
+          )}
+          <BsFillBookmarkFill
+            className={`${styles.bookmark} ${
+              isBookmarked ? styles.bookmarkScraped : null
+            }`}
+            onClick={handleScrap}
+          ></BsFillBookmarkFill>
+          <div className={styles.topSection}>
+            <img src={image} className={styles.image}></img>
+            <div className={styles.infoSection}>
+              <div className={styles.name}>{nameKr}</div>
+              <div className={styles.info}>{info}</div>
+            </div>
+          </div>
+          <div className={styles.buttonSection}>
+            <div className={styles.smallButtons}>
+              <Button
+                color={isSelf ? 'secondary' : 'primary'}
+                size={'mdShort'}
+                text={'웹페이지 ↗'}
+                clickEvent={button1ClickEvent}
+              ></Button>
+              <Button
+                color={'secondary'}
+                size={'mdShort'}
+                text={isSelf ? '가이드 ↗' : '공유하기'}
+                clickEvent={button2ClickEvent}
+              ></Button>
+            </div>
+            {isSelf ? (
+              <Button
+                color={'primary'}
+                size={'mdLong'}
+                text={isSubscribed ? '구독 해제' : '구독하기'}
+                clickEvent={button3ClickEvent}
+              />
+            ) : (
+              ''
+            )}
+          </div>
         </div>
-      </div>
-      <div className={styles.buttonSection}>
-        <div className={styles.smallButtons}>
-          <Button
-            color={isSelf ? 'secondary' : 'primary'}
-            size={'mdShort'}
-            text={'웹페이지 ↗'}
-            clickEvent={button1ClickEvent}
-          ></Button>
-          <Button
-            color={'secondary'}
-            size={'mdShort'}
-            text={isSelf ? '가이드 ↗' : '공유하기'}
-            clickEvent={button2ClickEvent}
-          ></Button>
+      </Tablet>
+      <MobileWide>
+        <div
+          className={`${styles.cardLayoutMobile} ${
+            isSelf ? null : styles.withCardLayout
+          }`}
+        >
+          {toastStatus && (
+            <div
+              className={`${styles.toastMobile} ${
+                isBookmarked ? '' : styles.toast_cancel
+              }`}
+            >
+              {isBookmarked ? '북마크에 추가되었어요' : '북마크가 취소되었어요'}
+            </div>
+          )}
+          <BsFillBookmarkFill
+            className={`${styles.bookmarkMobile} ${
+              isBookmarked ? styles.bookmarkScraped : null
+            }`}
+            onClick={handleScrap}
+          ></BsFillBookmarkFill>
+          <div className={styles.topSection}>
+            <img src={image} className={styles.imageMobile}></img>
+            <div className={styles.infoSection}>
+              <div className={styles.name}>{nameKr}</div>
+              <div className={styles.infoMobile}>{info}</div>
+            </div>
+          </div>
+          <div className={styles.buttonSection}>
+            <div className={styles.smallButtons}>
+              <Button
+                color={'primary'}
+                size={'mdShort'}
+                text={'가이드 ↗'}
+                clickEvent={button2ClickEvent}
+              ></Button>
+              <Button
+                color={'secondary'}
+                size={'mdShort'}
+                text={
+                  isSelf
+                    ? isSubscribed
+                      ? '구독 해제'
+                      : '구독하기'
+                    : '공유하기'
+                }
+                clickEvent={isSelf ? button3ClickEvent : button2ClickEvent}
+              ></Button>
+            </div>
+          </div>
         </div>
-        {isSelf ? (
-          <Button
-            color={'primary'}
-            size={'mdLong'}
-            text={isSubscribed ? '구독 해제' : '구독하기'}
-            clickEvent={button3ClickEvent}
-          />
-        ) : (
-          ''
-        )}
-      </div>
-    </div>
+      </MobileWide>
+      <Mobile>
+        <div
+          className={`${styles.cardLayoutMobile} ${
+            isSelf ? null : styles.withCardLayout
+          }`}
+        >
+          {toastStatus && (
+            <div
+              className={`${styles.toastMobile} ${
+                isBookmarked ? '' : styles.toast_cancel
+              }`}
+            >
+              {isBookmarked ? '북마크에 추가되었어요' : '북마크가 취소되었어요'}
+            </div>
+          )}
+          <BsFillBookmarkFill
+            className={`${styles.bookmarkMobile} ${
+              isBookmarked ? styles.bookmarkScraped : null
+            }`}
+            onClick={handleScrap}
+          ></BsFillBookmarkFill>
+          <div className={styles.topSection}>
+            <img src={image} className={styles.imageMobile}></img>
+            <div className={styles.infoSection}>
+              <div className={styles.name}>{nameKr}</div>
+              <div className={styles.infoMobile}>{info}</div>
+            </div>
+          </div>
+          <div className={styles.buttonSection}>
+            <div className={styles.smallButtons}>
+              <Button
+                color={'primary'}
+                size={'mdShort'}
+                text={'가이드 ↗'}
+                clickEvent={button2ClickEvent}
+              ></Button>
+              <Button
+                color={'secondary'}
+                size={'mdShort'}
+                text={
+                  isSelf
+                    ? isSubscribed
+                      ? '구독 해제'
+                      : '구독하기'
+                    : '공유하기'
+                }
+                clickEvent={isSelf ? button3ClickEvent : button2ClickEvent}
+              ></Button>
+            </div>
+          </div>
+        </div>
+      </Mobile>
+    </>
   )
 }
 
