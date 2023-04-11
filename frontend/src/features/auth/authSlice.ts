@@ -25,7 +25,7 @@ export const authSlice = createSlice({
       state.isLoginModal = false
     },
     setAccessToken: (state, { payload }) => {
-      console.log('Access Token saved on memory from slice', payload)
+      // console.log('Access Token saved on memory from slice', payload)
       state.accessToken = payload
     },
     resetAccessToken: state => {

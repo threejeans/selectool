@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './CommonLayout.module.css'
 import ContentTitle from './ContentTitle'
+import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
 
 type LayoutProps = {
   type: string
@@ -20,13 +21,44 @@ const CommonLayout = ({ type, children }: LayoutProps) => {
         }
 
   return (
-    <div className={styles.contentContainer}>
-      <ContentTitle
-        title={contentTitle.title}
-        description={contentTitle.description}
-      />
-      <div>{children}</div>
-    </div>
+    <>
+      <Pc>
+        <div className={styles.contentContainer}>
+          <ContentTitle
+            title={contentTitle.title}
+            description={contentTitle.description}
+          />
+          <div>{children}</div>
+        </div>
+      </Pc>
+      <Tablet>
+        <div className={styles.contentContainer}>
+          <ContentTitle
+            title={contentTitle.title}
+            description={contentTitle.description}
+          />
+          <div>{children}</div>
+        </div>
+      </Tablet>
+      <MobileWide>
+        <div className={styles.contentContainerMobile}>
+          <ContentTitle
+            title={contentTitle.title}
+            description={contentTitle.description}
+          />
+          <div>{children}</div>
+        </div>
+      </MobileWide>
+      <Mobile>
+        <div className={styles.contentContainerMobile}>
+          <ContentTitle
+            title={contentTitle.title}
+            description={contentTitle.description}
+          />
+          <div>{children}</div>
+        </div>
+      </Mobile>
+    </>
   )
 }
 
