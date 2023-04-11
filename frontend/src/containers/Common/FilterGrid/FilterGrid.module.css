@@ -2,3 +2,13 @@
   display: flex;
   column-gap: 14px;
 }
+
+.layoutMobile {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(66px, max-content));
+  row-gap: 12px;
+  column-gap: 14px;
+}

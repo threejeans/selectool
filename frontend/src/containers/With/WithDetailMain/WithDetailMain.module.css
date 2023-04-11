@@ -1,3 +1,18 @@
+.contentLayout {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  column-gap: 2rem;
+}
+.contentLayoutTablet {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  row-gap: 36px;
+}
+
 .rightSection {
   width: 100%;
   display: flex;
@@ -14,10 +29,19 @@
 
 .branchLayout {
   display: grid;
-  margin-left: 40px;
+  margin-inline: 2.2vw;
   /* justify-content: center; */
-  grid-template-columns: repeat(auto-fit, minmax(120px, max-content));
-  column-gap: 52px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, max-content));
+  column-gap: 48px;
+  row-gap: 48px;
+}
+
+.branchLayoutMobile {
+  display: grid;
+  margin-inline: 2.2vw;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(100px, max-content));
+  column-gap: 48px;
   row-gap: 48px;
 }
 
@@ -30,22 +54,31 @@
 .culturesLayout {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(310px, max-content));
+  grid-template-columns: repeat(auto-fit, minmax(260px, max-content));
   column-gap: 48px;
   row-gap: 20px;
 }
 
 .toolsLayout {
   display: grid;
-  margin-inline: 48px;
+  margin-inline: 2.2vw;
   /* justify-content: center; */
-  grid-template-columns: repeat(auto-fit, minmax(60px, max-content));
-  column-gap: 80px;
+  grid-template-columns: repeat(auto-fit, minmax(52px, max-content));
+  column-gap: 72px;
+  row-gap: 20px;
+}
+
+.toolsLayoutMobile {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(40px, max-content));
+  column-gap: 50px;
   row-gap: 20px;
 }
 
 .toolContainer {
   display: flex;
+  width: 72px;
   flex-direction: column;
   row-gap: 20px;
   align-items: center;
@@ -58,6 +91,12 @@
   object-fit: contain;
 }
 
+.toolImageMobile {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+}
+
 .toolName {
   font-weight: 400;
   font-size: 12px;
@@ -67,8 +106,8 @@
 .toast {
   transition: 0.3s;
   position: absolute;
-  top: 392px;
-  left: calc(160px + 26vw);
+  top: 13vh;
+  left: 50vw;
   padding-inline: 20px;
   padding-block: 10px;
   min-width: 100px;

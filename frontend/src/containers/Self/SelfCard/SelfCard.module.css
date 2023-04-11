@@ -12,6 +12,20 @@
   border-radius: 10px;
 }
 
+.cardContainerMobile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 162px;
+  height: 162px;
+
+  background: #ffffff;
+  box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
 .smallCardContainer {
   position: relative;
   display: flex;
@@ -27,6 +41,11 @@
 }
 
 .cardContainer:hover {
+  transition: 0.2s;
+  transform: rotate(-4deg);
+}
+
+.cardContainerMobile:hover {
   transition: 0.2s;
   transform: rotate(-4deg);
 }
@@ -48,6 +67,13 @@
   padding: 32px;
 }
 
+.hoverContentLayoutMobile {
+  width: 134px;
+  height: 126px;
+
+  padding: 16px;
+}
+
 .hoverClickLayout {
   width: 100%;
   height: 100%;
@@ -67,14 +93,32 @@
   font-weight: 600;
 }
 
+.typeEngMobile {
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .hookText {
   font-size: 17px;
+  font-weight: 400;
+}
+
+.hookTextMobile {
+  font-size: 13px;
   font-weight: 400;
 }
 
 .aTag {
   font-weight: 300;
   font-size: 14px;
+  line-height: 18px;
+  color: white;
+}
+
+.aTagMobile {
+  font-weight: 300;
+  font-size: 11px;
+  line-height: 14px;
   color: white;
 }
 
@@ -82,6 +126,23 @@
   transition: 0.3s;
   position: absolute;
   right: -180px;
+  top: -28px;
+
+  padding-inline: 20px;
+  padding-block: 10px;
+  min-width: 100px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background: #60a9f6;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 14px 14px 14px 0px;
+}
+
+.toastMobile {
+  transition: 0.3s;
+  position: absolute;
+  right: -60px;
   top: -28px;
 
   padding-inline: 20px;
@@ -106,6 +167,7 @@
   filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
   right: 20px;
   top: -6px;
+  cursor: pointer;
 }
 
 .smallBookmark {
@@ -115,10 +177,12 @@
   filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
   right: 14px;
   top: -8px;
+  cursor: pointer;
 }
 
 .bookmarkScraped {
   color: #60a9f6;
+  cursor: pointer;
 }
 
 .contentsContainer {
@@ -127,6 +191,14 @@
   width: 100%;
   padding-inline: 34px;
   row-gap: 20px;
+}
+
+.contentsContainerMobile {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-inline: 20px;
+  row-gap: 16px;
 }
 
 .contentsSmallContainer {
@@ -143,6 +215,17 @@
   align-items: center;
   width: 72px;
   height: 72px;
+
+  background: #f5f5f5;
+  border-radius: 100%;
+}
+
+.appIconContainerMobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
 
   background: #f5f5f5;
   border-radius: 100%;
@@ -165,6 +248,12 @@
   object-fit: contain;
 }
 
+.appIconMobile {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
 .appIconSmall {
   width: 36px;
   height: 36px;
@@ -175,6 +264,12 @@
   display: flex;
   flex-direction: column;
   row-gap: 6px;
+}
+
+.textContainerMobile {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
 }
 
 .textSmallContainer {
@@ -199,6 +294,25 @@
   font-weight: 400;
   font-size: 10px;
   line-height: 14px;
+  color: #6f6f6f;
+}
+
+.typeMobile {
+  font-weight: 600;
+  font-size: 10px;
+  color: #6f6f6f;
+}
+
+.nameMobile {
+  font-weight: 700;
+  font-size: 12px;
+  color: black;
+}
+
+.descriptionMobile {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
   color: #6f6f6f;
 }
 

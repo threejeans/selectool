@@ -11,6 +11,9 @@ import {
   LandingContactSection,
   LandingDetailSection,
   LandingIntroduceSectionMobile,
+  LandingIntroduceSectionMobileWide,
+  LandingDetailSectionTablet,
+  LandingDetailSectionMobile,
 } from '../../containers/LandingPage'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -33,21 +36,21 @@ const LandingPage = () => {
       <Tablet>
         <LandingHeroTablet />
         <LandingIntroduceSectionTablet />
-        <LandingDetailSection />
+        <LandingDetailSectionTablet />
         <LandingCTASection />
         <LandingContactSection />
       </Tablet>
       <MobileWide>
         <LandingHeroMobileWide />
-        <LandingIntroduceSectionMobile />
-        <LandingDetailSection />
+        <LandingIntroduceSectionMobileWide />
+        <LandingDetailSectionMobile />
         <LandingCTASectionMobile />
         <LandingContactSection />
       </MobileWide>
       <Mobile>
         <LandingHeroMobile />
         <LandingIntroduceSectionMobile />
-        <LandingDetailSection />
+        <LandingDetailSectionMobile />
         <LandingCTASectionMobile />
         <LandingContactSection />
       </Mobile>

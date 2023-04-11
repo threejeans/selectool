@@ -3,12 +3,26 @@
 .ratingLayout {
   display: flex;
   flex-direction: row;
-  column-gap: 16px;
+  column-gap: 2vw;
 
   align-items: center;
   justify-content: center;
 
-  width: 360px;
+  max-width: 300px;
+  width: 28vw;
+  height: 100px;
+}
+
+.ratingLayoutMobile {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+
+  align-items: center;
+  justify-content: center;
+
+  max-width: 150px;
+  width: 28vw;
   height: 100px;
 }
 
@@ -25,9 +39,29 @@
   object-fit: contain;
 }
 
+.noRatingImageMobile {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  filter: grayscale(100%);
+}
+
+.ratingImageMobile {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+}
+
 .noRatingScore {
   font-weight: 600;
   font-size: 12px;
+
+  color: #a8a8a8;
+}
+
+.noRatingScoreMobile {
+  font-weight: 600;
+  font-size: 11px;
 
   color: #a8a8a8;
 }
@@ -39,9 +73,23 @@
   color: #a8a8a8;
 }
 
+.ratingScoreMobile {
+  font-weight: 600;
+  font-size: 16px;
+
+  color: #a8a8a8;
+}
+
 .ratingScoreContainer {
   display: flex;
   flex-direction: column;
+}
+
+.ratingScoreContainerMobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .starBox {
@@ -55,11 +103,25 @@
   object-fit: contain;
 }
 
+.fullStarMobile {
+  width: 72px;
+  height: 14px;
+  object-fit: contain;
+}
+
 .emptyStar {
   z-index: -100px;
   position: absolute;
   width: 80px;
   height: 16px;
+  object-fit: contain;
+}
+
+.emptyStarMobile {
+  z-index: -100px;
+  position: absolute;
+  width: 72px;
+  height: 14px;
   object-fit: contain;
 }
 

@@ -2,14 +2,69 @@
   width: 100%;
   display: grid;
 
-  grid-template-columns: repeat(auto-fit, minmax(150px, max-content));
-  column-gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(194px, max-content));
+  column-gap: 20px;
   row-gap: 2.4rem;
+}
+
+.layoutMobile {
+  width: 100%;
+  justify-content: center;
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(152px, max-content));
+  column-gap: 12px;
+  row-gap: 2.4rem;
+}
+
+.layoutWith {
+  width: 100%;
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(180px, max-content));
+  column-gap: 28px;
+  row-gap: 2.4rem;
+}
+
+.layoutWithMobile {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+
+  grid-template-columns: repeat(auto-fit, minmax(156px, max-content));
+  column-gap: 20px;
+  row-gap: 2.4rem;
+}
+
+.guideLayout {
+  width: 100%;
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(240px, max-content));
+  column-gap: 32px;
+  row-gap: 1.2rem;
+}
+
+.guideLayoutMobile {
+  width: 100%;
+  display: grid;
+
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(240px, max-content));
+  column-gap: 32px;
+  row-gap: 1.2rem;
 }
 
 .noContentlayout {
   width: 50vw;
   display: flex;
+  justify-content: center;
+}
+
+.noContentlayoutMobile {
+  width: 100%;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
@@ -50,7 +105,23 @@
   justify-content: center;
 }
 
+.noSearchLayoutMobile {
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
 .noSearchLayout span {
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.noSearchLayoutMobile span {
   cursor: pointer;
   text-decoration: underline;
   text-underline-position: under;
@@ -72,6 +143,22 @@
   color: #595959;
 }
 
+.noSearchMainTextMobile {
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+
+  color: #333333;
+}
+
+.noSearchSubTextMobile {
+  font-weight: 500;
+  font-size: 12px;
+  text-align: center;
+
+  color: #595959;
+}
+
 .noSearchResetText {
   margin-top: 18px;
   font-weight: 500;
@@ -79,4 +166,110 @@
   text-align: center;
 
   color: #60a9f6;
+}
+
+.noSearchResetTextMobile {
+  margin-top: 18px;
+  font-weight: 500;
+  font-size: 12px;
+  text-align: center;
+
+  color: #60a9f6;
+}
+
+/* 가이드 카드 */
+.guideScrapContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  width: 260px;
+  height: 260px;
+}
+
+.toast {
+  transition: 0.3s;
+  position: absolute;
+  right: -180px;
+  top: -28px;
+
+  padding-inline: 20px;
+  padding-block: 10px;
+  min-width: 100px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  background: #60a9f6;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 14px 14px 14px 0px;
+}
+
+.toast_cancel {
+  background-color: #8d8d8d;
+}
+
+.guideBookmark {
+  font-size: 18px;
+  position: absolute;
+  color: #cdcdcd;
+  filter: drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1));
+  right: 14px;
+  top: -8px;
+  cursor: pointer;
+}
+
+.bookmarkScraped {
+  color: #60a9f6;
+  cursor: pointer;
+}
+
+.guideContentsContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+.guideImage {
+  width: 260px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
+}
+
+.guideTextContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.guideTitle {
+  font-weight: 700;
+  font-size: 14px;
+  color: black;
+}
+
+.guideContent {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 14px;
+  color: #6f6f6f;
+}
+.guideTextBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.guideSource {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(96, 169, 246, 0.2);
+  border-radius: 6px;
+  font-size: 10px;
+  color: #5581df;
+  padding-inline: 8px;
+  padding-block: 2px;
 }

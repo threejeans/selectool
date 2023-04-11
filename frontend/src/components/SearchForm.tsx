@@ -7,11 +7,13 @@ import { setSearchValue } from 'reducers/commonReducer'
 
 export type InputProps = {
   placeholder?: string
+  isMobile?: boolean
   submitEvent: () => void
 }
 
 const SearchForm = ({
   placeholder = 'placeholder',
+  isMobile = false,
   submitEvent,
 }: InputProps) => {
   const [searchContent, setSearchContent] = useState<string>('')
@@ -30,6 +32,7 @@ const SearchForm = ({
     <form onSubmit={handleSubmit} className={styles.container}>
       <Input
         name={'search'}
+        isMobile={isMobile}
         isOption={true}
         type='search'
         placeholder={placeholder}

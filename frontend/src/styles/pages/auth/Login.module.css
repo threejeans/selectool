@@ -1,9 +1,20 @@
 .container {
   min-height: 50vh;
-  width: 40vw;
-  min-width: 600px;
+  width: 80vw;
+  max-width: 760px;
+  min-width: 640px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerMobile {
+  min-height: 50vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
   justify-content: center;
   align-items: center;
 }
@@ -15,9 +26,23 @@
   font-stretch: ultra-condensed;
 }
 
+.titleMobile {
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-stretch: ultra-condensed;
+}
+
 .description {
   margin-top: 1rem;
   font-size: 18px;
+  color: var(--gray-scale-color-g25);
+}
+
+.descriptionMobile {
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
   color: var(--gray-scale-color-g25);
 }
 
@@ -29,6 +54,15 @@
   justify-content: space-evenly;
   align-items: center;
 }
+
+.buttonGroupMobile {
+  margin: 0 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+}
+
 .buttonGroup > a {
   border-radius: 1.4rem;
   width: 10rem;
@@ -50,6 +84,26 @@
   height: 1.6rem;
 }
 
+.buttonGroupMobile > a {
+  border-radius: 10px;
+  width: 260px;
+  height: 50px;
+  box-shadow: 1px 2px 4px var(--gray-scale-color-g20);
+  font-size: 0.8rem;
+  font-family: 'Noto Sans KR';
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4%;
+}
+.buttonGroupMobile > a:hover {
+  cursor: pointer;
+}
+.buttonGroupMobile img {
+  height: 1.4rem;
+}
+
 .privacy {
   max-width: 600px;
   font-size: 16px;
@@ -58,6 +112,19 @@
   color: var(--gray-scale-color-g20);
 }
 .privacy > a {
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.privacyMobile {
+  max-width: 600px;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  color: var(--gray-scale-color-g20);
+}
+.privacyMobile > a {
   cursor: pointer;
   text-decoration: underline;
   text-underline-position: under;
