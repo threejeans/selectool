@@ -22,7 +22,7 @@
 }
 
 .withLayoutMobile {
-  grid-template-columns: repeat(auto-fit, minmax(164px, max-content));
+  grid-template-columns: repeat(auto-fit, minmax(156px, max-content));
   column-gap: 18px;
 }
 
