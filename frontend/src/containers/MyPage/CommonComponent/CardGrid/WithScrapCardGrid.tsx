@@ -119,16 +119,16 @@ const WithScrapCardGrid = () => {
               <WithSmallCard data={data} key={idx} />
             ))
           ) : (
-            <div className={styles.noContentlayout}>
-              <div className={styles.noSearchLayout}>
-                <div className={styles.noSearchMainText}>
+            <div className={styles.noContentlayoutMobile}>
+              <div className={styles.noSearchLayoutMobile}>
+                <div className={styles.noSearchMainTextMobile}>
                   아직 저장된 기업이 없어요 :&#40;
                 </div>
-                <div className={styles.noSearchSubText}>
+                <div className={styles.noSearchSubTextMobile}>
                   관심 있는 기업을 저장하시면 이 곳에서 한눈에 확인할 수 있어요
                 </div>
                 <Link to={'/with'}>
-                  <span className={styles.noSearchResetText}>
+                  <span className={styles.noSearchResetTextMobile}>
                     기업 둘러보러 가기 →
                   </span>
                 </Link>
@@ -154,16 +154,16 @@ const WithScrapCardGrid = () => {
               <WithSmallCard data={data} key={idx} />
             ))
           ) : (
-            <div className={styles.noContentlayout}>
-              <div className={styles.noSearchLayout}>
-                <div className={styles.noSearchMainText}>
+            <div className={styles.noContentlayoutMobile}>
+              <div className={styles.noSearchLayoutMobile}>
+                <div className={styles.noSearchMainTextMobile}>
                   아직 저장된 기업이 없어요 :&#40;
                 </div>
-                <div className={styles.noSearchSubText}>
+                <div className={styles.noSearchSubTextMobile}>
                   관심 있는 기업을 저장하시면 이 곳에서 한눈에 확인할 수 있어요
                 </div>
                 <Link to={'/with'}>
-                  <span className={styles.noSearchResetText}>
+                  <span className={styles.noSearchResetTextMobile}>
                     기업 둘러보러 가기 →
                   </span>
                 </Link>
