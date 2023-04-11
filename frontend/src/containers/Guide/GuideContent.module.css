@@ -333,3 +333,36 @@
   filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.2));
   cursor: pointer;
 }
+
+
+@media (max-width:480px) {
+  .notiBox {
+    display: none;
+  }
+
+  .guideGrid {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .controlBox {
+    flex-direction: column;
+  }
+}
+
+@media (min-width:481px) and (max-width:767px) {
+  .notiBox {
+    display: none;
+  }
+
+  .guideGrid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .controlBox {
+    flex-direction: column;
+  }
+}
