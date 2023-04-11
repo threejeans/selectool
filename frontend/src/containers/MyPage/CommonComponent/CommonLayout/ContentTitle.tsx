@@ -24,16 +24,14 @@ const ContentTitle = ({ title, description }: titleProps) => {
         </div>
       </Tablet>
       <MobileWide>
-        {' '}
         <div className={styles.titleLayoutMobile}>
           <div className={styles.titleMobile}>{title}</div>
           <div className={styles.descriptionMobile}>{description}</div>
         </div>
       </MobileWide>
       <Mobile>
-        {' '}
         <div className={styles.titleLayoutMobile}>
-          <div className={styles.titleMobileMobile}>{title}</div>
+          <div className={styles.titleMobile}>{title}</div>
           <div className={styles.descriptionMobile}>{description}</div>
         </div>
       </Mobile>
