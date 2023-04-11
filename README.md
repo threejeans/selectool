@@ -1,5 +1,6 @@
 
-<img src="./README.assets/selectool_LOGO.png" href="https://www.selectool.info/" width="500" align="center"/>
+<p align="center"><img src="./README.assets/selectool_LOGO.png" href="https://www.selectool.info/" width="500"/></p>
+
 
 
 
