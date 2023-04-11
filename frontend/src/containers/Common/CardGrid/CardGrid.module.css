@@ -7,13 +7,23 @@
 }
 
 .selfLayout {
-  grid-template-columns: repeat(auto-fit, minmax(200px, max-content));
+  grid-template-columns: repeat(auto-fit, minmax(220px, max-content));
   column-gap: 50px;
+}
+
+.selfLayoutMobile {
+  grid-template-columns: repeat(auto-fit, minmax(152px, max-content));
+  column-gap: 18px;
 }
 
 .withLayout {
   grid-template-columns: repeat(auto-fit, minmax(212px, max-content));
   column-gap: 74px;
+}
+
+.withLayoutMobile {
+  grid-template-columns: repeat(auto-fit, minmax(164px, max-content));
+  column-gap: 18px;
 }
 
 .moreGroup {

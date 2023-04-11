@@ -19,19 +19,19 @@ const WithScrapCardGrid = () => {
 
   const countRef = useRef({ count: contentCount })
 
-  const maxContentCount = Math.floor((scrapList.length - 1) / 16)
+  const maxContentCount = Math.floor((scrapList.length - 1) / 12)
 
   const dispatch = useAppDispatch()
 
   const getScrapExportList = () => {
-    const newList = scrapList.slice(0, (contentCount + 1) * 16)
+    const newList = scrapList.slice(0, (contentCount + 1) * 12)
     dispatch(setWithScrapExportList(newList))
   }
 
   const moreContentEvent = () => {
     dispatch(changeWithScrapCount())
     countRef.current.count += 1
-    const newList = scrapList.slice(0, (countRef.current.count + 1) * 16)
+    const newList = scrapList.slice(0, (countRef.current.count + 1) * 12)
     dispatch(setWithScrapExportList(newList))
   }
 
@@ -64,7 +64,7 @@ const WithScrapCardGrid = () => {
           </div>
         )}
       </div>
-      {scrapList.length > 16 && contentCount < maxContentCount ? (
+      {scrapList.length > 12 && contentCount < maxContentCount ? (
         <div className={styles.moreGroup}>
           <button className={styles.moreButton} onClick={moreContentEvent}>
             더보기&nbsp;&nbsp;

@@ -18,6 +18,13 @@
   cursor: pointer;
 }
 
+.chipMobile {
+  font-size: 14px;
+  padding-block: 8px;
+  padding-inline: 12px;
+  border-radius: 6px;
+}
+
 .basicChecked {
   background: rgba(96, 169, 246, 0.12);
   border-radius: 10px;
