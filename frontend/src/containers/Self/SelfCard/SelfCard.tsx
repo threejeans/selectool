@@ -187,10 +187,10 @@ const SelfCard = ({ data }: CardProps) => {
       <MobileWide>
         <div
           className={styles.cardContainerMobile}
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
+          // onMouseEnter={() => setHover(true)}
+          // onMouseLeave={() => setHover(false)}
         >
-          {isHover ? (
+          {/* {isHover ? (
             <div className={styles.hoverContainer}>
               <div className={styles.hoverContentLayoutMobile}>
                 <Link
@@ -209,7 +209,7 @@ const SelfCard = ({ data }: CardProps) => {
                 </Link>
               </div>
             </div>
-          ) : null}
+          ) : null} */}
           {toastStatus && (
             <div
               className={`${styles.toastMobile} ${
@@ -227,29 +227,31 @@ const SelfCard = ({ data }: CardProps) => {
             }`}
             onClick={handleScrap}
           ></BsFillBookmarkFill>
-          <div className={styles.contentsContainerMobile}>
-            <div className={styles.appIconContainerMobile}>
-              <img src={data.image} className={styles.appIconMobile}></img>
-            </div>
-            <div className={styles.textContainerMobile}>
-              <div className={styles.typeMobile}>{data.topic}</div>
-              <div className={styles.nameMobile}>{data.nameKr}</div>
-              <div className={styles.descriptionMobile}>
-                {data.info.length > 50
-                  ? `${data.info.substring(0, 50)}...`
-                  : data.info}
+          <Link to={`/self/${data.id}`} className={styles.clickLayoutMobile}>
+            <div className={styles.contentsContainerMobile}>
+              <div className={styles.appIconContainerMobile}>
+                <img src={data.image} className={styles.appIconMobile}></img>
+              </div>
+              <div className={styles.textContainerMobile}>
+                <div className={styles.typeMobile}>{data.topic}</div>
+                <div className={styles.nameMobile}>{data.nameKr}</div>
+                <div className={styles.descriptionMobile}>
+                  {data.info.length > 50
+                    ? `${data.info.substring(0, 50)}...`
+                    : data.info}
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </MobileWide>
       <Mobile>
         <div
           className={styles.cardContainerMobile}
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
+          // onMouseEnter={() => setHover(true)}
+          // onMouseLeave={() => setHover(false)}
         >
-          {isHover ? (
+          {/* {isHover ? (
             <div className={styles.hoverContainer}>
               <div className={styles.hoverContentLayoutMobile}>
                 <Link
@@ -268,7 +270,7 @@ const SelfCard = ({ data }: CardProps) => {
                 </Link>
               </div>
             </div>
-          ) : null}
+          ) : null} */}
           {toastStatus && (
             <div
               className={`${styles.toastMobile} ${
@@ -286,20 +288,22 @@ const SelfCard = ({ data }: CardProps) => {
             }`}
             onClick={handleScrap}
           ></BsFillBookmarkFill>
-          <div className={styles.contentsContainerMobile}>
-            <div className={styles.appIconContainerMobile}>
-              <img src={data.image} className={styles.appIconMobile}></img>
-            </div>
-            <div className={styles.textContainerMobile}>
-              <div className={styles.typeMobile}>{data.topic}</div>
-              <div className={styles.nameMobile}>{data.nameKr}</div>
-              <div className={styles.descriptionMobile}>
-                {data.info.length > 50
-                  ? `${data.info.substring(0, 50)}...`
-                  : data.info}
+          <Link to={`/self/${data.id}`} className={styles.clickLayoutMobile}>
+            <div className={styles.contentsContainerMobile}>
+              <div className={styles.appIconContainerMobile}>
+                <img src={data.image} className={styles.appIconMobile}></img>
+              </div>
+              <div className={styles.textContainerMobile}>
+                <div className={styles.typeMobile}>{data.topic}</div>
+                <div className={styles.nameMobile}>{data.nameKr}</div>
+                <div className={styles.descriptionMobile}>
+                  {data.info.length > 50
+                    ? `${data.info.substring(0, 50)}...`
+                    : data.info}
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </Mobile>
     </>

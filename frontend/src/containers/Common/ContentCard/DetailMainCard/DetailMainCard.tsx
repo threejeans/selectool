@@ -235,8 +235,8 @@ const DetailMainCard = ({
               <Button
                 color={'primary'}
                 size={'mdShort'}
-                text={'가이드 ↗'}
-                clickEvent={button2ClickEvent}
+                text={isSelf ? '가이드 ↗' : '웹페이지'}
+                clickEvent={isSelf ? button2ClickEvent : button1ClickEvent}
               ></Button>
               <Button
                 color={'secondary'}
@@ -287,8 +287,8 @@ const DetailMainCard = ({
               <Button
                 color={'primary'}
                 size={'mdShort'}
-                text={'가이드 ↗'}
-                clickEvent={button2ClickEvent}
+                text={isSelf ? '가이드 ↗' : '웹페이지'}
+                clickEvent={isSelf ? button2ClickEvent : button1ClickEvent}
               ></Button>
               <Button
                 color={'secondary'}
