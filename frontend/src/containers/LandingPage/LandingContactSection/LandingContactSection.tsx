@@ -205,14 +205,14 @@ const LandingContactSection = () => {
                 ></Input>
                 <button
                   disabled={!username || !email || !message}
-                  className={styles.button}
+                  className={styles.buttonMobile}
                   type='submit'
                 >
                   <div
                     className={
                       !username || !email || !message
-                        ? styles.buttonTextDisabled
-                        : styles.buttonText
+                        ? styles.buttonTextDisabledMobile
+                        : styles.buttonTextMobile
                     }
                   >
                     보내기
@@ -263,14 +263,14 @@ const LandingContactSection = () => {
                 ></Input>
                 <button
                   disabled={!username || !email || !message}
-                  className={styles.button}
+                  className={styles.buttonMobile}
                   type='submit'
                 >
                   <div
                     className={
                       !username || !email || !message
-                        ? styles.buttonTextDisabled
-                        : styles.buttonText
+                        ? styles.buttonTextDisabledMobile
+                        : styles.buttonTextMobile
                     }
                   >
                     보내기

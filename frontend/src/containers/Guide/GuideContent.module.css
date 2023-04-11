@@ -207,18 +207,58 @@
 }
 
 .searchBox {
-  min-width: 16rem;
+  width: 15rem;
+  min-width: 14.6rem;
   padding: 1rem 0;
+  position: relative;
 }
 
 .searchInput {
-  width: 100%;
-  font-size: 1rem;
-  border: 1px solid var(--gray-scale-color-g10);
-  padding: 0.4rem;
-  border-radius: 0.4rem;
-  display: flex;
-  text-align: start;
+  width: 14.6rem;
+  height: 2.4rem;
+  background: white;
+  border: 2px solid #cdcdcd;
+  outline: none;
+  border-radius: 10px;
+  padding-inline: 0.6rem;
+  outline: none;
+  box-sizing: border-box;
+
+  font-family: 'Pretendard Variable';
+  font-weight: 500;
+  font-size: 14px;
+  color: #595959;
+
+  transition: 0.1s;
+}
+
+.searchInput::placeholder {
+  font-size: 14px;
+  color: rgba(189, 189, 189, 0.6);
+}
+
+.searchInput:hover {
+  border: 1.5px solid #60a9f6;
+  box-shadow: inset 0 0 0 1px rgba(96, 169, 246, 0.6);
+}
+
+.searchInput:focus-within {
+  border: 2px solid #60a9f6;
+  box-shadow: 0 0 0 3px rgba(96, 169, 246, 0.2),
+    inset 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.searchInput:focus-within:hover {
+  border: 2.5px solid #60a9f6;
+}
+
+.search {
+  position: absolute;
+  height: 34px;
+  right: 20px;
+  z-index: 10px;
+  font-size: 18px;
+  color: #8d8d8d;
 }
 
 .guideGrid {
@@ -317,13 +357,18 @@
 }
 
 .moreButton {
+  margin-top: 20px;
   border-radius: 0.5rem;
-  padding: 1rem 2rem;
-  box-shadow: 2px 2px 12px var(--gray-scale-color-g10);
-  font-size: 1.2rem;
+  padding: 1rem 1.6rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  color: #6f6f6f;
+  font-size: 0.9rem;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.moreButton:hover {
+  background-color: #fcfcfc;
 }
 .bookmark {
   position: absolute;
@@ -334,8 +379,7 @@
   cursor: pointer;
 }
 
-
-@media (max-width:480px) {
+@media (max-width: 480px) {
   .notiBox {
     display: none;
   }
@@ -348,10 +392,11 @@
 
   .controlBox {
     flex-direction: column;
+    align-items: center;
   }
 }
 
-@media (min-width:481px) and (max-width:767px) {
+@media (min-width: 481px) and (max-width: 767px) {
   .notiBox {
     display: none;
   }
@@ -364,5 +409,6 @@
 
   .controlBox {
     flex-direction: column;
+    align-items: center;
   }
 }

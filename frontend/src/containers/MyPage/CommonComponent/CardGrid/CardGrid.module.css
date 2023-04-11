@@ -13,7 +13,7 @@
   display: grid;
 
   grid-template-columns: repeat(auto-fit, minmax(152px, max-content));
-  column-gap: 12px;
+  column-gap: 16px;
   row-gap: 2.4rem;
 }
 
@@ -31,8 +31,8 @@
   display: grid;
   justify-content: center;
 
-  grid-template-columns: repeat(auto-fit, minmax(156px, max-content));
-  column-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(152px, max-content));
+  column-gap: 16px;
   row-gap: 2.4rem;
 }
 
