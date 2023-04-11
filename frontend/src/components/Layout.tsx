@@ -25,7 +25,7 @@ const Layout = ({ title, description, children }: LayoutProps) => {
   const refreshToken = getCookie('refresh-token')
 
   useEffect(() => {
-    if (!isLogon) {
+    if (!isLogon && refreshToken) {
       apiAxios
         .get(process.env.REACT_APP_API + '/api/member/refresh', {
           data: { refreshToken: refreshToken },

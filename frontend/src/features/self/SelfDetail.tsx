@@ -6,9 +6,7 @@ const SelfDetail = () => {
   return (
     <div className={`${styles.layout} ${styles.detailLayout}`}>
       <div className={styles.container}>
-        <div className={styles.contentLayout}>
-          <SelfDetailMain />
-        </div>
+        <SelfDetailMain />
       </div>
     </div>
   )
