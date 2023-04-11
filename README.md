@@ -1,5 +1,6 @@
 
-<img src="./README.assets/selectool_LOGO.png" href="https://www.selectool.info/" width="400"/>
+<img src="./README.assets/selectool_LOGO.png" href="https://www.selectool.info/" width="500" align="center"/>
+
 
 
 # 🐸 프로젝트 소개
