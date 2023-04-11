@@ -124,17 +124,19 @@ const SelfSmallCard = ({ data }: CardProps) => {
             }`}
             onClick={handleScrap}
           ></BsFillBookmarkFill>
-          <div className={styles.contentsContainerMobile}>
-            <div className={styles.appIconContainerMobile}>
-              <img src={data.image} className={styles.appIconMobile}></img>
-            </div>
-            <div className={styles.textContainerMobile}>
-              <div className={styles.typeMobile}>{data.topic}</div>
-              <div className={styles.nameMobile}>{data.nameKr}</div>
-              <div className={styles.descriptionMobile}>
-                {data.info.length > 50
-                  ? `${data.info.substring(0, 50)}...`
-                  : data.info}
+          <div className={styles.clickLayoutMobile}>
+            <div className={styles.contentsContainerMobile}>
+              <div className={styles.appIconContainerMobile}>
+                <img src={data.image} className={styles.appIconMobile}></img>
+              </div>
+              <div className={styles.textContainerMobile}>
+                <div className={styles.typeMobile}>{data.topic}</div>
+                <div className={styles.nameMobile}>{data.nameKr}</div>
+                <div className={styles.descriptionMobile}>
+                  {data.info.length > 50
+                    ? `${data.info.substring(0, 50)}...`
+                    : data.info}
+                </div>
               </div>
             </div>
           </div>
@@ -153,17 +155,19 @@ const SelfSmallCard = ({ data }: CardProps) => {
             }`}
             onClick={handleScrap}
           ></BsFillBookmarkFill>
-          <div className={styles.contentsContainerMobile}>
-            <div className={styles.appIconContainerMobile}>
-              <img src={data.image} className={styles.appIconMobile}></img>
-            </div>
-            <div className={styles.textContainerMobile}>
-              <div className={styles.typeMobile}>{data.topic}</div>
-              <div className={styles.nameMobile}>{data.nameKr}</div>
-              <div className={styles.descriptionMobile}>
-                {data.info.length > 50
-                  ? `${data.info.substring(0, 50)}...`
-                  : data.info}
+          <div className={styles.clickLayoutMobile}>
+            <div className={styles.contentsContainerMobile}>
+              <div className={styles.appIconContainerMobile}>
+                <img src={data.image} className={styles.appIconMobile}></img>
+              </div>
+              <div className={styles.textContainerMobile}>
+                <div className={styles.typeMobile}>{data.topic}</div>
+                <div className={styles.nameMobile}>{data.nameKr}</div>
+                <div className={styles.descriptionMobile}>
+                  {data.info.length > 50
+                    ? `${data.info.substring(0, 50)}...`
+                    : data.info}
+                </div>
               </div>
             </div>
           </div>

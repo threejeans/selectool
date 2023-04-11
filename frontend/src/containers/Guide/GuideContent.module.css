@@ -57,10 +57,12 @@
   width: 100%;
   height: 100%;
   border-radius: 1rem;
-  background: linear-gradient(to bottom,
-      transparent,
-      transparent,
-      rgba(0, 0, 0, 0.4));
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    transparent,
+    rgba(0, 0, 0, 0.4)
+  );
 }
 
 .contentCover:hover {
@@ -211,18 +213,57 @@
 }
 
 .searchBox {
-  min-width: 16rem;
+  width: 15rem;
   padding: 1rem 0;
+  position: relative;
 }
 
 .searchInput {
-  width: 100%;
-  font-size: 1rem;
-  border: 1px solid var(--gray-scale-color-g10);
-  padding: 0.4rem;
-  border-radius: 0.4rem;
-  display: flex;
-  text-align: start;
+  width: 14.6rem;
+  height: 2.4rem;
+  background: white;
+  border: 2px solid #cdcdcd;
+  outline: none;
+  border-radius: 10px;
+  padding-inline: 0.6rem;
+  outline: none;
+  box-sizing: border-box;
+
+  font-family: 'Pretendard Variable';
+  font-weight: 500;
+  font-size: 14px;
+  color: #595959;
+
+  transition: 0.1s;
+}
+
+.searchInput::placeholder {
+  font-size: 14px;
+  color: rgba(189, 189, 189, 0.6);
+}
+
+.searchInput:hover {
+  border: 1.5px solid #60a9f6;
+  box-shadow: inset 0 0 0 1px rgba(96, 169, 246, 0.6);
+}
+
+.searchInput:focus-within {
+  border: 2px solid #60a9f6;
+  box-shadow: 0 0 0 3px rgba(96, 169, 246, 0.2),
+    inset 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.searchInput:focus-within:hover {
+  border: 2.5px solid #60a9f6;
+}
+
+.search {
+  position: absolute;
+  height: 34px;
+  right: 20px;
+  z-index: 10px;
+  font-size: 18px;
+  color: #8d8d8d;
 }
 
 .guideGrid {
@@ -273,7 +314,10 @@
   border-radius: 100%;
   overflow: hidden;
   /* background-color: white; */
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  /* filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3)); */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  border: 2px solid white;
 }
 
 .guideInfo {
@@ -321,15 +365,19 @@
 }
 
 .moreButton {
+  margin-top: 20px;
   border-radius: 0.5rem;
-  padding: 1rem 2rem;
-  box-shadow: 2px 2px 12px var(--gray-scale-color-g10);
-  font-size: 1.2rem;
+  padding: 1rem 1.6rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  color: #6f6f6f;
+  font-size: 0.9rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
+.moreButton:hover {
+  background-color: #fcfcfc;
+}
 .bookmark {
   position: absolute;
   top: -4px;
@@ -339,8 +387,7 @@
   cursor: pointer;
 }
 
-
-@media (max-width:767px) {
+@media (max-width: 767px) {
   .notiBox {
     display: none;
   }
@@ -364,7 +411,7 @@
   }
 }
 
-@media (min-width:480px) and (max-width:767px) {
+@media (min-width: 480px) and (max-width: 767px) {
   .notiBox {
     display: none;
   }
@@ -376,12 +423,26 @@
   }
 
   .controlBox {
-    flex-direction: column-reverse;
+    flex-direction: row;
   }
-  .searchInput{    
-    width: 80%;
-    margin: 0 10%;
+
+  .searchBox {
+    width: 11.1rem;
+    position: relative;
   }
+
+  .searchInput {
+    width: 11.4rem;
+    height: 2.4rem;
+    outline: none;
+    border-radius: 10px;
+    padding-inline: 0.4rem;
+  }
+
+  .search {
+    display: none;
+  }
+
   .buttonGroup {
     justify-content: flex-start;
   }
@@ -391,9 +452,9 @@
   }
 }
 
-@media (min-width:768px) and (max-width:1079px) {
+@media (min-width: 768px) and (max-width: 1079px) {
   .notiBox {
-      display: none;
+    display: none;
   }
 
   .guideGrid {
