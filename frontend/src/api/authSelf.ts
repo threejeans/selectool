@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
+import { setAccessToken } from 'features/auth/authSlice'
 import { SelfMainInfo, SelfSpecificInfo } from 'types/types'
+import { getCookie } from 'util/cookie'
 
 // 전체 목록 조회
 export const getAuthSelfMainInfoAPI = createAsyncThunk(
@@ -22,6 +24,17 @@ export const getAuthSelfMainInfoAPI = createAsyncThunk(
         console.log(err)
         if (err.request.status === 404) {
           response.isNotFound404 = true
+        }
+        if (err.request.status === 403) {
+          const refreshToken = getCookie('refresh-token')
+          apiAxios
+            .get(process.env.REACT_APP_API + '/api/member/refresh', {
+              data: { refreshToken: refreshToken },
+            })
+            .then(res => {
+              const accessToken = res.data.accessToken
+              dispatch(setAccessToken(accessToken))
+            })
         }
       })
 
@@ -217,3 +230,6 @@ export const selfUnsubscribeToolAPI = createAsyncThunk(
     return response
   },
 )
+function dispatch(arg0: { payload: any; type: 'auth/setAccessToken' }) {
+  throw new Error('Function not implemented.')
+}
