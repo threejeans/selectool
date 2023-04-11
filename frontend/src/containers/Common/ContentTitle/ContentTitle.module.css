@@ -5,6 +5,15 @@
   row-gap: 12px;
 }
 
+.layoutMobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  row-gap: 8px;
+  margin-bottom: 12px;
+}
+
 .title {
   font-size: 1.8rem;
   line-height: 2.7rem;
@@ -12,9 +21,27 @@
   color: black;
 }
 
+.titleMobile {
+  font-size: 1.4rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: black;
+}
+
 .description {
   font-weight: 400;
   font-size: 1rem;
+  line-height: 1.4rem;
+  word-break: keep-all;
+  color: #6f6f6f;
+}
+
+.descriptionMobile {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  word-break: keep-all;
   color: #6f6f6f;
 }
 

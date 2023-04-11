@@ -4,6 +4,7 @@ import styles from './MyPageMain.module.css'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import {
   selectContent,
+  setGuideScrapList,
   setSelectContent,
   setUserInfo,
 } from 'reducers/settingReducer'
@@ -22,6 +23,8 @@ import {
   setAccessToken,
 } from 'features/auth/authSlice'
 import { getUserInfoAPI } from 'api/setting'
+import { getMemberGuideList, selectGuideList } from 'reducers/guideReducer'
+import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
 
 const MyPageMain = () => {
   const content = useAppSelector(selectContent)
@@ -79,21 +82,76 @@ const MyPageMain = () => {
   }, [])
 
   return (
-    <div className={styles.layout}>
-      <Sidebar />
-      {(() => {
-        switch (content) {
-          case '혼자써요':
-            return <SelfScrapContent />
-          case '함께써요':
-            return <WithScrapContent />
-          case '가이드':
-            return <GuideScrapContent />
-          default:
-            return <SettingComponent />
-        }
-      })()}
-    </div>
+    <>
+      <Pc>
+        <div className={styles.layout}>
+          <Sidebar />
+          {(() => {
+            switch (content) {
+              case '혼자써요':
+                return <SelfScrapContent />
+              case '함께써요':
+                return <WithScrapContent />
+              case '가이드':
+                return <GuideScrapContent />
+              default:
+                return <SettingComponent />
+            }
+          })()}
+        </div>
+      </Pc>
+      <Tablet>
+        <div className={styles.layout}>
+          <Sidebar />
+          {(() => {
+            switch (content) {
+              case '혼자써요':
+                return <SelfScrapContent />
+              case '함께써요':
+                return <WithScrapContent />
+              case '가이드':
+                return <GuideScrapContent />
+              default:
+                return <SettingComponent />
+            }
+          })()}
+        </div>
+      </Tablet>
+      <MobileWide>
+        <div className={styles.layoutMobile}>
+          <Sidebar />
+          {(() => {
+            switch (content) {
+              case '혼자써요':
+                return <SelfScrapContent />
+              case '함께써요':
+                return <WithScrapContent />
+              case '가이드':
+                return <GuideScrapContent />
+              default:
+                return <SettingComponent />
+            }
+          })()}
+        </div>
+      </MobileWide>
+      <Mobile>
+        <div className={styles.layoutMobile}>
+          <Sidebar />
+          {(() => {
+            switch (content) {
+              case '혼자써요':
+                return <SelfScrapContent />
+              case '함께써요':
+                return <WithScrapContent />
+              case '가이드':
+                return <GuideScrapContent />
+              default:
+                return <SettingComponent />
+            }
+          })()}
+        </div>
+      </Mobile>
+    </>
   )
 }
 

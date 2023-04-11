@@ -1,3 +1,4 @@
+import { Pc, Tablet } from 'components/Layout'
 import { ContentTitle } from 'containers/Common'
 import { SelfMain } from 'containers/Self'
 import React from 'react'

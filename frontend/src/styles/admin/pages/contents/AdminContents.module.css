@@ -5,15 +5,18 @@
   justify-content: center;
   align-items: center;
 }
-.container > * {
+
+.container>* {
   width: 98vw;
   max-width: 1120px;
 }
+
 .title {
   height: 80px;
   max-width: 1020px;
   margin-bottom: 12px;
 }
+
 .contents {
   display: flex;
   flex-direction: row;
@@ -32,6 +35,7 @@
   align-items: center;
   gap: 12px;
 }
+
 .linkBox {
   display: flex;
   flex-direction: column;
@@ -39,9 +43,11 @@
   align-items: center;
   gap: 12px;
 }
+
 .section * {
   margin: 0;
 }
+
 /* margin 어디서 붙는거지.. */
 
 .sectionTitle {
@@ -61,15 +67,17 @@
   border-radius: 8px;
   box-shadow: 5px 5px 5px var(--gray-scale-color-g10);
 }
+
 .writeBtn {
   background-color: var(--primary-color-main-30);
 }
+
 .listBtn {
   background-color: white;
 }
 
-.writeBtn > p,
-.listBtn > p {
+.writeBtn>p,
+.listBtn>p {
   font-size: 1.4rem;
   color: var(--gray-scale-color-g30);
 }
@@ -87,30 +95,36 @@
     /* text-align: center; */
     display: none;
   }
+
   .sectionTitle {
     font-size: 1.6rem;
   }
+
   .linkBox {
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 20px;
   }
+
   .writeBtn,
   .listBtn {
     width: 120px;
     aspect-ratio: 12/8;
   }
-  .writeBtn > p,
-  .listBtn > p {
+
+  .writeBtn>p,
+  .listBtn>p {
     font-size: 1.2rem;
   }
+
   .contents {
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 32px;
   }
+
   .section {
     width: 320px;
     aspect-ratio: 2/1;

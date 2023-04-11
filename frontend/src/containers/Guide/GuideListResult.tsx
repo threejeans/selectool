@@ -42,8 +42,11 @@ const GuideListResult = () => {
       let i = 0
       while (tmp.size < max && i < guideList.length) {
         const cur = guideList[i]
-        const { title, content }: GuideType = cur
-        if (title.includes(searchKey) || content.includes(searchKey))
+        const { title, toolName }: GuideType = cur
+        if (
+          title.toLocaleLowerCase().includes(searchKey.toLocaleLowerCase()) ||
+          toolName.toLocaleLowerCase().includes(searchKey.toLocaleLowerCase())
+        )
           tmp.add(cur)
         i++
       }
@@ -127,13 +130,15 @@ const GuideListResult = () => {
     <>
       <div className={styles.guideGrid}>{getResult()}</div>
       <div className={styles.moreGroup}>
-        <button
-          className={styles.moreButton}
-          onClick={() => dispatch(plusContentCnt())}
-        >
-          더보기
-          <BiChevronDown />
-        </button>
+        {contentCnt < guideList.length && (
+          <button
+            className={styles.moreButton}
+            onClick={() => dispatch(plusContentCnt())}
+          >
+            더보기
+            <BiChevronDown />
+          </button>
+        )}
       </div>
     </>
   )

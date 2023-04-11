@@ -25,7 +25,8 @@ const AdminLayout = ({ title, children }: AdminLayoutProps) => {
 
   useEffect(() => {
     if (!pathname.startsWith('/admin/login'))
-      if (accessToken === undefined) navigate('login')
+      if (accessToken === undefined)
+        dispatch(checkValiableToken()).catch(() => navigate('login'))
   }, [pathname])
   return (
     <div className={styles.container}>

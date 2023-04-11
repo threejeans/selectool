@@ -1,17 +1,20 @@
 // 마이페이지 reducer
 import { RootState } from 'app/store'
 import { createSlice } from '@reduxjs/toolkit'
-import { SelfMainInfo, WithCorpType } from 'types/types'
+import { GuideType, SelfMainInfo, WithCorpType } from 'types/types'
 import { UserInfoType } from 'types/userTypes'
 
 export interface SettingState {
   selectContent: string
   selfScrapList: SelfMainInfo[]
   withScrapList: WithCorpType[]
+  guideScrapList: GuideType[]
   selfScrapExportList: SelfMainInfo[]
   withScrapExportList: WithCorpType[]
+  guideScrapExportList: GuideType[]
   selfScrapCount: number
   withScrapCount: number
+  guideScrapCount: number
   userInfo: UserInfoType
   isWithdrawModal: boolean
 }
@@ -19,11 +22,14 @@ export interface SettingState {
 const initialState: SettingState = {
   selectContent: '혼자써요',
   selfScrapList: [],
-  selfScrapExportList: [],
+  guideScrapList: [],
   withScrapList: [],
+  selfScrapExportList: [],
   withScrapExportList: [],
+  guideScrapExportList: [],
   selfScrapCount: 0,
   withScrapCount: 0,
+  guideScrapCount: 0,
   userInfo: {
     email: '',
     id: 0,
@@ -56,6 +62,12 @@ const settingReducer = createSlice({
     setWithScrapExportList: (state, { payload: input }) => {
       return { ...state, withScrapExportList: input }
     },
+    setGuideScrapList: (state, { payload: input }) => {
+      return { ...state, guideScrapList: input }
+    },
+    setGuideScrapExportList: (state, { payload: input }) => {
+      return { ...state, guideScrapExportList: input }
+    },
     changeSelfScrapCount: state => {
       state.selfScrapCount += 1
     },
@@ -67,6 +79,12 @@ const settingReducer = createSlice({
     },
     resetWithScrapCount: state => {
       state.withScrapCount = 0
+    },
+    changeGuideScrapCount: state => {
+      state.guideScrapCount += 1
+    },
+    resetGuideScrapCount: state => {
+      state.guideScrapCount = 0
     },
     setUserInfo: (state, { payload: input }) => {
       return { ...state, userInfo: input }
@@ -83,10 +101,14 @@ export const {
   setSelfScrapExportList,
   setWithScrapList,
   setWithScrapExportList,
+  setGuideScrapList,
+  setGuideScrapExportList,
   changeSelfScrapCount,
   resetSelfScrapCount,
   changeWithScrapCount,
   resetWithScrapCount,
+  changeGuideScrapCount,
+  resetGuideScrapCount,
   setUserInfo,
   changeWithDrawModalStatus,
 } = settingReducer.actions
@@ -98,8 +120,13 @@ export const selfScrapExportList = (state: RootState) =>
 export const withScrapList = (state: RootState) => state.setting.withScrapList
 export const withScrapExportList = (state: RootState) =>
   state.setting.withScrapExportList
+export const guideScrapList = (state: RootState) => state.setting.guideScrapList
+export const guideScrapExportList = (state: RootState) =>
+  state.setting.guideScrapExportList
 export const selfScrapCount = (state: RootState) => state.setting.selfScrapCount
 export const withScrapCount = (state: RootState) => state.setting.withScrapCount
+export const guideScrapCount = (state: RootState) =>
+  state.setting.guideScrapCount
 export const userInfo = (state: RootState) => state.setting.userInfo
 export const withdrawModalState = (state: RootState) =>
   state.setting.isWithdrawModal

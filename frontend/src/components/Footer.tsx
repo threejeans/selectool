@@ -35,7 +35,7 @@ const Footer = () => {
               {'|'}
               <Link to='/privacy'>운영정책</Link>
               {'|'}
-              <a href=''>문의사항</a>
+              <a href='mailto:selectool2022@gmail.com'>문의사항</a>
             </div>
             <div className={styles.copyright}>
               Copyright © 2022 Selectool Corp. All rights reserved.

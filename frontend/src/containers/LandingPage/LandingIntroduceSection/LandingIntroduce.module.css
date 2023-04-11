@@ -9,7 +9,17 @@
 
 .containerTablet {
   width: 100vw;
-  height: 720px;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: end;
+  background-color: #fcfcfc;
+}
+
+.containerMobile {
+  width: 100vw;
+  height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,6 +47,24 @@
   /* align-items: center; */
 }
 
+.contentsMobileWide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contentsMobile {
+  width: 88%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* align-items: center; */
+}
+
 .titleSection {
   display: flex;
   flex-direction: column;
@@ -52,7 +80,13 @@
   display: flex;
   flex-direction: column;
   row-gap: 30px;
-  /* height: 600px; */
+}
+
+.bubbleSectionMobile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 }
 
 .bubble_container {
@@ -79,6 +113,30 @@
   justify-content: center;
 }
 
+.bubble_container_mobile {
+  width: 180px;
+  height: 50px;
+  background: #ffffff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bubble_container_mobilewide {
+  width: 220px;
+  height: 50px;
+  background: #ffffff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .bubble_em_left {
   position: absolute;
   width: 30px;
@@ -93,10 +151,35 @@
   bottom: -15px;
 }
 
+.bubble_em_left_mobile {
+  position: absolute;
+  width: 16px;
+  left: 15px;
+  top: -8px;
+}
+
+.bubble_em_right_mobile {
+  position: absolute;
+  width: 16px;
+  right: 15px;
+  bottom: -8px;
+}
+
 .bubble_text {
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
+
+  text-align: center;
+  letter-spacing: 0.02em;
+
+  color: #333333;
+}
+
+.bubble_text_mobile {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 18px;
 
   text-align: center;
   letter-spacing: 0.02em;
@@ -128,4 +211,32 @@
 .bubble_03Tablet {
   margin-bottom: 40px;
   margin-left: 120px;
+}
+
+.bubble_01_mobilewide {
+  margin-bottom: 40px;
+}
+
+.bubble_02_mobilewide {
+  margin-bottom: 40px;
+  margin-left: 180px;
+}
+
+.bubble_03_mobilewide {
+  margin-bottom: 40px;
+  margin-left: 80px;
+}
+
+.bubble_01_mobile {
+  margin-bottom: 40px;
+}
+
+.bubble_02_mobile {
+  margin-bottom: 40px;
+  margin-left: 120px;
+}
+
+.bubble_03_mobile {
+  margin-bottom: 40px;
+  margin-left: 60px;
 }
