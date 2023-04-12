@@ -119,7 +119,7 @@
   .mypageContainer {
     width: 88%;
     max-width: 1080px;
-    padding-block: 8rem;
+    padding-block: 6rem;
     min-height: 80vh;
   }
 }
