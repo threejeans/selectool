@@ -2,9 +2,11 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import React, { useEffect, useRef, useState } from 'react'
 import {
   changeGuideScrapCount,
+  guideListForScrap,
   guideScrapCount,
   guideScrapExportList,
   guideScrapList,
+  setGuideListForScrap,
   setGuideScrapExportList,
   setGuideScrapList,
 } from 'reducers/settingReducer'
@@ -12,12 +14,9 @@ import styles from './CardGrid.module.css'
 import { Link } from 'react-router-dom'
 import { BsChevronCompactDown, BsFillBookmarkFill } from 'react-icons/bs'
 import { GuideType } from 'types/types'
-import {
-  getMemberGuideList,
-  selectGuideList,
-  switchGuideBookmark,
-} from 'reducers/guideReducer'
+import { getMemberGuideList, switchGuideBookmark } from 'reducers/guideReducer'
 import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
+import { getAuthGuideInfoAPI } from 'api/setting'
 
 const GuideScrapCardGrid = () => {
   const scrapList = useAppSelector(guideScrapList)
@@ -204,7 +203,7 @@ type guidePropsType = {
 
 export const GuideSmallCard = ({ data }: guidePropsType) => {
   const [toastStatus, setToastStatus] = useState(false)
-  const guideMainList = useAppSelector(selectGuideList)
+  const guideMainList = useAppSelector(guideListForScrap)
 
   const dispatch = useAppDispatch()
 
@@ -212,17 +211,14 @@ export const GuideSmallCard = ({ data }: guidePropsType) => {
     setToastStatus(true)
   }
 
-  useEffect(() => {
-    if (toastStatus) {
-      setTimeout(() => setToastStatus(false), 1000)
-    }
-  })
   const handleScrap = async () => {
     data.id && data.isBookmarked !== undefined
       ? await dispatch(
           switchGuideBookmark({ id: data.id, isBookmarked: data.isBookmarked }),
-        ).then(() => {
-          dispatch(getMemberGuideList())
+        ).then(async () => {
+          const response = await dispatch(getAuthGuideInfoAPI()).unwrap()
+
+          dispatch(setGuideListForScrap(response.data))
 
           const newScrapList = guideMainList.filter(
             item => item.isBookmarked === true,
@@ -233,6 +229,12 @@ export const GuideSmallCard = ({ data }: guidePropsType) => {
         })
       : ''
   }
+
+  useEffect(() => {
+    if (toastStatus) {
+      setTimeout(() => setToastStatus(false), 1000)
+    }
+  })
 
   return (
     <div className={styles.guideScrapContainer}>
