@@ -72,7 +72,7 @@ const LandingDetailSectionTablet = () => {
             <div className={commonStyles.description}>
               현업에서 기업들이 활용하는 툴들을 확인하고 상황과 성향에 맞는{' '}
               <br />
-              툴을 찾아보세요. 그들의 조직 문화와 업무 방식도 옅볼 수 있어요.
+              툴을 찾아보세요. 그들의 조직 문화와 업무 방식도 엿볼 수 있어요.
             </div>
             <div className={styles.a_tag}>
               <Link to={'/with'}>기업별 툴 확인하기 →</Link>

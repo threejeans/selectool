@@ -72,9 +72,9 @@ const LandingDetailSectionMobile = () => {
             </h4>
             <hr className={styles.line_right_mobile} />
             <div className={commonStyles.description_mobile}>
-              현업에서 기업들이 활용하는 툴들을 확인하고 상황과 성향에 맞는 툴을
-              <br></br>
-              찾아보세요. 그들의 조직 문화와 업무 방식도 옅볼 수 있어요.
+              현업에서 기업들이 활용하는 툴들을 확인하고 <br />
+              상황과 성향에 맞는 툴을 찾아보세요. <br />
+              그들의 조직 문화와 업무 방식도 엿볼 수 있어요.
             </div>
             <div className={styles.a_tag_mobile}>
               <Link to={'/with'}>기업별 툴 확인하기 →</Link>
