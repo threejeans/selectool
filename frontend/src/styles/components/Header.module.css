@@ -22,7 +22,7 @@
   transition: background-color 2s, transform 2s;
 }
 
-.middle_container {
+.middleContainer {
   width: 90%;
   padding: 0 2vw;
   max-width: 1080px;
@@ -43,7 +43,7 @@
   backdrop-filter: blur(6px);
 }
 
-.change_container {
+.changeContainer {
   width: 90%;
   padding: 0 2vw;
   max-width: 1080px;
@@ -113,13 +113,13 @@
   transform-origin: bottom left;
 }
 
-.unselected_home {
+.unselectedHome {
   display: inline-block;
   position: relative;
   color: white;
   cursor: pointer;
 }
-.unselected_home:after {
+.unselectedHome:after {
   content: '';
   position: absolute;
   width: 100%;
@@ -131,7 +131,7 @@
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
-.unselected_home:hover:after {
+.unselectedHome:hover:after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }

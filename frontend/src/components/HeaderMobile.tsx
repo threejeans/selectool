@@ -6,11 +6,12 @@ import styles from 'styles/components/HeaderMobile.module.css'
 import Logo from 'assets/selectool_logo.svg'
 import LogoDark from 'assets/selectool_logo_dark.svg'
 import Favicon from 'assets/favicon.png'
-import { BsFillPersonFill, BsList } from 'react-icons/bs'
+import { BsFillPersonFill } from 'react-icons/bs'
 import { FiMenu } from 'react-icons/fi'
 import { IoMdClose } from 'react-icons/io'
 import { setSelectContent } from 'reducers/settingReducer'
 import { setSearchKey } from 'reducers/guideReducer'
+import { changeMenuStatus, menuStatus } from 'reducers/commonReducer'
 
 type MenuLinkProps = {
   path: string
@@ -38,7 +39,7 @@ const MenuLink = ({
         pathname.startsWith(path)
           ? styles.selected
           : scrollPosition < 100 && isHome
-          ? styles.unselected_home
+          ? styles.unselectedHome
           : styles.unselected
       }
       to={path}
@@ -46,6 +47,7 @@ const MenuLink = ({
         if (title === '가이드') {
           dispatch(setSearchKey(''))
         }
+        dispatch(changeMenuStatus())
       }}
     >
       <div>{title}</div>
@@ -68,8 +70,7 @@ const HeaderMobile = ({ title }: LayoutProps) => {
   const dispatch = useAppDispatch()
   const modalOpen = () => dispatch(loginModalOpen())
   const { pathname } = useLocation()
-
-  const [openMenu, setOpenMenu] = useState(false)
+  const isMenuOpen = useAppSelector(menuStatus)
 
   return (
     <header className={styles.header}>
@@ -79,11 +80,11 @@ const HeaderMobile = ({ title }: LayoutProps) => {
             scrollPosition < 100 && title === '홈'
               ? styles.container
               : scrollPosition < 200 && title === '홈'
-              ? styles.middle_container
-              : styles.change_container
+              ? styles.middleContainer
+              : styles.changeContainer
           }
         >
-          <Link to={'/'} className={styles.logo_container}>
+          <Link to={'/'} className={styles.logoContainer}>
             <img className={styles.favicon} src={Favicon} alt={'셀렉툴 로고'} />
             <img
               className={styles.logo}
@@ -98,7 +99,7 @@ const HeaderMobile = ({ title }: LayoutProps) => {
                   pathname.startsWith('/mypage')
                     ? styles.selected
                     : scrollPosition < 100 && title === '홈'
-                    ? styles.unselected_home
+                    ? styles.unselectedHome
                     : styles.unselected
                 } ${styles.mypage}`}
                 to='/mypage'
@@ -110,7 +111,7 @@ const HeaderMobile = ({ title }: LayoutProps) => {
               <button
                 className={
                   scrollPosition < 100 && title === '홈'
-                    ? styles.button_home
+                    ? styles.buttonHome
                     : styles.button
                 }
                 onClick={modalOpen}
@@ -119,23 +120,23 @@ const HeaderMobile = ({ title }: LayoutProps) => {
               </button>
             )}
             <div className={styles.toggle}>
-              <a id='nav-toggle' onClick={() => setOpenMenu(!openMenu)}>
-                {openMenu ? <IoMdClose /> : <FiMenu />}
+              <a id='nav-toggle' onClick={() => dispatch(changeMenuStatus())}>
+                {isMenuOpen ? <IoMdClose /> : <FiMenu />}
               </a>
             </div>
           </div>
         </div>
       </div>
 
-      {openMenu ? (
+      {isMenuOpen ? (
         <div
-          className={
+          className={`${
             scrollPosition < 100 && title === '홈'
               ? styles.headerBottom
               : scrollPosition < 200 && title === '홈'
-              ? styles.middle_headerBottom
-              : styles.change_headerBottom
-          }
+              ? styles.middleHeaderBottom
+              : styles.changeHeaderBottom
+          } ${styles.menuOpenStyle}`}
         >
           <MenuLink
             path={'/self'}

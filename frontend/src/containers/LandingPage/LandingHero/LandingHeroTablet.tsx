@@ -17,7 +17,7 @@ const LandingHeroTablet = () => {
         />
         <div className={styles.titleTablet} data-aos='fade-up'>
           <h1 className={styles.titleTop}>
-            나{/* scroller start */}
+            나
             <div className={styles.scroller}>
               <div className={styles.scroller_item}>
                 <Link to={'/self'}>혼자</Link>
@@ -25,7 +25,7 @@ const LandingHeroTablet = () => {
                 <Link to={'/with'}>함께</Link>
               </div>
             </div>
-            {/* scroller end */}일 할건데
+            일 할건데
           </h1>
           <h1 className={styles.titleBottom}>업무툴 뭐 써야 좋지?</h1>
         </div>
