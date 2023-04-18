@@ -40,36 +40,18 @@ const Layout = ({ title, description, children }: LayoutProps) => {
   return (
     <>
       <Login />
-      <Pc>
+      <PcToTablet>
         <Header title={title} />
-      </Pc>
-      <Tablet>
-        <Header title={title} />
-      </Tablet>
-      <MobileWide>
+      </PcToTablet>
+      <MobileAll>
         <HeaderMobile title={title} />
-      </MobileWide>
-      <Mobile>
-        <HeaderMobile title={title} />
-      </Mobile>
-
+      </MobileAll>
       <Helmet>
         <title>SELECTOOL | {title}</title>
         <meta name='description' content={description} />
       </Helmet>
       <section>{children}</section>
-      <Pc>
-        <Footer />
-      </Pc>
-      <Tablet>
-        <Footer />
-      </Tablet>
-      <MobileWide>
-        <FooterMobile />
-      </MobileWide>
-      <Mobile>
-        <FooterMobile />
-      </Mobile>
+      <Footer />
     </>
   )
 }
@@ -110,4 +92,20 @@ export const Pc = ({ children }: ResponsiveProps) => {
     query: '(min-width:1080px)',
   })
   return <>{isPc && children}</>
+}
+
+// PC & 태블릿 가로
+export const PcToTablet = ({ children }: ResponsiveProps) => {
+  const isPcToTablet = useMediaQuery({
+    query: '(min-width:768px)',
+  })
+  return <>{isPcToTablet && children}</>
+}
+
+// PC & 태블릿 가로
+export const MobileAll = ({ children }: ResponsiveProps) => {
+  const isMobileAll = useMediaQuery({
+    query: '(max-width:767px)',
+  })
+  return <>{isMobileAll && children}</>
 }
