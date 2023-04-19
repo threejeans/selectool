@@ -7,7 +7,6 @@ import {
   LandingIntroduceSection,
   LandingIntroduceSectionTablet,
   LandingCTASection,
-  LandingCTASectionMobile,
   LandingContactSection,
   LandingDetailSection,
   LandingIntroduceSectionMobile,
@@ -44,14 +43,14 @@ const LandingPage = () => {
         <LandingHeroMobileWide />
         <LandingIntroduceSectionMobileWide />
         <LandingDetailSectionMobile />
-        <LandingCTASectionMobile />
+        <LandingCTASection />
         <LandingContactSection />
       </MobileWide>
       <Mobile>
         <LandingHeroMobile />
         <LandingIntroduceSectionMobile />
         <LandingDetailSectionMobile />
-        <LandingCTASectionMobile />
+        <LandingCTASection />
         <LandingContactSection />
       </Mobile>
     </>

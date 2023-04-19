@@ -13,6 +13,5 @@ export { LandingDetailSectionMobile as LandingDetailSectionMobile } from './Land
 export { LandingDetailSectionTablet as LandingDetailSectionTablet } from './LandingDetailSection'
 
 export { default as LandingCTASection } from './LandingCTASection'
-export { LandingCTASectionMobile as LandingCTASectionMobile } from './LandingCTASection'
 
 export { default as LandingContactSection } from './LandingContactSection'

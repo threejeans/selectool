@@ -108,11 +108,17 @@ h4 {
   font-weight: 600;
 }
 
-/* @media (min-width: 48rem) {
-  :root {
-    --text-multiplier: 1.5;
+@media (max-width: 767px) {
+  h2 {
+    font-size: 1.2rem;
+    line-height: 1.8rem;
   }
-} */
+
+  h3 {
+    font-size: 1rem;
+    line-height: 1.6rem;
+  }
+}
 
 section {
   min-height: calc(100vh - var(--height-navigation));
