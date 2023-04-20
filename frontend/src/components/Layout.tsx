@@ -58,7 +58,7 @@ const Layout = ({ title, description, children }: LayoutProps) => {
 
 export default Layout
 
-type ResponsiveProps = {
+export type ResponsiveProps = {
   children: React.ReactNode
 }
 
@@ -94,7 +94,6 @@ export const Pc = ({ children }: ResponsiveProps) => {
   return <>{isPc && children}</>
 }
 
-// PC & 태블릿 가로
 export const PcToTablet = ({ children }: ResponsiveProps) => {
   const isPcToTablet = useMediaQuery({
     query: '(min-width:768px)',
@@ -102,7 +101,6 @@ export const PcToTablet = ({ children }: ResponsiveProps) => {
   return <>{isPcToTablet && children}</>
 }
 
-// PC & 태블릿 가로
 export const MobileAll = ({ children }: ResponsiveProps) => {
   const isMobileAll = useMediaQuery({
     query: '(max-width:767px)',
