@@ -67,7 +67,7 @@ jobs:
           echo "REACT_APP_REGION=$REACT_APP_REGION" >> ./frontend/.env
           echo "REACT_APP_ACCESS_KEY_ID=$REACT_APP_ACCESS_KEY_ID" >> ./frontend/.env
           echo "REACT_APP_SECRET_ACCESS_KEY=$REACT_APP_SECRET_ACCESS_KEY" >> ./frontend/.env
-          echo "REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID" >> ./frontend/.env
+          echo "REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID=$REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID" >> ./frontend/.env
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
