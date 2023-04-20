@@ -25,7 +25,9 @@ const Layout = ({ title, description, children }: LayoutProps) => {
 
   const gaSetting = () => {
     const pathName = window.location.pathname
-    ReactGA.initialize('UA-265150351-1') // 생성한 유니버셜 ID값을 넣어준다.
+    const trackingId = process.env.REACT_APP_GOOLGE_ANALYTICS_TRACKING_ID ?? ''
+    console.log(trackingId)
+    ReactGA.initialize(trackingId) // 생성한 유니버셜 ID값을 넣어준다.
     ReactGA.set({ page: pathName }) // 현재 사용자 페이지
     ReactGA.pageview(pathName) // 페이지뷰 기록
   }
