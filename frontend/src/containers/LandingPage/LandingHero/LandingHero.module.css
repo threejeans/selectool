@@ -17,17 +17,6 @@
   position: relative;
 }
 
-.imageMobileWide {
-  width: 88vw;
-  position: relative;
-}
-
-.imageMobile {
-  min-width: 300px;
-  width: 88vw;
-  position: relative;
-}
-
 .title {
   position: absolute;
   display: flex;
@@ -36,17 +25,7 @@
   text-rendering: optimizeLegibility;
 }
 
-.titleMobileWide {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: white;
-  -webkit-font-smoothing: inherit;
-  text-rendering: optimizeLegibility;
-}
-
-.titleTablet {
+.titleContainer {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -70,65 +49,11 @@
   flex-direction: row;
 }
 
-.titleTopMobileWide {
-  position: absolute;
-  bottom: 60px;
-  display: flex;
-  flex-direction: row;
-  font-size: 44px;
-}
-
-.titleTopMobile {
-  position: absolute;
-  bottom: 44px;
-  display: flex;
-  flex-direction: row;
-  font-size: 32px;
-}
-
-.titleBottomMobileWide {
-  margin-top: 100px;
-  display: flex;
-  flex-direction: row;
-  font-size: 44px;
-}
-
-.titleBottomMobile {
-  margin-top: 120px;
-  display: flex;
-  flex-direction: row;
-  font-size: 32px;
-}
-
 .scroller {
   height: 4.4rem;
   width: 8rem;
   margin-left: 1.2rem;
   margin-right: 1.2rem;
-  padding-bottom: 0.2rem;
-  overflow: hidden;
-  position: relative;
-  background-color: white;
-  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.scrollerMobileWide {
-  height: 3.2rem;
-  width: 6rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  padding-bottom: 0.2rem;
-  overflow: hidden;
-  position: relative;
-  background-color: white;
-  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.scrollerMobile {
-  height: 2.2rem;
-  width: 4rem;
-  margin-left: 0.8rem;
-  margin-right: 0.8rem;
   padding-bottom: 0.2rem;
   overflow: hidden;
   position: relative;
@@ -160,30 +85,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-.scrollerMobileWide .scroller_itemMobileWide {
-  position: absolute;
-  width: 6rem;
-  text-align: center;
-  top: 0;
-  font-weight: 800;
-  animation: slide 3s infinite;
-  background: linear-gradient(to right, #60a9f6 5.62%, #0bc935 60.05%);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.scrollerMobile .scroller_itemMobile {
-  position: absolute;
-  width: 4rem;
-  text-align: center;
-  top: 0;
-  font-weight: 800;
-  animation: slide 3s infinite;
-  background: linear-gradient(to right, #60a9f6 5.62%, #0bc935 60.05%);
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .scrollArrow {
   margin-top: -3rem;
   text-align: center;
@@ -195,12 +96,6 @@
   color: white;
   width: 3rem;
   height: 3.6rem;
-}
-
-.arrowMobile > svg {
-  margin-top: 0rem;
-  width: 2.4rem;
-  height: 3.4rem;
 }
 
 .scrollArrow:nth-child(1) {
@@ -231,5 +126,82 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .image {
+    min-width: 300px;
+    width: 88vw;
+    position: relative;
+  }
+
+  .titleTop {
+    bottom: 44px;
+  }
+
+  .titleBottom {
+    margin-top: 120px;
+  }
+
+  .scroller {
+    height: 2.2rem;
+    width: 4rem;
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .scroller .scroller_item {
+    width: 4rem;
+  }
+
+  .scrollArrow > svg {
+    margin-top: 0rem;
+    width: 2.4rem;
+    height: 3.4rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .image {
+    width: 88vw;
+    position: relative;
+  }
+
+  .titleContainer {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    -webkit-font-smoothing: inherit;
+    text-rendering: optimizeLegibility;
+  }
+
+  .titleTop {
+    bottom: 60px;
+  }
+
+  .titleBottom {
+    margin-top: 100px;
+  }
+
+  .scroller {
+    height: 3.2rem;
+    width: 6rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .scroller .scroller_item {
+    width: 6rem;
+  }
+
+  .scrollArrow > svg {
+    margin-top: 0rem;
+    width: 2.4rem;
+    height: 3.4rem;
   }
 }

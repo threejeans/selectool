@@ -58,7 +58,7 @@ const Layout = ({ title, description, children }: LayoutProps) => {
 
 export default Layout
 
-type ResponsiveProps = {
+export type ResponsiveProps = {
   children: React.ReactNode
 }
 
