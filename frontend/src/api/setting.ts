@@ -2,7 +2,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import apiAxios, { baseURL } from 'app/apiAxios'
 import axios, { AxiosInstance } from 'axios'
+import { GuideType } from 'types/types'
 import { UserInfoType } from 'types/userTypes'
+import { getCookie } from 'util/cookie'
 
 const basicAxios: AxiosInstance = axios.create({
   baseURL: baseURL,
@@ -158,5 +160,32 @@ export const userEmailAuthorizeAPI = createAsyncThunk(
       })
 
     return response.statusCode
+  },
+)
+
+// 가이드 정보 받기
+export const getAuthGuideInfoAPI = createAsyncThunk(
+  'auth/guide/getGuideInfo',
+  async () => {
+    const guideList: GuideType[] = []
+
+    const response = {
+      isNotFound404: false,
+      data: guideList,
+    }
+
+    await apiAxios
+      .get('board/guides')
+      .then(res => {
+        response.data = res.data
+      })
+      .catch(err => {
+        console.log(err)
+        if (err.request.status === 404) {
+          response.isNotFound404 = true
+        }
+      })
+
+    return response
   },
 )

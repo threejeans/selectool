@@ -9,13 +9,8 @@
   background-color: #fcfcfc;
 }
 
-.containerMobile {
-  width: 100vw;
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: #fcfcfc;
+@media (max-width: 767px) {
+  .container {
+    height: 300px;
+  }
 }

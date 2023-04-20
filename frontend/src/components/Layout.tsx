@@ -1,7 +1,6 @@
 import Login from 'features/auth/Login'
 import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-
 import Footer from './Footer'
 import Header from './Header'
 import { useMediaQuery } from 'react-responsive'
@@ -10,7 +9,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { getCookie } from 'util/cookie'
 import apiAxios from 'app/apiAxios'
 import { selectAccessToken, setAccessToken } from 'features/auth/authSlice'
-import FooterMobile from './FooterMobile'
+import ReactGA from 'react-ga'
 
 interface LayoutProps {
   title: string
@@ -24,6 +23,15 @@ const Layout = ({ title, description, children }: LayoutProps) => {
   const isLogon = useAppSelector(selectAccessToken)
   const refreshToken = getCookie('refresh-token')
 
+  const gaSetting = () => {
+    const pathName = window.location.pathname
+    const trackingId = process.env.REACT_APP_GOOLGE_ANALYTICS_TRACKING_ID ?? ''
+    console.log(trackingId)
+    ReactGA.initialize(trackingId) // 생성한 유니버셜 ID값을 넣어준다.
+    ReactGA.set({ page: pathName }) // 현재 사용자 페이지
+    ReactGA.pageview(pathName) // 페이지뷰 기록
+  }
+
   useEffect(() => {
     if (!isLogon) {
       apiAxios
@@ -35,48 +43,31 @@ const Layout = ({ title, description, children }: LayoutProps) => {
           dispatch(setAccessToken(accessToken))
         })
     }
+    gaSetting()
   }, [])
 
   return (
     <>
       <Login />
-      <Pc>
+      <PcToTablet>
         <Header title={title} />
-      </Pc>
-      <Tablet>
-        <Header title={title} />
-      </Tablet>
-      <MobileWide>
+      </PcToTablet>
+      <MobileAll>
         <HeaderMobile title={title} />
-      </MobileWide>
-      <Mobile>
-        <HeaderMobile title={title} />
-      </Mobile>
-
+      </MobileAll>
       <Helmet>
         <title>SELECTOOL | {title}</title>
         <meta name='description' content={description} />
       </Helmet>
       <section>{children}</section>
-      <Pc>
-        <Footer />
-      </Pc>
-      <Tablet>
-        <Footer />
-      </Tablet>
-      <MobileWide>
-        <FooterMobile />
-      </MobileWide>
-      <Mobile>
-        <FooterMobile />
-      </Mobile>
+      <Footer />
     </>
   )
 }
 
 export default Layout
 
-type ResponsiveProps = {
+export type ResponsiveProps = {
   children: React.ReactNode
 }
 
@@ -110,4 +101,18 @@ export const Pc = ({ children }: ResponsiveProps) => {
     query: '(min-width:1080px)',
   })
   return <>{isPc && children}</>
+}
+
+export const PcToTablet = ({ children }: ResponsiveProps) => {
+  const isPcToTablet = useMediaQuery({
+    query: '(min-width:768px)',
+  })
+  return <>{isPcToTablet && children}</>
+}
+
+export const MobileAll = ({ children }: ResponsiveProps) => {
+  const isMobileAll = useMediaQuery({
+    query: '(max-width:767px)',
+  })
+  return <>{isMobileAll && children}</>
 }

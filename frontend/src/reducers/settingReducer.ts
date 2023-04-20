@@ -8,6 +8,7 @@ export interface SettingState {
   selectContent: string
   selfScrapList: SelfMainInfo[]
   withScrapList: WithCorpType[]
+  guideListForScrap: GuideType[]
   guideScrapList: GuideType[]
   selfScrapExportList: SelfMainInfo[]
   withScrapExportList: WithCorpType[]
@@ -23,6 +24,7 @@ const initialState: SettingState = {
   selectContent: '혼자써요',
   selfScrapList: [],
   guideScrapList: [],
+  guideListForScrap: [],
   withScrapList: [],
   selfScrapExportList: [],
   withScrapExportList: [],
@@ -61,6 +63,9 @@ const settingReducer = createSlice({
     },
     setWithScrapExportList: (state, { payload: input }) => {
       return { ...state, withScrapExportList: input }
+    },
+    setGuideListForScrap: (state, { payload: input }) => {
+      return { ...state, guideListForScrap: input }
     },
     setGuideScrapList: (state, { payload: input }) => {
       return { ...state, guideScrapList: input }
@@ -101,6 +106,7 @@ export const {
   setSelfScrapExportList,
   setWithScrapList,
   setWithScrapExportList,
+  setGuideListForScrap,
   setGuideScrapList,
   setGuideScrapExportList,
   changeSelfScrapCount,
@@ -120,6 +126,8 @@ export const selfScrapExportList = (state: RootState) =>
 export const withScrapList = (state: RootState) => state.setting.withScrapList
 export const withScrapExportList = (state: RootState) =>
   state.setting.withScrapExportList
+export const guideListForScrap = (state: RootState) =>
+  state.setting.guideListForScrap
 export const guideScrapList = (state: RootState) => state.setting.guideScrapList
 export const guideScrapExportList = (state: RootState) =>
   state.setting.guideScrapExportList

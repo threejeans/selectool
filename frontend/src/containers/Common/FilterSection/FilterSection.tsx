@@ -160,11 +160,7 @@ const FilterSection = ({
                 />
               </button>
             ) : null}
-            <SearchForm
-              isMobile
-              placeholder={placeholder}
-              submitEvent={searchEvent}
-            />
+            <SearchForm placeholder={placeholder} submitEvent={searchEvent} />
           </div>
           <hr className={styles.line}></hr>
           <FilterGrid isSelf={isFilterButton}></FilterGrid>
@@ -193,11 +189,7 @@ const FilterSection = ({
                 />
               </button>
             ) : null}
-            <SearchForm
-              isMobile
-              placeholder={placeholder}
-              submitEvent={searchEvent}
-            />
+            <SearchForm placeholder={placeholder} submitEvent={searchEvent} />
           </div>
           <hr className={styles.line}></hr>
           <FilterGrid isSelf={isFilterButton}></FilterGrid>

@@ -116,7 +116,7 @@ const WithScrapCardGrid = () => {
         <div className={styles.layoutWithMobile}>
           {scrapExportList.length > 0 ? (
             scrapExportList.map((data, idx) => (
-              <WithCard data={data} key={idx} />
+              <WithSmallCard data={data} key={idx} />
             ))
           ) : (
             <div className={styles.noContentlayoutMobile}>
@@ -151,7 +151,7 @@ const WithScrapCardGrid = () => {
         <div className={styles.layoutWithMobile}>
           {scrapExportList.length > 0 ? (
             scrapExportList.map((data, idx) => (
-              <WithCard data={data} key={idx} />
+              <WithSmallCard data={data} key={idx} />
             ))
           ) : (
             <div className={styles.noContentlayoutMobile}>
