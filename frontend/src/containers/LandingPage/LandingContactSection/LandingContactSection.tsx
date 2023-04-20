@@ -51,136 +51,21 @@ const LandingContactSection = () => {
 
   return (
     <>
-      <Pc>
-        <div className={styles.container}>
-          <div className={styles.contents} data-aos='flip-up'>
-            <div className={styles.text}>
-              <h3>
-                날카로운 안목을 가진 여러분들의 <br />
-                제안사항을 팀에게 전달해 주세요!
-              </h3>
-            </div>
-            <form onSubmit={sendEmail}>
-              <div className={styles.inputTop}>
-                <Input
-                  name='username'
-                  label='이름'
-                  type='text'
-                  value={username}
-                  placeholder='이름을 입력해주세요'
-                  onChange={ev => setUsername(ev.target.value)}
-                ></Input>
-                <Input
-                  name='email'
-                  label='이메일'
-                  type='text'
-                  value={email}
-                  placeholder='ex) selectool@selectool.com'
-                  onChange={ev => setEmail(ev.target.value)}
-                ></Input>
-              </div>
-              <div className={styles.inputBottom}>
-                <Input
-                  name='message'
-                  label='제안사항'
-                  type='textarea'
-                  value={message}
-                  placeholder='피드백, 응원, 소통 무엇이든 좋아요! 서비스의 발전에 많은 도움이 됩니다:)'
-                  onChangeForTextArea={ev => setMessage(ev.target.value)}
-                ></Input>
-                <button
-                  disabled={!username || !email || !message}
-                  className={styles.button}
-                  type='submit'
-                >
-                  <div
-                    className={
-                      !username || !email || !message
-                        ? styles.buttonTextDisabled
-                        : styles.buttonText
-                    }
-                  >
-                    보내기
-                  </div>
-                </button>
-              </div>
-            </form>
+      <div className={styles.container}>
+        <div className={styles.contents} data-aos='flip-up'>
+          <div className={styles.text}>
+            <h3>
+              날카로운 안목을 가진 여러분들의 <br />
+              제안사항을 팀에게 전달해 주세요!
+            </h3>
           </div>
-        </div>
-      </Pc>
-      <Tablet>
-        <div className={styles.container_tablet}>
-          <div className={styles.contents_tablet} data-aos='flip-up'>
-            <div className={styles.text}>
-              <h3>
-                날카로운 안목을 가진 여러분들의 <br />
-                제안사항을 팀에게 전달해 주세요!
-              </h3>
-            </div>
-            <form onSubmit={sendEmail}>
-              <div className={styles.inputTop}>
-                <Input
-                  name='username'
-                  label='이름'
-                  type='text'
-                  value={username}
-                  placeholder='이름을 입력해주세요'
-                  onChange={ev => setUsername(ev.target.value)}
-                ></Input>
-                <Input
-                  name='email'
-                  label='이메일'
-                  type='text'
-                  value={email}
-                  placeholder='ex) selectool@selectool.com'
-                  onChange={ev => setEmail(ev.target.value)}
-                ></Input>
-              </div>
-              <div className={styles.inputBottom}>
-                <Input
-                  name='message'
-                  label='제안사항'
-                  type='textarea'
-                  value={message}
-                  placeholder='피드백, 응원, 소통 무엇이든 좋아요! 서비스의 발전에 많은 도움이 됩니다:)'
-                  onChangeForTextArea={ev => setMessage(ev.target.value)}
-                ></Input>
-                <button
-                  disabled={!username || !email || !message}
-                  className={styles.button}
-                  type='submit'
-                >
-                  <div
-                    className={
-                      !username || !email || !message
-                        ? styles.buttonTextDisabled
-                        : styles.buttonText
-                    }
-                  >
-                    보내기
-                  </div>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </Tablet>
-      <MobileWide>
-        <div className={styles.container}>
-          <div className={styles.contents_tablet} data-aos='flip-up'>
-            <div className={styles.text}>
-              <h3 className={styles.h3Mobile}>
-                날카로운 안목을 가진 여러분들의 <br />
-                제안사항을 팀에게 전달해 주세요!
-              </h3>
-            </div>
-            <form onSubmit={sendEmail} className={styles.mobileForm}>
+          <form onSubmit={sendEmail}>
+            <div className={`${styles.inputTop} ${styles.mobileForm}`}>
               <Input
                 name='username'
                 label='이름'
                 type='text'
                 value={username}
-                isMobile
                 placeholder='이름을 입력해주세요'
                 onChange={ev => setUsername(ev.target.value)}
               ></Input>
@@ -189,98 +74,38 @@ const LandingContactSection = () => {
                 label='이메일'
                 type='text'
                 value={email}
-                isMobile
                 placeholder='ex) selectool@selectool.com'
                 onChange={ev => setEmail(ev.target.value)}
               ></Input>
-              <div className={styles.inputBottom}>
-                <Input
-                  name='message'
-                  label='제안사항'
-                  type='textarea'
-                  value={message}
-                  isMobile
-                  placeholder='피드백, 응원, 소통 무엇이든 좋아요! 서비스의 발전에 많은 도움이 됩니다:)'
-                  onChangeForTextArea={ev => setMessage(ev.target.value)}
-                ></Input>
-                <button
-                  disabled={!username || !email || !message}
-                  className={styles.button}
-                  type='submit'
-                >
-                  <div
-                    className={
-                      !username || !email || !message
-                        ? styles.buttonTextDisabled
-                        : styles.buttonText
-                    }
-                  >
-                    보내기
-                  </div>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </MobileWide>
-      <Mobile>
-        <div className={styles.container}>
-          <div className={styles.contents_tablet} data-aos='flip-up'>
-            <div className={styles.text}>
-              <h3 className={styles.h3Mobile}>
-                날카로운 안목을 가진 여러분들의 <br />
-                제안사항을 팀에게 전달해 주세요!
-              </h3>
             </div>
-            <form onSubmit={sendEmail} className={styles.mobileForm}>
+            <div className={styles.inputBottom}>
               <Input
-                name='username'
-                label='이름'
-                type='text'
-                value={username}
-                isMobile
-                placeholder='이름을 입력해주세요'
-                onChange={ev => setUsername(ev.target.value)}
+                name='message'
+                label='제안사항'
+                type='textarea'
+                value={message}
+                placeholder='피드백, 응원, 소통 무엇이든 좋아요! 서비스의 발전에 많은 도움이 됩니다:)'
+                onChangeForTextArea={ev => setMessage(ev.target.value)}
               ></Input>
-              <Input
-                name='email'
-                label='이메일'
-                type='text'
-                value={email}
-                isMobile
-                placeholder='ex) selectool@selectool.com'
-                onChange={ev => setEmail(ev.target.value)}
-              ></Input>
-              <div className={styles.inputBottom}>
-                <Input
-                  name='message'
-                  label='제안사항'
-                  type='textarea'
-                  value={message}
-                  isMobile
-                  placeholder='피드백, 응원, 소통 무엇이든 좋아요! 서비스의 발전에 많은 도움이 됩니다:)'
-                  onChangeForTextArea={ev => setMessage(ev.target.value)}
-                ></Input>
-                <button
-                  disabled={!username || !email || !message}
-                  className={styles.button}
-                  type='submit'
+              <button
+                disabled={!username || !email || !message}
+                className={styles.button}
+                type='submit'
+              >
+                <div
+                  className={
+                    !username || !email || !message
+                      ? styles.buttonTextDisabled
+                      : styles.buttonText
+                  }
                 >
-                  <div
-                    className={
-                      !username || !email || !message
-                        ? styles.buttonTextDisabled
-                        : styles.buttonText
-                    }
-                  >
-                    보내기
-                  </div>
-                </button>
-              </div>
-            </form>
-          </div>
+                  보내기
+                </div>
+              </button>
+            </div>
+          </form>
         </div>
-      </Mobile>
+      </div>
     </>
   )
 }

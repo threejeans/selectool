@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export interface CommonState {
   searchValue: string
+  isMenuOpen: boolean
   isNoSearchData: boolean
   isRegisterModal: boolean
   noSearchValue: string
@@ -10,6 +11,7 @@ export interface CommonState {
 
 const initialState: CommonState = {
   searchValue: '',
+  isMenuOpen: false,
   isNoSearchData: false,
   isRegisterModal: false,
   noSearchValue: '',
@@ -25,6 +27,9 @@ const commonReducer = createSlice({
     setNoSearchValue(state, { payload: input }) {
       return { ...state, noSearchValue: input }
     },
+    changeMenuStatus: state => {
+      state.isMenuOpen = !state.isMenuOpen
+    },
     changeSearchDataStatus(state, { payload: input }) {
       return { ...state, isNoSearchData: input }
     },
@@ -37,10 +42,12 @@ const commonReducer = createSlice({
 export const {
   setSearchValue,
   setNoSearchValue,
+  changeMenuStatus,
   changeSearchDataStatus,
   changeRegisterModalStatus,
 } = commonReducer.actions
 
+export const menuStatus = (state: RootState) => state.common.isMenuOpen
 export const searchValue = (state: RootState) => state.common.searchValue
 export const noSearchValue = (state: RootState) => state.common.noSearchValue
 export const searchDataState = (state: RootState) => state.common.isNoSearchData

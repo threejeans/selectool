@@ -45,11 +45,6 @@
   transform: rotate(-4deg);
 }
 
-.cardContainerMobile:hover {
-  transition: 0.2s;
-  transform: rotate(-4deg);
-}
-
 .hoverContainer {
   position: absolute;
   width: 100%;
@@ -82,6 +77,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.clickLayoutMobile {
+  width: 80%;
+  height: 100%;
+  /* 단어 기준으로 줄바꿈 할 시 */
+  /* word-break: keep-all; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hoverTextSection {
@@ -197,7 +202,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-inline: 20px;
   row-gap: 16px;
 }
 

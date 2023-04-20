@@ -233,7 +233,7 @@ const WithCard = ({ data }: CardProps) => {
             onClick={() => handleScrap()}
           ></BsFillBookmarkFill>
           <Link to={`/with/${data.id}`} className={styles.clickContainer}>
-            {isHover ? (
+            {/* {isHover ? (
               <div className={styles.hoverContainerMobile}>
                 <div className={styles.hoverCompanyContainer}>
                   <div>
@@ -270,27 +270,25 @@ const WithCard = ({ data }: CardProps) => {
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className={styles.contentsContainer}>
-                <div className={styles.companyLogoContainer}>
-                  <img
-                    src={data.image}
-                    className={styles.companyLogoMobile}
-                  ></img>
-                </div>
-                <div className={styles.textContainer}>
-                  <div className={styles.companyInfoContainer}>
-                    <div className={styles.companyNameMobile}>
-                      {data.nameKr}
-                    </div>
-                    <div className={styles.companyCoNameMobile}>
-                      {data.teamNameKr}
-                    </div>
-                  </div>
-                  <div className={styles.description}>{data.info}</div>
-                </div>
+            ) : ( */}
+            <div className={styles.contentsContainerMobile}>
+              <div className={styles.companyLogoContainer}>
+                <img
+                  src={data.image}
+                  className={styles.companyLogoMobile}
+                ></img>
               </div>
-            )}
+              <div className={styles.textContainer}>
+                <div className={styles.companyInfoContainer}>
+                  <div className={styles.companyNameMobile}>{data.nameKr}</div>
+                  <div className={styles.companyCoNameMobile}>
+                    {data.teamNameKr}
+                  </div>
+                </div>
+                <div className={styles.description}>{data.info}</div>
+              </div>
+            </div>
+            {/* )} */}
           </Link>
         </div>
       </MobileWide>
@@ -319,7 +317,7 @@ const WithCard = ({ data }: CardProps) => {
             onClick={() => handleScrap()}
           ></BsFillBookmarkFill>
           <Link to={`/with/${data.id}`} className={styles.clickContainer}>
-            {isHover ? (
+            {/* {isHover ? (
               <div className={styles.hoverContainerMobile}>
                 <div className={styles.hoverCompanyContainer}>
                   <div>
@@ -356,27 +354,25 @@ const WithCard = ({ data }: CardProps) => {
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className={styles.contentsContainer}>
-                <div className={styles.companyLogoContainer}>
-                  <img
-                    src={data.image}
-                    className={styles.companyLogoMobile}
-                  ></img>
-                </div>
-                <div className={styles.textContainer}>
-                  <div className={styles.companyInfoContainer}>
-                    <div className={styles.companyNameMobile}>
-                      {data.nameKr}
-                    </div>
-                    <div className={styles.companyCoNameMobile}>
-                      {data.teamNameKr}
-                    </div>
-                  </div>
-                  <div className={styles.description}>{data.info}</div>
-                </div>
+            ) : ( */}
+            <div className={styles.contentsContainerMobile}>
+              <div className={styles.companyLogoContainer}>
+                <img
+                  src={data.image}
+                  className={styles.companyLogoMobile}
+                ></img>
               </div>
-            )}
+              <div className={styles.textContainer}>
+                <div className={styles.companyInfoContainer}>
+                  <div className={styles.companyNameMobile}>{data.nameKr}</div>
+                  <div className={styles.companyCoNameMobile}>
+                    {data.teamNameKr}
+                  </div>
+                </div>
+                <div className={styles.description}>{data.info}</div>
+              </div>
+            </div>
+            {/* )} */}
           </Link>
         </div>
       </Mobile>

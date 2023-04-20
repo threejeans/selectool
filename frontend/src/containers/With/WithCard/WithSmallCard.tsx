@@ -122,18 +122,23 @@ const WithSmallCard = ({ data }: CardProps) => {
             }`}
             onClick={handleScrap}
           ></BsFillBookmarkFill>
-          <div className={styles.contentsContainer}>
-            <div className={styles.companyLogoContainer}>
-              <img src={data.image} className={styles.companyLogoMobile}></img>
-            </div>
-            <div className={styles.textContainer}>
-              <div className={styles.companyInfoContainer}>
-                <div className={styles.companyNameMobile}>{data.nameKr}</div>
-                <div className={styles.companyCoNameMobile}>
-                  {data.teamNameKr}
-                </div>
+          <div className={styles.clickContainer}>
+            <div className={styles.contentsContainerMobile}>
+              <div className={styles.companyLogoContainer}>
+                <img
+                  src={data.image}
+                  className={styles.companyLogoMobile}
+                ></img>
               </div>
-              <div className={styles.description}>{data.info}</div>
+              <div className={styles.textContainer}>
+                <div className={styles.companyInfoContainer}>
+                  <div className={styles.companyNameMobile}>{data.nameKr}</div>
+                  <div className={styles.companyCoNameMobile}>
+                    {data.teamNameKr}
+                  </div>
+                </div>
+                <div className={styles.description}>{data.info}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -152,18 +157,23 @@ const WithSmallCard = ({ data }: CardProps) => {
             }`}
             onClick={handleScrap}
           ></BsFillBookmarkFill>
-          <div className={styles.contentsContainer}>
-            <div className={styles.companyLogoContainer}>
-              <img src={data.image} className={styles.companyLogoMobile}></img>
-            </div>
-            <div className={styles.textContainer}>
-              <div className={styles.companyInfoContainer}>
-                <div className={styles.companyNameMobile}>{data.nameKr}</div>
-                <div className={styles.companyCoNameMobile}>
-                  {data.teamNameKr}
-                </div>
+          <div className={styles.clickContainer}>
+            <div className={styles.contentsContainerMobile}>
+              <div className={styles.companyLogoContainer}>
+                <img
+                  src={data.image}
+                  className={styles.companyLogoMobile}
+                ></img>
               </div>
-              <div className={styles.description}>{data.info}</div>
+              <div className={styles.textContainer}>
+                <div className={styles.companyInfoContainer}>
+                  <div className={styles.companyNameMobile}>{data.nameKr}</div>
+                  <div className={styles.companyCoNameMobile}>
+                    {data.teamNameKr}
+                  </div>
+                </div>
+                <div className={styles.description}>{data.info}</div>
+              </div>
             </div>
           </div>
         </div>

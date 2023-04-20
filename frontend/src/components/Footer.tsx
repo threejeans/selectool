@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { BsChevronCompactUp, BsInstagram } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import styles from 'styles/components/Footer.module.css'

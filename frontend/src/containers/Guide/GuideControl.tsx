@@ -10,6 +10,8 @@ import {
 } from 'reducers/guideReducer'
 
 import styles from './GuideContent.module.css'
+import SearchForm from 'components/SearchForm'
+import { FiSearch } from 'react-icons/fi'
 
 const GuideControl = () => {
   const searchKey = useAppSelector(selectSearchKey)
@@ -151,8 +153,9 @@ const GuideControl = () => {
             }
           }}
           type='text'
-          placeholder=' 🔍 배우고 싶은 툴을 입력해주세요.'
+          placeholder='배우고 싶은 툴을 입력해주세요.'
         />
+        {searchKey === '' ? <FiSearch className={styles.search} /> : ''}
       </div>
     </div>
   )

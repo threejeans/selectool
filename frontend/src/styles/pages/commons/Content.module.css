@@ -114,3 +114,12 @@
 
   color: #60a9f6;
 }
+
+@media (max-width: 767px) {
+  .mypageContainer {
+    width: 88%;
+    max-width: 1080px;
+    padding-block: 6rem;
+    min-height: 80vh;
+  }
+}

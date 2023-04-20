@@ -1,10 +1,21 @@
 .modalLayout {
-  width: calc(600px + 16vw);
+  width: calc(600px + 10vw);
   min-width: 400px;
   height: 72vh;
   overflow-y: scroll;
   margin-block: 44px;
-  padding-inline: 2vh;
+  padding-inline: 1vh;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: center;
+}
+.modalLayoutMobile {
+  width: 80vw;
+  height: 72vh;
+  overflow-y: scroll;
+  margin-block: 44px;
+
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -24,6 +35,22 @@
 }
 
 .modalLayout::-webkit-scrollbar-track {
+  background: white;
+}
+
+.modalLayoutMobile::-webkit-scrollbar {
+  width: 4px;
+}
+
+.modalLayoutMobile::-webkit-scrollbar-thumb {
+  height: 20%;
+  background: #a8a8a8;
+  margin: 2px;
+
+  border-radius: 10px;
+}
+
+.modalLayoutMobile::-webkit-scrollbar-track {
   background: white;
 }
 

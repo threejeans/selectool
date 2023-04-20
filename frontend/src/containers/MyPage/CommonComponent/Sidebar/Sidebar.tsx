@@ -183,6 +183,7 @@ const Sidebar = () => {
               </div>
             </div>
           </div>
+          <hr className={styles.line}></hr>
         </div>
       </MobileWide>
       <Mobile>
@@ -224,6 +225,7 @@ const Sidebar = () => {
               </div>
             </div>
           </div>
+          <hr className={styles.line}></hr>
         </div>
       </Mobile>
     </>

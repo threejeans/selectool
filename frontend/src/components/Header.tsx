@@ -37,7 +37,7 @@ const MenuLink = ({
         pathname.startsWith(path)
           ? styles.selected
           : scrollPosition < 100 && isHome
-          ? styles.unselected_home
+          ? styles.unselectedHome
           : styles.unselected
       }
       to={path}
@@ -77,11 +77,11 @@ const Header = ({ title }: LayoutProps) => {
             scrollPosition < 100 && title === '홈'
               ? styles.container
               : scrollPosition < 200 && title === '홈'
-              ? styles.middle_container
-              : styles.change_container
+              ? styles.middleContainer
+              : styles.changeContainer
           }
         >
-          <Link to={'/'} className={styles.logo_container}>
+          <Link to={'/'} className={styles.logoContainer}>
             <img className={styles.favicon} src={Favicon} alt={'셀렉툴 로고'} />
             <img
               className={styles.logo}
@@ -121,7 +121,7 @@ const Header = ({ title }: LayoutProps) => {
               <a
                 className={
                   scrollPosition < 100 && title === '홈'
-                    ? styles.unselected_home
+                    ? styles.unselectedHome
                     : styles.unselected
                 }
                 onClick={modalOpen}

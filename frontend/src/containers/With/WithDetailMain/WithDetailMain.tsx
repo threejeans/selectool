@@ -324,7 +324,7 @@ const WithDetailMain = () => {
                         className={styles.toolContainer}
                         onClick={() => {
                           getToolSpecificInfo(tool.id)
-                          dispatch(changeToolSpecificModalStatus())
+                          navigate(`/self/${tool.id}`)
                         }}
                       >
                         <img
@@ -409,7 +409,7 @@ const WithDetailMain = () => {
                         className={styles.toolContainer}
                         onClick={() => {
                           getToolSpecificInfo(tool.id)
-                          dispatch(changeToolSpecificModalStatus())
+                          navigate(`/self/${tool.id}`)
                         }}
                       >
                         <img

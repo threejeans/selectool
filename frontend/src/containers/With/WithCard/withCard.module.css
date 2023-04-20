@@ -18,8 +18,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 165px;
-  height: 280px;
+  width: 162px;
+  height: 272px;
 
   background: #ffffff;
   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.15);
@@ -141,6 +141,15 @@
   padding-inline: 24px;
   row-gap: 24px;
   padding-top: 52px;
+}
+
+.contentsContainerMobile {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-inline: 18px;
+  row-gap: 18px;
+  padding-top: 42px;
 }
 
 .contentsSmallContainer {
