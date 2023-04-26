@@ -43,15 +43,6 @@ const Layout = ({ title, description, children }: LayoutProps) => {
         })
     }
     gaSetting()
-
-    if (process.env.NODE_ENV === 'production') {
-      // eslint-disable-next-line camelcase, @typescript-eslint/no-empty-function
-      console.log = function no_console() {}
-      // eslint-disable-next-line camelcase, @typescript-eslint/no-empty-function
-      console.warn = function no_console() {}
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      console.warn = function () {}
-    }
   }, [])
 
   return (
