@@ -9,7 +9,9 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { getCookie } from 'util/cookie'
 import apiAxios from 'app/apiAxios'
 import { selectAccessToken, setAccessToken } from 'features/auth/authSlice'
-import ReactGA from 'react-ga'
+// import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
+import { useLocation } from 'react-router-dom'
 
 interface LayoutProps {
   title: string
@@ -24,11 +26,18 @@ const Layout = ({ title, description, children }: LayoutProps) => {
   const refreshToken = getCookie('refresh-token')
 
   const gaSetting = () => {
-    const pathName = window.location.pathname
-    const trackingId = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID ?? ''
-    ReactGA.initialize(trackingId) // 생성한 유니버셜 ID값을 넣어준다.
-    ReactGA.set({ page: pathName }) // 현재 사용자 페이지
-    ReactGA.pageview(pathName) // 페이지뷰 기록
+    const location = useLocation()
+    const pathName = location.pathname
+    // const trackingId = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID ?? ''
+    // ReactGA.initialize(trackingId) // 생성한 유니버셜 ID값을 넣어준다.
+    // ReactGA.set({ page: pathName }) // 현재 사용자 페이지
+    // ReactGA.pageview(pathName) // 페이지뷰 기록
+
+    const ga4TrackingId =
+      process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID ?? ''
+    ReactGA.initialize(ga4TrackingId)
+    ReactGA.set({ page: pathName })
+    ReactGA.send('pageview') // 페이지뷰 기록
   }
 
   useEffect(() => {
