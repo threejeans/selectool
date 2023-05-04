@@ -26,16 +26,14 @@ const Layout = ({ title, description, children }: LayoutProps) => {
   const refreshToken = getCookie('refresh-token')
 
   const gaSetting = () => {
-    const location = useLocation()
-    const pathName = location.pathname
+    const pathName = window.location.pathname
     // const trackingId = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID ?? ''
     // ReactGA.initialize(trackingId) // 생성한 유니버셜 ID값을 넣어준다.
     // ReactGA.set({ page: pathName }) // 현재 사용자 페이지
     // ReactGA.pageview(pathName) // 페이지뷰 기록
 
-    const ga4TrackingId =
-      process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID ?? ''
-    ReactGA.initialize(ga4TrackingId)
+    const trackingId = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID ?? ''
+    ReactGA.initialize(trackingId)
     ReactGA.set({ page: pathName })
     ReactGA.send('pageview') // 페이지뷰 기록
   }
