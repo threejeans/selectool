@@ -11,7 +11,6 @@ import apiAxios from 'app/apiAxios'
 import { selectAccessToken, setAccessToken } from 'features/auth/authSlice'
 // import ReactGA from 'react-ga'
 import ReactGA from 'react-ga4'
-import { useLocation } from 'react-router-dom'
 
 interface LayoutProps {
   title: string
