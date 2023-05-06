@@ -15,6 +15,8 @@ public interface ToolService {
     public ToolResponse getTool(Long userId, Long toolId);
     // 툴 등록
     public ToolResponse createTool(ToolCreateRequest request);
+    // 툴 여러개 등록
+    public List<ToolResponse> bulkCreateTool(List<ToolCreateRequest> request);
     // 툴 수정
     public ToolResponse updateTool(Long toolId, ToolCreateRequest request);
     // 툴 삭제
