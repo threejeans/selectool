@@ -157,6 +157,19 @@ public class ToolServiceImpl implements ToolService {
 
     @Override
     @Transactional
+    public List<ToolResponse> bulkCreateTool(List<ToolCreateRequest> request) {
+        List<ToolResponse> toolResponses = new ArrayList<>();
+
+        request.forEach(toolCreateRequest -> {
+            ToolResponse toolResponse = createTool(toolCreateRequest);
+            toolResponses.add(toolResponse);
+        });
+
+        return toolResponses;
+    }
+
+    @Override
+    @Transactional
     public ToolResponse updateTool(Long toolId, ToolCreateRequest request) {
         Tool tool = toolRepo.findById(toolId)
                 .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));

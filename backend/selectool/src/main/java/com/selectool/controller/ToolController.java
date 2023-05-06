@@ -111,6 +111,16 @@ public class ToolController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping("/tools/bulk")
+    @ApiOperation(value = "툴 여러 개 생성")
+    public ResponseEntity<List<ToolResponse>> bulkCreateTool(
+            @LoginAdmin Admin admin,
+            @RequestBody List<ToolCreateRequest> request
+    ) {
+        List<ToolResponse> response = toolService.bulkCreateTool(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
     @PutMapping("/tools/{toolId}")
     @ApiOperation(value = "툴 수정")
     public ResponseEntity<ToolResponse> updateTool(
