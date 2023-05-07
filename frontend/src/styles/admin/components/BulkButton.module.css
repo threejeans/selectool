@@ -1,0 +1,26 @@
+.button {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  width: 3rem !important;
+  aspect-ratio: 1/1;
+  z-index: 999;
+  background-color: var(--primary-color-main);
+  color: white;
+  padding: none;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px var(--gray-scale-color-g30);
+  font-size: 12px;
+}
+
+.button>p {
+  margin: 0;
+}
+
+.none {
+  display: none;
+}
