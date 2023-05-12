@@ -2,9 +2,10 @@ import { useState } from 'react'
 
 import { MdOutlineUpload } from 'react-icons/md'
 
-import styles from 'styles/admin/components/BulkButton.module.css'
 import AdminModal from './AdminModal'
 import BulkUpload from './bulk/BulkUpload'
+
+import styles from 'styles/admin/components/Bulk.module.css'
 
 const BulkButton = () => {
   const [isOpen, setIsOpen] = useState(false)
