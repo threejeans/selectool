@@ -9,7 +9,8 @@ import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { getCookie } from 'util/cookie'
 import apiAxios from 'app/apiAxios'
 import { selectAccessToken, setAccessToken } from 'features/auth/authSlice'
-import ReactGA from 'react-ga'
+// import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 
 interface LayoutProps {
   title: string
@@ -25,10 +26,15 @@ const Layout = ({ title, description, children }: LayoutProps) => {
 
   const gaSetting = () => {
     const pathName = window.location.pathname
+    // const trackingId = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID ?? ''
+    // ReactGA.initialize(trackingId) // 생성한 유니버셜 ID값을 넣어준다.
+    // ReactGA.set({ page: pathName }) // 현재 사용자 페이지
+    // ReactGA.pageview(pathName) // 페이지뷰 기록
+
     const trackingId = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID ?? ''
-    ReactGA.initialize(trackingId) // 생성한 유니버셜 ID값을 넣어준다.
-    ReactGA.set({ page: pathName }) // 현재 사용자 페이지
-    ReactGA.pageview(pathName) // 페이지뷰 기록
+    ReactGA.initialize(trackingId)
+    ReactGA.set({ page: pathName })
+    ReactGA.send('pageview') // 페이지뷰 기록
   }
 
   useEffect(() => {
@@ -43,15 +49,6 @@ const Layout = ({ title, description, children }: LayoutProps) => {
         })
     }
     gaSetting()
-
-    if (process.env.NODE_ENV === 'production') {
-      // eslint-disable-next-line camelcase, @typescript-eslint/no-empty-function
-      console.log = function no_console() {}
-      // eslint-disable-next-line camelcase, @typescript-eslint/no-empty-function
-      console.warn = function no_console() {}
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      console.warn = function () {}
-    }
   }, [])
 
   return (
