@@ -15,6 +15,8 @@
   max-width: 900px;
   width: 88vw;
   position: relative;
+  max-height: 88vh;
+  object-fit: contain;
 }
 
 .title {
@@ -131,9 +133,11 @@
 
 @media (max-width: 480px) {
   .image {
-    min-width: 300px;
+    min-width: 280px;
     width: 88vw;
     position: relative;
+    max-height: 88vh;
+    object-fit: contain;
   }
 
   .titleTop {
@@ -167,6 +171,8 @@
   .image {
     width: 88vw;
     position: relative;
+    max-height: 88vh;
+    object-fit: contain;
   }
 
   .titleContainer {
