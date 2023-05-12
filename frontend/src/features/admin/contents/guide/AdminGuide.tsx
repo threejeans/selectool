@@ -5,7 +5,14 @@ import CustomDatePicker from 'components/admin/CustomDatePicker'
 import DuplicatedCategoryGroup from 'components/admin/DuplicatedCategoryGroup'
 import TextInputBox from 'components/admin/TextInputBox'
 import ThumbnailInput from 'components/admin/ThumbnailInput'
-import { useEffect, useRef, useState } from 'react'
+import {
+  JSXElementConstructor,
+  ReactElement,
+  ReactFragment,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getCategoryList } from 'reducers/guideReducer'
@@ -19,8 +26,10 @@ import {
 } from 'util/localStorage'
 import {
   createGuide,
+  getContentsList,
   guideSave,
   resetTmpGuide,
+  selectContentsList,
   selectTmpGuide,
 } from '../adminContentsSlice'
 
@@ -55,6 +64,36 @@ const AdminGuide = () => {
   const urlRef = useRef<HTMLInputElement | null>(null) // 콘텐츠 링크 URL
   const [image, setImage] = useState('') // 썸네일 이미지
   const [toolImage, setToolImage] = useState('') // 툴 이미지
+
+  const contentsList = useAppSelector(selectContentsList)
+  const [searchKey, setSearchKey] = useState('')
+
+  useEffect(() => {
+    dispatch(getContentsList({ type: 'self' }))
+  }, [])
+
+  const handleSearch = () => {
+    if (!searchKey) return
+    if (!contentsList.length) dispatch(getContentsList({ type: 'self' }))
+
+    const tmp: JSX.Element[] = []
+    contentsList.map((item, index) => {
+      if (item.nameKr?.includes(searchKey))
+        tmp.push(
+          <AdminButton
+            key={index}
+            color={'primary'}
+            size={'tag'}
+            text={item.nameKr}
+            onClick={() => {
+              setToolImage(item.image)
+              setSearchKey('')
+            }}
+          />,
+        )
+    })
+    return <>{tmp.length > 0 && <div className={styles.dropBox}>{tmp}</div>}</>
+  }
 
   const handleComplete = () => {
     const data: GuideType = {
@@ -317,9 +356,21 @@ const AdminGuide = () => {
             <ThumbnailInput thumbnail={image} setThumbnail={setImage} />
           </div>
           <div>
-            <h5 className={styles.label}>
-              툴 이미지<span className={styles.required}>{'*'}</span>
-            </h5>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <h5 className={styles.label}>
+                툴 이미지<span className={styles.required}>{'*'}</span>
+              </h5>
+              <div className={styles.searchToolName}>
+                <input
+                  type='text'
+                  value={searchKey}
+                  onChange={e => {
+                    setSearchKey(e.target.value)
+                  }}
+                />
+                {searchKey.length > 0 && <>{handleSearch()}</>}
+              </div>
+            </div>
             <ThumbnailInput thumbnail={toolImage} setThumbnail={setToolImage} />
           </div>
         </div>
