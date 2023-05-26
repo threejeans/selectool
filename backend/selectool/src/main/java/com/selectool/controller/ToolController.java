@@ -7,10 +7,9 @@ import com.selectool.config.login.User;
 import com.selectool.dto.tool.filter.ToolFilter;
 import com.selectool.dto.tool.request.ClientCreateRequest;
 import com.selectool.dto.tool.request.ToolCreateRequest;
-import com.selectool.dto.tool.response.ClientResponse;
-import com.selectool.dto.tool.response.ToolListResponse;
-import com.selectool.dto.tool.response.ToolResponse;
-import com.selectool.dto.tool.response.ToolSubscribeUserResponse;
+import com.selectool.dto.tool.request.ToolFunctionListRequest;
+import com.selectool.dto.tool.request.ToolPlanListRequest;
+import com.selectool.dto.tool.response.*;
 import com.selectool.service.ClientService;
 import com.selectool.service.ToolService;
 import io.swagger.annotations.Api;
@@ -129,6 +128,28 @@ public class ToolController {
             @RequestBody ToolCreateRequest request
     ) {
         ToolResponse response = toolService.updateTool(toolId, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/tools/{toolId}/functions")
+    @ApiOperation(value = "툴 핵심기능 목록 수정")
+    public ResponseEntity<?> updateToolFunction(
+            @LoginAdmin Admin admin,
+            @PathVariable Long toolId,
+            @RequestBody ToolFunctionListRequest request
+    ) {
+        ToolResponse response = toolService.updateToolFunction(toolId, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/tools/{toolId}/plans")
+    @ApiOperation(value = "툴 가격플랜 목록 수정")
+    public ResponseEntity<?> updateToolPlan(
+            @LoginAdmin Admin admin,
+            @PathVariable Long toolId,
+            @RequestBody ToolPlanListRequest request
+    ) {
+        ToolResponse response = toolService.updateToolPlan(toolId, request);
         return ResponseEntity.ok(response);
     }
 

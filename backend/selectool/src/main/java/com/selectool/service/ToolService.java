@@ -2,6 +2,8 @@ package com.selectool.service;
 
 import com.selectool.dto.tool.filter.ToolFilter;
 import com.selectool.dto.tool.request.ToolCreateRequest;
+import com.selectool.dto.tool.request.ToolFunctionListRequest;
+import com.selectool.dto.tool.request.ToolPlanListRequest;
 import com.selectool.dto.tool.response.ToolListResponse;
 import com.selectool.dto.tool.response.ToolResponse;
 import com.selectool.dto.tool.response.ToolSubscribeUserResponse;
@@ -19,6 +21,10 @@ public interface ToolService {
     public List<ToolResponse> bulkCreateTool(List<ToolCreateRequest> request);
     // 툴 수정
     public ToolResponse updateTool(Long toolId, ToolCreateRequest request);
+    // 툴 핵심 기능 목록 수정
+    public ToolResponse updateToolFunction(Long toolId, ToolFunctionListRequest request);
+    // 툴 가격 플랜 목록 수정
+    public ToolResponse updateToolPlan(Long toolId, ToolPlanListRequest request);
     // 툴 삭제
     public void deleteTool(Long toolId);
     // 툴 북마크 추가
