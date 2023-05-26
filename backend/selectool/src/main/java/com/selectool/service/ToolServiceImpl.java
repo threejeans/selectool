@@ -2,7 +2,9 @@ package com.selectool.service;
 
 import com.selectool.dto.tool.filter.ToolFilter;
 import com.selectool.dto.tool.request.ToolCreateRequest;
+import com.selectool.dto.tool.request.ToolFunctionListRequest;
 import com.selectool.dto.tool.request.ToolPlanCreateRequest;
+import com.selectool.dto.tool.request.ToolPlanListRequest;
 import com.selectool.dto.tool.response.*;
 import com.selectool.entity.*;
 import com.selectool.exception.DuplicateException;
@@ -280,6 +282,68 @@ public class ToolServiceImpl implements ToolService {
                 toolPlans,
                 toolFunctions,
                 toolClients
+        );
+
+        toolRepo.save(tool);
+        return entityToDTO(null, tool);
+    }
+
+    @Override
+    @Transactional
+    public ToolResponse updateToolFunction(Long toolId, ToolFunctionListRequest request) {
+        Tool tool = toolRepo.findById(toolId)
+                .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+        List<ToolFunction> toolFunctions = tool.getToolFunctions();
+        toolFunctions.clear();
+        toolFunctions.addAll(
+                request.getToolFunctions().stream()
+                        .map(toolFunction -> ToolFunction.builder()
+                                .name(toolFunction.getName())
+                                .content(toolFunction.getContent())
+                                .tool(tool)
+                                .build()
+                        )
+                        .collect(Collectors.toList())
+        );
+
+        toolRepo.save(tool);
+        return entityToDTO(null, tool);
+    }
+
+    @Override
+    @Transactional
+    public ToolResponse updateToolPlan(Long toolId, ToolPlanListRequest request) {
+        Tool tool = toolRepo.findById(toolId)
+                .orElseThrow(() -> new NotFoundException(TOOL_NOT_FOUND));
+
+        // 툴 플랜 삭제 후 생성
+        List<ToolPlan> toolPlans = tool.getToolPlans();
+        toolPlans.clear();
+        toolPlans.addAll(
+                request.getPlans().stream()
+                        .map(plan -> {
+                                    ToolPlan toolPlan = ToolPlan.builder()
+                                            .title(plan.getTitle())
+                                            .volume(plan.getVolume())
+                                            .cost(plan.getCost())
+                                            .tool(tool)
+                                            .build();
+
+                                    List<ToolPlanFunction> toolPlanFunctions = plan.getPlanFunctions().stream()
+                                            .map(planFunc -> ToolPlanFunction.builder()
+                                                    .func(planFunc.getFunc())
+                                                    .toolPlan(toolPlan)
+                                                    .build()
+                                            )
+                                            .collect(Collectors.toList());
+
+                                    toolPlan.setToolPlanFunctions(toolPlanFunctions);
+
+                                    return toolPlan;
+                                }
+                        )
+                        .collect(Collectors.toList())
         );
 
         toolRepo.save(tool);
