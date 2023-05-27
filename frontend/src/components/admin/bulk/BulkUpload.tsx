@@ -1,7 +1,7 @@
-import React, { ChangeEventHandler, useRef, useState } from 'react'
+import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react'
 import * as XLSX from 'xlsx'
 
-import { MdOutlineUpload } from 'react-icons/md'
+import { MdOutlineUpload, MdSave } from 'react-icons/md'
 
 import styles from 'styles/admin/components/Bulk.module.css'
 import { toast } from 'react-toastify'
@@ -11,12 +11,16 @@ import { createTool } from 'features/admin/contents/adminContentsSlice'
 
 const BulkUpload = () => {
   const dispatch = useAppDispatch()
+  const [tmpToolBulk, setTmpToolBulk] = useState<ToolType[]>([])
   const fileInputInfo = useRef<HTMLInputElement | null>(null)
 
   const handleUpload: ChangeEventHandler<HTMLInputElement> = e => {
     const file = e.target.files?.[0]
     if (!file) return
+    fileRead(file)
+  }
 
+  const fileRead = (file: File) => {
     const reader = new FileReader()
     console.log(reader)
     reader.onload = e => {
@@ -34,6 +38,7 @@ const BulkUpload = () => {
 
   const createToolBulk = (json: BulkToolType[]) => {
     const cnt = json.length
+    const bulk: ToolType[] = []
     for (let i = 0; i < cnt; i++) {
       const { categories, toolFunctions, clients, plans } = json[i]
 
@@ -87,17 +92,60 @@ const BulkUpload = () => {
         aos: json[i].aos,
         ios: json[i].ios,
       }
-      console.log(tmp)
-      continue
-      dispatch(createTool(tmp)).then(() => {
+      bulk.push(tmp)
+    }
+    setTmpToolBulk(bulk)
+    toast('🙆🏻‍♀️ 파일이 준비되었습니다.')
+    toast('파일을 변경하시려면 드래그 앤 드랍으로 파일을 재업로드 하세요.', {
+      delay: 400,
+    })
+  }
+  const handleSave = () => {
+    const cnt = tmpToolBulk.length
+    tmpToolBulk.map(i => {
+      dispatch(createTool(i)).then(() => {
         toast(`${cnt}개 중 ${i}번째 항목 등록완료.`)
       })
-    }
+    })
   }
+  //
+  const [isDragOver, setIsDragOver] = useState(false)
+
+  const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    setIsDragOver(true)
+  }
+
+  const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    setIsDragOver(false)
+  }
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    setIsDragOver(false)
+    const file = Array.from(event.dataTransfer?.files)[0]
+    if (!file) return
+    const extension = file.name.split('.').pop()?.toLowerCase()
+    if (extension !== 'xlsx' && extension !== 'xls') {
+      toast('🙅🏻‍♂️ .xls, .xlsx 파일이 아닙니다.')
+      toast('올바른 확장자로 올려주세요.', { delay: 200 })
+      return
+    }
+    fileRead(file)
+  }
+  useEffect(() => {
+    toast('👇🏼 버튼을 누르거나')
+    toast('🕹️ 드래그 앤 드랍', { delay: 200 })
+  }, [])
 
   return (
     <div className={styles.wrap}>
-      <div className={styles.title}>{'BulkUpload'}</div>
+      <div className={styles.title}>
+        {`혼자써요 Tool ${
+          tmpToolBulk.length > 0 ? '서버에 저장하기' : ' 엑셀 파일 올리기'
+        }`}
+      </div>
       <input
         type='file'
         ref={fileInputInfo}
@@ -105,9 +153,19 @@ const BulkUpload = () => {
         style={{ display: 'none' }}
         onChange={handleUpload}
       />
-      <div className={styles.section}>
-        {fileInputInfo?.current?.value ? (
-          <></>
+      <div
+        className={
+          isDragOver ? `${styles.section} ${styles.dragOver}` : styles.section
+        }
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onDragOver={handleDragEnter}
+        onDrop={handleDrop}
+      >
+        {tmpToolBulk.length > 0 ? (
+          <button className={styles.uploadButton} onClick={handleSave}>
+            <MdSave />
+          </button>
         ) : (
           <button
             className={styles.uploadButton}
