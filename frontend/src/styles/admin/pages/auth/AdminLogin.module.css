@@ -39,7 +39,7 @@
 
 .input:focus {
   background-color: #60a9f632;
-  border: 1px solid transparent;
+  border: 2px solid var(--primary-color-main);
 }
 .loginBtn {
   color: var(--gray-scale-color-g30);

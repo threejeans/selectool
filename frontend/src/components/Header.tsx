@@ -82,11 +82,11 @@ const Header = ({ title }: LayoutProps) => {
           }
         >
           <Link to={'/'} className={styles.logoContainer}>
-            <img className={styles.favicon} src={Favicon} alt={'셀렉툴 로고'} />
+            <img className={styles.favicon} src={Favicon} alt={'셀렉툴'} />
             <img
               className={styles.logo}
               src={scrollPosition < 100 && title === '홈' ? Logo : LogoDark}
-              alt={'셀렉툴 로고'}
+              alt={'셀렉툴'}
             />
             <span className={styles.line}>{' | '}</span>
           </Link>

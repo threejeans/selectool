@@ -58,7 +58,7 @@ const AdminHeader = ({ title }: AdminHeaderProps) => {
     <div className={styles.header}>
       <div className={styles.container}>
         <Link className={styles.logoBox} to={'/admin'}>
-          <img className={styles.logo} src={Logo} alt={'셀렉툴 로고'} />
+          <img className={styles.logo} src={Logo} alt={'셀렉툴'} />
           <img className={styles.logo} src={Title} alt={'셀렉툴'} />
           {'admin'}
         </Link>

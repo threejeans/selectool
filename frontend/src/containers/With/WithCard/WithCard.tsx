@@ -233,44 +233,6 @@ const WithCard = ({ data }: CardProps) => {
             onClick={() => handleScrap()}
           ></BsFillBookmarkFill>
           <Link to={`/with/${data.id}`} className={styles.clickContainer}>
-            {/* {isHover ? (
-              <div className={styles.hoverContainerMobile}>
-                <div className={styles.hoverCompanyContainer}>
-                  <div>
-                    <img
-                      src={data.image}
-                      className={styles.companyLogoHoverMobile}
-                    ></img>
-                  </div>
-                  <div className={styles.textContainerHover}>
-                    <div className={styles.companyNameHoverMobile}>
-                      {data.nameKr}
-                    </div>
-                    <div className={styles.descriptionHover}>{data.info}</div>
-                  </div>
-                </div>
-                <hr className={styles.lineHover}></hr>
-                <div className={styles.selectoolContainerMobile}>
-                  <div className={styles.selectoolTitle}>
-                    {data.nameKr}&apos;s{' '}
-                    <span className={styles.selectoolPoint}>SELECTOOL</span>
-                  </div>
-                  <div className={styles.toolLayoutMobile}>
-                    {data.tools.slice(0, 3).map((tool, idx) => (
-                      <div className={styles.toolContainerMobile} key={idx}>
-                        <img
-                          src={tool.image}
-                          className={styles.toolLogoMobile}
-                        ></img>
-                        <div className={styles.toolNameHover}>
-                          {tool.nameKr}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ) : ( */}
             <div className={styles.contentsContainerMobile}>
               <div className={styles.companyLogoContainer}>
                 <img
@@ -288,7 +250,6 @@ const WithCard = ({ data }: CardProps) => {
                 <div className={styles.description}>{data.info}</div>
               </div>
             </div>
-            {/* )} */}
           </Link>
         </div>
       </MobileWide>
@@ -317,44 +278,6 @@ const WithCard = ({ data }: CardProps) => {
             onClick={() => handleScrap()}
           ></BsFillBookmarkFill>
           <Link to={`/with/${data.id}`} className={styles.clickContainer}>
-            {/* {isHover ? (
-              <div className={styles.hoverContainerMobile}>
-                <div className={styles.hoverCompanyContainer}>
-                  <div>
-                    <img
-                      src={data.image}
-                      className={styles.companyLogoHoverMobile}
-                    ></img>
-                  </div>
-                  <div className={styles.textContainerHover}>
-                    <div className={styles.companyNameHoverMobile}>
-                      {data.nameKr}
-                    </div>
-                    <div className={styles.descriptionHover}>{data.info}</div>
-                  </div>
-                </div>
-                <hr className={styles.lineHover}></hr>
-                <div className={styles.selectoolContainerMobile}>
-                  <div className={styles.selectoolTitle}>
-                    {data.nameKr}&apos;s{' '}
-                    <span className={styles.selectoolPoint}>SELECTOOL</span>
-                  </div>
-                  <div className={styles.toolLayoutMobile}>
-                    {data.tools.slice(0, 3).map((tool, idx) => (
-                      <div className={styles.toolContainerMobile} key={idx}>
-                        <img
-                          src={tool.image}
-                          className={styles.toolLogoMobile}
-                        ></img>
-                        <div className={styles.toolNameHover}>
-                          {tool.nameKr}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ) : ( */}
             <div className={styles.contentsContainerMobile}>
               <div className={styles.companyLogoContainer}>
                 <img
@@ -372,7 +295,6 @@ const WithCard = ({ data }: CardProps) => {
                 <div className={styles.description}>{data.info}</div>
               </div>
             </div>
-            {/* )} */}
           </Link>
         </div>
       </Mobile>

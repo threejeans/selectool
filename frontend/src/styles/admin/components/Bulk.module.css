@@ -35,15 +35,26 @@
   width: 70vmin;
 }
 
+.dragOver {
+  border: 5px dashed var(--primary-color-main);
+  z-index: 5;
+}
+
 .section {
   min-height: 30vmin;
   max-height: 60vh;
+  width: 100%;
   overflow-y: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  margin: 0.2rem 0;
+  padding: 0.4rem;
+  border-radius: 0.4rem;
 }
-.uploadButton{
+
+.uploadButton {
   background-color: var(--primary-color-main);
   color: white;
   width: 6rem;
@@ -54,4 +65,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
