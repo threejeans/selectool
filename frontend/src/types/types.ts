@@ -255,3 +255,21 @@ export type IdStatus = {
   id: number
   status: boolean | null
 }
+
+export type BulkToolType = {
+  nameKr: string
+  nameEn: string
+  info: string
+  msg: string
+  topic: string
+  categories: string
+  country: string
+  image: string
+  url: string
+  toolFunctions: string
+  clients: string
+  trial: boolean
+  plans: string
+  aos: string
+  ios: string
+}

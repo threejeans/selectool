@@ -16,8 +16,12 @@ const RatingComponent = ({ isAppstore = false, ratingScore }: RatingProps) => {
     Number(ratingScore) && Number(ratingScore) <= 5
       ? Number(ratingScore) * 15.9
       : 0
+  const starViewMobile =
+    Number(ratingScore) && Number(ratingScore) <= 5
+      ? Number(ratingScore) * 14
+      : 0
 
-  if (starView === 0) {
+  if (starView === 0 || starViewMobile === 0) {
     noRating = true
   }
   return (
@@ -87,9 +91,12 @@ const RatingComponent = ({ isAppstore = false, ratingScore }: RatingProps) => {
               <>
                 <div className={styles.ratingScore}>{ratingScore}</div>
                 <div>
-                  <img src={emptyStar} className={styles.emptyStar}></img>
-                  <div className={styles.starBox} style={{ width: starView }}>
-                    <img src={fullStar} className={styles.fullStar}></img>
+                  <img src={emptyStar} className={styles.emptyStarMobile}></img>
+                  <div
+                    className={styles.starBox}
+                    style={{ width: starViewMobile }}
+                  >
+                    <img src={fullStar} className={styles.fullStarMobile}></img>
                   </div>
                 </div>
               </>
@@ -115,8 +122,11 @@ const RatingComponent = ({ isAppstore = false, ratingScore }: RatingProps) => {
                 <div className={styles.ratingScoreMobile}>{ratingScore}</div>
                 <div>
                   <img src={emptyStar} className={styles.emptyStar}></img>
-                  <div className={styles.starBox} style={{ width: starView }}>
-                    <img src={fullStar} className={styles.fullStar}></img>
+                  <div
+                    className={styles.starBox}
+                    style={{ width: starViewMobile }}
+                  >
+                    <img src={fullStar} className={styles.fullStarMobile}></img>
                   </div>
                 </div>
               </>
