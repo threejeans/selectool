@@ -118,10 +118,10 @@ const RatingComponent = ({ isAppstore = false, ratingScore }: RatingProps) => {
                 <div>등록된 리뷰가 없어요 :&#40;</div>
               </div>
             ) : (
-              <>
+              <div className={styles.alignCenter}>
                 <div className={styles.ratingScoreMobile}>{ratingScore}</div>
                 <div>
-                  <img src={emptyStar} className={styles.emptyStar}></img>
+                  <img src={emptyStar} className={styles.emptyStarMobile}></img>
                   <div
                     className={styles.starBox}
                     style={{ width: starViewMobile }}
@@ -129,7 +129,7 @@ const RatingComponent = ({ isAppstore = false, ratingScore }: RatingProps) => {
                     <img src={fullStar} className={styles.fullStarMobile}></img>
                   </div>
                 </div>
-              </>
+              </div>
             )}
           </div>
         </div>
