@@ -184,3 +184,10 @@
   line-height: 18px;
   color: black;
 }
+
+.alignCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
