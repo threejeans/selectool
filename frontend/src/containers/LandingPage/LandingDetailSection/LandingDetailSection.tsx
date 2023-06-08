@@ -43,7 +43,7 @@ const LandingDetailSection = () => {
               분들을 위해 한곳에 모아뒀어요.
             </div>
             <div className={styles.aTag}>
-              <Link to={'/self'}>기능별 툴 확인하기 →</Link>
+              <Link to={'/self'}>직무별 툴 확인하기 →</Link>
             </div>
           </div>
           <div className={styles.imageSection}>

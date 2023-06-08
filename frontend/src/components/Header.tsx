@@ -43,7 +43,7 @@ const MenuLink = ({
       to={path}
       onClick={() => {
         if (title === '마이페이지') {
-          dispatch(setSelectContent('혼자써요'))
+          dispatch(setSelectContent('직무별 툴'))
         }
         if (title === '가이드') {
           dispatch(setSearchKey(''))
@@ -93,13 +93,13 @@ const Header = ({ title }: LayoutProps) => {
           <div className={styles.menu}>
             <MenuLink
               path={'/self'}
-              title={'혼자써요'}
+              title={'직무별 툴'}
               scrollPosition={scrollPosition}
               isHome={title === '홈'}
             />
             <MenuLink
               path={'/with'}
-              title={'함께써요'}
+              title={'기업별 툴'}
               scrollPosition={scrollPosition}
               isHome={title === '홈'}
             />

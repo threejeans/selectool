@@ -4,7 +4,6 @@ import styles from './MyPageMain.module.css'
 import { useAppDispatch, useAppSelector } from 'app/hooks'
 import {
   selectContent,
-  setGuideScrapList,
   setSelectContent,
   setUserInfo,
 } from 'reducers/settingReducer'
@@ -23,7 +22,6 @@ import {
   setAccessToken,
 } from 'features/auth/authSlice'
 import { getUserInfoAPI } from 'api/setting'
-import { getMemberGuideList, selectGuideList } from 'reducers/guideReducer'
 import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
 
 const MyPageMain = () => {
@@ -88,9 +86,9 @@ const MyPageMain = () => {
           <Sidebar />
           {(() => {
             switch (content) {
-              case '혼자써요':
+              case '직무별 툴':
                 return <SelfScrapContent />
-              case '함께써요':
+              case '기업별 툴':
                 return <WithScrapContent />
               case '가이드':
                 return <GuideScrapContent />
@@ -105,9 +103,9 @@ const MyPageMain = () => {
           <Sidebar />
           {(() => {
             switch (content) {
-              case '혼자써요':
+              case '직무별 툴':
                 return <SelfScrapContent />
-              case '함께써요':
+              case '기업별 툴':
                 return <WithScrapContent />
               case '가이드':
                 return <GuideScrapContent />
@@ -122,9 +120,9 @@ const MyPageMain = () => {
           <Sidebar />
           {(() => {
             switch (content) {
-              case '혼자써요':
+              case '직무별 툴':
                 return <SelfScrapContent />
-              case '함께써요':
+              case '기업별 툴':
                 return <WithScrapContent />
               case '가이드':
                 return <GuideScrapContent />
@@ -139,9 +137,9 @@ const MyPageMain = () => {
           <Sidebar />
           {(() => {
             switch (content) {
-              case '혼자써요':
+              case '직무별 툴':
                 return <SelfScrapContent />
-              case '함께써요':
+              case '기업별 툴':
                 return <WithScrapContent />
               case '가이드':
                 return <GuideScrapContent />

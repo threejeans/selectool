@@ -73,7 +73,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <ScrollToTop />
-        <Layout title={'혼자써요'} description={'셀렉툴 | 혼자써요'}>
+        <Layout title={'직무별 툴'} description={'셀렉툴 | 직무별 툴'}>
           <Self />
         </Layout>
       </>
@@ -84,7 +84,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <ScrollToTop />
-        <Layout title={'혼자써요'} description={'셀렉툴 | 혼자써요'}>
+        <Layout title={'직무별 툴'} description={'셀렉툴 | 직무별 툴'}>
           <SelfDetail />
         </Layout>
       </>
@@ -95,7 +95,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <ScrollToTop />
-        <Layout title={'함께써요'} description={'셀렉툴 | 함께써요'}>
+        <Layout title={'기업별 툴'} description={'셀렉툴 | 기업별 툴'}>
           <With />
         </Layout>
       </>
@@ -106,7 +106,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <ScrollToTop />
-        <Layout title={'함께써요'} description={'셀렉툴 | 함께써요'}>
+        <Layout title={'기업별 툴'} description={'셀렉툴 | 기업별 툴'}>
           <WithDetail />
         </Layout>
       </>
