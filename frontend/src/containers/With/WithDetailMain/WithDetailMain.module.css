@@ -78,7 +78,7 @@
 
 .toolContainer {
   display: flex;
-  width: 72px;
+  width: 76px;
   flex-direction: column;
   row-gap: 20px;
   align-items: center;
@@ -100,6 +100,8 @@
 .toolName {
   font-weight: 400;
   font-size: 12px;
+  text-align: center;
+  word-break: keep-all;
   color: #6f6f6f;
 }
 
