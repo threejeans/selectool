@@ -22,7 +22,6 @@ import {
   setAccessToken,
 } from 'features/auth/authSlice'
 import { getUserInfoAPI } from 'api/setting'
-import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
 
 const MyPageMain = () => {
   const content = useAppSelector(selectContent)
@@ -81,74 +80,21 @@ const MyPageMain = () => {
 
   return (
     <>
-      <Pc>
-        <div className={styles.layout}>
-          <Sidebar />
-          {(() => {
-            switch (content) {
-              case '직무별 툴':
-                return <SelfScrapContent />
-              case '기업별 툴':
-                return <WithScrapContent />
-              case '가이드':
-                return <GuideScrapContent />
-              default:
-                return <SettingComponent />
-            }
-          })()}
-        </div>
-      </Pc>
-      <Tablet>
-        <div className={styles.layout}>
-          <Sidebar />
-          {(() => {
-            switch (content) {
-              case '직무별 툴':
-                return <SelfScrapContent />
-              case '기업별 툴':
-                return <WithScrapContent />
-              case '가이드':
-                return <GuideScrapContent />
-              default:
-                return <SettingComponent />
-            }
-          })()}
-        </div>
-      </Tablet>
-      <MobileWide>
-        <div className={styles.layoutMobile}>
-          <Sidebar />
-          {(() => {
-            switch (content) {
-              case '직무별 툴':
-                return <SelfScrapContent />
-              case '기업별 툴':
-                return <WithScrapContent />
-              case '가이드':
-                return <GuideScrapContent />
-              default:
-                return <SettingComponent />
-            }
-          })()}
-        </div>
-      </MobileWide>
-      <Mobile>
-        <div className={styles.layoutMobile}>
-          <Sidebar />
-          {(() => {
-            switch (content) {
-              case '직무별 툴':
-                return <SelfScrapContent />
-              case '기업별 툴':
-                return <WithScrapContent />
-              case '가이드':
-                return <GuideScrapContent />
-              default:
-                return <SettingComponent />
-            }
-          })()}
-        </div>
-      </Mobile>
+      <div className={styles.layout}>
+        <Sidebar />
+        {(() => {
+          switch (content) {
+            case '직무별 툴':
+              return <SelfScrapContent />
+            case '기업별 툴':
+              return <WithScrapContent />
+            case '가이드':
+              return <GuideScrapContent />
+            default:
+              return <SettingComponent />
+          }
+        })()}
+      </div>
     </>
   )
 }
