@@ -103,7 +103,7 @@ const HeaderMobile = ({ title }: LayoutProps) => {
                     : styles.unselected
                 } ${styles.mypage}`}
                 to='/mypage'
-                onClick={() => dispatch(setSelectContent('혼자써요'))}
+                onClick={() => dispatch(setSelectContent('직무별 툴'))}
               >
                 <BsFillPersonFill />
               </Link>
@@ -140,13 +140,13 @@ const HeaderMobile = ({ title }: LayoutProps) => {
         >
           <MenuLink
             path={'/self'}
-            title={'혼자써요'}
+            title={'직무별 툴'}
             scrollPosition={scrollPosition}
             isHome={title === '홈'}
           />
           <MenuLink
             path={'/with'}
-            title={'함께써요'}
+            title={'기업별 툴'}
             scrollPosition={scrollPosition}
             isHome={title === '홈'}
           />
