@@ -4,8 +4,10 @@
   column-gap: 36px;
 }
 
-.layoutMobile {
-  display: flex;
-  flex-direction: column;
-  row-gap: 40px;
+@media (max-width: 767px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+  }
 }

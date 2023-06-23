@@ -2,7 +2,6 @@
   width: 100%;
   display: grid;
   justify-content: center;
-
   row-gap: 4rem;
 }
 
@@ -11,19 +10,9 @@
   column-gap: 50px;
 }
 
-.selfLayoutMobile {
-  grid-template-columns: repeat(auto-fit, minmax(152px, max-content));
-  column-gap: 18px;
-}
-
 .withLayout {
   grid-template-columns: repeat(auto-fit, minmax(212px, max-content));
   column-gap: 74px;
-}
-
-.withLayoutMobile {
-  grid-template-columns: repeat(auto-fit, minmax(152px, max-content));
-  column-gap: 18px;
 }
 
 .moreGroup {
@@ -50,4 +39,16 @@
 
 .icon {
   height: 1rem;
+}
+
+@media (max-width: 767px) {
+  .selfLayout {
+    grid-template-columns: repeat(auto-fit, minmax(152px, max-content));
+    column-gap: 18px;
+  }
+
+  .withLayout {
+    grid-template-columns: repeat(auto-fit, minmax(152px, max-content));
+    column-gap: 18px;
+  }
 }

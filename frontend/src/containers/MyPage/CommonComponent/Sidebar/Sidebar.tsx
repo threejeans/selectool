@@ -10,7 +10,7 @@ const Sidebar = () => {
 
   const dispatch = useAppDispatch()
 
-  const subSection = ['혼자써요', '함께써요', '가이드']
+  const subSection = ['직무별 툴', '기업별 툴', '가이드']
 
   return (
     <>
@@ -33,7 +33,7 @@ const Sidebar = () => {
               onClick={() => {
                 selectedContent !== '설정'
                   ? dispatch(setSelectContent('설정'))
-                  : dispatch(setSelectContent('혼자써요'))
+                  : dispatch(setSelectContent('직무별 툴'))
               }}
             >
               <div>북마크 컨텐츠</div>
@@ -72,7 +72,7 @@ const Sidebar = () => {
             onClick={() => {
               selectedContent !== '설정'
                 ? dispatch(setSelectContent('설정'))
-                : dispatch(setSelectContent('혼자써요'))
+                : dispatch(setSelectContent('직무별 툴'))
             }}
           >
             설정
@@ -98,7 +98,7 @@ const Sidebar = () => {
               onClick={() => {
                 selectedContent !== '설정'
                   ? dispatch(setSelectContent('설정'))
-                  : dispatch(setSelectContent('혼자써요'))
+                  : dispatch(setSelectContent('직무별 툴'))
               }}
             >
               <div>북마크 컨텐츠</div>
@@ -137,7 +137,7 @@ const Sidebar = () => {
             onClick={() => {
               selectedContent !== '설정'
                 ? dispatch(setSelectContent('설정'))
-                : dispatch(setSelectContent('혼자써요'))
+                : dispatch(setSelectContent('직무별 툴'))
             }}
           >
             설정
@@ -176,7 +176,7 @@ const Sidebar = () => {
                 onClick={() => {
                   selectedContent !== '설정'
                     ? dispatch(setSelectContent('설정'))
-                    : dispatch(setSelectContent('혼자써요'))
+                    : dispatch(setSelectContent('직무별 툴'))
                 }}
               >
                 계정 설정
@@ -218,7 +218,7 @@ const Sidebar = () => {
                 onClick={() => {
                   selectedContent !== '설정'
                     ? dispatch(setSelectContent('설정'))
-                    : dispatch(setSelectContent('혼자써요'))
+                    : dispatch(setSelectContent('직무별 툴'))
                 }}
               >
                 계정 설정

@@ -21,7 +21,7 @@ export interface SettingState {
 }
 
 const initialState: SettingState = {
-  selectContent: '혼자써요',
+  selectContent: '직무별 툴',
   selfScrapList: [],
   guideScrapList: [],
   guideListForScrap: [],

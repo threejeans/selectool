@@ -1,4 +1,3 @@
-import { Pc, Tablet } from 'components/Layout'
 import { ContentTitle } from 'containers/Common'
 import { SelfMain } from 'containers/Self'
 import React from 'react'
@@ -9,7 +8,7 @@ const Self = () => {
     <div className={styles.layout}>
       <div className={styles.container}>
         <ContentTitle
-          title='혼자써요'
+          title='직무별 툴'
           description='* 새로운 기능 툴을 통해 업무 능력 향상을 원하는 워커에게 권하는 툴이에요'
         />
         <SelfMain />

@@ -11,7 +11,6 @@ import {
   withMainInfoList,
 } from 'reducers/withReducer'
 import styles from './CardGrid.module.css'
-import { Mobile, MobileWide, Pc, Tablet } from 'components/Layout'
 
 type GridProps = {
   isSpinner?: boolean
@@ -45,98 +44,27 @@ const CardGrid = ({ isSpinner = false }: GridProps) => {
 
   return (
     <>
-      <Pc>
-        <div className={`${styles.layout} ${styles.withLayout}`}>
-          {isSpinner ? (
-            <ContentSpinner />
-          ) : mainInfoExportList.length > 0 ? (
-            mainInfoExportList.map((data, idx) => (
-              <WithCard data={data} key={idx} />
-            ))
-          ) : (
-            <ContentSpinner />
-          )}
-        </div>
-        {mainInfoList.length > 12 && contentCount < maxContentCount ? (
-          <div className={styles.moreGroup}>
-            <button className={styles.moreButton} onClick={moreContentEvent}>
-              더보기&nbsp;&nbsp;
-              <BsChevronCompactDown className={styles.icon} />
-            </button>
-          </div>
+      <div className={`${styles.layout} ${styles.withLayout}`}>
+        {isSpinner ? (
+          <ContentSpinner />
+        ) : mainInfoExportList.length > 0 ? (
+          mainInfoExportList.map((data, idx) => (
+            <WithCard data={data} key={idx} />
+          ))
         ) : (
-          ''
+          <ContentSpinner />
         )}
-      </Pc>
-      <Tablet>
-        <div className={`${styles.layout} ${styles.withLayout}`}>
-          {isSpinner ? (
-            <ContentSpinner />
-          ) : mainInfoExportList.length > 0 ? (
-            mainInfoExportList.map((data, idx) => (
-              <WithCard data={data} key={idx} />
-            ))
-          ) : (
-            <ContentSpinner />
-          )}
+      </div>
+      {mainInfoList.length > 12 && contentCount < maxContentCount ? (
+        <div className={styles.moreGroup}>
+          <button className={styles.moreButton} onClick={moreContentEvent}>
+            더보기&nbsp;&nbsp;
+            <BsChevronCompactDown className={styles.icon} />
+          </button>
         </div>
-        {mainInfoList.length > 12 && contentCount < maxContentCount ? (
-          <div className={styles.moreGroup}>
-            <button className={styles.moreButton} onClick={moreContentEvent}>
-              더보기&nbsp;&nbsp;
-              <BsChevronCompactDown className={styles.icon} />
-            </button>
-          </div>
-        ) : (
-          ''
-        )}
-      </Tablet>
-      <MobileWide>
-        <div className={`${styles.layout} ${styles.withLayoutMobile}`}>
-          {isSpinner ? (
-            <ContentSpinner />
-          ) : mainInfoExportList.length > 0 ? (
-            mainInfoExportList.map((data, idx) => (
-              <WithCard data={data} key={idx} />
-            ))
-          ) : (
-            <ContentSpinner />
-          )}
-        </div>
-        {mainInfoList.length > 12 && contentCount < maxContentCount ? (
-          <div className={styles.moreGroup}>
-            <button className={styles.moreButton} onClick={moreContentEvent}>
-              더보기&nbsp;&nbsp;
-              <BsChevronCompactDown className={styles.icon} />
-            </button>
-          </div>
-        ) : (
-          ''
-        )}
-      </MobileWide>
-      <Mobile>
-        <div className={`${styles.layout} ${styles.withLayoutMobile}`}>
-          {isSpinner ? (
-            <ContentSpinner />
-          ) : mainInfoExportList.length > 0 ? (
-            mainInfoExportList.map((data, idx) => (
-              <WithCard data={data} key={idx} />
-            ))
-          ) : (
-            <ContentSpinner />
-          )}
-        </div>
-        {mainInfoList.length > 12 && contentCount < maxContentCount ? (
-          <div className={styles.moreGroup}>
-            <button className={styles.moreButton} onClick={moreContentEvent}>
-              더보기&nbsp;&nbsp;
-              <BsChevronCompactDown className={styles.icon} />
-            </button>
-          </div>
-        ) : (
-          ''
-        )}
-      </Mobile>
+      ) : (
+        ''
+      )}
     </>
   )
 }
