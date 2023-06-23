@@ -43,9 +43,10 @@ const SelfDetailMain = () => {
   const planDescription = '* 총 ' + specificInfo.plans.length + '가지 요금 플랜'
 
   const getSelfSpecificInfo = async () => {
-    const response = isLogon
-      ? await dispatch(getAuthSelfSpecificInfoAPI(toolId)).unwrap()
-      : await getSelfSpecificInfoAPI(toolId)
+    const response =
+      isLogon && toolId
+        ? await dispatch(getAuthSelfSpecificInfoAPI(toolId)).unwrap()
+        : await getSelfSpecificInfoAPI(toolId)
     if (response.isNotFound404) {
       navigate('/error')
     } else {

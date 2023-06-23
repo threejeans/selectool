@@ -40,9 +40,10 @@ const WithDetailMain = () => {
   }
 
   const getWithSpecificInfo = async () => {
-    const response = isLogon
-      ? await dispatch(getAuthWithSpecificInfoAPI(corpId)).unwrap()
-      : await getWithSpecificInfoAPI(corpId)
+    const response =
+      isLogon && corpId
+        ? await dispatch(getAuthWithSpecificInfoAPI(corpId)).unwrap()
+        : await getWithSpecificInfoAPI(corpId)
 
     if (response.isNotFound404) {
       navigate('/error')
