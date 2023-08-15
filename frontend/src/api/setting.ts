@@ -4,7 +4,6 @@ import apiAxios, { baseURL } from 'app/apiAxios'
 import axios, { AxiosInstance } from 'axios'
 import { GuideType } from 'types/types'
 import { UserInfoType } from 'types/userTypes'
-import { getCookie } from 'util/cookie'
 
 const basicAxios: AxiosInstance = axios.create({
   baseURL: baseURL,

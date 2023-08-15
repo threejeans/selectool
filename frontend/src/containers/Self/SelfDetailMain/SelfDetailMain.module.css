@@ -58,6 +58,20 @@
   object-fit: contain;
 }
 
+.emptyViewLayout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 8px;
+  margin-block: 20px;
+
+  color: #8d8d8d;
+  text-align: center;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+}
+
 .plansLayout {
   display: grid;
   justify-content: center;

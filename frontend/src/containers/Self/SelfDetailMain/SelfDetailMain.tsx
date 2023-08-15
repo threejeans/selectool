@@ -4,7 +4,7 @@ import {
   DetailContentCard,
   DetailMainCard,
 } from 'containers/Common'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   changeSubscribeModalStatus,
   selfSpecificInfo,
@@ -166,13 +166,25 @@ const SelfDetailMain = () => {
                   title='주요 고객사'
                   description={clientsDescription}
                 >
-                  <div className={styles.clientsLayout}>
-                    {specificInfo.clients.map((client, index) => (
-                      <a href={client.url} key={index}>
-                        <img src={client.image} className={styles.client}></img>
-                      </a>
-                    ))}
-                  </div>
+                  {specificInfo.clients ? (
+                    <div className={styles.clientsLayout}>
+                      {specificInfo.clients.map((client, index) => (
+                        <a href={client.url} key={index}>
+                          <img
+                            src={client.image}
+                            className={styles.client}
+                          ></img>
+                        </a>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.emptyViewLayout}>
+                      <div>
+                        <b>아직 주요 고객사를 찾지 못했어요 :&#40;</b>
+                      </div>
+                      <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                    </div>
+                  )}
                 </DetailContentCard>
                 <DetailContentCard
                   title='요금안내'
@@ -245,13 +257,22 @@ const SelfDetailMain = () => {
                 title='주요 고객사'
                 description={clientsDescription}
               >
-                <div className={styles.clientsLayout}>
-                  {specificInfo.clients.map((client, index) => (
-                    <a href={client.url} key={index}>
-                      <img src={client.image} className={styles.client}></img>
-                    </a>
-                  ))}
-                </div>
+                {specificInfo.clients ? (
+                  <div className={styles.clientsLayout}>
+                    {specificInfo.clients.map((client, index) => (
+                      <a href={client.url} key={index}>
+                        <img src={client.image} className={styles.client}></img>
+                      </a>
+                    ))}
+                  </div>
+                ) : (
+                  <div className={styles.emptyViewLayout}>
+                    <div>
+                      <b>아직 주요 고객사를 찾지 못했어요 :&#40;</b>
+                    </div>
+                    <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                  </div>
+                )}
               </DetailContentCard>
               <DetailContentCard title='요금안내' description={planDescription}>
                 <div className={styles.plansLayout}>
@@ -317,13 +338,22 @@ const SelfDetailMain = () => {
                 title='주요 고객사'
                 description={clientsDescription}
               >
-                <div className={styles.clientsLayoutMobile}>
-                  {specificInfo.clients.map((client, index) => (
-                    <a href={client.url} key={index}>
-                      <img src={client.image} className={styles.client}></img>
-                    </a>
-                  ))}
-                </div>
+                {specificInfo.clients ? (
+                  <div className={styles.clientsLayoutMobile}>
+                    {specificInfo.clients.map((client, index) => (
+                      <a href={client.url} key={index}>
+                        <img src={client.image} className={styles.client}></img>
+                      </a>
+                    ))}
+                  </div>
+                ) : (
+                  <div className={styles.emptyViewLayout}>
+                    <div>
+                      <b>아직 주요 고객사를 찾지 못했어요 :&#40;</b>
+                    </div>
+                    <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                  </div>
+                )}
               </DetailContentCard>
               <DetailContentCard title='요금안내' description={planDescription}>
                 <div className={styles.plansLayout}>
@@ -388,16 +418,25 @@ const SelfDetailMain = () => {
                 title='주요 고객사'
                 description={clientsDescription}
               >
-                <div className={styles.clientsLayoutMobile}>
-                  {specificInfo.clients.map((client, index) => (
-                    <a href={client.url} key={index}>
-                      <img
-                        src={client.image}
-                        className={styles.clientMobile}
-                      ></img>
-                    </a>
-                  ))}
-                </div>
+                {specificInfo.clients ? (
+                  <div className={styles.clientsLayoutMobile}>
+                    {specificInfo.clients.map((client, index) => (
+                      <a href={client.url} key={index}>
+                        <img
+                          src={client.image}
+                          className={styles.clientMobile}
+                        ></img>
+                      </a>
+                    ))}
+                  </div>
+                ) : (
+                  <div className={styles.emptyViewLayout}>
+                    <div>
+                      <b>아직 주요 고객사를 찾지 못했어요 :&#40;</b>
+                    </div>
+                    <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                  </div>
+                )}
               </DetailContentCard>
               <DetailContentCard title='요금안내' description={planDescription}>
                 <div className={styles.plansLayout}>

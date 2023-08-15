@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
+import { useAppDispatch } from 'app/hooks'
 import { setAccessToken } from 'features/auth/authSlice'
 import { WithCorpType } from 'types/types'
 import { getCookie } from 'util/cookie'
@@ -9,6 +10,7 @@ export const getAuthWithMainInfoAPI = createAsyncThunk(
   'auth/with/getMainInfo',
   async () => {
     const withMainInfoList: WithCorpType[] = []
+    const dispatch = useAppDispatch()
 
     const response = {
       isNotFound404: false,
@@ -184,6 +186,3 @@ export const withUnscrapToolAPI = createAsyncThunk(
     return response
   },
 )
-function dispatch(arg0: { payload: any; type: 'auth/setAccessToken' }) {
-  throw new Error('Function not implemented.')
-}
