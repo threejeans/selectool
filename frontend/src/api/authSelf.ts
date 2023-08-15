@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import apiAxios from 'app/apiAxios'
+import { useAppDispatch } from 'app/hooks'
 import { setAccessToken } from 'features/auth/authSlice'
 import { SelfMainInfo, SelfSpecificInfo } from 'types/types'
 import { getCookie } from 'util/cookie'
@@ -9,6 +10,7 @@ export const getAuthSelfMainInfoAPI = createAsyncThunk(
   'auth/self/getMainInfo',
   async () => {
     const selfMainInfoList: SelfMainInfo[] = []
+    const dispatch = useAppDispatch()
 
     const response = {
       isNotFound404: false,
@@ -230,6 +232,3 @@ export const selfUnsubscribeToolAPI = createAsyncThunk(
     return response
   },
 )
-function dispatch(arg0: { payload: any; type: 'auth/setAccessToken' }) {
-  throw new Error('Function not implemented.')
-}

@@ -135,37 +135,61 @@ const WithDetailMain = () => {
                   description='* 공식 홈페이지 기준'
                 >
                   <div className={styles.culturesLayout}>
-                    {specificInfo.cultures.map((culture, index) => (
-                      <CommonCardSection
-                        key={index}
-                        name={culture.title}
-                        content={culture.content}
-                      />
-                    ))}
+                    {specificInfo.cultures ? (
+                      specificInfo.cultures.map((culture, index) => (
+                        <CommonCardSection
+                          key={index}
+                          name={culture.title}
+                          content={culture.content}
+                        />
+                      ))
+                    ) : (
+                      <div className={styles.emptyViewLayout}>
+                        <div>
+                          <b>
+                            아직 공식 홈페이지에 등록된 조직문화를 찾지 못했어요
+                            :&#40;
+                          </b>
+                        </div>
+                        <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                      </div>
+                    )}
                   </div>
                 </DetailContentCard>
                 <DetailContentCard
                   title='사내 협업툴'
                   description='* 협업툴 공식 홈페이지 고객사 기준'
                 >
-                  <div className={styles.toolsLayout}>
-                    {specificInfo.tools.map((tool, index) => (
-                      <div
-                        key={index}
-                        className={styles.toolContainer}
-                        onClick={() => {
-                          getToolSpecificInfo(tool.id)
-                          dispatch(changeToolSpecificModalStatus())
-                        }}
-                      >
-                        <img
-                          src={tool.image}
-                          className={styles.toolImage}
-                        ></img>
-                        <div className={styles.toolName}>{tool.nameKr}</div>
+                  {specificInfo.tools ? (
+                    <div className={styles.toolsLayout}>
+                      {specificInfo.tools.map((tool, index) => (
+                        <div
+                          key={index}
+                          className={styles.toolContainer}
+                          onClick={() => {
+                            getToolSpecificInfo(tool.id)
+                            dispatch(changeToolSpecificModalStatus())
+                          }}
+                        >
+                          <img
+                            src={tool.image}
+                            className={styles.toolImage}
+                          ></img>
+                          <div className={styles.toolName}>{tool.nameKr}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.emptyViewLayout}>
+                      <div>
+                        <b>
+                          아직 {specificInfo.nameKr}의 사내 협업툴을 발견하지
+                          못했어요 :&#40;
+                        </b>
                       </div>
-                    ))}
-                  </div>
+                      <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                    </div>
+                  )}
                 </DetailContentCard>
               </div>{' '}
             </div>
@@ -220,37 +244,61 @@ const WithDetailMain = () => {
                   description='* 공식 홈페이지 기준'
                 >
                   <div className={styles.culturesLayout}>
-                    {specificInfo.cultures.map((culture, index) => (
-                      <CommonCardSection
-                        key={index}
-                        name={culture.title}
-                        content={culture.content}
-                      />
-                    ))}
+                    {specificInfo.cultures ? (
+                      specificInfo.cultures.map((culture, index) => (
+                        <CommonCardSection
+                          key={index}
+                          name={culture.title}
+                          content={culture.content}
+                        />
+                      ))
+                    ) : (
+                      <div className={styles.emptyViewLayout}>
+                        <div>
+                          <b>
+                            아직 공식 홈페이지에 등록된 조직문화를 찾지 못했어요
+                            :&#40;
+                          </b>
+                        </div>
+                        <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                      </div>
+                    )}
                   </div>
                 </DetailContentCard>
                 <DetailContentCard
                   title='사내 협업툴'
                   description='* 협업툴 공식 홈페이지 고객사 기준'
                 >
-                  <div className={styles.toolsLayout}>
-                    {specificInfo.tools.map((tool, index) => (
-                      <div
-                        key={index}
-                        className={styles.toolContainer}
-                        onClick={() => {
-                          getToolSpecificInfo(tool.id)
-                          dispatch(changeToolSpecificModalStatus())
-                        }}
-                      >
-                        <img
-                          src={tool.image}
-                          className={styles.toolImage}
-                        ></img>
-                        <div className={styles.toolName}>{tool.nameKr}</div>
+                  {specificInfo.tools ? (
+                    <div className={styles.toolsLayout}>
+                      {specificInfo.tools.map((tool, index) => (
+                        <div
+                          key={index}
+                          className={styles.toolContainer}
+                          onClick={() => {
+                            getToolSpecificInfo(tool.id)
+                            dispatch(changeToolSpecificModalStatus())
+                          }}
+                        >
+                          <img
+                            src={tool.image}
+                            className={styles.toolImage}
+                          ></img>
+                          <div className={styles.toolName}>{tool.nameKr}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.emptyViewLayout}>
+                      <div>
+                        <b>
+                          아직 {specificInfo.nameKr}의 사내 협업툴을 발견하지
+                          못했어요 :&#40;
+                        </b>
                       </div>
-                    ))}
-                  </div>
+                      <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                    </div>
+                  )}
                 </DetailContentCard>
               </div>{' '}
             </div>
@@ -305,37 +353,61 @@ const WithDetailMain = () => {
                   description='* 공식 홈페이지 기준'
                 >
                   <div className={styles.culturesLayout}>
-                    {specificInfo.cultures.map((culture, index) => (
-                      <CommonCardSection
-                        key={index}
-                        name={culture.title}
-                        content={culture.content}
-                      />
-                    ))}
+                    {specificInfo.cultures ? (
+                      specificInfo.cultures.map((culture, index) => (
+                        <CommonCardSection
+                          key={index}
+                          name={culture.title}
+                          content={culture.content}
+                        />
+                      ))
+                    ) : (
+                      <div className={styles.emptyViewLayout}>
+                        <div>
+                          <b>
+                            아직 공식 홈페이지에 등록된 조직문화를 찾지 못했어요
+                            :&#40;
+                          </b>
+                        </div>
+                        <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                      </div>
+                    )}
                   </div>
                 </DetailContentCard>
                 <DetailContentCard
                   title='사내 협업툴'
                   description='* 협업툴 공식 홈페이지 고객사 기준'
                 >
-                  <div className={styles.toolsLayoutMobile}>
-                    {specificInfo.tools.map((tool, index) => (
-                      <div
-                        key={index}
-                        className={styles.toolContainer}
-                        onClick={() => {
-                          getToolSpecificInfo(tool.id)
-                          navigate(`/self/${tool.id}`)
-                        }}
-                      >
-                        <img
-                          src={tool.image}
-                          className={styles.toolImageMobile}
-                        ></img>
-                        <div className={styles.toolName}>{tool.nameKr}</div>
+                  {specificInfo.tools ? (
+                    <div className={styles.toolsLayoutMobile}>
+                      {specificInfo.tools.map((tool, index) => (
+                        <div
+                          key={index}
+                          className={styles.toolContainer}
+                          onClick={() => {
+                            getToolSpecificInfo(tool.id)
+                            navigate(`/self/${tool.id}`)
+                          }}
+                        >
+                          <img
+                            src={tool.image}
+                            className={styles.toolImageMobile}
+                          ></img>
+                          <div className={styles.toolName}>{tool.nameKr}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.emptyViewLayout}>
+                      <div>
+                        <b>
+                          아직 {specificInfo.nameKr}의 사내 협업툴을 발견하지
+                          못했어요 :&#40;
+                        </b>
                       </div>
-                    ))}
-                  </div>
+                      <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                    </div>
+                  )}
                 </DetailContentCard>
               </div>
             </div>
@@ -390,37 +462,61 @@ const WithDetailMain = () => {
                   description='* 공식 홈페이지 기준'
                 >
                   <div className={styles.culturesLayout}>
-                    {specificInfo.cultures.map((culture, index) => (
-                      <CommonCardSection
-                        key={index}
-                        name={culture.title}
-                        content={culture.content}
-                      />
-                    ))}
+                    {specificInfo.cultures ? (
+                      specificInfo.cultures.map((culture, index) => (
+                        <CommonCardSection
+                          key={index}
+                          name={culture.title}
+                          content={culture.content}
+                        />
+                      ))
+                    ) : (
+                      <div className={styles.emptyViewLayout}>
+                        <div>
+                          <b>
+                            아직 공식 홈페이지에 등록된 조직문화를 찾지 못했어요
+                            :&#40;
+                          </b>
+                        </div>
+                        <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                      </div>
+                    )}
                   </div>
                 </DetailContentCard>
                 <DetailContentCard
                   title='사내 협업툴'
                   description='* 협업툴 공식 홈페이지 고객사 기준'
                 >
-                  <div className={styles.toolsLayoutMobile}>
-                    {specificInfo.tools.map((tool, index) => (
-                      <div
-                        key={index}
-                        className={styles.toolContainer}
-                        onClick={() => {
-                          getToolSpecificInfo(tool.id)
-                          navigate(`/self/${tool.id}`)
-                        }}
-                      >
-                        <img
-                          src={tool.image}
-                          className={styles.toolImageMobile}
-                        ></img>
-                        <div className={styles.toolName}>{tool.nameKr}</div>
+                  {specificInfo.tools ? (
+                    <div className={styles.toolsLayoutMobile}>
+                      {specificInfo.tools.map((tool, index) => (
+                        <div
+                          key={index}
+                          className={styles.toolContainer}
+                          onClick={() => {
+                            getToolSpecificInfo(tool.id)
+                            navigate(`/self/${tool.id}`)
+                          }}
+                        >
+                          <img
+                            src={tool.image}
+                            className={styles.toolImageMobile}
+                          ></img>
+                          <div className={styles.toolName}>{tool.nameKr}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.emptyViewLayout}>
+                      <div>
+                        <b>
+                          아직 {specificInfo.nameKr}의 사내 협업툴을 발견하지
+                          못했어요 :&#40;
+                        </b>
                       </div>
-                    ))}
-                  </div>
+                      <div>최대한 빠른 시일 내로 제공해드릴게요.</div>
+                    </div>
+                  )}
                 </DetailContentCard>
               </div>
             </div>
