@@ -40,7 +40,7 @@
 ### **👩‍💻 CI/CD**
 
 - AWS EC2
-- Jenkins
+- Github Actions
 - Docker
 
 
